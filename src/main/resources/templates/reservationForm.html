@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Travela - Tourism Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/reservationForm.css" rel="stylesheet">
+
+<!--    &lt;!&ndash;datepicker load&ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+
+
+</head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
+<!-- Topbar Start -->
+<div class="container-fluid bg-primary px-5 d-none d-lg-block">
+    <div class="row gx-0">
+        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+            <div class="d-inline-flex align-items-center" style="height: 45px;">
+                <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                <a href="#"><small class="me-3 text-light"><i class="fas fa-power-off me-2"></i> Log Out</small></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+<!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+        <a href="" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>심사 숙박</h1>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link active">홈</a>
+                <a href="" class="nav-item nav-link">숙소 목록</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마이 페이지</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="" class="dropdown-item">내 정보</a>
+                        <a href="" class="dropdown-item">예약한 내역</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">내 숙소</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="" class="dropdown-item">숙소 관리</a>
+                        <a href="" class="dropdown-item">예약된 내역</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Tour Booking Start -->
+<div class="container-fluid booking py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="text-white mb-3">Book A Your Room</h1>
+                <p class="text-white mb-4"> <span class="text-warning"> XX호텔 예약</span></p>
+                <form>
+                <img src = "/templates/room.png" alt="room Image">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+<!--                            <input type="text" id="date-picker" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" th:value="|${year}-${month}|">-->
+
+
+
+                            <div class="form-floating date" id="date3" data-target-input="nearest">
+
+                                <input type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" value="2024-04-01">
+
+<!--                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />-->
+                                <label>CheckIn </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating date" id="date4" data-target-input="nearest">
+                                <input type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" value="2024-04-01">
+                                <label>CheckOut</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-select bg-white border-0" id="SelectPerson">
+                                    <option value="1">Persons 1</option>
+                                    <option value="2">Persons 2</option>
+                                    <option value="3">Persons 3</option>
+                                    <option value="3">Persons 4</option>
+                                    <option value="3">Persons 5</option>
+                                    <option value="3">Persons 6</option>
+                                </select>
+                                <label for="SelectPerson">Persons</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-select bg-white border-0" id="SelectRoomName">
+                                    <option value="1">RoomName 1</option>
+                                    <option value="2">RoomName 2</option>
+                                    <option value="3">RoomName 3</option>
+                                </select>
+                                <label for="SelectPerson">RoomName</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                <label for="message">Special Request</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tour Booking End -->
+
+
+<!-- Copyright Start -->
+<div class="container-fluid copyright text-body py-4">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-end mb-md-0">
+                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">심사숙박</a>, All right reserved.
+            </div>
+            <div class="col-md-6 text-center text-md-start">
+                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Copyright End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/lightbox/js/lightbox.min.js"></script>
+
+<!--datepicker load-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+<script>
+    $(function() {
+        $('#date-picker1').datepicker({
+            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+            startDate: '0d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+            // endDate: '+10d',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
+            autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+
+            // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
+            // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
+            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
+            // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
+            // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
+            // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+            // immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
+            // multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
+            // multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
+            // templates : {
+            //     leftArrow: '&laquo;',
+            //     rightArrow: '&raquo;'
+            // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+            // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
+            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
+            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
+
+        });//datepicker end
+    });//ready end
+</script>
+<script>
+    $(function() {
+        $('#date-picker2').datepicker({
+            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+            startDate: '0d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+            // endDate: '+10d',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
+            autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+
+            // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
+            // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
+            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
+            // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
+            // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
+            // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+            // immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
+            // multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
+            // multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
+            // templates : {
+            //     leftArrow: '&laquo;',
+            //     rightArrow: '&raquo;'
+            // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+            // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
+            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
+            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
+
+        });//datepicker end
+    });//ready end
+</script>
+
+</body>
+
+
+
+
+</html>
