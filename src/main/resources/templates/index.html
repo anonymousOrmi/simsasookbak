@@ -18,75 +18,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-
-<!-- Topbar Start -->
-<div class="container-fluid bg-primary px-5 d-none d-lg-block">
-    <div class="row gx-0">
-        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
-            <!--                    <div class="d-inline-flex align-items-center" style="height: 45px;">-->
-            <!--                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>-->
-            <!--                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>-->
-            <!--                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>-->
-            <!--                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>-->
-            <!--                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>-->
-            <!--                    </div>-->
-        </div>
-        <div class="col-lg-4 text-center text-lg-end">
-            <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>홍길동님 환영합니다!</small></a>
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
-                <a href="#"><small class="me-3 text-light"><i class="fas fa-power-off me-2"></i> Log Out</small></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Topbar End -->
-
-<!-- Navbar & Hero Start -->
-<div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-        <a href="" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>심사 숙박</h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">홈</a>
-                <a href="" class="nav-item nav-link">숙소 찾기</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Page</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">내 정보</a>
-                        <a href="" class="dropdown-item">예약 내역</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">숙소 관리</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">내 숙소 관리</a>
-                        <a href="" class="dropdown-item">예약 관리</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<div th:replace="~{/fragment/top-bar :: top}"></div>
+<div th:replace="~{/fragment/navigation-bar :: nav}"></div>
 
 <!-- Tour Booking Start (검색) -->
 <div class="container-fluid booking py-5">
@@ -140,7 +86,7 @@
         <div class="packages-carousel owl-carousel">
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/packages-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img src="/img/packages-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -173,7 +119,7 @@
             </div>
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/packages-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img src="/img/packages-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -206,7 +152,7 @@
             </div>
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/packages-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img src="/img/packages-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -239,7 +185,7 @@
             </div>
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img src="/img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -272,7 +218,7 @@
             </div>
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img src="/img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
@@ -323,7 +269,7 @@
                     <div class="row g-4">
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-1.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Weekend Tour</h5>
@@ -337,7 +283,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-2.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-2.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Holiday Tour</h5>
@@ -351,7 +297,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-3.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-3.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Road Trip</h5>
@@ -366,7 +312,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-4.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-4.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Historical Trip</h5>
@@ -380,7 +326,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-5.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-5.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Family Tour</h5>
@@ -395,7 +341,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-6.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img src="/img/explore-tour-6.jpg" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
                                         <h5 class="text-white text-uppercase mb-2">Beach Tour</h5>
@@ -476,10 +422,10 @@
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/lightbox/js/lightbox.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/lightbox/js/lightbox.min.js"></script>
 
 <!--datepicker load-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -488,7 +434,7 @@
 
 
 <!-- Template Javascript -->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 <script>
     $(function() {
         $('#date-picker1').datepicker({
