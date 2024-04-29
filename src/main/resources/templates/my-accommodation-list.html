@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Travela - Tourism Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="~{/fragment/top-bar :: top}"></div>
+<div th:replace="~{/fragment/navigation-bar :: nav}"></div>
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">내 숙소 관리</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">홈</a></li>
+                <li class="breadcrumb-item"><a href="#">내 숙소</a></li>
+                <li class="breadcrumb-item active text-white">숙소 관리</li>
+            </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- my accommodations list Start -->
+<div class="container-fluid bg-light service py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">내 숙소 관리</h5>
+            <h1 class="mb-0">my accommodations</h1>
+        </div>
+        <div class="row g-3">
+            <div class="col-lg-12">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                            <div class="service-icon p-4">
+                                <i class="fa fa-globe fa-4x text-primary"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5 class="mb-4">숙소명</h5>
+                                <p class="mb-2">숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명
+                                </p>
+                                <div class="row gy-2 gx-4 mb-4">
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>지역</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>가격</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>객실 수</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                            <div class="service-icon p-4">
+                                <i class="fa fa-globe fa-4x text-primary"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5 class="mb-4">숙소명</h5>
+                                <p class="mb-2">숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명
+                                </p>
+                                <div class="row gy-2 gx-4 mb-4">
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>지역</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>가격</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>객실 수</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                            <div class="service-icon p-4">
+                                <i class="fa fa-globe fa-4x text-primary"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5 class="mb-4">숙소명</h5>
+                                <p class="mb-2">숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명숙소 설명
+                                </p>
+                                <div class="row gy-2 gx-4 mb-4">
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>지역</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>가격</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>객실 수</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="text-center">
+                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">새 숙소 등록</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- my accommodation list End -->
+
+
+
+<!-- Copyright Start -->
+<div class="container-fluid copyright text-body py-4">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-end mb-md-0">
+                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">심사숙박</a>, All right reserved.
+            </div>
+            <div class="col-md-6 text-center text-md-start">
+                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Copyright End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/lightbox/js/lightbox.min.js"></script>
+
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+
+</html>
