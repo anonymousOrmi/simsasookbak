@@ -6,4 +6,4 @@
 - [ ] 완성 못한 작업명
 
 ### 참고사항
-Related to [issue 번호]
+Related to [레포 이름 #이슈번호](이슈 주소)
