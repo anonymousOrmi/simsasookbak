@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: "[Feat] 제목"
 labels: enhancement
-assignees: BlueHarmel, aammddkkzxc, githyuniiee, MSTNY, www-author
+assignees: aammddkkzxc, BlueHarmel, githyuniiee, MSTNY, songchanyok, www-author
 
 ---
 
