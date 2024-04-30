@@ -6,24 +6,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.sql.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", updatable = false)
-    private Long member_id;
+    private Long id;
 
-    @Column(name = "email", nullable = false, length = 5, unique = true)
+    @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
 
     @Column(name = "name", nullable = false, length = 50)
@@ -36,10 +38,13 @@ public class Member extends BaseEntity {
     @Comment("권한 (이용자/사업자/관리자)")
     private String role;
 
-    @Column(name = "birth_date", nullable = false, columnDefinition= "date comment '생년월일'")
-    private String birthDate;
+    @Column(name = "birth_date", nullable = false)
+    @Comment("생년월일")
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
 
-    @Column(name = "status", length = 10, columnDefinition = "not null default '일반',")
+    @Column(name = "status", length = 10,  nullable = false)
+    @ColumnDefault(value = "'일반'")
     @Comment("상태 (일반/탈퇴)")
     private String status;
 
