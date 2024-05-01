@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: ${DB_DRIVER}
-    url: ${LOCAL_DB_URL}
+    url: ${DB_URL}
     username: ${DB_USER}
-    password: ${LOCAL_DB_PASSWORD}
+    password: ${DB_PASSWORD}
     hikari:
       minimum-idle: 1
       maximum-pool-size: 5
