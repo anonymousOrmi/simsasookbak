@@ -40,4 +40,8 @@ public class Room extends BaseEntity {
 	@Column(name = "use_guide", length = 2000, nullable = false)
 	private String useGuide;
 
+
+
+
+
 }
