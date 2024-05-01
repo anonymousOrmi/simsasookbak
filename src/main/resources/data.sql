@@ -17,7 +17,12 @@ VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '1234567', '�
 SET @member_id_lee = LAST_INSERT_ID();
 
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test5@gmail.com', '최보현', '사업자', '2000-08-01', '12345678', '일반', '010-6785-3452');
+VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '12345678', '일반', '010-7324-5421');
+SET @member_id_jeong = LAST_INSERT_ID();
+
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '123456789', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
 
 
@@ -63,7 +68,8 @@ INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_dat
 VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '대기', '2024-05-01', '2024-05-05', '이 방 제가 살게요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_lee, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-04', '2024-05-05', '잠깐 다녀갈게요');
-
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_jeong, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-05', '2024-05-06', '깨끗하게 해주세요');
 --reservation end
 
 --review start
@@ -74,5 +80,7 @@ INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
 VALUES (@member_id_lee, @accommodation_id_cheongju, '전체적으로 디자인이 좋았습니다',4,0);
 INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
 VALUES (@member_id_lee, @accommodation_id_daejeon, '이 방 다신 예약 안합니다',1,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,0);
 
 --review end
