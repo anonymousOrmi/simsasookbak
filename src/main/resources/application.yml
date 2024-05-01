@@ -19,7 +19,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     defer-datasource-initialization: true
     properties:
       hibernate:
@@ -34,7 +34,6 @@ spring:
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/
-
 youtube:
     api:
       key: ${YOUTUBE_API_KEY}
