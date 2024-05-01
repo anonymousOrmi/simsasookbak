@@ -1,8 +1,86 @@
-INSERT INTO accommodation (name, content, region, check_in, check_out, is_deleted)
-VALUES ('숙소1', '숙소 설명 1', '서울', '08:00:00', '12:00:00', false);
+--member start
 
-INSERT INTO accommodation (name, content, region, check_in, check_out, is_deleted)
-VALUES ('숙소2', '숙소 설명 2', '청주', '10:00:00', '14:00:00', false);
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test1@gmail.com', '김상형', '이용자', '1900-05-01', '1234', '일반', '010-1234-1234');
+SET @member_id_kim = LAST_INSERT_ID();
 
-INSERT INTO accommodation (name, content, region, check_in, check_out, is_deleted)
-VALUES ('숙소3', '숙소 설명 3', '대전', '14:00:00', '18:00:00', false);
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '12345', '일반', '010-2345-1735');
+SET @member_id_park = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '123456', '일반', '010-3716-5576');
+SET @member_id_song = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '1234567', '일반', '010-3742-9985');
+SET @member_id_lee = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '12345678', '일반', '010-7324-5421');
+SET @member_id_jeong = LAST_INSERT_ID();
+
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '123456789', '일반', '010-6785-3452');
+SET @member_id_choi = LAST_INSERT_ID();
+
+
+--member end
+
+--accommodation start
+
+INSERT INTO accommodation (member_id, name, content, region, check_in, check_out, is_deleted)
+VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '08:00:00', '12:00:00', false);
+SET @accommodation_id_seoul = LAST_INSERT_ID();
+
+INSERT INTO accommodation (member_id, name, content, region, check_in, check_out, is_deleted)
+VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주', '10:00:00', '14:00:00', false);
+SET @accommodation_id_cheongju = LAST_INSERT_ID();
+
+INSERT INTO accommodation (member_id, name, content, region, check_in, check_out, is_deleted)
+VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전', '14:00:00', '18:00:00', false);
+SET @accommodation_id_daejeon = LAST_INSERT_ID();
+
+--accommodation end
+
+--room start
+
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요');
+SET @room_id_one = LAST_INSERT_ID();
+
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요');
+SET @room_id_two = LAST_INSERT_ID();
+
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_daejeon, '삼방', 30000, '삼방삼방삼방', '창문을 닫아주세요');
+SET @room_id_three = LAST_INSERT_ID();
+
+--room end
+
+--reservation start
+
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_kim, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-01', '2024-05-03', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '대기', '2024-05-01', '2024-05-05', '이 방 제가 살게요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_lee, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-04', '2024-05-05', '잠깐 다녀갈게요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_jeong, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-05', '2024-05-06', '깨끗하게 해주세요');
+--reservation end
+
+--review start
+
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_kim, @accommodation_id_seoul, '침대가 좋아요',5,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_lee, @accommodation_id_cheongju, '전체적으로 디자인이 좋았습니다',4,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_lee, @accommodation_id_daejeon, '이 방 다신 예약 안합니다',1,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,0);
+
+--review end
