@@ -1,11 +1,15 @@
 package com.simsasookbak.accommodation.domain;
 
 import com.simsasookbak.global.BaseEntity;
+import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -27,6 +31,10 @@ public class Accommodation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accommodation_id", updatable = false)
     private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	private Member member;
 
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
