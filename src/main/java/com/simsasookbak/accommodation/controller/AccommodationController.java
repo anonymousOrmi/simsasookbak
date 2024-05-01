@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccommodationController {
 
     private final AccommodationService accommodationService;
+
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Integer acom_id){
 
@@ -47,4 +48,5 @@ public class AccommodationController {
         }
         return ResponseEntity.ok().body(accommodations);
     }
+
 }
