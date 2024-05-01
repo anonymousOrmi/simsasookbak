@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,6 @@ import org.hibernate.annotations.SQLDelete;
 @Getter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SQLDelete(sql = "UPDATE board SET is_deleted = true WHERE id = ?")
 public class Accommodation extends BaseEntity {
@@ -58,6 +58,20 @@ public class Accommodation extends BaseEntity {
 	@Comment("삭제여부")
 	private Boolean isDeleted;
 
-	/*ai_external_id`	bigint(20)	NOT NULL,
+	@Builder
+	public Accommodation(Long id, String name, String content, String region, String checkIn, String checkOut,
+						 Boolean isDeleted) {
+		this.id = id;
+		this.name = name;
+		this.content = content;
+		this.region = region;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.isDeleted = isDeleted;
+	}
+
+/*ai_external_id`	bigint(20)	NOT NULL,
 	member_id`	bigint(20)	NOT NULL*/
+
+
 }
