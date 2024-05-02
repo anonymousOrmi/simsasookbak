@@ -1,7 +1,9 @@
 package com.simsasookbak.external.youtube.controller;
 
+import com.simsasookbak.external.youtube.dto.response.YouTubeResponse;
 import com.simsasookbak.external.youtube.service.YoutubeService;
 import java.io.IOException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class YoutubeController {
     private final YoutubeService youtubeService;
     @GetMapping
-    public ResponseEntity<?> searchVideos() throws IOException {
-        youtubeService.searchVideos();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<YouTubeResponse>> getVideoIds() throws IOException {
+        List<YouTubeResponse> responses = youtubeService.searchVideos();
+        return ResponseEntity.ok(responses);
     }
 }
