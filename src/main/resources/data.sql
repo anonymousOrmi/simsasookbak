@@ -23,8 +23,6 @@ SET @member_id_jeong = LAST_INSERT_ID();
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
 VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '123456789', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
-
-
 --member end
 
 --accommodation start

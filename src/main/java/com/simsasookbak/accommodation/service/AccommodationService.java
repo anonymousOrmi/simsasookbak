@@ -8,6 +8,8 @@ import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
+import com.simsasookbak.review.domain.ExternalSummary;
+import com.simsasookbak.room.domain.Room;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -159,6 +161,14 @@ public class AccommodationService {
 
 
 
+    public Accommodation findAccommodationById(Long id) {
+        return accommodationRepository.findAccommodationById(id);
+    }
+
+
+//    public List<String> findImgByAcomId(Long id) {
+//        return accommodationRepository.findImgByAcomId(id);
+//    }
 
 }
 
