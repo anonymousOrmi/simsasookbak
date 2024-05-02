@@ -46,7 +46,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
                 <h1 class="text-white mb-3">Book A Your Room</h1>
-                <p class="text-white mb-4"> <span class="text-warning"> XX호텔 예약</span></p>
+                <p class="text-white mb-4"> <span class="text-warning"> 예약 가능한 날짜를 선택 해 주세요.</span></p>
                 <form>
                 <img src = "/room.png" alt="room Image">
                     <div class="row g-3">
@@ -149,19 +149,19 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-
 <script>
     $(function() {
+        var selectedDate1 = null; // #date-picker1에서 선택한 날짜를 저장할 변수
+
         $('#date-picker1').datepicker({
-            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-            startDate: '0d',    //달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-            endDate: '+1y',    //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-            autoclose : true,    //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-            clearBtn : true, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-
+            format: "yyyy-mm-dd",
+            startDate: '0d',
+            endDate: '+1y',
+            autoclose: true,
+            clearBtn: true,
             // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
             // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
+            datesDisabled: ['2024-05-5', '2024-05-6', '2024-05-7', '2024-05-9', '2024-05-10', '2024-05-11', '2024-05-14'],
             // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
             // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
             // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
@@ -173,41 +173,61 @@
             //     rightArrow: '&raquo;'
             // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
             // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
-            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
-            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        }).on('changeDate', function(selected) {
+            selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
 
-        });//datepicker end
-    });//ready end
-</script>
-<script>
-    $(function() {
+            var disabledDates = ['2024-05-5', '2024-05-6', '2024-05-7', '2024-05-9', '2024-05-10', '2024-05-11', '2024-05-14'];
+            var nextAvailableDate = null;
+
+            // Iterate through disabledDates to find the first date after selectedDate1
+            for (var i = 0; i < disabledDates.length; i++) {
+                var disabledDate = new Date(disabledDates[i]);
+                if (disabledDate > selectedDate1) {
+                    nextAvailableDate = disabledDate;
+                    break;
+                }
+            }
+
+            // If nextAvailableDate is found, set it as the startDate for #date-picker2
+            if (nextAvailableDate) {
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2); // #date-picker1에서 선택한 날짜로 시작
+                $('#date-picker2').datepicker('setEndDate', nextAvailableDate);
+            } else {
+                // If there are no available dates after selectedDate1, remove endDate restriction
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2);
+                $('#date-picker2').datepicker('setEndDate', null);
+            }
+        });
+
         $('#date-picker2').datepicker({
-            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-            startDate: '0d',    //달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-            endDate: '+1y',    //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-            autoclose : true,    //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-            clearBtn : true, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            clearBtn: true,
             // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
             // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
             // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
             // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
             // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
             // immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
             // multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
             // multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
-            // templates : {
+            // templates : {..
             //     leftArrow: '&laquo;',
             //     rightArrow: '&raquo;'
             // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
             // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
-            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
-            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
-
-        });//datepicker end
-    });//ready end
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        });
+    });
 </script>
 
 </body>
