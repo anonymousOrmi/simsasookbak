@@ -3,6 +3,8 @@ package com.simsasookbak.accommodation.service;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
+import com.simsasookbak.review.domain.ExternalSummary;
+import com.simsasookbak.room.domain.Room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,4 +39,14 @@ public class AccommodationService {
         return accommodationDtos;
 
     }
+
+    public Accommodation findAccommodationById(Long id) {
+        return accommodationRepository.findAccommodationById(id);
+    }
+
+
+//    public List<String> findImgByAcomId(Long id) {
+//        return accommodationRepository.findImgByAcomId(id);
+//    }
+
 }
