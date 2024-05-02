@@ -5,7 +5,7 @@ import static com.simsasookbak.external.youtube.dto.YoutubeProperties.PART;
 import static com.simsasookbak.external.youtube.dto.YoutubeProperties.QUERY;
 import static com.simsasookbak.external.youtube.dto.YoutubeProperties.REGION_CODE;
 import static com.simsasookbak.external.youtube.dto.YoutubeProperties.TYPE;
-import static com.simsasookbak.global.exception.ErrorMessage.NOT_EXIST_ITEM;
+import static com.simsasookbak.global.exception.ErrorMessage.YOUTUBE_VIDEO_NOT_FOUND;
 
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
@@ -51,7 +51,7 @@ public class YoutubeService {
         List<SearchResult> searchResults = searchResponse.getItems();
 
         if (ObjectUtils.isEmpty(searchResults)) {
-            throw new IllegalArgumentException(NOT_EXIST_ITEM.getMessage());
+            throw new IllegalArgumentException(YOUTUBE_VIDEO_NOT_FOUND.getMessage());
         }
 
         return searchResults.stream()
