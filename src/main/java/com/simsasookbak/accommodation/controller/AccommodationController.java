@@ -2,6 +2,7 @@ package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
 import java.util.List;
@@ -27,12 +28,20 @@ public class AccommodationController {
 
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
-    public String details(@PathVariable Long acom_id){
+    public String details(@PathVariable Long acom_id, Model model){
         Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
-        List<Room> roomList = roomService.findRoomByAcomId(acom_id);
+
+        List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
         String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
+        List<Review> reviewList = reviewService.findAllReviewByAcomId(acom_id);
 //        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
+
+        model.addAttribute("accommodation", accommodation);
+        model.addAttribute("roomList", roomList);
+        model.addAttribute("exSummary", exSummary);
+        model.addAttribute("inSummary", inSummary);
+        model.addAttribute("reviewList",reviewList);
 
         return "details";
     }

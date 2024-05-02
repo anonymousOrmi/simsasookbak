@@ -58,10 +58,8 @@
             </div>
             <div class="col-lg-7"
                  style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(/img/about-img-1.png);">
-                <h1 class="mb-4">숙소명 <span class="text-primary">숙소명</span></h1>
-                <p class="mb-lg-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, dolorum,
-                    doloribus sunt dicta, officia voluptatibus libero necessitatibus natus impedit quam ullam assumenda?
-                    Id atque iste consectetur. Commodi odit ab saepe!</p>
+                <h1 class="mb-4">숙소명 <span class="text-primary" th:text="${accommodation.getName()}"></span></h1>
+                <p class="mb-lg-5" th:text="${accommodation.getContent()}"></p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
                         <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>First Class Flights</p>
@@ -89,18 +87,13 @@
 <!-- About End -->
 
 <div class="container-fluid contact bg-light py-5">
-    <div class="container py-5">
+    <div class="container py-5" th:each="room:${roomList}">
         <div class="row g-5 align-items-center">
             <div class="col-lg-7 room-condition">
-                <h1 class="mb-4">객실이름 <span class="text-primary">$가격</span></h1>
-                <p class="mb-lg-5">객실 설명 : Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, dolorum,
-                    doloribus sunt dicta, officia voluptatibus libero necessitatibus natus impedit quam ullam assumenda?
-                    Id atque iste consectetur. Commodi odit ab saepe!</p>
-                <p>
-                    이용 안내 : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error fugit inventore
-                    praesentium sint vero. Atque consequatur corporis deleniti dignissimos doloremque, esse facere
-                    illum
-                    inventore iusto nam nesciunt suscipit voluptate voluptatum!
+                <h1 class="mb-4" th:text="${room.name}"></h1>
+                <span class="text-primary" th:text="'$'+${room.cost}"></span>
+                <p class="mb-lg-5" th:text="'객실 설명 :'+${room.content}"></p>
+                <p th:text="'이용 안내 :'+${room.useGuide}">
                 </p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
@@ -134,11 +127,7 @@
     <div class="owl-item-active center">
         <div class="testimonial-item text-center rounded pb-4">
             <div class="testimonial-comment bg-light rounded p-4">
-                <p class="text-center mb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum
-                    cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro
-                    officiis.
-                    Vero
-                    reiciendis,
+                <p class="text-center mb-5" th:text="${inSummary}">
                 </p>
             </div>
             <div class="testimonial-img p-1">
@@ -161,11 +150,7 @@
     <div class="owl-item-active center">
         <div class="testimonial-item text-center rounded pb-4">
             <div class="testimonial-comment bg-light rounded p-4">
-                <p class="text-center mb-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis nostrum
-                    cupiditate, eligendi repellendus saepe illum earum architecto dicta quisquam quasi porro
-                    officiis.
-                    Vero
-                    reiciendis,
+                <p class="text-center mb-5" th:text="${exSummary}">
                 </p>
             </div>
             <div class="testimonial-img p-1">
@@ -188,7 +173,7 @@
 
 <!-- 리뷰 조회 Start -->
 <div class="bg-light">
-    <div class="container service py-5">
+    <div class="container service py-5" th:each="review:${reviewList}">
         <div class="container py-5">
             <div class="row g-3">
                 <div class="col-lg-12">
@@ -196,8 +181,7 @@
                         <div class="border border-primary rounded p-3">
                             <div class="container py-5">
                                 <div class="row g-3">
-                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;">
-                                        리뷰 제목1
+                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;" th:text="${review.content}">
                                     </div>
                                     <div class="col-md-6 text-md-end text-center">
                                         <div class="row g-3">

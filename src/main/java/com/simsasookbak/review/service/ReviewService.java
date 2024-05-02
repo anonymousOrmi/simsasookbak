@@ -1,6 +1,8 @@
 package com.simsasookbak.review.service;
 
+import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.repository.ReviewRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,9 @@ public class ReviewService {
 
     public String findInSummaryByAcomId(Long id) {
         return reviewRepository.findInSummaryByAcomId(id);
+    }
+
+    public List<Review> findAllReviewByAcomId(Long id) {
+        return reviewRepository.findAllReviewByAcomId(id);
     }
 }

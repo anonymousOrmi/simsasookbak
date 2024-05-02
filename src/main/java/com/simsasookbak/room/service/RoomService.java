@@ -4,6 +4,7 @@ import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.repository.RoomRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,8 @@ public class RoomService {
         return RoomDto.toDto(room);
     }
 
-    public List<Room> findRoomByAcomId(Long id) {
-        return roomRepository.findRoomsByAcomId(id);
+    public List<RoomDto> findRoomByAcomId(Long id) {
+        return roomRepository.findRoomsByAcomId(id).stream().map(RoomDto::toDto).collect(Collectors.toList());
     }
 
 }
