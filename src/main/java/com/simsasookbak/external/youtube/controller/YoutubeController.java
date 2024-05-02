@@ -17,7 +17,7 @@ public class YoutubeController {
     private final YoutubeService youtubeService;
     @GetMapping
     public ResponseEntity<List<YouTubeResponse>> getVideoIds() throws IOException {
-        List<YouTubeResponse> responses = youtubeService.searchVideos();
+        List<YouTubeResponse> responses = youtubeService.getVideos();
         return ResponseEntity.ok(responses);
     }
 }
