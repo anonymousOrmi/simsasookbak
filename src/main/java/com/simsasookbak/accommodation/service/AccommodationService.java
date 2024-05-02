@@ -44,20 +44,9 @@ public class AccommodationService {
         return accommodationRepository.findAccommodationById(id);
     }
 
-    public List<Room> findRoomByAcomId(Long id) {
-        return accommodationRepository.findRoomByAcomId(id);
-    }
 
-    public String findExSummaryByAcomId(Long id) {
-        return accommodationRepository.findExSummaryByAcomId(id);
-    }
-
-    public String findInSummaryByAcomId(Long id) {
-        return accommodationRepository.findInSummaryByAcomId(id);
-    }
-
-    public List<String> findImgByAcomId(Long id) {
-        return accommodationRepository.findImgByAcomId(id);
-    }
+//    public List<String> findImgByAcomId(Long id) {
+//        return accommodationRepository.findImgByAcomId(id);
+//    }
 
 }
