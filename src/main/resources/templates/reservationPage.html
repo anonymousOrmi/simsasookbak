@@ -213,6 +213,18 @@
                 $('#date-picker2').datepicker('setStartDate', startDatePicker2);
                 $('#date-picker2').datepicker('setEndDate', null);
             }
+        }).on('clearDate', function() {
+            // clear 버튼 클릭 시 선택된 날짜 초기화
+            selectedDate1 = null;
+            selectedDate2 = null;
+
+            // 선택 가능한 날짜 상태 다시 설정
+            $('#date-picker2 .clear-date').trigger('click');
+            $('#date-picker2').val('');
+            $('#date-picker1').datepicker('setStartDate', '0d');
+            $('#date-picker1').datepicker('setEndDate', '+1y');
+            $('#date-picker2').datepicker('setStartDate', '0d');
+            $('#date-picker2').datepicker('setEndDate', '+1y');
         });
 
         $('#date-picker2').datepicker({
@@ -250,6 +262,18 @@
                 $('#date-picker1').datepicker('setStartDate', null);
                 $('#date-picker1').datepicker('setEndDate', startDatePicker2);
             }
+        }).on('clearDate', function() {
+            // clear 버튼 클릭 시 선택된 날짜 초기화
+            selectedDate1 = null;
+            selectedDate2 = null;
+
+            // 선택 가능한 날짜 상태 다시 설정
+            $('#date-picker1 .clear-date').trigger('click');
+            $('#date-picker1').val('');
+            $('#date-picker1').datepicker('setStartDate', '0d');
+            $('#date-picker1').datepicker('setEndDate', '+1y');
+            $('#date-picker2').datepicker('setStartDate', '0d');
+            $('#date-picker2').datepicker('setEndDate', '+1y');
         });
     });
 </script>
