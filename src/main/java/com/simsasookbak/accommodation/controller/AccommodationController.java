@@ -1,5 +1,6 @@
 package com.simsasookbak.accommodation.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
-@RequiredArgsConstructor
+//@RestController
+@Controller
+//@RequiredArgsConstructor
 @RequestMapping("accommodation")
 public class AccommodationController {
 
-    private final AccommodationService accommodationService;
+    //    private final AccommodationService accommodationService;
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Integer acom_id){
 
@@ -39,12 +41,12 @@ public class AccommodationController {
 
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchAccommodation(@RequestParam("keyword") String keyword) {
-        List<AccommodationDto> accommodations = accommodationService.searchAccommodation(keyword);
-        if (accommodations.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색 내용이 없습니다.");
-        }
-        return ResponseEntity.ok().body(accommodations);
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<?> searchAccommodation(@RequestParam("keyword") String keyword) {
+//        List<AccommodationDto> accommodations = accommodationService.searchAccommodation(keyword);
+//        if (accommodations.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("검색 내용이 없습니다.");
+//        }
+//        return ResponseEntity.ok().body(accommodations);
+//    }
 }
