@@ -145,11 +145,12 @@
                              th:if="${videoId != null}"></iframe>` +
                     '</div></div>';
             });
-            console.log(html);
             $('#youtube').html(html);
         },
         error: function (error) {
             console.error('Youtube Error : ', error);
+            $('#youtube-container').html('');
+            alert(error.responseText);
         }
     });
 })(jQuery);
