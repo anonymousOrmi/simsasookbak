@@ -10,10 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -64,7 +62,7 @@ public class Accommodation extends BaseEntity {
 
 	@Builder
 	public Accommodation(Long id, String name, String content, String region, String checkIn, String checkOut,
-						 Boolean isDeleted) {
+						 Boolean isDeleted, String address) {
 		this.id = id;
 		this.name = name;
 		this.content = content;
@@ -72,6 +70,7 @@ public class Accommodation extends BaseEntity {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 		this.isDeleted = isDeleted;
+		this.address = address;
 	}
 
 /*ai_external_id`	bigint(20)	NOT NULL,

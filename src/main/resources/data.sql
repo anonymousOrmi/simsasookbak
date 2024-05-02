@@ -1,11 +1,11 @@
 -- -- Insert dummy data for Member
--- INSERT INTO member (email, name, role, birth_date, password, status, phone)
+-- INSERT INTO member (email, name, role, birth_date, password, status, phone,crate)
 -- VALUES ('test1@gmail.com', '김상형', '이용자', '1900-05-01', '1234', '일반', '010-1234-1234');
 -- SET @member_id_kim = LAST_INSERT_ID();
 --
--- INSERT INTO member (email, name, role, birth_date, password, status, phone)
--- VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '12345', '일반', '010-2345-1735');
--- SET @member_id_park = LAST_INSERT_ID();
+INSERT INTO member (email, name, role, birth_date, password, status, phone,created_at,updated_at)
+VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '12345', '일반', '010-2345-1735',NOW(),NOW());
+SET @member_id_park = LAST_INSERT_ID();
 --
 -- INSERT INTO member (email, name, role, birth_date, password, status, phone)
 -- VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '123456', '일반', '010-3716-5576');
@@ -27,9 +27,9 @@
 --
 -- --accommodation start
 --
--- INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
--- VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
--- SET @accommodation_id_seoul = LAST_INSERT_ID();
+INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted,created_at,updated_at)
+VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false,NOW(),NOW());
+SET @accommodation_id_seoul = LAST_INSERT_ID();
 --
 -- INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
 -- VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00:00', '14:00:00', false);
@@ -43,9 +43,9 @@
 --
 -- --room start
 --
--- INSERT INTO room (accommodation_id, name, cost, content, use_guide)
--- VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요');
--- SET @room_id_one = LAST_INSERT_ID();
+INSERT INTO room (accommodation_id, name, cost, content, use_guide,created_at,updated_at)
+VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요',NOW(),NOW());
+SET @room_id_one = LAST_INSERT_ID();
 --
 -- INSERT INTO room (accommodation_id, name, cost, content, use_guide)
 -- VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요');
@@ -67,8 +67,8 @@
 --
 -- --reservation start
 --
--- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
--- VALUES (@member_id_kim, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request,created_at,updated_at)
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요',NOW(),NOW());
 -- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 -- VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
 -- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
@@ -81,8 +81,8 @@
 -- --
 -- -- --review start
 -- --
--- -- INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
--- -- VALUES (@member_id_kim, @accommodation_id_seoul, '침대가 좋아요',5,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted,created_at,updated_at)
+VALUES (@member_id_park, @accommodation_id_seoul, '침대가 좋아요',5,0,NOW(),NOW());
 -- -- INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
 -- -- VALUES (@member_id_lee, @accommodation_id_cheongju, '전체적으로 디자인이 좋았습니다',4,0);
 -- -- INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
@@ -128,4 +128,4 @@
 -- --                                                                                                           (2, 1, 2, '완료', '2024-06-01', '2024-06-05', '조용한 방을 원합니다'),
 -- --                                                                                                           (3, 2, 3, '대기', '2024-07-10', '2024-07-15', '친구들과 함께 예약했습니다'),
 -- --                                                                                                           (1, 2, 1, '만료', '2024-08-20', '2024-08-25', '휴가 기간에 이용할 예정입니다'),
--- --                                                                                                           (4, 3, 2, '대기', '2024-09-05', '2024-09-10', '조식 포함 여부를 확인해주세요');
+-- --

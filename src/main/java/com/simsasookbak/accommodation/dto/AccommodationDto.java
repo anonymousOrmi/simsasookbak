@@ -52,7 +52,7 @@ public class AccommodationDto {
                 .name(dto.getName())
                 .content(dto.getContent())
                 .region(dto.getRegion())
-//                .address(dto.getAddress())   //? 이 부분만 에러..?
+                .address(dto.getAddress())   //? 이 부분만 에러..?
                 .checkIn(dto.getCheckIn())
                 .checkOut(dto.getCheckOut())
                 .isDeleted(dto.getIsDeleted())
