@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +43,6 @@ public class Room extends BaseEntity {
 	@Column(name = "use_guide", length = 2000, nullable = false)
 	private String useGuide;
 
-
-
-
-
+	@OneToMany(mappedBy = "room")
+	private List<RoomFacilityMapping> roomFacilityMappingList = new ArrayList<>();
 }

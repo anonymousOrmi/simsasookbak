@@ -10,8 +10,9 @@ import lombok.ToString;
 
 @ToString
 @Getter
-
 public class AccommodationDto {
+
+    private final Long id;
 
     private final String name;
 
@@ -19,31 +20,39 @@ public class AccommodationDto {
 
     private final String region;
 
-    private final String checkIn;
+    private final String address;
 
-    @Builder
-    public AccommodationDto(String name, String content, String region, String checkIn, String checkOut,
-                            Boolean isDeleted) {
-        this.name = name;
-        this.content = content;
-        this.region = region;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.isDeleted = isDeleted;
-    }
+    private final String checkIn;
 
     private final String checkOut;
 
     private final Boolean isDeleted;
+
+    @Builder
+    public AccommodationDto(Long id, String name, String content, String region, String address, String checkIn, String checkOut,
+                            Boolean isDeleted) {
+        this.id = id;
+        this.name = name;
+        this.content = content;
+        this.region = region;
+        this.address = address;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.isDeleted = isDeleted;
+
+    }
+
 
     /**
      * Dto -> Entity
      */
     public static Accommodation toAccommodation(AccommodationDto dto) {
         return Accommodation.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .content(dto.getContent())
                 .region(dto.getRegion())
+                .address(dto.getAddress())   //? 이 부분만 에러..?
                 .checkIn(dto.getCheckIn())
                 .checkOut(dto.getCheckOut())
                 .isDeleted(dto.getIsDeleted())
@@ -55,9 +64,11 @@ public class AccommodationDto {
      */
     public static AccommodationDto toAccommodationDto(Accommodation accommodation) {
         return AccommodationDto.builder()
+                .id(accommodation.getId())
                 .name(accommodation.getName())
                 .content(accommodation.getContent())
                 .region(accommodation.getRegion())
+                .address(accommodation.getAddress())
                 .checkIn(accommodation.getCheckIn())
                 .checkOut(accommodation.getCheckOut())
                 .isDeleted(accommodation.getIsDeleted())

@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.controller;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AccommodationController {
         List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
         String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
-        List<Review> reviewList = reviewService.findAllReviewByAcomId(acom_id);
+        List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
 //        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         model.addAttribute("accommodation", accommodation);

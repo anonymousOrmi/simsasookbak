@@ -1,8 +1,10 @@
 package com.simsasookbak.review.service;
 
 import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.repository.ReviewRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class ReviewService {
         return reviewRepository.findInSummaryByAcomId(id);
     }
 
-    public List<Review> findAllReviewByAcomId(Long id) {
-        return reviewRepository.findAllReviewByAcomId(id);
+    public List<ReviewDto> findAllReviewByAcomId(Long id) {
+        return reviewRepository.findAllReviewByAcomId(id).stream().map(ReviewDto::toDto).collect(Collectors.toList());
     }
 }

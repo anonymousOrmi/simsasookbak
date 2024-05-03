@@ -62,22 +62,7 @@
                 <p class="mb-lg-5" th:text="${accommodation.getContent()}"></p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>First Class Flights</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Handpicked Hotels</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>5 Star Accommodations</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Latest Model Vehicles</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>150 Premium City Tours</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>24/7 Service</p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>내부시설1</p>
                     </div>
                 </div>
             </div>
@@ -97,28 +82,15 @@
                 </p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1</p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>편의시설1
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="text-lg-end">
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="/accommodation/1/1/reservationPage">예약하기</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+               th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
         </div>
     </div>
 </div>
@@ -181,92 +153,29 @@
                         <div class="border border-primary rounded p-3">
                             <div class="container py-5">
                                 <div class="row g-3">
-                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;" th:text="${review.content}">
+                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;"
+                                         th:text="${review.content}">
                                     </div>
                                     <div class="col-md-6 text-md-end text-center">
                                         <div class="row g-3">
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                작성자
+                                            <div class="col-md-3" style="font-size: 15px;"
+                                                 th:text="${review.getMemberName()}">
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                작성일
+                                            <div class="col-md-3" style="font-size: 15px;"
+                                                 th:text="'생성일자'+ ${review.getCreatedAt()}">
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
+                                            <div class="col-md-3" style="font-size: 15px;"
+                                                 th:text="'수정일자'+ ${review.getCreatedAt()}">
                                                 수정일
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                별점
+                                            <div class="col-md-3" style="font-size: 15px;"
+                                                 th:text="'별점'+ ${review.getScore()}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
                                     <div class="col-md-12 border rounded p-3">
-                                        <div class="mb-2">
-                                            리뷰 내용을 여기에 표시하세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
-                                            tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
-                                            libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
-                                            euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
-                                            quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
-                                            amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
-                                            aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
-                                            condimentum, nec scelerisque eros fermentum.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
-                                <div class="img-container">
-                                    <img src="/img/explore-tour-1.jpg"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         alt="Image">
-                                    <img src="/img/explore-tour-1.jpg"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         alt="Image">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container py-5">
-            <div class="row g-3">
-                <div class="col-lg-12">
-                    <div class="row g-3">
-                        <div class="border border-primary rounded p-3">
-                            <div class="container py-5">
-                                <div class="row g-3">
-                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;">
-                                        리뷰 제목2
-                                    </div>
-                                    <div class="col-md-6 text-md-end text-center">
-                                        <div class="row g-3">
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                작성자
-                                            </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                작성일
-                                            </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                수정일
-                                            </div>
-                                            <div class="col-md-3" style="font-size: 15px;">
-                                                별점
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
-                                    <div class="col-md-12 border rounded p-3">
-                                        <div class="mb-2">
-                                            리뷰 내용을 여기에 표시하세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
-                                            tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
-                                            libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
-                                            euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
-                                            quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
-                                            amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
-                                            aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
-                                            condimentum, nec scelerisque eros fermentum.
+                                        <div class="mb-2" th:text="${review.getContent()}">
                                         </div>
                                     </div>
                                 </div>
