@@ -11,9 +11,9 @@ SET @member_id_park = LAST_INSERT_ID();
 -- VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '123456', '일반', '010-3716-5576');
 -- SET @member_id_song = LAST_INSERT_ID();
 --
--- INSERT INTO member (email, name, role, birth_date, password, status, phone)
--- VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '1234567', '일반', '010-3742-9985');
--- SET @member_id_lee = LAST_INSERT_ID();
+INSERT INTO member (email, name, role, birth_date, password, status, phone,created_at,updated_at)
+VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '1234567', '일반', '010-3742-9985',NOW(),NOW());
+SET @member_id_lee = LAST_INSERT_ID();
 --
 -- INSERT INTO member (email, name, role, birth_date, password, status, phone)
 -- VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '12345678', '일반', '010-7324-5421');
@@ -30,14 +30,14 @@ SET @member_id_park = LAST_INSERT_ID();
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted,created_at,updated_at)
 VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false,NOW(),NOW());
 SET @accommodation_id_seoul = LAST_INSERT_ID();
---
--- INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
--- VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00:00', '14:00:00', false);
--- SET @accommodation_id_cheongju = LAST_INSERT_ID();
---
--- INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
--- VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00:00', '18:00:00', false);
--- SET @accommodation_id_daejeon = LAST_INSERT_ID();
+
+INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted, created_at,updated_at)
+VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00:00', '14:00:00', false, NOW(),NOW());
+SET @accommodation_id_cheongju = LAST_INSERT_ID();
+
+INSERT INTO Accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted, created_at, updated_at)
+VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00:00', '18:00:00', false, NOW(),NOW());
+SET @accommodation_id_daejeon = LAST_INSERT_ID();
 --
 -- --accommodation end
 --
@@ -47,13 +47,13 @@ INSERT INTO room (accommodation_id, name, cost, content, use_guide,created_at,up
 VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요',NOW(),NOW());
 SET @room_id_one = LAST_INSERT_ID();
 --
--- INSERT INTO room (accommodation_id, name, cost, content, use_guide)
--- VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요');
--- SET @room_id_one_2 = LAST_INSERT_ID();
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, created_at,updated_at)
+VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요',NOW(),NOW());
+SET @room_id_one_2 = LAST_INSERT_ID();
 --
--- INSERT INTO room (accommodation_id, name, cost, content, use_guide)
--- VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요');
--- SET @room_id_two = LAST_INSERT_ID();
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, created_at,updated_at)
+VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요',NOW(),NOW());
+SET @room_id_two = LAST_INSERT_ID();
 --
 -- INSERT INTO room (accommodation_id, name, cost, content, use_guide)
 -- VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요');
@@ -69,8 +69,8 @@ SET @room_id_one = LAST_INSERT_ID();
 --
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request,created_at,updated_at)
 VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요',NOW(),NOW());
--- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
--- VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request, created_at,updated_at)
+VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요', ,NOW(),NOW());
 -- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 -- VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two_2, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
 -- -- INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
