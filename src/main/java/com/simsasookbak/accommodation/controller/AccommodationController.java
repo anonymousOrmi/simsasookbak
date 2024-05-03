@@ -1,19 +1,19 @@
 package com.simsasookbak.accommodation.controller;
 
+import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.reservation.service.ReservationService;
+import com.simsasookbak.review.service.ReviewService;
+import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.room.dto.RoomDto;
+import com.simsasookbak.room.service.RoomService;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.simsasookbak.accommodation.domain.Accommodation;
-import com.simsasookbak.accommodation.service.AccommodationService;
-import com.simsasookbak.review.service.ReviewService;
-import com.simsasookbak.room.domain.Room;
-import java.util.List;
-import com.simsasookbak.room.dto.RoomDto;
-import com.simsasookbak.room.service.RoomService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -25,6 +25,8 @@ public class AccommodationController {
     private final AccommodationService accommodationService;
     private final RoomService roomService;
     private final ReviewService reviewService;
+
+    private final ReservationService reservationService;
 
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
