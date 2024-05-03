@@ -1,5 +1,6 @@
 package com.simsasookbak.reservation.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReservationUnableDto {
 
-    private List<Date> CheckInUnselectableDate;
-    private List<Date> CheckOutUnselectableDate;
+    private List<Date> CheckInUnselectableDate = new ArrayList<>();
+    private List<Date> CheckOutUnselectableDate = new ArrayList<>();
 
 }
