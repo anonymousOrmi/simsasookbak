@@ -68,11 +68,69 @@
 <div class="container-fluid booking py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <h1 class="text-white mb-3">Book A Your Room</h1>
-                <p class="text-white mb-4"> <span class="text-warning"> 예약 가능한 날짜를 선택 해 주세요.</span></p>
+            <div class="col-lg-8">
+                <h1 class="text-white mb-3">심사 숙고 후 예약 해주세요</h1>
+                <div>
+                    <div class="container pb-0">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <div class="row g-3">
+                                    <div class="border rounded p-3">
+                                        <div class="container pb-0">
+                                            <div class="img-container">
+                                                <img src="/img/explore-tour-1.jpg"
+                                                     class="img-fluid w-35 mx-auto rounded d-block"
+                                                     alt="Image">
+                                            </div>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;">
+                                                    객실명
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            가격
+                                                        </div>
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            가격
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 text-md-start text-center text-white" style="font-size: 20px;">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            체크인 : 13:00
+                                                        </div>
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            체크 아웃 : 10:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 border rounded p-3">
+                                                    <div class="mb-2 text-white">
+                                                        객실 이용 가이드를 넣으세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                        Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
+                                                        tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
+                                                        libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
+                                                        euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
+                                                        quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
+                                                        amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
+                                                        aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
+                                                        condimentum, nec scelerisque eros fermentum.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <form>
-                <img src = "/room.png" alt="room Image">
+                    <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-6">
 <!--                            <input type="text" id="date-picker" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" th:value="|${year}-${month}|">-->
@@ -84,47 +142,47 @@
                                 <input type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
 
 <!--                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />-->
-                                <label>CheckIn </label>
+                                <label>입실</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date4" data-target-input="nearest">
                                 <input type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
-                                <label>CheckOut</label>
+                                <label>퇴실</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectPerson">
-                                    <option value="1">Persons 1</option>
-                                    <option value="2">Persons 2</option>
-                                    <option value="3">Persons 3</option>
-                                    <option value="3">Persons 4</option>
-                                    <option value="3">Persons 5</option>
-                                    <option value="3">Persons 6</option>
-                                </select>
-                                <label for="SelectPerson">Persons</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectRoomName">
-                                    <option value="1">RoomName 1</option>
-                                    <option value="2">RoomName 2</option>
-                                    <option value="3">RoomName 3</option>
-                                </select>
-                                <label for="SelectPerson">RoomName</label>
-                            </div>
-                        </div>
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-floating">-->
+<!--                                <select class="form-select bg-white border-0" id="SelectPerson">-->
+<!--                                    <option value="1">Persons 1</option>-->
+<!--                                    <option value="2">Persons 2</option>-->
+<!--                                    <option value="3">Persons 3</option>-->
+<!--                                    <option value="3">Persons 4</option>-->
+<!--                                    <option value="3">Persons 5</option>-->
+<!--                                    <option value="3">Persons 6</option>-->
+<!--                                </select>-->
+<!--                                <label for="SelectPerson">Persons</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="form-floating">-->
+<!--                                <select class="form-select bg-white border-0" id="SelectRoomName">-->
+<!--                                    <option value="1">RoomName 1</option>-->
+<!--                                    <option value="2">RoomName 2</option>-->
+<!--                                    <option value="3">RoomName 3</option>-->
+<!--                                </select>-->
+<!--                                <label for="SelectPerson">RoomName</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                <label for="message">Special Request</label>
+                                <textarea class="form-control bg-white border-0" placeholder="요청 사항" id="message" style="height: 100px"></textarea>
+                                <label for="message">요청 사항</label>
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
+                            <button class="btn btn-primary text-white w-50 py-3" type="submit">예약!</button>
                         </div>
                     </div>
                 </form>
