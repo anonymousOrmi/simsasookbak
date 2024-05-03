@@ -133,15 +133,8 @@
                     <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-6">
-<!--                            <input type="text" id="date-picker" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" th:value="|${year}-${month}|">-->
-
-
-
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-
                                 <input type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
-
-<!--                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />-->
                                 <label>입실 일</label>
                             </div>
                         </div>
@@ -151,30 +144,7 @@
                                 <label>퇴실 일</label>
                             </div>
                         </div>
-<!--                        <div class="col-md-6">-->
-<!--                            <div class="form-floating">-->
-<!--                                <select class="form-select bg-white border-0" id="SelectPerson">-->
-<!--                                    <option value="1">Persons 1</option>-->
-<!--                                    <option value="2">Persons 2</option>-->
-<!--                                    <option value="3">Persons 3</option>-->
-<!--                                    <option value="3">Persons 4</option>-->
-<!--                                    <option value="3">Persons 5</option>-->
-<!--                                    <option value="3">Persons 6</option>-->
-<!--                                </select>-->
-<!--                                <label for="SelectPerson">Persons</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-6">-->
-<!--                            <div class="form-floating">-->
-<!--                                <select class="form-select bg-white border-0" id="SelectRoomName">-->
-<!--                                    <option value="1">RoomName 1</option>-->
-<!--                                    <option value="2">RoomName 2</option>-->
-<!--                                    <option value="3">RoomName 3</option>-->
-<!--                                </select>-->
-<!--                                <label for="SelectPerson">RoomName</label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
+                        <input type="button" id="clear-dates-btn" value="Clear Dates">
                         <div class="col-12">
                             <div class="form-floating">
                                 <textarea class="form-control bg-white border-0" placeholder="요청 사항" id="message" style="height: 100px"></textarea>
@@ -233,15 +203,14 @@
 <script src="/js/main.js"></script>
 <script>
     $(function() {
-        var selectedDate1 = null; // #date-picker1에서 선택한 날짜를 저장할 변수
-        var selectedDate2 = null; // #date-picker1에서 선택한 날짜를 저장할 변수
+        var selectedDate1 = null;
+        var selectedDate2 = null;
 
         $('#date-picker1').datepicker({
             format: "yyyy-mm-dd",
             startDate: '0d',
             endDate: '+1y',
             autoclose: true,
-            clearBtn: true,
             datesDisabled: ['2024-05-5', '2024-05-6', '2024-05-7', '2024-05-9', '2024-05-10', '2024-05-11', '2024-05-14'],
             todayHighlight: true,
             toggleActive: true,
@@ -271,24 +240,11 @@
                 $('#date-picker2').datepicker('setStartDate', startDatePicker2);
                 $('#date-picker2').datepicker('setEndDate', null);
             }
-        }).on('clearDate', function() {
-            // clear 버튼 클릭 시 선택된 날짜 초기화
-            selectedDate1 = null;
-            selectedDate2 = null;
-
-            // 선택 가능한 날짜 상태 다시 설정
-            $('#date-picker2 .clear-date').trigger('click');
-            $('#date-picker2').val('');
-            $('#date-picker1').datepicker('setStartDate', '0d');
-            $('#date-picker1').datepicker('setEndDate', '+1y');
-            $('#date-picker2').datepicker('setStartDate', '0d');
-            $('#date-picker2').datepicker('setEndDate', '+1y');
         });
 
         $('#date-picker2').datepicker({
             format: "yyyy-mm-dd",
             autoclose: true,
-            clearBtn: true,
             startDate: '0d',
             endDate: '+1y',
             datesDisabled: ['2024-05-6', '2024-05-7', '2024-05-8', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15'],
@@ -320,19 +276,30 @@
                 $('#date-picker1').datepicker('setStartDate', null);
                 $('#date-picker1').datepicker('setEndDate', startDatePicker2);
             }
-        }).on('clearDate', function() {
-            // clear 버튼 클릭 시 선택된 날짜 초기화
+        });
+
+        $('#clear-dates-btn').on('click', function() {
+            clearDates();
+        });
+
+        function updateDatePicker1() {
+            $('#date-picker1').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '0d');
+            $('#date-picker1').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function updateDatePicker2() {
+            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '0d');
+            $('#date-picker2').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function clearDates() {
             selectedDate1 = null;
             selectedDate2 = null;
-
-            // 선택 가능한 날짜 상태 다시 설정
-            $('#date-picker1 .clear-date').trigger('click');
-            $('#date-picker1').val('');
-            $('#date-picker1').datepicker('setStartDate', '0d');
-            $('#date-picker1').datepicker('setEndDate', '+1y');
-            $('#date-picker2').datepicker('setStartDate', '0d');
-            $('#date-picker2').datepicker('setEndDate', '+1y');
-        });
+            $('#date-picker1').datepicker('clearDates');
+            $('#date-picker2').datepicker('clearDates');
+            updateDatePicker1();
+            updateDatePicker2();
+        }
     });
 </script>
 

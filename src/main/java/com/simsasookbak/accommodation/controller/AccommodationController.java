@@ -2,6 +2,7 @@ package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
@@ -45,8 +46,10 @@ public class AccommodationController {
 
 //        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
         RoomDto room = roomService.findRoomById(room_id);
+        ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(room_id);
 //        model.addAttribute("accommodation", accommodation);
         model.addAttribute("room", room);
+        model.addAttribute("reservationUnable", reservationUnable);
 
         return "reservationPage";
     }

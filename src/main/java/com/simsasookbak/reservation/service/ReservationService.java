@@ -3,7 +3,6 @@ package com.simsasookbak.reservation.service;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.repository.ReservationRepository;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,6 @@ public class ReservationService {
         List<Reservation> reservations = findAllByRoomId(roomId);
 
         ReservationUnableDto reservationUnableDto = new ReservationUnableDto();
-
 
         // 각 예약별로 시작일부터 종료일 전날까지의 날짜 => 입실 불가일 리스트
         // 시작일 다음날부터 종료일까지의 날짜 => 퇴실 불가일 리스트
