@@ -83,15 +83,15 @@
                                                      alt="Image">
                                             </div>
                                             <div class="row g-3">
-                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;">
+                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;" th:text="${room.name}">
                                                     객실명
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
                                                         <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
-                                                            가격
+                                                            또 뭐
                                                         </div>
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${room.cost}">
                                                             가격
                                                         </div>
                                                     </div>
@@ -101,7 +101,7 @@
                                                 <div class="col-md-10">
                                                     <div class="row g-3 justify-content-end">
                                                         <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
-                                                            체크인 : 13:00
+                                                            체크인 : 15:00
                                                         </div>
                                                         <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
                                                             체크 아웃 : 10:00
@@ -109,7 +109,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 border rounded p-3">
-                                                    <div class="mb-2 text-white">
+                                                    <div class="mb-2 text-white" th:text="${room.useGuide}">
                                                         객실 이용 가이드를 넣으세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                                         Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
                                                         tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
@@ -142,13 +142,13 @@
                                 <input type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
 
 <!--                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />-->
-                                <label>입실</label>
+                                <label>입실 일</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date4" data-target-input="nearest">
                                 <input type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
-                                <label>퇴실</label>
+                                <label>퇴실 일</label>
                             </div>
                         </div>
 <!--                        <div class="col-md-6">-->
