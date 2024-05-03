@@ -32,7 +32,7 @@ public class Accommodation extends BaseEntity {
     private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "member_id", nullable = false)
 	private Member member;
 
 	@Column(name = "name", length = 100, nullable = false)
@@ -72,9 +72,4 @@ public class Accommodation extends BaseEntity {
 		this.isDeleted = isDeleted;
 		this.address = address;
 	}
-
-/*ai_external_id`	bigint(20)	NOT NULL,
-	member_id`	bigint(20)	NOT NULL*/
-
-
 }
