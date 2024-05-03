@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    @Query("SELECT r FROM Reservation r WHERE r.status <> '완료' AND (r.startDate <= :endDate AND r.endDate >= :startDate)")
-    List<Reservation> findNotCompleteStatus(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+    @Query("SELECT r FROM Reservation r JOIN r.accommodation a " +
+            "WHERE r.status <> '완료' AND (r.startDate <= :endDate AND r.endDate >= :startDate) " +
+            "AND (a.region LIKE %:keyword% OR a.name LIKE %:keyword%)")
+    List<Reservation> findNotCompleteStatus(@Param("keyword") String keyword, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }

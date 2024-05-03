@@ -36,8 +36,9 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     @Query("SELECT DISTINCT a FROM Accommodation a " +
             "LEFT JOIN Room r ON r.accommodation = a " +
             "WHERE (a.id NOT IN (SELECT res.accommodation.id FROM Reservation res WHERE res.startDate <= :endDate AND res.endDate >= :startDate) " +
-            "OR r.id NOT IN (SELECT res.room.id FROM Reservation res WHERE res.room.accommodation = a AND res.startDate <= :endDate AND res.endDate >= :startDate))")
-    List<Accommodation> findAvailableAccommodationsByDate(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+            "OR r.id NOT IN (SELECT res.room.id FROM Reservation res WHERE res.room.accommodation = a AND res.startDate <= :endDate AND res.endDate >= :startDate)) " +
+            "AND a.region LIKE %:keyword% OR a.name LIKE %:keyword%")
+    List<Accommodation> findAvailableAccommodationsByDate(String keyword, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
     Accommodation findAccommodationById(Long id);
 

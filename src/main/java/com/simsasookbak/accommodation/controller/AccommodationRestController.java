@@ -27,18 +27,14 @@ public class AccommodationRestController {
     public ResponseEntity<?> searchAccommodation(@RequestParam String keyword,
                                                  @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                  @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        List<AccommodationDto> accommodations;
+        List<AccommodationDto> accommodationsDate;
         String message;
         HttpStatus status;
 
-        if (keyword != null) {
-            accommodations = accommodationService.searchAccommodation(keyword);
-            message = accommodations.isEmpty() ? "검색 내용이 없습니다." : null;
-            status = accommodations.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
-        } else if (startDate != null && endDate != null) {
-            accommodations = accommodationService.searchDate(startDate, endDate);
-            message = accommodations.isEmpty() ? "예약 가능한 숙박 시설이 없습니다." : null;
-            status = accommodations.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
+        if (keyword != null && startDate != null && endDate != null) {
+            accommodationsDate = accommodationService.searchMain(keyword, startDate, endDate);
+            message = accommodationsDate.isEmpty() ? "예약 가능한 숙박 시설이 없습니다." : null;
+            status = accommodationsDate.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
         } else {
             return ResponseEntity.badRequest().body("잘못된 요청입니다.");
         }
@@ -46,9 +42,7 @@ public class AccommodationRestController {
         if (message != null) {
             return ResponseEntity.status(status).body(message);
         }
-
-        // 공통된 값만 반환
-        Set<AccommodationDto> uniqueAccommodations = new HashSet<>(accommodations);
-        return ResponseEntity.ok().body(new ArrayList<>(uniqueAccommodations));
+        return ResponseEntity.ok().body(new ArrayList<>(accommodationsDate));
     }
+
 }
