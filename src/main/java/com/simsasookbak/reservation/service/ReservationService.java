@@ -22,24 +22,38 @@ public class ReservationService {
         return null;
     }
 
-    public List<Date> getCheckInUnselectableDateList(Long roomId) {
+    public ReservationUnableDto getReservationUnableDates(Long roomId) {
         List<Reservation> reservations = findAllByRoomId(roomId);
 
         List<Date> checkInUnselectableDateList = new ArrayList<>();
+        List<Date> checkOutUnselectableDateList = new ArrayList<>();
 
         // 각 예약별로 시작일부터 종료일 전날까지의 날짜 => 입실 불가일 리스트
+        // 시작일 다음날부터 종료일까지의 날짜 => 퇴실 불가일 리스트
         for (Reservation reservation : reservations) {
             Date startDate = reservation.getStartDate();
             Date endDate = reservation.getEndDate();
 
+            // 입실 불가일 리스트
             Date currentDate = startDate;
             while (currentDate.before(endDate)) {
                 checkInUnselectableDateList.add(currentDate);
                 currentDate = addDays(currentDate, 1);
             }
+
+            // 퇴실 불가일 리스트
+            currentDate = addDays(startDate, 1); // 시작일 다음날
+            while (!currentDate.after(endDate)) {
+                checkOutUnselectableDateList.add(currentDate);
+                currentDate = addDays(currentDate, 1);
+            }
         }
 
-        return checkInUnselectableDateList;
+        ReservationUnableDto reservationUnableDto = new ReservationUnableDto();
+        reservationUnableDto.setCheckInUnselectableDate(checkInUnselectableDateList);
+        reservationUnableDto.setCheckOutUnselectableDate(checkOutUnselectableDateList);
+
+        return reservationUnableDto;
     }
 
     private List<Reservation> findAllByRoomId(Long roomId) {
