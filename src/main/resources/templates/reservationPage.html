@@ -221,17 +221,29 @@
             weekStart: 0,
         }).on('changeDate', function(selected) {
             selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
+            // console.log(selectedDate1);
 
             var disabledDates = datesDisabled1;
+            // console.log(datesDisabled1);
+            // console.log(disabledDates);
             var nextAvailableDate = null;
 
+            const isValidDate = function(value) {
+                return value instanceof Date && !isNaN(value);
+            }
+
             for (var i = 0; i < disabledDates.length; i++) {
-                var disabledDate = new Date(disabledDates[i]);
+                var disabledDate = new Date(Date.parse(disabledDates[i]));
+                console.log("disalbedDate : " + isValidDate(disabledDate) + "," + disabledDate);
+                console.log("selectedDate : " + isValidDate(selectedDate1));
+                // console.log("disalbedDate" + typeof disabledDate);
+                // console.log("selectedDate" + typeof selectedDate1);
                 if (disabledDate > selectedDate1) {
                     nextAvailableDate = disabledDate;
                     break;
                 }
             }
+            console.log(nextAvailableDate);
 
             if (nextAvailableDate) {
                 var startDatePicker2 = new Date(selectedDate1);
