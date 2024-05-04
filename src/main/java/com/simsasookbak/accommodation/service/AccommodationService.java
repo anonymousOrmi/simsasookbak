@@ -5,6 +5,7 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.repository.ReservationRepository;
+import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,6 +35,7 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
+    private final ReviewService reviewService;
 
     @Transactional
     public List<AccommodationDto> searchAccommodation(String keyword) {
@@ -78,6 +80,29 @@ public class AccommodationService {
         } else {
             throw new RuntimeException("Date를 명확히 입력");
         }
+    }
+
+    @Transactional
+    public List<AccommodationDto> getHighScoreAccommodation() {
+        // 상위 6개의 accommodation ID를 가져오기
+        List<Long> topSixAccommodationIds = reviewService.findScoreSixAccommodation();
+
+
+        // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
+        List<AccommodationDto> highScoreAccommodations = topSixAccommodationIds.stream()
+                .map(accommodationRepository::findAccommodationById)
+                .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
+                .map(AccommodationDto::toAccommodationDto)
+                .collect(Collectors.toList());
+
+        System.out.println("진입");
+
+        // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
+        for (AccommodationDto accommodationDto : highScoreAccommodations) {
+            System.out.println("Accommodation ID: " + accommodationDto.getId());
+        }
+
+        return highScoreAccommodations;
     }
 
 
