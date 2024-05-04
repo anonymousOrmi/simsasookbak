@@ -2,7 +2,6 @@ package com.simsasookbak.accommodation.repository;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import java.util.Date;
-import com.simsasookbak.room.domain.Room;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccommodationRepository  extends JpaRepository<Accommodation, Long> {
+
+    //TODO 지역 조회
+    List<Accommodation> findAllByRegion(String region);
 
 
     @Query("SELECT a FROM Accommodation a WHERE a.region LIKE %:keyword% OR a.name LIKE %:keyword%")

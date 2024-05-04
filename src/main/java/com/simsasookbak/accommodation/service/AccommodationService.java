@@ -1,25 +1,22 @@
 package com.simsasookbak.accommodation.service;
 
+import static com.simsasookbak.accommodation.domain.AccommodationSearchType.REGION;
+
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
-import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.repository.ReservationRepository;
-import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
-import com.simsasookbak.review.domain.ExternalSummary;
-import com.simsasookbak.room.domain.Room;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,6 +31,20 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
+
+    public List<AccommodationResponse> searchAccommodations(AccommodationRequest request) {
+        List<AccommodationResponse> responses = new ArrayList<>();
+
+        //  TODO (refactor) 추후 검색 조건 별 메소드 분리
+        // 지역이면 검색
+        if (Objects.equals(request.getType(), REGION.name().toLowerCase())) {
+            if (request.getStartDate() == null && request.getEndDate() == null) {
+                List<Accommodation> accommodations = accommodationRepository.findAllByRegion(request.getKeyword());
+            }
+        }
+        return responses;
+    }
+
 
     @Transactional
     public List<AccommodationDto> searchAccommodation(String keyword) {
