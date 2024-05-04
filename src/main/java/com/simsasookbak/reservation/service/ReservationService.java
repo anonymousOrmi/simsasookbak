@@ -3,6 +3,9 @@ package com.simsasookbak.reservation.service;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.repository.ReservationRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,14 +38,14 @@ public class ReservationService {
             // 입실 불가일 리스트
             Date currentDate = startDate;
             while (currentDate.before(endDate)) {
-                reservationUnableDto.getCheckInUnselectableDate().add(currentDate);
+                reservationUnableDto.addCheckInUnselectableDate(currentDate);
                 currentDate = addDays(currentDate, 1);
             }
 
-            // 퇴실 불가일 리스트
+            // 퇴실 불가일 추가
             currentDate = addDays(startDate, 1); // 시작일 다음날
             while (!currentDate.after(endDate)) {
-                reservationUnableDto.getCheckOutUnselectableDate().add(currentDate);
+                reservationUnableDto.addCheckOutUnselectableDate(currentDate);
                 currentDate = addDays(currentDate, 1);
             }
         }
