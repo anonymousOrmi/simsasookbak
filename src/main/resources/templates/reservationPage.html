@@ -202,10 +202,13 @@
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
 <script>
-    // const datesDisabled1 = ['2024-05-05', '2024-05-06', '2024-05-07', '2024-05-09', '2024-05-10', '2024-05-11', '2024-05-14', '2024-05-20', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24'];
-    // const datesDisabled2 = ['2024-05-06', '2024-05-07', '2024-05-08', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24', '2024-05-25'];
-    const datesDisabled1 = $('#date-picker1').data('unselectable_dates');
-    const datesDisabled2 = $('#date-picker2').data('unselectable_dates');
+    // 하드코딩
+    // const datesDisabledCheckIn = ['2024-05-05', '2024-05-06', '2024-05-07', '2024-05-09', '2024-05-10', '2024-05-11', '2024-05-14', '2024-05-20', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24'];
+    // const datesDisabledCheckOut = ['2024-05-06', '2024-05-07', '2024-05-08', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24', '2024-05-25'];
+    var datesCheckInString = $('#date-picker1').data('unselectable_dates');
+    var datesCheckOutString = $('#date-picker2').data('unselectable_dates');
+    const datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+    const datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
 
     $(function() {
         var selectedDate1 = null;
@@ -215,7 +218,7 @@
             format: "yyyy-mm-dd",
             startDate: '0d',
             endDate: '+1y',
-            datesDisabled: datesDisabled1,
+            datesDisabled: datesDisabledCheckIn,
             todayHighlight: true,
             toggleActive: true,
             weekStart: 0,
@@ -223,9 +226,9 @@
             selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
             // console.log(selectedDate1);
 
-            var disabledDates = datesDisabled1;
-            // console.log(datesDisabled1);
-            // console.log(disabledDates);
+            var disabledDates = datesDisabledCheckIn;
+            console.log(datesDisabledCheckIn);
+            console.log(disabledDates);
             var nextAvailableDate = null;
 
             const isValidDate = function(value) {
@@ -234,8 +237,8 @@
 
             for (var i = 0; i < disabledDates.length; i++) {
                 var disabledDate = new Date(Date.parse(disabledDates[i]));
-                console.log("disalbedDate : " + isValidDate(disabledDate) + "," + disabledDate);
-                console.log("selectedDate : " + isValidDate(selectedDate1));
+                // console.log("disalbedDate : " + isValidDate(disabledDate) + "," + disabledDate);
+                // console.log("selectedDate : " + isValidDate(selectedDate1));
                 // console.log("disalbedDate" + typeof disabledDate);
                 // console.log("selectedDate" + typeof selectedDate1);
                 if (disabledDate > selectedDate1) {
@@ -262,14 +265,14 @@
             format: "yyyy-mm-dd",
             startDate: '0d',
             endDate: '+1y',
-            datesDisabled: datesDisabled2,
+            datesDisabled: datesDisabledCheckOut,
             todayHighlight: true,
             toggleActive: true,
             weekStart: 0,
         }).on('changeDate', function(selected) {
             selectedDate2 = selected.date; // 선택한 날짜를 변수에 저장
 
-            var disabledDates = datesDisabled2;
+            var disabledDates = datesDisabledCheckOut;
             var nextAvailableDate = null;
 
             for (var i = disabledDates.length - 1; i >= 0; i--) {

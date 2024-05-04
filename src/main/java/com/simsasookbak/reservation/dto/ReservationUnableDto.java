@@ -15,15 +15,37 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReservationUnableDto {
 
-    private List<String> checkInUnselectableDate = new ArrayList<>();
-    private List<String> checkOutUnselectableDate = new ArrayList<>();
+    private String[] checkInUnselectableDate;
+    private String[] checkOutUnselectableDate;
 
     public void addCheckInUnselectableDate(Date date) {
-        checkInUnselectableDate.add(new SimpleDateFormat("yyyy-MM-dd").format(date));
+        // checkInUnselectableDate 배열의 길이를 1 증가시켜 새로운 날짜를 추가
+        int length = checkInUnselectableDate != null ? checkInUnselectableDate.length : 0;
+        String[] newArr = new String[length + 1];
+        if (length > 0) {
+            System.arraycopy(checkInUnselectableDate, 0, newArr, 0, length);
+        }
+        newArr[length] = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        checkInUnselectableDate = newArr;
     }
 
     public void addCheckOutUnselectableDate(Date date) {
-        checkOutUnselectableDate.add(new SimpleDateFormat("yyyy-MM-dd").format(date));
+        // checkOutUnselectableDate 배열의 길이를 1 증가시켜 새로운 날짜를 추가
+        int length = checkOutUnselectableDate != null ? checkOutUnselectableDate.length : 0;
+        String[] newArr = new String[length + 1];
+        if (length > 0) {
+            System.arraycopy(checkOutUnselectableDate, 0, newArr, 0, length);
+        }
+        newArr[length] = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        checkOutUnselectableDate = newArr;
+    }
+
+    public String[] getCheckInUnselectableDate() {
+        return checkInUnselectableDate;
+    }
+
+    public String[] getCheckOutUnselectableDate() {
+        return checkOutUnselectableDate;
     }
 
 }
