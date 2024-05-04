@@ -37,5 +37,3 @@ spring:
 youtube:
     api:
       key: ${YOUTUBE_API_KEY}
-server:
-  port: 8081

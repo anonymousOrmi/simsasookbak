@@ -95,7 +95,6 @@ public class AccommodationService {
                 .map(AccommodationDto::toAccommodationDto)
                 .collect(Collectors.toList());
 
-        System.out.println("진입");
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
         for (AccommodationDto accommodationDto : highScoreAccommodations) {
