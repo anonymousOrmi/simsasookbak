@@ -135,13 +135,13 @@
                         <div class="col-md-6">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
                                 <input th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
-                                <label>입실 일</label>
+                                <label>입실 일 선택</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date4" data-target-input="nearest">
                                 <input th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
-                                <label>퇴실 일</label>
+                                <label>퇴실 일 선택</label>
                             </div>
                         </div>
                         <input type="button" id="clear-dates-btn" value="Clear Dates">
@@ -224,7 +224,6 @@
             weekStart: 0,
         }).on('changeDate', function(selected) {
             selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
-            // console.log(selectedDate1);
 
             var disabledDates = datesDisabledCheckIn;
             console.log(datesDisabledCheckIn);
@@ -237,10 +236,6 @@
 
             for (var i = 0; i < disabledDates.length; i++) {
                 var disabledDate = new Date(Date.parse(disabledDates[i]));
-                // console.log("disalbedDate : " + isValidDate(disabledDate) + "," + disabledDate);
-                // console.log("selectedDate : " + isValidDate(selectedDate1));
-                // console.log("disalbedDate" + typeof disabledDate);
-                // console.log("selectedDate" + typeof selectedDate1);
                 if (disabledDate > selectedDate1) {
                     nextAvailableDate = disabledDate;
                     break;
@@ -263,7 +258,7 @@
 
         $('#date-picker2').datepicker({
             format: "yyyy-mm-dd",
-            startDate: '0d',
+            startDate: '+1d',
             endDate: '+1y',
             datesDisabled: datesDisabledCheckOut,
             todayHighlight: true,
@@ -291,7 +286,7 @@
             } else {
                 var startDatePicker2 = new Date(selectedDate2);
                 startDatePicker2.setDate(startDatePicker2.getDate() - 1);
-                $('#date-picker1').datepicker('setStartDate', null);
+                $('#date-picker1').datepicker('setStartDate', '0d');
                 $('#date-picker1').datepicker('setEndDate', startDatePicker2);
             }
         });
