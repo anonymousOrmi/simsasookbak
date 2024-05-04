@@ -5,7 +5,6 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.service.ReservationService;
-import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +22,13 @@ public class PageController {
     private final ReservationService reservationService;
 
 
-    @GetMapping("/{acom_id}/{room_id}/reservationPage")
-    public String viewReservationPage(@PathVariable Long acom_id, @PathVariable Long room_id, Model model) {
+    @GetMapping("/{accommodationId}/{roomId}/reservationPage")
+    public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
 
-        Accommodation findAccommodation = accommodationService.findAccommodationById(acom_id);
+        Accommodation findAccommodation = accommodationService.findAccommodationById(accommodationId);
         AccommodationDto accommodation = AccommodationDto.toAccommodationDto(findAccommodation);
-        RoomDto room = roomService.findRoomById(room_id);
-        ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(room_id);
+        RoomDto room = roomService.findRoomById(roomId);
+        ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(roomId);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("room", room);
