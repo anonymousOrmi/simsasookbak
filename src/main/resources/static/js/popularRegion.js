@@ -10,7 +10,7 @@ async function fetchPopularRegionsByDate()  {
         let element = "";
         popularRegions.forEach(data => {
             const imageUrl = '/img/explore-tour-1.jpg';
-            const siteUrl = '/accommodation?type=region&keyword=' + encodeURIComponent(data?.region);
+            const siteUrl = '/accommodation?keyword=' + encodeURIComponent(data?.region);
             element += `<div class="col-md-6 col-lg-4">
                             <div class="national-item">
                                 <img alt="Image" class="img-fluid w-100 rounded" src="${imageUrl}"> 
