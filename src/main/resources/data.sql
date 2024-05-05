@@ -70,7 +70,7 @@ SET @room_id_three = LAST_INSERT_ID();
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
-VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-5', '2024-05-8', '공짜로 해주세요');
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '만료', '2024-04-15', '2024-04-20', '공짜로 해주세요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-9', '2024-05-12', '공짜로 해주세요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)

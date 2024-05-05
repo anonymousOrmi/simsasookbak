@@ -27,8 +27,6 @@ public class AccommodationController {
     private final RoomService roomService;
     private final ReviewService reviewService;
 
-    private final ReservationService reservationService;
-
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Long acom_id) {
@@ -39,19 +37,6 @@ public class AccommodationController {
 //        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         return "details";
-    }
-
-    @GetMapping("/{acom_id}/{room_id}/reservationPage")
-    public String viewReservationPage(@PathVariable Long acom_id, @PathVariable Long room_id, Model model) {
-
-//        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
-        RoomDto room = roomService.findRoomById(room_id);
-        ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(room_id);
-//        model.addAttribute("accommodation", accommodation);
-        model.addAttribute("room", room);
-        model.addAttribute("reservationUnable", reservationUnable);
-
-        return "reservationPage";
     }
 
     //예약 성공 메세지 전송 (상형)

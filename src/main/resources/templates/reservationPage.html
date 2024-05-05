@@ -230,10 +230,6 @@
             console.log(disabledDates);
             var nextAvailableDate = null;
 
-            const isValidDate = function(value) {
-                return value instanceof Date && !isNaN(value);
-            }
-
             for (var i = 0; i < disabledDates.length; i++) {
                 var disabledDate = new Date(Date.parse(disabledDates[i]));
                 if (disabledDate > selectedDate1) {
@@ -252,13 +248,13 @@
                 var startDatePicker2 = new Date(selectedDate1);
                 startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
                 $('#date-picker2').datepicker('setStartDate', startDatePicker2);
-                $('#date-picker2').datepicker('setEndDate', null);
+                $('#date-picker2').datepicker('setEndDate', '+1y');
             }
         });
 
         $('#date-picker2').datepicker({
             format: "yyyy-mm-dd",
-            startDate: '+1d',
+            startDate: '+2d',
             endDate: '+1y',
             datesDisabled: datesDisabledCheckOut,
             todayHighlight: true,
@@ -286,8 +282,9 @@
             } else {
                 var startDatePicker2 = new Date(selectedDate2);
                 startDatePicker2.setDate(startDatePicker2.getDate() - 1);
-                $('#date-picker1').datepicker('setStartDate', '0d');
+                $('#date-picker1').datepicker('setStartDate', '+2d');
                 $('#date-picker1').datepicker('setEndDate', startDatePicker2);
+                // 예약내역 오늘 날짜 지나면 만료 상태로 변경 해줘야 정상 작동.. 더 좋게 없을까
             }
         });
 
@@ -301,7 +298,7 @@
         }
 
         function updateDatePicker2() {
-            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '0d');
+            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '+2d');
             $('#date-picker2').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
         }
 

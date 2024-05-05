@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,8 +22,13 @@ public class PageController {
     private final RoomService roomService;
     private final ReservationService reservationService;
 
+    @GetMapping("/")
+    public String home() {
 
-    @GetMapping("/{accommodationId}/{roomId}/reservationPage")
+        return "index";
+    }
+
+    @GetMapping("/accommodation/{accommodationId}/{roomId}/reservationPage")
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
 
         Accommodation findAccommodation = accommodationService.findAccommodationById(accommodationId);
