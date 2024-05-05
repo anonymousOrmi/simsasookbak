@@ -2,13 +2,13 @@
 <html lang="ko-KR">
 
 <head>
-    <section th:replace="~{/fragment/head::headFragment}"></section>
+    <section th:replace="~{/layout/head::headFragment}"></section>
     <link href="/css/index.css" rel="stylesheet">
 </head>
 
 <body>
-<div th:replace="~{/fragment/top-bar :: top}"></div>
-<div th:replace="~{/fragment/navigation-bar :: nav}"></div>
+<div th:replace="~{/layout/top-bar :: top}"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}"></div>
 
 <!-- Tour Booking Start (검색) -->
 <div class="container-fluid booking py-5">
@@ -267,7 +267,7 @@
 </article>
 <!-- 유튜브 추천 끝 -->
 
-<footer th:replace="~{/fragment/footer::footerFragment}"></footer>
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
 
 <script src="/js/main.js"></script>
 <script src="/js/popularRegion.js"></script>
