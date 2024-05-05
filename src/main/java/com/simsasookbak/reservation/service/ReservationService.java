@@ -3,9 +3,6 @@ package com.simsasookbak.reservation.service;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.repository.ReservationRepository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +22,7 @@ public class ReservationService {
     }
 
     public ReservationUnableDto getReservationUnableDates(Long roomId) {
-        List<Reservation> reservations = findAllByRoomId(roomId);
+        List<Reservation> reservations = findAllCompleteStatusRoomByRoomId(roomId);
 
         ReservationUnableDto reservationUnableDto = new ReservationUnableDto();
 
@@ -53,8 +50,8 @@ public class ReservationService {
         return reservationUnableDto;
     }
 
-    private List<Reservation> findAllByRoomId(Long roomId) {
-        return reservationRepository.findAllByRoomId(roomId);
+    private List<Reservation> findAllCompleteStatusRoomByRoomId(Long roomId) {
+        return reservationRepository.findAllCompleteStatusRoomByRoomId(roomId);
     }
 
     private Date addDays(Date date, int days) {

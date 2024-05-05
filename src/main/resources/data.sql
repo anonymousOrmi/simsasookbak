@@ -56,7 +56,7 @@ VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 
 SET @room_id_two = LAST_INSERT_ID();
 
 INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요', false;
+VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요', false);
 SET @room_id_two_2 = LAST_INSERT_ID();
 
 INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
@@ -69,14 +69,14 @@ SET @room_id_three = LAST_INSERT_ID();
 
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요');
-INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
-VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '만료', '2024-04-15', '2024-04-20', '공짜로 해주세요');
-INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
-VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-9', '2024-05-12', '공짜로 해주세요');
-INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
-VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-14', '2024-05-15', '공짜로 해주세요');
-INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
-VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-20', '2024-05-25', '공짜로 해주세요');
+--INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+--VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '만료', '2024-04-15', '2024-04-20', '공짜로 해주세요');
+--INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+--VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-9', '2024-05-12', '공짜로 해주세요');
+--INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+--VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-14', '2024-05-15', '공짜로 해주세요');
+--INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+--VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-20', '2024-05-25', '공짜로 해주세요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)

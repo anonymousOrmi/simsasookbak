@@ -207,8 +207,15 @@
     // const datesDisabledCheckOut = ['2024-05-06', '2024-05-07', '2024-05-08', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24', '2024-05-25'];
     var datesCheckInString = $('#date-picker1').data('unselectable_dates');
     var datesCheckOutString = $('#date-picker2').data('unselectable_dates');
-    const datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
-    const datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+
+    var datesDisabledCheckIn = [];
+    var datesDisabledCheckOut = [];
+
+    // 두 배열의 길이가 5보다 작지 않은 경우에만 파싱하여 할당
+    if (datesCheckInString.length >= 5 || datesCheckOutString.length >= 5) {
+        datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+        datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+    }
 
     $(function() {
         var selectedDate1 = null;
