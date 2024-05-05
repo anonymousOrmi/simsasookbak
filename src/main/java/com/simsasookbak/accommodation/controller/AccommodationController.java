@@ -1,5 +1,8 @@
 package com.simsasookbak.accommodation.controller;
 
+import com.simsasookbak.accommodation.dto.AccommodationDto;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import com.simsasookbak.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -59,5 +63,15 @@ public class AccommodationController {
     public void review(@PathVariable Integer acom_id) {
     }
 
+    @GetMapping("/list")
+    public String getAccommodationList(@RequestParam(name = "keyword") String keyword,
+                                       @RequestParam(name = "start_date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                       @RequestParam(name = "end_date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                       Model model) {
+        List<AccommodationDto> accommodations = accommodationService.searchAccommodation(keyword);
+        model.addAttribute("accommodations", accommodations);
+
+        return "list-page";
+    }
 
 }
