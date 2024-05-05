@@ -43,24 +43,24 @@ SET @accommodation_id_daejeon = LAST_INSERT_ID();
 
 --room start
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요');
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
+VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요', false);
 SET @room_id_one = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요');
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
+VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요', false);
 SET @room_id_one_2 = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요');
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
+VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요', false);
 SET @room_id_two = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요');
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
+VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요', false;
 SET @room_id_two_2 = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_daejeon, '삼방', 30000, '삼방삼방삼방', '창문을 닫아주세요');
+INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
+VALUES (@accommodation_id_daejeon, '삼방', 30000, '삼방삼방삼방', '창문을 닫아주세요', false);
 SET @room_id_three = LAST_INSERT_ID();
 
 --room end

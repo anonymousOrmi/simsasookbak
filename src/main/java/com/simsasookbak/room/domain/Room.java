@@ -43,8 +43,9 @@ public class Room extends BaseEntity {
 	@Column(name = "use_guide", length = 2000, nullable = false)
 	private String useGuide;
 
-
-
-
+	@Column(name = "is_deleted", nullable = false, columnDefinition = "tinyint(1)")
+	@ColumnDefault("0")
+	@Comment("삭제여부")
+	private Boolean isDeleted;
 
 }

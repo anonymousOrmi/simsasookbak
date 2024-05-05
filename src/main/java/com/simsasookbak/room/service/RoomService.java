@@ -15,8 +15,9 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
+    // TODO: NOTFOUNDEXCEPTION 커스텀하기
     public RoomDto findRoomById(Long roomId) {
-        return roomRepository.findById(roomId)
+        return roomRepository.findByIdAndIsDeletedFalse(roomId)
                 .map(RoomDto::new)
                 .orElseThrow();
     }
