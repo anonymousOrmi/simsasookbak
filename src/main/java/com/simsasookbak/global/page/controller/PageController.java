@@ -8,6 +8,7 @@ import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,8 @@ public class PageController {
     @GetMapping("/accommodation/{accommodationId}/{roomId}/reservationPage")
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
 
-        Accommodation findAccommodation = accommodationService.findAccommodationById(accommodationId);
-        AccommodationDto accommodation = AccommodationDto.toAccommodationDto(findAccommodation);
+
+        AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
         RoomDto room = roomService.findRoomById(roomId);
         ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(roomId);
 

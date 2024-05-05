@@ -16,9 +16,9 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     public RoomDto findRoomById(Long roomId) {
-        Room room = roomRepository.findById(roomId).orElseThrow();
-
-        return RoomDto.toDto(room);
+        return roomRepository.findById(roomId)
+                .map(RoomDto::new)
+                .orElseThrow();
     }
 
     public List<Room> findRoomByAcomId(Long id) {

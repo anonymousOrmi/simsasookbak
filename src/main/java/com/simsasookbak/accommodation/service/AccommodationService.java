@@ -3,23 +3,15 @@ package com.simsasookbak.accommodation.service;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
-import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.repository.ReservationRepository;
-import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
-import com.simsasookbak.review.domain.ExternalSummary;
-import com.simsasookbak.room.domain.Room;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -161,8 +153,9 @@ public class AccommodationService {
 
 
 
-    public Accommodation findAccommodationById(Long id) {
-        return accommodationRepository.findAccommodationById(id);
+    public AccommodationDto findAccommodationById(Long id) {
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow();
+        return AccommodationDto.toAccommodationDto(accommodation);
     }
 
 

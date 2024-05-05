@@ -4,12 +4,13 @@ import com.simsasookbak.room.domain.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Getter
 public class RoomDto {
 
     private Long roomId;
@@ -19,15 +20,13 @@ public class RoomDto {
     private String content;
     private String useGuide;
 
-    public static RoomDto toDto(Room room) {
-        return RoomDto.builder()
-                .roomId(room.getId())
-                .accommodationId(room.getAccommodation().getId())
-                .name(room.getName())
-                .cost(room.getCost())
-                .content(room.getContent())
-                .useGuide(room.getUseGuide())
-                .build();
+    public RoomDto(Room room) {
+        this.roomId = room.getId();
+        this.accommodationId = room.getAccommodation().getId();
+        this.name = room.getName();
+        this.cost = room.getCost();
+        this.content = room.getContent();
+        this.useGuide = room.getUseGuide();
     }
 
 }

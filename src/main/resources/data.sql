@@ -28,15 +28,15 @@ SET @member_id_choi = LAST_INSERT_ID();
 --accommodation start
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
+VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00', '12:00:00', false);
 SET @accommodation_id_seoul = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00:00', '14:00:00', false);
+VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00', '14:00:00', false);
 SET @accommodation_id_cheongju = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00:00', '18:00:00', false);
+VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00', '18:00:00', false);
 SET @accommodation_id_daejeon = LAST_INSERT_ID();
 
 --accommodation end

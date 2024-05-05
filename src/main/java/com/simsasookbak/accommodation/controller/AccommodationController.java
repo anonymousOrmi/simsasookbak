@@ -30,7 +30,7 @@ public class AccommodationController {
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Long acom_id) {
-        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
+//        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
         List<Room> roomList = roomService.findRoomByAcomId(acom_id);
         String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
