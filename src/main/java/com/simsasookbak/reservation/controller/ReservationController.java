@@ -16,11 +16,9 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/{accommodationId}/{roomId}/reservationPage")
-    @ResponseBody
-    public ResponseEntity<?> saveReservation(@PathVariable Long accommodationId, @PathVariable Long roomId, @RequestBody
-                                             ReservationRequestDto requestDto) {
-        return null;
+    @PostMapping("accommodation/{accommodationId}/{roomId}/reservationPage")
+    public String saveReservation(@PathVariable Long accommodationId, @PathVariable Long roomId) {
+        return "index";
     }
 
 }
