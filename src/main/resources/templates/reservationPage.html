@@ -211,7 +211,7 @@
     var datesDisabledCheckIn = [];
     var datesDisabledCheckOut = [];
 
-    // 두 배열의 길이가 5보다 작지 않은 경우에만 파싱하여 할당
+    // 두 배열의 길이가 5보다 작지 않은 경우에만 파싱하여 할당 ( 예약 내역 없을 경우 )
     if (datesCheckInString.length >= 5 || datesCheckOutString.length >= 5) {
         datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
         datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
@@ -220,10 +220,14 @@
     $(function() {
         var selectedDate1 = null;
         var selectedDate2 = null;
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
 
         $('#date-picker1').datepicker({
             format: "yyyy-mm-dd",
-            startDate: '0d',
+            startDate: today,
             endDate: '+1y',
             datesDisabled: datesDisabledCheckIn,
             todayHighlight: true,
@@ -261,7 +265,7 @@
 
         $('#date-picker2').datepicker({
             format: "yyyy-mm-dd",
-            startDate: '+1d',
+            startDate: tomorrow,
             endDate: '+1y',
             datesDisabled: datesDisabledCheckOut,
             todayHighlight: true,
@@ -289,7 +293,7 @@
             } else {
                 var startDatePicker2 = new Date(selectedDate2);
                 startDatePicker2.setDate(startDatePicker2.getDate() - 1);
-                $('#date-picker1').datepicker('setStartDate', '+0d');
+                $('#date-picker1').datepicker('setStartDate', today);
                 $('#date-picker1').datepicker('setEndDate', startDatePicker2);
                 // 예약내역 오늘 날짜 지나면 만료 상태로 변경 해줘야 정상 작동.. 더 좋게 없을까
             }
@@ -300,12 +304,12 @@
         });
 
         function updateDatePicker1() {
-            $('#date-picker1').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '0d');
+            $('#date-picker1').datepicker('setStartDate', selectedDate1 ? selectedDate1 : today);
             $('#date-picker1').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
         }
 
         function updateDatePicker2() {
-            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : '+1d');
+            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : tomorrow);
             $('#date-picker2').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
         }
 
