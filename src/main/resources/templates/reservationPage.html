@@ -129,25 +129,25 @@
                         </div>
                     </div>
                 </div>
-                <form id="reservationForm" th:action="@{accommodation/{accommodationId}/{roomId}/reservationPage(accommodationId=${accommodation.id}, roomId=${room.roomId})}" method="post">
+                <form id="reservationForm" th:action="@{/accommodation/{accommodationId}/{roomId}/reservationPage(accommodationId=${accommodation.id}, roomId=${room.roomId})}" method="post">
                     <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-5">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
+                                <input name="startDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="date" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
                                 <label>입실 일 선택</label>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-floating date" id="date4" data-target-input="nearest">
-                                <input th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
+                                <input name="endDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="date" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
                                 <label>퇴실 일 선택</label>
                             </div>
                         </div>
                         <input type="button" class="btn btn-primary text-white col-md-2" id="clear-dates-btn" value="날짜 초기화">
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="요청 사항" id="request" style="height: 250px"></textarea>
+                                <textarea name="request2" class="form-control bg-white border-0" placeholder="요청 사항" id="request" style="height: 250px"></textarea>
                                 <label for="request">요청 사항</label>
                             </div>
                         </div>
@@ -330,9 +330,12 @@
 
         const formData = new FormData(this);
 
-        const checkInDate = formData.get('checkInDate');
-        const checkOutDate = formData.get('checkOutDate');
-        const request = formData.get('request');
+        const startDate = formData.get('startDate');
+        console.log(startDate);
+        const endDate = formData.get('endDate');
+        console.log(endDate);
+        const request = formData.get('request2');
+        console.log(request);
 
         fetch(this.action, {
             method: 'POST',
@@ -340,8 +343,8 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                checkInDate: checkInDate,
-                checkOutDate: checkOutDate,
+                startDate: startDate,
+                endDate: endDate,
                 request: request
             })
         })
@@ -352,10 +355,6 @@
                 // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
                 alert('예약 신청이 완료되었습니다.');
                 return response.json();
-            })
-            .then(data => {
-                // 홈 페이지로 리다이렉트
-                window.location.href = '/'; // '/'는 홈 페이지의 경로입니다.
             })
             .catch(error => {
                 console.error('Error:', error);
