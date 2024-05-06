@@ -1,5 +1,6 @@
 package com.simsasookbak.accommodation.controller;
 
+import com.simsasookbak.accommodation.dto.AccommodationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,16 @@ public class AccommodationController {
     @PostMapping("/{acom_id}/comment")
     public void review(@PathVariable Integer acom_id) {
     }
+
+
+    @GetMapping("/getHighScoreAccommodation")
+    public String getHighScoreAccommodation(Model model) {
+        List<AccommodationDto> highScoreAccommodations = accommodationService.getHighScoreAccommodation();
+        model.addAttribute("highScoreAccommodations", highScoreAccommodations);
+        return "index";
+    }
+
+
 
 
 }

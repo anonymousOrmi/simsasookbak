@@ -56,34 +56,4 @@ public class AccommodationRestController {
         return ResponseEntity.ok().body(new ArrayList<>(uniqueAccommodations));
     }
 
-    @GetMapping("/getHighScoreAccommodation")
-    public ResponseEntity<?> getHighScoreAccommodation() {
-        try {
-
-            List<AccommodationDto> highScoreAccommodations = accommodationService.getHighScoreAccommodation();
-
-            for (AccommodationDto accommodationDto : highScoreAccommodations) {
-                System.out.println("Accommodation ID: " + accommodationDto.getId());
-            }
-
-            return ResponseEntity.ok(highScoreAccommodations);
-        } catch (Exception e) {
-            // 에러가 발생
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve high score accommodations.");
-        }
-    }
-
-//    @GetMapping("/findScoreSixAccommodation")
-//    public ResponseEntity<?> findScoreSixAccommodation() {
-//        try {
-//            // 상위 평점 6개의 숙소 정보를 가져옵니다.
-//            List<Long> highScoreAccommodations = reviewService.findScoreSixAccommodation();
-//
-//            // 숙소 정보를 정상적으로 가져온 경우 200 OK 응답과 함께 숙소 정보를 반환합니다.
-//            return ResponseEntity.ok(highScoreAccommodations);
-//        } catch (Exception e) {
-//            // 에러가 발생한 경우 500 Internal Server Error 응답을 반환합니다.
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve high score accommodations.");
-//        }
-//    }
 }
