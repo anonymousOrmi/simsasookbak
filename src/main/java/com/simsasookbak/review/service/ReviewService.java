@@ -30,6 +30,7 @@ public class ReviewService {
 //         accommodation ID별 평균 점수를 조회합니다.
         List<ScoreAverageDto> averageScoresByAccommodationId = reviewRepository.findAverageScoreByAccommodationId();
 
+
         for (ScoreAverageDto scoreAverageDto : averageScoresByAccommodationId) {
             Long accommodationId = scoreAverageDto.getAccommodationId();
             Double averageScore = scoreAverageDto.getAverageScore();
@@ -43,7 +44,6 @@ public class ReviewService {
                 .map(ScoreAverageDto::getAccommodationId) // ScoreAverageDto에서 숙소 아이디만 추출합니다.
                 .collect(Collectors.toList());
 
-        System.out.println("제발 진입");
 
         return topSixAccommodationIds;
 

@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -13,7 +13,8 @@ public class ScoreAverageDto {
 
     private Double averageScore;
 
-    public ScoreAverageDto(Long accommodationId, Double averageScore) {
+    public ScoreAverageDto( Long accommodationId, Double averageScore) {
+
         this.accommodationId = accommodationId;
         this.averageScore = averageScore;
     }

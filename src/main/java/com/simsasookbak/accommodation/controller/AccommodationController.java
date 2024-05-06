@@ -61,12 +61,12 @@ public class AccommodationController {
     }
 
 
-    @GetMapping("/getHighScoreAccommodation")
-    public String getHighScoreAccommodation(Model model) {
-        List<AccommodationDto> highScoreAccommodations = accommodationService.getHighScoreAccommodation();
-        model.addAttribute("highScoreAccommodations", highScoreAccommodations);
-        return "index";
-    }
+//    @GetMapping("/getHighScoreAccommodation")
+//    public String getHighScoreAccommodation(Model model) {
+//        List<AccommodationDto> highScoreAccommodations = accommodationService.getHighScoreAccommodation();
+//        model.addAttribute("highScoreAccommodations", highScoreAccommodations);
+//        return "index";
+//    }
 
 
 

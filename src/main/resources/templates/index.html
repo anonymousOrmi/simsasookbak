@@ -65,17 +65,18 @@
                 <div class="packages-img">
                     <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
-                    <div class="packages-price py-2 px-4">$349.00</div>
+                    <div class="packages-price py-2 px-4">Top</div>
                 </div>
                 <div class="packages-content bg-light">
                     <div class="p-4 pb-0">
-                        <h5 class="mb-0" th:text="${accommodation.name}">Venice - Italy</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
+                        <h5 class="mb-0" th:text="${accommodation.name}"></h5>
+                        <small class="text-uppercase"  th:text="${accommodation.region}"></small>
+                        <small class="text-uppercase"  th:text="${accommodation.address}"></small>
+                        <p class="mb-4" th:text="${accommodation.content}"></p>
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
+                            <a class="btn-hover btn text-white py-2 px-4" href="#"></a>
                         </div>
                         <div class="col-6 text-end px-0">
                             <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
