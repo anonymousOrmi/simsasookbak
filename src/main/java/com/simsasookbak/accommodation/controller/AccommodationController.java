@@ -1,11 +1,10 @@
 package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
-import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
-import com.simsasookbak.room.domain.Room;
 import java.util.List;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
@@ -30,19 +29,20 @@ public class AccommodationController {
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Long acom_id, Model model){
-        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
 
+        AccommodationDto accommodation = accommodationService.findAccommodationById(acom_id);
         List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
         String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
         List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
-//        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
+        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("roomList", roomList);
         model.addAttribute("exSummary", exSummary);
         model.addAttribute("inSummary", inSummary);
         model.addAttribute("reviewList",reviewList);
+        model.addAttribute("imgList",imgList);
 
         return "details";
     }
@@ -64,8 +64,9 @@ public class AccommodationController {
 
     }
 
-    @PostMapping("/{acom_id}/comment")
-    public void review(@PathVariable Integer acom_id) {
-
+    //리뷰 등록 페이지 이동
+    @GetMapping("/{acom_id}/comment")
+    public String review(@PathVariable Integer acom_id) {
+        return "review-register";
     }
 }

@@ -6,12 +6,12 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@Embeddable
-@NoArgsConstructor
-@AllArgsConstructor
+//@Embeddable
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class RoomFacilityMappingId implements Serializable {
-    @Column(name = "room_id")
-    private String roomId;
-    @Column(name = "room_facility_id")
-    private String roomFacilityId;
+//    @Column(name = "room_id")
+//    private String roomId;
+//    @Column(name = "room_facility_id")
+//    private String roomFacilityId;
 }

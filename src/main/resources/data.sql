@@ -101,8 +101,35 @@ VALUES ('수영장'),('온천');
 
 --accommodation facility mapping start
 INSERT INTO accommodation_facility_mapping (accommodation_id,accommodation_facility_id)
-VALUES (1,1),(2,1),(2,2)
+VALUES (1,1),(2,1),(2,2);
+--accommodation facility mapping end
 
+--room facility start
+
+INSERT INTO room_facility (name)
+VALUES ('커피포트'),('녹차티백');
+
+--room facility end
+
+--room facility mapping start
+INSERT INTO room_facility_mapping (room_id,room_facility_id)
+VALUES (1,1),(2,1),(2,2);
+--room facility mapping end
+
+--accommodationImage start
+INSERT INTO accommodation_image (accommodation_id,url)
+VALUES (1,'https://i.namu.wiki/i/_VdL80a6q8YfJ3ob0cH0g6M4C4u3eafyHQV8oHFnZetT7yEjHPC8hybEh7-Xwfz6H6S4EkwBn6mkLvhb7rGscQ.webp'),(2,'https://youonejae.com/kor/accommodation/images/accommodation01.png'),(3,'https://q-xx.bstatic.com/xdata/images/hotel/max500/311482139.jpg?k=569f279a3105dfafe82cf60a10f722f4ef24fbfff07cf0954ef484385cbabb87&o=');
+--accommodationImage end
+
+--external summary start
+INSERT INTO external_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
+--external summary end
+
+--internal summary start
+INSERT INTO internal_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
+--internal summary end
 
 -- INSERT INTO member (email, name, password, role, birth_date, status, phone) VALUES
 --                                                                                 ('user1@example.com', 'User 1', 'password1', '이용자', '1990-01-01', '일반', '010-1234-5678'),

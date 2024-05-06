@@ -45,7 +45,8 @@ public class AccommodationService {
         List<AccommodationDto> accommodationDtos = new ArrayList<>();
 
         for (Accommodation accommodation : accommodations) {
-            AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation);
+            List<String> facilityList = findAccommodationFacilityById(accommodation.getId());
+            AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation, facilityList);
             accommodationDtos.add(accommodationDto);
         }
         return accommodationDtos;
@@ -59,7 +60,7 @@ public class AccommodationService {
             List<Accommodation> availableAccommodations = accommodationRepository.findAvailableAccommodationsByDate(startDate, endDate);
 
             List<AccommodationDto> accommodationDtos = availableAccommodations.stream()
-                    .map(AccommodationDto::toAccommodationDto)
+                    .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId())))
                     .collect(Collectors.toList());
 
             Set<Long> notCompletedAccommodationIds = reservationRepository.findNotCompleteStatus(startDate, endDate)
@@ -71,7 +72,7 @@ public class AccommodationService {
                             notCompletedAccommodationIds.stream()
                                     .map(accommodationId -> accommodationRepository.findById(accommodationId)
                                             .orElseThrow(() -> new EntityNotFoundException("Accommodation not found with id: " + accommodationId)))
-                                    .map(AccommodationDto::toAccommodationDto))
+                                    .map(accommodation-> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId()))))
                     .collect(Collectors.toSet());
 
             return new ArrayList<>(mergedAccommodationDtos);
@@ -161,8 +162,11 @@ public class AccommodationService {
 
 
 
-    public Accommodation findAccommodationById(Long id) {
-        return accommodationRepository.findAccommodationById(id);
+    public AccommodationDto findAccommodationById(Long id) {
+        Accommodation accommodation = accommodationRepository.findAccommodationById(id);
+        List<String> facilityList = findAccommodationFacilityById(id);
+
+        return AccommodationDto.toAccommodationDto(accommodation,facilityList);
     }
 
     public List<String> findAccommodationFacilityById(Long id) {
@@ -170,9 +174,9 @@ public class AccommodationService {
     }
 
 
-//    public List<String> findImgByAcomId(Long id) {
-//        return accommodationRepository.findImgByAcomId(id);
-//    }
+    public List<String> findImgByAcomId(Long id) {
+        return accommodationRepository.findImgByAcomId(id);
+    }
 
 }
 

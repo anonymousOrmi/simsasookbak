@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.dto;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,9 +29,11 @@ public class AccommodationDto {
 
     private final Boolean isDeleted;
 
+    private final List<String> facilityList;
+
     @Builder
     public AccommodationDto(Long id, String name, String content, String region, String address, String checkIn, String checkOut,
-                            Boolean isDeleted) {
+                            Boolean isDeleted, List<String> facilityList) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -39,6 +42,7 @@ public class AccommodationDto {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.isDeleted = isDeleted;
+        this.facilityList = facilityList;
 
     }
 
@@ -62,7 +66,7 @@ public class AccommodationDto {
     /**
      * Entity -> Dto
      */
-    public static AccommodationDto toAccommodationDto(Accommodation accommodation) {
+    public static AccommodationDto toAccommodationDto(Accommodation accommodation, List<String> facilityList) {
         return AccommodationDto.builder()
                 .id(accommodation.getId())
                 .name(accommodation.getName())
@@ -72,6 +76,7 @@ public class AccommodationDto {
                 .checkIn(accommodation.getCheckIn())
                 .checkOut(accommodation.getCheckOut())
                 .isDeleted(accommodation.getIsDeleted())
+                .facilityList(facilityList)
                 .build();
     }
 
