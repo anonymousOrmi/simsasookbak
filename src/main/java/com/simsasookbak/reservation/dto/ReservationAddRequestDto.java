@@ -3,7 +3,7 @@ package com.simsasookbak.reservation.dto;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.room.domain.Room;
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ReservationAddRequestDto {
 
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String request;
 
     //TODO : Member 추가

@@ -11,8 +11,7 @@ import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,19 +34,19 @@ public class ReservationService {
         // 각 예약별로 시작일부터 종료일 전날까지의 날짜 => 입실 불가일 리스트
         // 시작일 다음날부터 종료일까지의 날짜 => 퇴실 불가일 리스트
         for (Reservation reservation : reservations) {
-            Date startDate = reservation.getStartDate();
-            Date endDate = reservation.getEndDate();
+            LocalDate startDate = reservation.getStartDate();
+            LocalDate endDate = reservation.getEndDate();
 
             // 입실 불가일 리스트
-            Date currentDate = startDate;
-            while (currentDate.before(endDate)) {
+            LocalDate currentDate = startDate;
+            while (currentDate.isBefore(endDate)) {
                 reservationUnableDto.addCheckInUnselectableDate(currentDate);
                 currentDate = addDays(currentDate, 1);
             }
 
             // 퇴실 불가일 추가
             currentDate = addDays(startDate, 1); // 시작일 다음날
-            while (!currentDate.after(endDate)) {
+            while (!currentDate.isAfter(endDate)) {
                 reservationUnableDto.addCheckOutUnselectableDate(currentDate);
                 currentDate = addDays(currentDate, 1);
             }
@@ -60,11 +59,8 @@ public class ReservationService {
         return reservationRepository.findAllCompleteStatusRoomByRoomId(roomId);
     }
 
-    private Date addDays(Date date, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, days);
-        return calendar.getTime();
+    private static LocalDate addDays(LocalDate date, int days) {
+        return date.plusDays(days);
     }
 
     public ReservationAddResponseDto save(Long accommodationId, Long roomId, ReservationAddRequestDto request) {
@@ -77,7 +73,6 @@ public class ReservationService {
 
         Reservation reservation = request.toEntity(accommodation, room);
         Reservation savedReservation = reservationRepository.save(reservation);
-
 
         return new ReservationAddResponseDto(savedReservation);
     }

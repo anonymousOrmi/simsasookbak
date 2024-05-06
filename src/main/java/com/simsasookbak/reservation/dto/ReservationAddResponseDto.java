@@ -1,9 +1,7 @@
 package com.simsasookbak.reservation.dto;
 
-import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.reservation.domain.Reservation;
-import com.simsasookbak.room.domain.Room;
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +18,8 @@ public class ReservationAddResponseDto {
     private Long accommodationId;
     private Long roomId;
     private String status;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String request;
 
     public ReservationAddResponseDto(Reservation reservation) {

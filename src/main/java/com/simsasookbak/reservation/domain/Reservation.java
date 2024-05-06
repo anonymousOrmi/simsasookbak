@@ -14,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,24 +48,25 @@ public class Reservation extends BaseEntity {
     @Column(name = "status", length = 10, nullable = false)
     @ColumnDefault("'대기'")
     @Comment("예약 상태(대기, 완료, 만료, 취소)")
-	private String status;
+    private String status;
 
     @Column(name = "start_date", nullable = false)
     @Comment("예약 시작일")
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
     @Comment("예약 종료일")
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "request", length = 1000)
     @Comment("특이사항")
     private String request;
 
     @Builder
-    public Reservation(Member member, Accommodation accommodation, Room room, String status, Date startDate, Date endDate, String request) {
+    public Reservation(Member member, Accommodation accommodation, Room room, String status, LocalDate startDate,
+                       LocalDate endDate, String request) {
         this.member = member;
         this.accommodation = accommodation;
         this.room = room;
