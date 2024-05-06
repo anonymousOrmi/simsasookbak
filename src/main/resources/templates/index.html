@@ -15,24 +15,24 @@
     <div class="container py-5">
         <h1 class="text-white mb-3">Search A Your Room</h1>
         <p class="text-white mb-4"> <span class="text-warning">Find rooms that suits you !</span> </p>
-        <form>
+        <form action="/accommodation" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-floating">
-                        <input class="form-control bg-white border-0" id="name" placeholder="Your Name" type="text">
-                        <label for="name">숙소명 or 지역명</label>
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword" placeholder="Your Name" type="text">
+                        <label for="keyword">숙소명 or 지역명</label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" type="text" value="2024-05-01">
-                        <label>입실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="date">
+                        <label for="start-date">입실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" type="text" value="2024-05-01">
-                        <label>퇴실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
+                        <label for="end-date">퇴실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
