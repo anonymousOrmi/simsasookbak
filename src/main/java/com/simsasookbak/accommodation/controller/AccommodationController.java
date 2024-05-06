@@ -28,11 +28,14 @@ public class AccommodationController {
     private final RoomService roomService;
     private final ReviewService reviewService;
 
-    // TODO 숙소 목록
-    @GetMapping
-    public String showAccommodations(@ModelAttribute AccommodationRequest request) {
-        List<AccommodationResponse> response = accommodationService.searchAccommodations(request);
 
+    @GetMapping
+    public String showAccommodations(
+            @ModelAttribute AccommodationRequest request,
+            Model model
+    ) {
+        List<AccommodationResponse> response = accommodationService.searchAccommodations(request);
+        model.addAttribute("accommodations", response);
         return "/accommodations";
     }
 

@@ -7,13 +7,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccommodationResponse {
-    private Long id;
+public class AccommodationResponse implements AccommodationView {
+    private Long accommodationId;
     private String name;
-    private String content;
-    private String region;
     private String address;
-    private String checkIn;
-    private String checkOut;
-    private Boolean isDeleted;
+    private String region;
+    private Integer cost;
+    private Double score;
+
+    public AccommodationResponse(AccommodationView view) {
+        this.accommodationId = view.getAccommodationId();
+        this.name = view.getName();
+        this.address = view.getAddress();
+        this.region = view.getRegion();
+        this.cost = view.getCost();
+        this.score = view.getScore();
+    }
 }
