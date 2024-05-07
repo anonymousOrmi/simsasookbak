@@ -1,9 +1,8 @@
 package com.simsasookbak.accommodation.repository;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
-import com.simsasookbak.accommodation.domain.AccommodationFacilityMapping;
-import java.util.Date;
-import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.accommodation.dto.response.AccommodationView;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,32 +12,62 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccommodationRepository  extends JpaRepository<Accommodation, Long> {
 
+    @Query("select accommodation.id as accommodationId, "
+        + "accommodation.name as name, "
+        + "accommodation.address as address, "
+        + "accommodation.region as region,"
+        + "min(room.cost) as cost, "
+        + "avg(coalesce(review.score, 0.0)) as score "
+        + "from Accommodation accommodation "
+        + "join Room room on accommodation.id = room.accommodation.id "
+        + "left join Review review on accommodation.id = review.accommodation.id "
+        + "where accommodation.isDeleted is false "
+        + "and room.isDeleted is false "
+        + "and (review.isDeleted is null or review.isDeleted is false) "
+        + "and (accommodation.region =:keyword or accommodation.name like %:keyword%) "
+        + "group by room.cost, "
+        + "review.score, "
+        + "accommodation.id, "
+        + "accommodation.region, "
+        + "accommodation.name, "
+        + "accommodation.address "
+    )
+    List<AccommodationView> findAllByKeyword(@Param("keyword") String keyword);
 
-    @Query("SELECT a FROM Accommodation a WHERE a.region LIKE %:keyword% OR a.name LIKE %:keyword%")
-    List<Accommodation> findKeyword(String keyword);
-
-
-    //startDate가 endDate보다 이른 경우 1, 같으면 0 늦으면 -1
-    @Query("SELECT " +
-            "CASE " +
-            "WHEN DATEDIFF(:startDate, :endDate) < 0 THEN 1 " +
-            "WHEN DATEDIFF(:startDate, :endDate) = 0 THEN 0 " +
-            "ELSE -1 " +
-            "END " +
-            "FROM Accommodation a")
-    int compareStartAndEndDates(Date startDate, Date endDate);
-
-//    @Query("SELECT a FROM Accommodation a WHERE a.id NOT IN " +
-//            "(SELECT res.accommodation.id FROM Reservation res WHERE res.startDate <= :endDate AND res.endDate >= :startDate) " +
-//            "OR a.id NOT IN (SELECT r.accommodation.id FROM Room r)")
-//    List<Accommodation> findAvailableAccommodationsByDate(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
-
-    @Query("SELECT DISTINCT a FROM Accommodation a " +
-            "LEFT JOIN Room r ON r.accommodation = a " +
-            "WHERE (a.id NOT IN (SELECT res.accommodation.id FROM Reservation res WHERE res.startDate <= :endDate AND res.endDate >= :startDate) " +
-            "OR r.id NOT IN (SELECT res.room.id FROM Reservation res WHERE res.room.accommodation = a AND res.startDate <= :endDate AND res.endDate >= :startDate))")
-    List<Accommodation> findAvailableAccommodationsByDate(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+    // inline view 사용을 위한 native 쿼리 사용 (JPQL에서는 미지원)
+    @Query(
+        value = "select  A.accommodation_id as accommodationId, "
+                + "        min(coalesce(A.cost, 0)) as cost, "
+                + "        AA.region as region, "
+                + "        AA.name as name, "
+                + "        AA.address as address, "
+                + "        avg(coalesce(R.score, 0.0)) as score "
+                + "from accommodation AA   "
+                + "join room A on AA.accommodation_id = A.accommodation_id   "
+                + "left join review R on AA.accommodation_id = R.accommodation_id   "
+                + "where 1=1   "
+                + "and A.is_deleted is false   "
+                + "and AA.is_deleted is false   "
+                + "and A.room_id not in (   "
+                + "    select B.room_id   "
+                + "    from reservation B   "
+                + "    where (B.start_date <= :startDate and B.end_date >= :endDate) "
+                + "        or B.status = '취소' "
+                + ") "
+                + "and (AA.region = :keyword or AA.name like %:keyword%) "
+                + "group by A.accommodation_id,   "
+                + "         A.cost, "
+                + "         R.score, "
+                + "         AA.region, "
+                + "         AA.address, "
+                + "         AA.name ",
+        nativeQuery = true
+    )
+    List<AccommodationView> findAllByStartDateAndEndDate(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
+            @Param("keyword") String keyword
+    );
 
     Accommodation findAccommodationById(Long id);
 
@@ -47,4 +76,5 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
 
     @Query("SELECT a.accommodationFacility.name FROM AccommodationFacilityMapping a WHERE a.accommodation.id = :id")
     List<String> findAccommodationFacilityById(Long id);
+
 }

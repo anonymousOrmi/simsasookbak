@@ -9,7 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    Optional<Room> findById(Long roomId);
+    Optional<Room> findByIdAndIsDeletedFalse(Long roomId);
+
 
     @Query("SELECT a FROM Room a WHERE a.accommodation.id = :acom_id")
     List<Room> findRoomsByAcomId(@Param("acom_id") Long acom_id);

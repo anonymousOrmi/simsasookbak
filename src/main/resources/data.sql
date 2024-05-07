@@ -70,6 +70,14 @@ SET @room_id_three = LAST_INSERT_ID();
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '대기', '2024-05-10', '2024-05-12', '공짜로 해주세요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '만료', '2024-04-15', '2024-04-20', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-09', '2024-05-12', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-14', '2024-05-15', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
+VALUES (@member_id_park, @accommodation_id_seoul, @room_id_one, '완료', '2024-05-20', '2024-05-25', '공짜로 해주세요');
+INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_lee, @accommodation_id_cheongju, @room_id_two_2, '완료', '2024-05-20', '2024-05-30', '이 방 제가 살게요');
@@ -77,6 +85,7 @@ INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_dat
 VALUES (@member_id_lee, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-04', '2024-05-05', '잠깐 다녀갈게요');
 INSERT INTO reservation (member_id, accommodation_id, room_id, status, start_date, end_date, request)
 VALUES (@member_id_jeong, @accommodation_id_daejeon, @room_id_three, '대기', '2024-05-05', '2024-05-06', '깨끗하게 해주세요');
+
 --reservation end
 
 --review start
@@ -166,4 +175,3 @@ VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,
 --                                                                                                           (2, 1, 2, '완료', '2024-06-01', '2024-06-05', '조용한 방을 원합니다'),
 --                                                                                                           (3, 2, 3, '대기', '2024-07-10', '2024-07-15', '친구들과 함께 예약했습니다'),
 --                                                                                                           (1, 2, 1, '만료', '2024-08-20', '2024-08-25', '휴가 기간에 이용할 예정입니다'),
---

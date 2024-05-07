@@ -1,10 +1,7 @@
 package com.simsasookbak.accommodation.dto;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -73,8 +70,8 @@ public class AccommodationDto {
                 .content(accommodation.getContent())
                 .region(accommodation.getRegion())
                 .address(accommodation.getAddress())
-                .checkIn(accommodation.getCheckIn())
-                .checkOut(accommodation.getCheckOut())
+                .checkIn(String.valueOf(accommodation.getCheckIn()))
+                .checkOut(String.valueOf(accommodation.getCheckOut()))
                 .isDeleted(accommodation.getIsDeleted())
                 .facilityList(facilityList)
                 .build();

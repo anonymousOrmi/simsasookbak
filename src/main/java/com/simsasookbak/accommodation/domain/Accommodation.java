@@ -2,7 +2,6 @@ package com.simsasookbak.accommodation.domain;
 
 import com.simsasookbak.global.BaseEntity;
 import com.simsasookbak.member.domain.Member;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,10 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,7 +34,7 @@ public class Accommodation extends BaseEntity {
     private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "member_id", nullable = false)
 	private Member member;
 
 	@Column(name = "name", length = 100, nullable = false)
@@ -52,12 +50,10 @@ public class Accommodation extends BaseEntity {
 	private String address;
 
 	@Column(name = "check_in", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private String checkIn;
+	private LocalTime checkIn;
 
 	@Column(name = "check_out", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private String checkOut;
+	private LocalTime checkOut;
 
 	@Column(name = "is_deleted", nullable = false, columnDefinition = "tinyint(1)")
 	@ColumnDefault("0")
@@ -74,14 +70,9 @@ public class Accommodation extends BaseEntity {
 		this.name = name;
 		this.content = content;
 		this.region = region;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
+		this.checkIn = LocalTime.parse(checkIn);
+		this.checkOut = LocalTime.parse(checkOut);
 		this.isDeleted = isDeleted;
 		this.address = address;
 	}
-
-/*ai_external_id`	bigint(20)	NOT NULL,
-	member_id`	bigint(20)	NOT NULL*/
-
-
 }
