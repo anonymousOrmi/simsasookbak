@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -56,6 +59,9 @@ public class Accommodation extends BaseEntity {
 	@ColumnDefault("0")
 	@Comment("삭제여부")
 	private Boolean isDeleted;
+
+	@OneToMany(mappedBy = "accommodation")
+	private List<AccommodationFacilityMapping> accommodationFacilityMappingList = new ArrayList<>();
 
 	@Builder
 	public Accommodation(Long id, String name, String content, String region, String checkIn, String checkOut,

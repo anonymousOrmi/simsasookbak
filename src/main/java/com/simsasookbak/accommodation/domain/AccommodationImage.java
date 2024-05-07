@@ -27,7 +27,10 @@ public class AccommodationImage extends BaseEntity {
 //    @JoinColumn(name = "accommodation_id")
 //    private Accommodation accommodation;
 
-
     @Column(name = "url", nullable = false, columnDefinition = "text")
     private String url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accommodation_id", nullable = false)
+    private Accommodation accommodation;
 }

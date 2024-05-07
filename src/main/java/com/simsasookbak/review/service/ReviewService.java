@@ -1,14 +1,15 @@
 package com.simsasookbak.review.service;
+
+import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.repository.ReviewRepository;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,14 @@ public class ReviewService {
         return reviewRepository.findInSummaryByAcomId(id);
     }
 
+    public List<ReviewDto> findAllReviewByAcomId(Long id) {
+         List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream().map(ReviewDto::toDto).collect(Collectors.toList());
+        for (ReviewDto reviewDto : reviewList) {
+            reviewDto.setFormattedCreatedAt(reviewDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            reviewDto.setFormattedUpdatedAt(reviewDto.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+         return reviewList;
+    }
     public List<Long> findScoreSixAccommodation() {
 //         accommodation ID별 평균 점수를 조회합니다.
         List<ScoreAverageDto> averageScoresByAccommodationId = reviewRepository.findAverageScoreByAccommodationId();
@@ -50,8 +59,4 @@ public class ReviewService {
 
 
     }
-
-
-
-
 }

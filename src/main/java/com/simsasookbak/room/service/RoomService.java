@@ -4,7 +4,9 @@ import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.repository.RoomRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +19,27 @@ public class RoomService {
 
     // TODO: NOTFOUNDEXCEPTION 커스텀하기
     public RoomDto findRoomById(Long roomId) {
-        return roomRepository.findByIdAndIsDeletedFalse(roomId)
-                .map(RoomDto::new)
-                .orElseThrow();
+//<<<<<<< HEAD
+        Room room = roomRepository.findByIdAndIsDeletedFalse(roomId).orElseThrow();
+        List<String> facilities = roomRepository.findRoomFacilityById(roomId);
+
+        return RoomDto.toDto(room,facilities);
+//=======
+//        return roomRepository.findByIdAndIsDeletedFalse(roomId)
+//                .map(RoomDto::new)
+//                .orElseThrow();
+//>>>>>>> develop
     }
 
-    public List<Room> findRoomByAcomId(Long id) {
-        return roomRepository.findRoomsByAcomId(id);
+    public List<RoomDto> findRoomByAcomId(Long id) {
+        return roomRepository.findRoomsByAcomId(id)
+                .stream()
+                .map(room -> RoomDto.toDto(room,findRoomFacilityById(room.getId()))) // RoomService를 전달
+                .collect(Collectors.toList());
+    }
+
+    public List<String> findRoomFacilityById(Long roomId) {
+        return roomRepository.findRoomFacilityById(roomId);
     }
 
 }
