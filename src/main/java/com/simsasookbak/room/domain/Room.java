@@ -11,14 +11,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Comment;
 
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Room extends BaseEntity {
+
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "room_id", updatable = false)
@@ -40,8 +45,8 @@ public class Room extends BaseEntity {
 	@Column(name = "use_guide", length = 2000, nullable = false)
 	private String useGuide;
 
-
-
-
-
+	@Column(name = "is_deleted", nullable = false, columnDefinition = "tinyint(1)")
+	@ColumnDefault("0")
+	@Comment("삭제여부")
+	private Boolean isDeleted;
 }
