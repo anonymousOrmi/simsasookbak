@@ -61,6 +61,4 @@ public class Reservation extends BaseEntity {
     @Column(name = "request", length = 1000)
     @Comment("특이사항")
     private String request;
-    /*private  user_id 	bigint(20)	NOT NULL,*/
-	/*private  room_id 	bigint(20)	NOT NULL	DEFAULT NOT NULL*/
 }
