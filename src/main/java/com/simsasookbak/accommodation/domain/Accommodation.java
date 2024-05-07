@@ -10,8 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import java.time.LocalTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -48,12 +47,10 @@ public class Accommodation extends BaseEntity {
 	private String address;
 
 	@Column(name = "check_in", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private String checkIn;
+	private LocalTime checkIn;
 
 	@Column(name = "check_out", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private String checkOut;
+	private LocalTime checkOut;
 
 	@Column(name = "is_deleted", nullable = false, columnDefinition = "tinyint(1)")
 	@ColumnDefault("0")
@@ -67,8 +64,8 @@ public class Accommodation extends BaseEntity {
 		this.name = name;
 		this.content = content;
 		this.region = region;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
+		this.checkIn = LocalTime.parse(checkIn);
+		this.checkOut = LocalTime.parse(checkOut);
 		this.isDeleted = isDeleted;
 		this.address = address;
 	}

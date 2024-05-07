@@ -2,37 +2,37 @@
 <html lang="ko-KR">
 
 <head>
-    <section th:replace="~{/fragment/head::headFragment}"></section>
+    <section th:replace="~{/layout/head::headFragment}"></section>
     <link href="/css/index.css" rel="stylesheet">
 </head>
 
 <body>
-<div th:replace="~{/fragment/top-bar :: top}"></div>
-<div th:replace="~{/fragment/navigation-bar :: nav}"></div>
+<div th:replace="~{/layout/top-bar :: top}"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}"></div>
 
 <!-- Tour Booking Start (검색) -->
 <div class="container-fluid booking py-5">
     <div class="container py-5">
         <h1 class="text-white mb-3">Search A Your Room</h1>
         <p class="text-white mb-4"> <span class="text-warning">Find rooms that suits you !</span> </p>
-        <form action="/accommodation/search" method="GET">
+        <form action="/accommodation" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-floating">
-                        <input class="form-control bg-white border-0" id="name" name="keyword" placeholder="Your Name" type="text">
-                        <label for="name">숙소명 or 지역명</label>
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword" placeholder="Your Name" type="text">
+                        <label for="keyword">숙소명 or 지역명</label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="text" value="2024-05-01">
-                        <label>입실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="date">
+                        <label for="start-date">입실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="text" value="2024-05-01">
-                        <label>퇴실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
+                        <label for="end-date">퇴실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -267,7 +267,7 @@
 </article>
 <!-- 유튜브 추천 끝 -->
 
-<footer th:replace="~{/fragment/footer::footerFragment}"></footer>
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
 
 <script src="/js/main.js"></script>
 <script src="/js/popularRegion.js"></script>

@@ -1,9 +1,7 @@
 package com.simsasookbak.accommodation.dto;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
-import java.util.ArrayList;
-import java.util.Collections;
-import lombok.AllArgsConstructor;
+import java.time.format.DateTimeFormatter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -69,8 +67,8 @@ public class AccommodationDto {
                 .content(accommodation.getContent())
                 .region(accommodation.getRegion())
                 .address(accommodation.getAddress())
-                .checkIn(accommodation.getCheckIn())
-                .checkOut(accommodation.getCheckOut())
+                .checkIn(accommodation.getCheckIn().format(DateTimeFormatter.ISO_DATE))
+                .checkOut(accommodation.getCheckOut().format(DateTimeFormatter.ISO_DATE))
                 .isDeleted(accommodation.getIsDeleted())
                 .build();
     }

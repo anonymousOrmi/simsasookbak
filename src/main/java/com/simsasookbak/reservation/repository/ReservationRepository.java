@@ -14,11 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    @Query("SELECT r FROM Reservation r JOIN r.accommodation a " +
-            "WHERE r.status <> '완료' AND (r.startDate <= :endDate AND r.endDate >= :startDate) " +
-            "AND (a.region LIKE %:keyword% OR a.name LIKE %:keyword%)")
-    List<Reservation> findNotCompleteStatus(@Param("keyword") String keyword, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
     @Query(
           "select reservation.accommodation.region as region "
         + "from Reservation reservation "
@@ -26,7 +21,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
         + "join reservation.accommodation accommodation "
         + "where accommodation.isDeleted = false "
         + "and reservation.createdAt > :diffDatetime "
-        + "group by region "
+        + "group by region order by region desc "
     )
     List<ReservationView> findPopularRegionsByCreatedAt(
             @Param("diffDatetime") LocalDateTime diffDatetime,
