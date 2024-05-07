@@ -3,6 +3,7 @@ package com.simsasookbak.review.service;
 import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.repository.ReviewRepository;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,11 @@ public class ReviewService {
     }
 
     public List<ReviewDto> findAllReviewByAcomId(Long id) {
-        return reviewRepository.findAllReviewByAcomId(id).stream().map(ReviewDto::toDto).collect(Collectors.toList());
+         List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream().map(ReviewDto::toDto).collect(Collectors.toList());
+        for (ReviewDto reviewDto : reviewList) {
+            reviewDto.setFormattedCreatedAt(reviewDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            reviewDto.setFormattedUpdatedAt(reviewDto.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+         return reviewList;
     }
 }

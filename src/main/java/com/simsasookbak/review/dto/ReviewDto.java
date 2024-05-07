@@ -21,6 +21,8 @@ public class ReviewDto {
     private Boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String formattedCreatedAt;
+    private String formattedUpdatedAt;
 
     public static ReviewDto toDto(Review review) {
         return ReviewDto.builder()
@@ -34,6 +36,14 @@ public class ReviewDto {
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
                 .build();
+    }
+
+    public void setFormattedCreatedAt(String formattedCreatedAt) {
+        this.formattedCreatedAt = formattedCreatedAt;
+    }
+
+    public void setFormattedUpdatedAt(String formattedUpdatedAt) {
+        this.formattedUpdatedAt = formattedUpdatedAt;
     }
 
 }

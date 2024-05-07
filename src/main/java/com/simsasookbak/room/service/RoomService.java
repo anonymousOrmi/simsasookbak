@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-@Slf4j
 public class RoomService {
 
     private final RoomRepository roomRepository;
@@ -33,7 +32,6 @@ public class RoomService {
     }
 
     public List<String> findRoomFacilityById(Long roomId) {
-        log.info("방 편의시설 : "+roomRepository.findRoomFacilityById(roomId));
         return roomRepository.findRoomFacilityById(roomId);
     }
 

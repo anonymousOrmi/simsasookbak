@@ -164,10 +164,10 @@
                                                  th:text="${review.getMemberName()}">
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'생성일자'+ ${review.getCreatedAt()}">
+                                                 th:text="'생성일자 : '+ ${review.getFormattedCreatedAt()}">
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'수정일자'+ ${review.getCreatedAt()}">
+                                                 th:text="'수정일자 : '+ ${review.getFormattedUpdatedAt()}">
                                                 수정일
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
