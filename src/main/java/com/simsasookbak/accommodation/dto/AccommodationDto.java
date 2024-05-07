@@ -2,6 +2,7 @@ package com.simsasookbak.accommodation.dto;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import java.util.List;
+import java.time.LocalTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -20,9 +21,9 @@ public class AccommodationDto {
 
     private final String address;
 
-    private final String checkIn;
+    private final LocalTime checkIn;
 
-    private final String checkOut;
+    private final LocalTime checkOut;
 
     private final Boolean isDeleted;
 
@@ -36,8 +37,8 @@ public class AccommodationDto {
         this.content = content;
         this.region = region;
         this.address = address;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+        this.checkIn = LocalTime.parse(checkIn);
+        this.checkOut = LocalTime.parse(checkOut);
         this.isDeleted = isDeleted;
         this.facilityList = facilityList;
 
@@ -53,9 +54,9 @@ public class AccommodationDto {
                 .name(dto.getName())
                 .content(dto.getContent())
                 .region(dto.getRegion())
-                .address(dto.getAddress())   //? 이 부분만 에러..?
-                .checkIn(dto.getCheckIn())
-                .checkOut(dto.getCheckOut())
+                .address(dto.getAddress())
+                .checkIn(String.valueOf(dto.getCheckIn()))
+                .checkOut(String.valueOf(dto.getCheckOut()))
                 .isDeleted(dto.getIsDeleted())
                 .build();
     }
