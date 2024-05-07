@@ -3,7 +3,6 @@ package com.simsasookbak.reservation.repository;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.response.ReservationView;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +26,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("diffDatetime") LocalDateTime diffDatetime,
             Pageable pageable
     );
+
+    @Query("SELECT r FROM Reservation r WHERE r.room.id = :roomId AND r.status = '완료'")
+    List<Reservation> findAllCompleteStatusRoomByRoomId(@Param("roomId") Long roomId);
 }
