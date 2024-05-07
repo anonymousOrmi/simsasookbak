@@ -27,7 +27,7 @@ public class RegisterDto {
     private String phone;
 
     public Member toEntity(){
-        return new Member(this.email,this.name,this.password,this.role, new Date(101111010),"일반",this.phone);
+        return new Member(this.email,this.name,this.password,this.role, this.birthDate,"일반",this.phone);
 //        return new Member("test@test.com","hi","1234","이용자", new Date(101111010),"일반","01011111111");
     }
 }
