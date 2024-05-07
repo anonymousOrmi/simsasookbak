@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/reservation")
+@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
 
     //TODO: 회원정보 받아오기
-    @PostMapping("accommodation/{accommodationId}/{roomId}/reservationPage")
+    @PostMapping("/{accommodationId}/{roomId}")
     public ResponseEntity<ReservationAddResponseDto> saveReservation(@PathVariable Long accommodationId,
                                                                      @PathVariable Long roomId,
                                                                      @RequestBody ReservationAddRequestDto request) {
@@ -35,7 +35,7 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    @GetMapping("/reservation/popular-region")
+    @GetMapping("/popular-region")
     public ResponseEntity<List<ReservationResponse>> getPopularRegionsByDate(@ModelAttribute PopularRegionRequest request) {
         List<ReservationResponse> response = reservationService.findPopularRegionsByDate(request);
         return ResponseEntity.ok(response);
