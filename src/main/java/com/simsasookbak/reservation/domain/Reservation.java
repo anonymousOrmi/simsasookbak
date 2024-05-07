@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -24,6 +25,7 @@ import org.hibernate.annotations.Comment;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id", updatable = false)
@@ -44,7 +46,7 @@ public class Reservation extends BaseEntity {
     @Column(name = "status", length = 10, nullable = false)
     @ColumnDefault("'대기'")
     @Comment("예약 상태(대기, 완료, 만료, 취소)")
-	private String status;
+    private String status;
 
     @Column(name = "start_date", nullable = false)
     @Comment("예약 시작일")
@@ -57,4 +59,18 @@ public class Reservation extends BaseEntity {
     @Column(name = "request", length = 1000)
     @Comment("특이사항")
     private String request;
+
+    //삭제할지 확인
+    @Builder
+    public Reservation(Member member, Accommodation accommodation, Room room, String status, LocalDate startDate,
+                       LocalDate endDate, String request) {
+        this.member = member;
+        this.accommodation = accommodation;
+        this.room = room;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.request = request;
+    }
+
 }

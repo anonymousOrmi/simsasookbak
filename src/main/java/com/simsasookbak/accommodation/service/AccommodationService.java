@@ -31,6 +31,10 @@ public class AccommodationService {
                 .map(AccommodationResponse::new)
                 .toList();
     }
+  
+    public AccommodationDto findAccommodationById(Long id) {
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow();
+        return AccommodationDto.toAccommodationDto(accommodation);
 
     public Accommodation findAccommodationById(Long id) {
         return accommodationRepository.findAccommodationById(id);

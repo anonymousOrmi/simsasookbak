@@ -4,6 +4,8 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.reservation.dto.ReservationUnableDto;
+import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
@@ -42,24 +44,13 @@ public class AccommodationController {
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")
     public String details(@PathVariable Long acom_id) {
-        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
+//        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
         List<Room> roomList = roomService.findRoomByAcomId(acom_id);
         String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
 //        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         return "details";
-    }
-
-    @GetMapping("/{acom_id}/{room_id}/reservationPage")
-    public String viewReservationPage(@PathVariable Long acom_id, @PathVariable Long room_id, Model model) {
-
-//        Accommodation accommodation = accommodationService.findAccommodationById(acom_id);
-        RoomDto room = roomService.findRoomById(room_id);
-//        model.addAttribute("accommodation", accommodation);
-        model.addAttribute("room", room);
-
-        return "reservationPage";
     }
 
     //예약 성공 메세지 전송 (상형)
