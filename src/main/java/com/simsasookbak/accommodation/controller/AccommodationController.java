@@ -1,6 +1,8 @@
 package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.service.ReservationService;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,17 @@ public class AccommodationController {
     private final AccommodationService accommodationService;
     private final RoomService roomService;
     private final ReviewService reviewService;
+
+
+    @GetMapping
+    public String showAccommodations(
+            @ModelAttribute AccommodationRequest request,
+            Model model
+    ) {
+        List<AccommodationResponse> response = accommodationService.searchAccommodations(request);
+        model.addAttribute("accommodations", response);
+        return "/accommodations";
+    }
 
     //상세 페이지 조회 (영석)
     @GetMapping("/{acom_id}")

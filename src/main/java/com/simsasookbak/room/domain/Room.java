@@ -49,5 +49,4 @@ public class Room extends BaseEntity {
 	@ColumnDefault("0")
 	@Comment("삭제여부")
 	private Boolean isDeleted;
-
 }

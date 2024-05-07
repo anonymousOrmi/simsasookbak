@@ -6,9 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.sql.Date;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +38,6 @@ public class Member extends BaseEntity {
 
     @Column(name = "birth_date", nullable = false)
     @Comment("생년월일")
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
 
     @Column(name = "status", length = 10,  nullable = false)

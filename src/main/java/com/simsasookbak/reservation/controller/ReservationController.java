@@ -10,9 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
+import com.simsasookbak.reservation.dto.response.ReservationResponse;
+import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
+//@RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -28,4 +35,9 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
+    @GetMapping("/reservation/popular-region")
+    public ResponseEntity<List<ReservationResponse>> getPopularRegionsByDate(@ModelAttribute PopularRegionRequest request) {
+        List<ReservationResponse> response = reservationService.findPopularRegionsByDate(request);
+        return ResponseEntity.ok(response);
+    }
 }

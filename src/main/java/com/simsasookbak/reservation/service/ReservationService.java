@@ -16,6 +16,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
+import com.simsasookbak.reservation.dto.response.ReservationResponse;
+import java.time.LocalDateTime;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 @Transactional
@@ -77,4 +83,15 @@ public class ReservationService {
         return new ReservationAddResponseDto(savedReservation);
     }
 
+    public List<ReservationResponse> findPopularRegionsByDate(PopularRegionRequest request) {
+        Pageable pageable = PageRequest.of(0, request.getLimit());
+        LocalDateTime diffDatetime = LocalDateTime.now().minusDays(request.getDay());
+        return reservationRepository.findPopularRegionsByCreatedAt(diffDatetime, pageable)
+                .stream()
+                .map(view -> ReservationResponse.builder()
+                        .region(view.getRegion())
+                        .build()
+                )
+                .toList();
+    }
 }
