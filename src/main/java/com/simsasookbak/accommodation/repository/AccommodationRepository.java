@@ -57,7 +57,6 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "and (AA.region = :keyword or AA.name like %:keyword%) "
                 + "group by A.accommodation_id,   "
                 + "         A.cost, "
-                + "         R.score, "
                 + "         AA.region, "
                 + "         AA.address, "
                 + "         AA.name ",
