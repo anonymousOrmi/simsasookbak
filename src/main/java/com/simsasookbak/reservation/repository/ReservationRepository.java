@@ -27,4 +27,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("diffDatetime") LocalDateTime diffDatetime,
             Pageable pageable
     );
+
+    @Query("SELECT r FROM Reservation r WHERE r.room.id = :roomId AND r.status = '완료'")
+    List<Reservation> findAllCompleteStatusRoomByRoomId(@Param("roomId") Long roomId);
 }

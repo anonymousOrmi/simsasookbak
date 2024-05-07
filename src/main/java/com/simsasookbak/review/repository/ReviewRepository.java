@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ReviewRepository extends JpaRepository<Review,Long> {
 
     @Query("SELECT a.summary FROM ExternalSummary a WHERE a.accommodation.id = :acom_id")

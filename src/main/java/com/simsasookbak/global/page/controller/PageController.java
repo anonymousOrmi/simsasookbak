@@ -23,11 +23,11 @@ public class PageController {
     private final RoomService roomService;
     private final ReservationService reservationService;
 
-    @GetMapping("/")
-    public String home() {
-
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String home() {
+//
+//        return "index";
+//    }
 
     @GetMapping("/accommodation/{accommodationId}/{roomId}/reservationPage")
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {

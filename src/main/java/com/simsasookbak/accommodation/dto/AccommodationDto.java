@@ -67,8 +67,8 @@ public class AccommodationDto {
                 .content(accommodation.getContent())
                 .region(accommodation.getRegion())
                 .address(accommodation.getAddress())
-                .checkIn(accommodation.getCheckIn().format(DateTimeFormatter.ISO_DATE))
-                .checkOut(accommodation.getCheckOut().format(DateTimeFormatter.ISO_DATE))
+                .checkIn(String.valueOf(accommodation.getCheckIn()))
+                .checkOut(String.valueOf(accommodation.getCheckOut()))
                 .isDeleted(accommodation.getIsDeleted())
                 .build();
     }
