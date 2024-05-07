@@ -52,172 +52,31 @@
 </div>
 <!-- Tour Booking End -->
 
+
 <!-- (인기 숙소) -->
 <div class="container-fluid packages py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Hot accommodations</h5>
-            <h1 class="mb-0">인기 숙소 Top5</h1>
+            <h1 class="mb-0">인기 숙소 Top6</h1>
         </div>
         <div class="packages-carousel owl-carousel">
-            <div class="packages-item">
+            <div th:each="accommodation : ${highScoreAccommodations}" class="packages-item">
                 <div class="packages-img">
                     <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$349.00</div>
+                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
+                    <div class="packages-price py-2 px-4">Top</div>
                 </div>
                 <div class="packages-content bg-light">
                     <div class="p-4 pb-0">
-                        <h5 class="mb-0">Venice - Italy</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
+                        <h5 class="mb-0" th:text="${accommodation.name}"></h5>
+                        <small class="text-uppercase"  th:text="${accommodation.region}"></small>
+                        <small class="text-uppercase"  th:text="${accommodation.address}"></small>
+                        <p class="mb-4" th:text="${accommodation.content}"></p>
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-2.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$449.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">The New California</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-3.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$549.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Discover Japan</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-1.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$649.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Thayland Trip</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-1.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$649.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Thayland Trip</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>
+                            <a class="btn-hover btn text-white py-2 px-4" href="#"></a>
                         </div>
                         <div class="col-6 text-end px-0">
                             <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
@@ -226,9 +85,53 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-<!-- 인기 숙소 끝 -->
+
+
+
+
+
+
+<!--&lt;!&ndash; (인기 숙소) &ndash;&gt;-->
+<!--<div class="container-fluid packages py-5">-->
+<!--    <div class="container py-5">-->
+<!--        <div class="mx-auto text-center mb-5" style="max-width: 900px;">-->
+<!--            <h5 class="section-title px-3">Hot accommodations</h5>-->
+<!--            <h1 class="mb-0">인기 숙소 Top6</h1>-->
+<!--        </div>-->
+<!--        <div class="packages-carousel owl-carousel">-->
+
+<!--            <div class="packages-item">-->
+<!--                <div class="packages-img">-->
+<!--                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">-->
+<!--                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">-->
+<!--                    </div>-->
+<!--                    <div class="packages-price py-2 px-4">$349.00</div>-->
+<!--                </div>-->
+<!--                <div class="packages-content bg-light">-->
+<!--                    <div class="p-4 pb-0">-->
+<!--                        <h5 class="mb-0">Venice - Italy</h5>-->
+<!--                        <small class="text-uppercase">Hotel Deals</small>-->
+<!--                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>-->
+<!--                    </div>-->
+<!--                    <div class="row bg-primary rounded-bottom mx-0">-->
+<!--                        <div class="col-6 text-start px-0">-->
+<!--                            <a class="btn-hover btn text-white py-2 px-4" href="#">Read More</a>-->
+<!--                        </div>-->
+<!--                        <div class="col-6 text-end px-0">-->
+<!--                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
 
 <!-- 인기 지역 시작 -->
 <div class="container-fluid ExploreTour py-5">
@@ -236,7 +139,7 @@
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Hot places</h5>
             <h1 class="mb-4">인기 지역 Top6</h1>
-            <p class="mb-0">최근 7일간 예약이 가장 많이 발생한 지역들을 소개합니다!
+            <p class="mb-0">리뷰 별점이 높은 숙소들을 소개합니다 !
             </p>
         </div>
         <div class="tab-class text-center">

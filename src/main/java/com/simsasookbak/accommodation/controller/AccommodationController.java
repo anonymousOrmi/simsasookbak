@@ -1,14 +1,10 @@
 package com.simsasookbak.accommodation.controller;
 
-import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
-import com.simsasookbak.reservation.dto.ReservationUnableDto;
-import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.domain.Room;
-import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +58,4 @@ public class AccommodationController {
     @PostMapping("/{acom_id}/comment")
     public void review(@PathVariable Integer acom_id) {
     }
-
-
 }
