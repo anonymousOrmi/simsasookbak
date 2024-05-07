@@ -12,8 +12,10 @@ import com.simsasookbak.review.domain.ExternalSummary;
 import com.simsasookbak.room.domain.Room;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
@@ -22,8 +24,11 @@ import java.util.stream.Stream;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @RequiredArgsConstructor
@@ -52,113 +57,48 @@ public class AccommodationService {
     }
 
     @Transactional
-    public List<AccommodationDto> searchDate(Date startDate, Date endDate) {
+    public List<AccommodationDto> searchMain(String keyword, Date startDate, Date endDate) {
+        // 날짜 유효성 검사
         int diff = accommodationRepository.compareStartAndEndDates(startDate, endDate);
-
-        if (diff == 1) {
-            List<Accommodation> availableAccommodations = accommodationRepository.findAvailableAccommodationsByDate(startDate, endDate);
-
-            List<AccommodationDto> accommodationDtos = availableAccommodations.stream()
-                    .map(AccommodationDto::toAccommodationDto)
-                    .collect(Collectors.toList());
-
-            Set<Long> notCompletedAccommodationIds = reservationRepository.findNotCompleteStatus(startDate, endDate)
-                    .stream()
-                    .map(reservation -> reservation.getAccommodation().getId())
-                    .collect(Collectors.toSet());
-
-            Set<AccommodationDto> mergedAccommodationDtos = Stream.concat(accommodationDtos.stream(),
-                            notCompletedAccommodationIds.stream()
-                                    .map(accommodationId -> accommodationRepository.findById(accommodationId)
-                                            .orElseThrow(() -> new EntityNotFoundException("Accommodation not found with id: " + accommodationId)))
-                                    .map(AccommodationDto::toAccommodationDto))
-                    .collect(Collectors.toSet());
-
-            return new ArrayList<>(mergedAccommodationDtos);
-        } else {
-            throw new RuntimeException("Date를 명확히 입력");
+        if (diff != 1) {
+            throw new IllegalArgumentException("유효하지 않은 날짜 범위입니다.");
         }
+
+        // 키워드 공백 제거
+        String processedKeyword = keyword.replaceAll("\\s+", "");
+
+        // 사용 가능한 숙박 시설 검색
+        List<Accommodation> availableAccommodations = accommodationRepository.findAvailableAccommodationsByDate(processedKeyword, startDate, endDate);
+
+        // 예약 상태가 완료가 아닌 숙박 시설 ID 검색
+        Set<Long> notCompletedAccommodationIds = reservationRepository.findNotCompleteStatus(processedKeyword, startDate, endDate)
+                .stream()
+                .map(reservation -> reservation.getAccommodation().getId())
+                .collect(Collectors.toSet());
+
+        // 중복 제거 및 유니크한 숙박 시설 DTO 리스트 생성
+        List<AccommodationDto> uniqueAccommodationsList = availableAccommodations.stream()
+                .map(AccommodationDto::toAccommodationDto)
+                .collect(Collectors.toList());
+
+        // 중복되지 않은 예약되지 않은 숙박 시설 추가
+        for (Long accommodationId : notCompletedAccommodationIds) {
+            AccommodationDto dto = accommodationRepository.findById(accommodationId)
+                    .map(AccommodationDto::toAccommodationDto)
+                    .orElseThrow(() -> new EntityNotFoundException("ID에 해당하는 숙박 시설을 찾을 수 없습니다: " + accommodationId));
+
+            // 중복된 ID가 없으면 리스트에 추가
+            if (!uniqueAccommodationsList.stream().anyMatch(accommodationDto -> accommodationDto.getId().equals(dto.getId()))) {
+                uniqueAccommodationsList.add(dto);
+            }
+        }
+
+        // 데이터 출력 (디버깅 용도)
+        System.out.println("Unique Accommodation Dtos:");
+        uniqueAccommodationsList.forEach(dto -> System.out.println("Accommodation ID: " + dto.getId()));
+
+        return uniqueAccommodationsList;
     }
-
-
-//스트림 안 쓴 searh문 삭제 하지 말아주세요 !
-//    @Transactional
-//    public List<AccommodationDto> searchDate(Date startDate, Date endDate) {
-//
-//        // startDate, endDate 명확히 받았는지 확인
-//        int diff = accommodationRepository.compareStartAndEndDates(startDate, endDate);
-//
-//        if (diff == 1) {
-//
-//            // 예약 없고, startDate, endDate 일치
-//            List<Accommodation> availableAccommodations = accommodationRepository.findAvailableAccommodationsByDate(
-//                    startDate, endDate);
-//
-//            // Convert to DTOs
-//            List<AccommodationDto> accommodationDtos = availableAccommodations.stream()
-//                    .map(AccommodationDto::toAccommodationDto)
-//                    .collect(Collectors.toList());
-//
-//            // 완료 상태가 아닌 숙박 시설의 ID 가져오기
-//            List<Long> notCompletedAccommodationIds = reservationRepository.findNotCompleteStatus(startDate, endDate)
-//                    .stream()
-//                    .map(reservation -> reservation.getAccommodation().getId())
-//                    .distinct()
-//                    .collect(Collectors.toList());
-//
-//            // AccommodationDto 리스트 생성
-//            List<AccommodationDto> notCompletedAccommodationDtos = new ArrayList<>();
-//
-//            // AccommodationId를 이용하여 AccommodationDto 생성 및 리스트에 추가
-//            for (Long accommodationId : notCompletedAccommodationIds) {
-//                Accommodation accommodation = accommodationRepository.findById(accommodationId)
-//                        .orElseThrow(() -> new EntityNotFoundException("Accommodation not found with id: " + accommodationId));
-//                AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation);
-//                notCompletedAccommodationDtos.add(accommodationDto);
-//            }
-//
-//            Set<AccommodationDto> accommodationDtoSet = new HashSet<>(accommodationDtos);
-//            Set<AccommodationDto> notCompletedAccommodationDtoSet = new HashSet<>(notCompletedAccommodationDtos);
-//
-//            // 중복된 ID가 없는 Set으로 병합
-//            Set<AccommodationDto> mergedAccommodationDtos = new HashSet<>();
-//            for (AccommodationDto accommodationDto : accommodationDtoSet) {
-//                if (!containsId(mergedAccommodationDtos, accommodationDto.getId())) {
-//                    mergedAccommodationDtos.add(accommodationDto);
-//                }
-//            }
-//
-//            for (AccommodationDto accommodationDto : notCompletedAccommodationDtoSet) {
-//                if (!containsId(mergedAccommodationDtos, accommodationDto.getId())) {
-//                    mergedAccommodationDtos.add(accommodationDto);
-//                }
-//            }
-//
-//            // List로 변환
-//            List<AccommodationDto> mergedAccommodationDtoList = new ArrayList<>(mergedAccommodationDtos);
-//
-//            // 출력
-//            for (AccommodationDto accommodationDto : mergedAccommodationDtoList) {
-//                System.out.println(accommodationDto);
-//            }
-//
-//            // Return the merged list
-//            return mergedAccommodationDtoList;
-//
-//        } else {
-//            throw new RuntimeException("Date를 명확히 입력");
-//        }
-//    }
-//
-//    private boolean containsId(Set<AccommodationDto> set, Long id) {
-//        for (AccommodationDto dto : set) {
-//            if (dto.getId().equals(id)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
 
 
     public Accommodation findAccommodationById(Long id) {
