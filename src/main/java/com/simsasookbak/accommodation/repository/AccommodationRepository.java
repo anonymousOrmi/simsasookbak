@@ -71,4 +71,10 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
 
     Accommodation findAccommodationById(Long id);
 
+    @Query("SELECT a.url FROM AccommodationImage a WHERE a.accommodation.id = :acom_id")
+    List<String> findImgByAcomId(@Param("acom_id") Long acom_id);
+
+    @Query("SELECT a.accommodationFacility.name FROM AccommodationFacilityMapping a WHERE a.accommodation.id = :id")
+    List<String> findAccommodationFacilityById(Long id);
+
 }

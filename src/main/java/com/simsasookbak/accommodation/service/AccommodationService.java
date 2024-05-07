@@ -18,6 +18,49 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReviewService reviewService;
 
+//    @Transactional
+//    public List<AccommodationDto> searchAccommodation(String keyword) {
+//
+//        //공백 처리
+//        String processedKeyword = keyword.replaceAll("\\s+", "");
+//
+//        List<Accommodation> accommodations = accommodationRepository.findKeyword(processedKeyword);
+//        List<AccommodationDto> accommodationDtos = new ArrayList<>();
+//
+//        for (Accommodation accommodation : accommodations) {
+//            List<String> facilityList = findAccommodationFacilityById(accommodation.getId());
+//            AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation, facilityList);
+//            accommodationDtos.add(accommodationDto);
+//        }
+//        return accommodationDtos;
+//    }
+//
+//    @Transactional
+//    public List<AccommodationDto> searchDate(Date startDate, Date endDate) {
+//        int diff = accommodationRepository.compareStartAndEndDates(startDate, endDate);
+//
+//        if (diff == 1) {
+//            List<Accommodation> availableAccommodations = accommodationRepository.findAvailableAccommodationsByDate(startDate, endDate);
+//
+//            List<AccommodationDto> accommodationDtos = availableAccommodations.stream()
+//                    .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId())))
+//                    .collect(Collectors.toList());
+//
+//            Set<Long> notCompletedAccommodationIds = reservationRepository.findNotCompleteStatus(startDate, endDate)
+//                    .stream()
+//                    .map(reservation -> reservation.getAccommodation().getId())
+//                    .collect(Collectors.toSet());
+//
+//            Set<AccommodationDto> mergedAccommodationDtos = Stream.concat(accommodationDtos.stream(),
+//                            notCompletedAccommodationIds.stream()
+//                                    .map(accommodationId -> accommodationRepository.findById(accommodationId)
+//                                            .orElseThrow(() -> new EntityNotFoundException("Accommodation not found with id: " + accommodationId)))
+//                                    .map(accommodation-> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId()))))
+//                    .collect(Collectors.toSet());
+//
+//            return new ArrayList<>(mergedAccommodationDtos);
+//        } else {
+//            throw new RuntimeException("Date를 명확히 입력");
     public List<AccommodationResponse> searchAccommodations(AccommodationRequest request) {
         String keyword = request.getKeyword();
         if (request.isEmptyAllDates() && Strings.isNotBlank(request.getKeyword())) {
@@ -44,7 +87,7 @@ public class AccommodationService {
         List<AccommodationDto> highScoreAccommodations = topSixAccommodationIds.stream()
                 .map(accommodationRepository::findAccommodationById)
                 .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
-                .map(AccommodationDto::toAccommodationDto)
+                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId())))
                 .collect(Collectors.toList());
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
@@ -56,13 +99,31 @@ public class AccommodationService {
     }
 
     public AccommodationDto findAccommodationById(Long id) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow();
-        return AccommodationDto.toAccommodationDto(accommodation);
+//<<<<<<< HEAD
+        Accommodation accommodation = accommodationRepository.findAccommodationById(id);
+        List<String> facilityList = findAccommodationFacilityById(id);
+
+        return AccommodationDto.toAccommodationDto(accommodation,facilityList);
     }
 
-    /*public Accommodation findAccommodationById(Long id) {
-        return accommodationRepository.findAccommodationById(id);
-    }*/
+    public List<String> findAccommodationFacilityById(Long id) {
+        return accommodationRepository.findAccommodationFacilityById(id);
+    }
+
+
+    public List<String> findImgByAcomId(Long id) {
+        return accommodationRepository.findImgByAcomId(id);
+    }
+
+//=======
+//        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow();
+//        return AccommodationDto.toAccommodationDto(accommodation);
+//    }
+//
+//    /*public Accommodation findAccommodationById(Long id) {
+//        return accommodationRepository.findAccommodationById(id);
+//    }*/
+//>>>>>>> develop
 }
 
 

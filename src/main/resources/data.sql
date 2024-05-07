@@ -28,39 +28,39 @@ SET @member_id_choi = LAST_INSERT_ID();
 --accommodation start
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00', '12:00:00', false);
+VALUES (@member_id_park, '숙소1', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
 SET @accommodation_id_seoul = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00', '14:00:00', false);
+VALUES (@member_id_park, '숙소2', '숙소 설명 2', '청주','00구 ~', '10:00:00', '14:00:00', false);
 SET @accommodation_id_cheongju = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00', '18:00:00', false);
+VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00:00', '18:00:00', false);
 SET @accommodation_id_daejeon = LAST_INSERT_ID();
 
 --accommodation end
 
 --room start
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요', false);
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_seoul, '일방', 10000, '일방', '창문을 닫아주세요');
 SET @room_id_one = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요', false);
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_seoul, '일-2방', 10000, '일-2방', '창문을 닫아주세요');
 SET @room_id_one_2 = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요', false);
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_cheongju, '이방', 20000, '이방이방', '창문을 닫아주세요');
 SET @room_id_two = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요', false);
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_cheongju, '이-2방', 20000, '이방2이방', '창문을 닫아주세요');
 SET @room_id_two_2 = LAST_INSERT_ID();
 
-INSERT INTO room (accommodation_id, name, cost, content, use_guide, is_deleted)
-VALUES (@accommodation_id_daejeon, '삼방', 30000, '삼방삼방삼방', '창문을 닫아주세요', false);
+INSERT INTO room (accommodation_id, name, cost, content, use_guide)
+VALUES (@accommodation_id_daejeon, '삼방', 30000, '삼방삼방삼방', '창문을 닫아주세요');
 SET @room_id_three = LAST_INSERT_ID();
 
 --room end
@@ -99,9 +99,46 @@ VALUES (@member_id_lee, @accommodation_id_daejeon, '이 방 다신 예약 안합
 INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
 VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,0);
 
-
 --review end
 
+--accommodation facility start
+
+INSERT INTO accommodation_facility (name)
+VALUES ('수영장'),('온천');
+
+--accommodation facility end
+
+--accommodation facility mapping start
+INSERT INTO accommodation_facility_mapping (accommodation_id,accommodation_facility_id)
+VALUES (1,1),(2,1),(2,2);
+--accommodation facility mapping end
+
+--room facility start
+
+INSERT INTO room_facility (name)
+VALUES ('커피포트'),('녹차티백');
+
+--room facility end
+
+--room facility mapping start
+INSERT INTO room_facility_mapping (room_id,room_facility_id)
+VALUES (1,1),(2,1),(2,2);
+--room facility mapping end
+
+--accommodationImage start
+INSERT INTO accommodation_image (accommodation_id,url)
+VALUES (1,'https://i.namu.wiki/i/_VdL80a6q8YfJ3ob0cH0g6M4C4u3eafyHQV8oHFnZetT7yEjHPC8hybEh7-Xwfz6H6S4EkwBn6mkLvhb7rGscQ.webp'),(2,'https://youonejae.com/kor/accommodation/images/accommodation01.png'),(3,'https://q-xx.bstatic.com/xdata/images/hotel/max500/311482139.jpg?k=569f279a3105dfafe82cf60a10f722f4ef24fbfff07cf0954ef484385cbabb87&o=');
+--accommodationImage end
+
+--external summary start
+INSERT INTO external_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
+--external summary end
+
+--internal summary start
+INSERT INTO internal_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
+--internal summary end
 
 -- INSERT INTO member (email, name, password, role, birth_date, status, phone) VALUES
 --                                                                                 ('user1@example.com', 'User 1', 'password1', '이용자', '1990-01-01', '일반', '010-1234-5678'),
@@ -138,4 +175,3 @@ VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,
 --                                                                                                           (2, 1, 2, '완료', '2024-06-01', '2024-06-05', '조용한 방을 원합니다'),
 --                                                                                                           (3, 2, 3, '대기', '2024-07-10', '2024-07-15', '친구들과 함께 예약했습니다'),
 --                                                                                                           (1, 2, 1, '만료', '2024-08-20', '2024-08-25', '휴가 기간에 이용할 예정입니다'),
---
