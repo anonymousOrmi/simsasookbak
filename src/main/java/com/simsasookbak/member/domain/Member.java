@@ -1,13 +1,18 @@
 package com.simsasookbak.member.domain;
 
 import com.simsasookbak.global.BaseEntity;
-import jakarta.persistence.*;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,8 +51,7 @@ public class Member extends BaseEntity implements UserDetails {
 
     @Column(name = "birth_date", nullable = false)
     @Comment("생년월일")
-//    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "status", length = 10,  nullable = false)
     @ColumnDefault(value = "'일반'")
@@ -66,7 +70,7 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Member(String email,String name,String password,String role,Date birthDate, String status,String phone){
+    public Member(String email,String name,String password,String role,LocalDate birthDate, String status,String phone){
         this.email=email;
         this.name=name;
         this.password=password;

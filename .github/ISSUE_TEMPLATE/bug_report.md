@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[BUG] 제목"
 labels: bug
-assignees: aammddkkzxc, BlueHarmel, githyuniiee, MSTNY, www-author
+assignees: aammddkkzxc, BlueHarmel, githyuniiee, MSTNY, songchanyok, www-author
 
 ---
 

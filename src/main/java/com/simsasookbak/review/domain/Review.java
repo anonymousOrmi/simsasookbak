@@ -1,26 +1,40 @@
 package com.simsasookbak.review.domain;
 
+import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.global.BaseEntity;
+import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
+@Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id", updatable = false)
     private Long id;
-/*	`member_id`	bigint(20)	NOT NULL,*/
-	/*`accommodation_id`	bigint(20)	NOT NULL,*/
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
 
     @Column(name = "content", length = 3000, nullable = false)
     private String content;
@@ -34,5 +48,5 @@ public class Review extends BaseEntity {
     @Comment("삭제여부")
     private Boolean isDeleted;
 
-	/*`summary_id`	bigint	NOT NULL*/
+    /*`summary_id`	bigint	NOT NULL*/
 }

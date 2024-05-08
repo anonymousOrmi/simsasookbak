@@ -19,7 +19,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     defer-datasource-initialization: true
     properties:
       hibernate:
@@ -27,3 +27,13 @@ spring:
         show_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
+
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+youtube:
+    api:
+      key: ${YOUTUBE_API_KEY}

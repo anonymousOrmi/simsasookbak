@@ -1,6 +1,7 @@
 package com.simsasookbak.member.domain;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -22,7 +23,7 @@ public class RegisterDto {
 
     private String role;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private String phone;
 

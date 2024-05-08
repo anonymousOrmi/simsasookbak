@@ -29,7 +29,31 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/reservationForm.css" rel="stylesheet">
 
+    <style>
+        /* 날짜 선택기의 날짜 크기 조정 */
+        .datepicker table tr td,
+        .datepicker table tr th {
+            font-size: 23px;
+            font-weight: bold;
+        }
 
+        /* 날짜를 더 진하게 */
+        .datepicker table tr td.active,
+        .datepicker table tr td.active:hover,
+        .datepicker table tr td.active.disabled,
+        .datepicker table tr td.active.disabled:hover,
+        .datepicker table tr td.active:active,
+        .datepicker table tr td.active:hover:active,
+        .datepicker table tr td.active.disabled:active,
+        .datepicker table tr td.active.disabled:hover:active {
+            background-color: rgba(0, 0, 0, 0.2); /* 진한 회색 배경 */
+        }
+
+        /* 달력 크기 조정 */
+        .datepicker {
+            width: 275px; /* 적당한 크기로 조정하세요 */
+        }
+    </style>
 
 </head>
 
@@ -37,124 +61,98 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-<!-- Spinner Start -->
-<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<!-- Spinner End -->
-
-<!-- Topbar Start -->
-<div class="container-fluid bg-primary px-5 d-none d-lg-block">
-    <div class="row gx-0">
-        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
-        </div>
-        <div class="col-lg-4 text-center text-lg-end">
-            <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
-                <a href="#"><small class="me-3 text-light"><i class="fas fa-power-off me-2"></i> Log Out</small></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Topbar End -->
-
-<!-- Navbar & Hero Start -->
-<div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-        <a href="" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>심사 숙박</h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">홈</a>
-                <a href="" class="nav-item nav-link">숙소 목록</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마이 페이지</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">내 정보</a>
-                        <a href="" class="dropdown-item">예약한 내역</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">내 숙소</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">숙소 관리</a>
-                        <a href="" class="dropdown-item">예약된 내역</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<div th:replace="~{/layout/top-bar :: top}"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}"></div>
 
 <!-- Tour Booking Start -->
 <div class="container-fluid booking py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <h1 class="text-white mb-3">Book A Your Room</h1>
-                <p class="text-white mb-4"> <span class="text-warning"> XX호텔 예약</span></p>
-                <form>
-                <img src = "/room.png" alt="room Image">
+            <div class="col-lg-8">
+                <h1 class="text-white mb-3">심사 숙고 후 예약 해주세요</h1>
+                <div>
+                    <div class="container pb-0">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <div class="row g-3">
+                                    <div class="border rounded p-3">
+                                        <div class="container pb-0">
+                                            <div class="img-container">
+                                                <img src="/img/explore-tour-1.jpg"
+                                                     class="img-fluid w-35 mx-auto rounded d-block"
+                                                     alt="Image">
+                                            </div>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;" th:text="${room.name}">
+                                                    객실명
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            또 뭐
+                                                        </div>
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${room.cost}">
+                                                            가격
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 text-md-start text-center text-white" style="font-size: 20px;">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div th:text="${'체크 인 : ' + accommodation.checkIn}" class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            체크 인 표기
+                                                        </div>
+                                                        <div th:text="${'체크 아웃 : ' + accommodation.checkOut}" class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                            체크 아웃 표기
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 border rounded p-3">
+                                                    <div class="mb-2 text-white" th:text="${room.useGuide}">
+                                                        객실 이용 가이드를 넣으세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                        Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
+                                                        tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
+                                                        libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
+                                                        euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
+                                                        quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
+                                                        amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
+                                                        aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
+                                                        condimentum, nec scelerisque eros fermentum.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form id="reservationForm" th:action="@{/accommodation/{accommodationId}/{roomId}/reservationPage(accommodationId=${accommodation.id}, roomId=${room.roomId})}" method="post">
+                    <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
                     <div class="row g-3">
-                        <div class="col-md-6">
-<!--                            <input type="text" id="date-picker" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" th:value="|${year}-${month}|">-->
-
-
-
+                        <div class="col-md-5">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-
-                                <input type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" value="2024-04-01">
-
-<!--                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />-->
-                                <label>CheckIn </label>
+                                <input name="startDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="text" id="date-picker1" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
+                                <label>입실 일 선택</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-floating date" id="date4" data-target-input="nearest">
-                                <input type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2" value="2024-04-01">
-                                <label>CheckOut</label>
+                                <input name="endDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="text" id="date-picker2" class="form-control bg-white border-0 small" aria-label="Search" aria-describedby="basic-addon2">
+                                <label>퇴실 일 선택</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectPerson">
-                                    <option value="1">Persons 1</option>
-                                    <option value="2">Persons 2</option>
-                                    <option value="3">Persons 3</option>
-                                    <option value="3">Persons 4</option>
-                                    <option value="3">Persons 5</option>
-                                    <option value="3">Persons 6</option>
-                                </select>
-                                <label for="SelectPerson">Persons</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectRoomName">
-                                    <option value="1">RoomName 1</option>
-                                    <option value="2">RoomName 2</option>
-                                    <option value="3">RoomName 3</option>
-                                </select>
-                                <label for="SelectPerson">RoomName</label>
-                            </div>
-                        </div>
-
+                        <input type="button" class="btn btn-primary text-white col-md-2" id="clear-dates-btn" value="날짜 초기화">
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                <label for="message">Special Request</label>
+                                <textarea name="request2" class="form-control bg-white border-0" placeholder="요청 사항" id="request" style="height: 250px"></textarea>
+                                <label for="request">요청 사항</label>
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
+                            <button class="btn btn-primary text-white w-50 py-3 reservation-submit-button" type="submit">예약 신청하기</button>
                         </div>
                     </div>
                 </form>
@@ -203,64 +201,168 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-
 <script>
+    // 하드코딩
+    // const datesDisabledCheckIn = ['2024-05-05', '2024-05-06', '2024-05-07', '2024-05-09', '2024-05-10', '2024-05-11', '2024-05-14', '2024-05-20', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24'];
+    // const datesDisabledCheckOut = ['2024-05-06', '2024-05-07', '2024-05-08', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24', '2024-05-25'];
+    var datesCheckInString = $('#date-picker1').data('unselectable_dates');
+    var datesCheckOutString = $('#date-picker2').data('unselectable_dates');
+
+    var datesDisabledCheckIn = [];
+    var datesDisabledCheckOut = [];
+
+    // 두 배열의 길이가 5보다 작지 않은 경우에만 파싱하여 할당 ( 예약 내역 없을 경우 )
+    if (datesCheckInString.length >= 5 || datesCheckOutString.length >= 5) {
+        datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+        datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+    }
+
     $(function() {
+        var selectedDate1 = null;
+        var selectedDate2 = null;
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+
         $('#date-picker1').datepicker({
-            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-            startDate: '0d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-            // endDate: '+10d',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-            autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+            format: "yyyy-mm-dd",
+            startDate: today,
+            endDate: '+1y',
+            datesDisabled: datesDisabledCheckIn,
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        }).on('changeDate', function(selected) {
+            selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
 
-            // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
-            // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
-            // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
-            // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
-            // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
-            // immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
-            // multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
-            // multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
-            // templates : {
-            //     leftArrow: '&laquo;',
-            //     rightArrow: '&raquo;'
-            // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-            // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
-            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
-            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
+            var disabledDates = datesDisabledCheckIn;
+            console.log(datesDisabledCheckIn);
+            console.log(disabledDates);
+            var nextAvailableDate = null;
 
-        });//datepicker end
-    });//ready end
-</script>
-<script>
-    $(function() {
+            for (var i = 0; i < disabledDates.length; i++) {
+                var disabledDate = new Date(Date.parse(disabledDates[i]));
+                if (disabledDate > selectedDate1) {
+                    nextAvailableDate = disabledDate;
+                    break;
+                }
+            }
+            console.log(nextAvailableDate);
+
+            if (nextAvailableDate) {
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2); // #date-picker1에서 선택한 날짜로 시작
+                $('#date-picker2').datepicker('setEndDate', nextAvailableDate);
+            } else {
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2);
+                $('#date-picker2').datepicker('setEndDate', '+1y');
+            }
+        });
+
         $('#date-picker2').datepicker({
-            format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-            startDate: '0d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-            // endDate: '+10d',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-            autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+            format: "yyyy-mm-dd",
+            startDate: tomorrow,
+            endDate: '+1y',
+            datesDisabled: datesDisabledCheckOut,
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        }).on('changeDate', function(selected) {
+            selectedDate2 = selected.date; // 선택한 날짜를 변수에 저장
 
-            // calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
-            // clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-            // datesDisabled : ['2019-06-24','2019-06-26'],//선택 불가능한 일 설정 하는 배열 위에 있는 format 과 형식이 같아야함.
-            // daysOfWeekDisabled : [0,6],	//선택 불가능한 요일 설정 0 : 일요일 ~ 6 : 토요일
-            // daysOfWeekHighlighted : [3], //강조 되어야 하는 요일 설정
-            // disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
-            // immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
-            // multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
-            // multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
-            // templates : {
-            //     leftArrow: '&laquo;',
-            //     rightArrow: '&raquo;'
-            // }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-            // showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
-            todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false
-            toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-            weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일
+            var disabledDates = datesDisabledCheckOut;
+            var nextAvailableDate = null;
 
-        });//datepicker end
-    });//ready end
+            for (var i = disabledDates.length - 1; i >= 0; i--) {
+                var disabledDate = new Date(disabledDates[i]);
+                if (disabledDate < selectedDate2) {
+                    nextAvailableDate = disabledDate;
+                    break;
+                }
+            }
+
+            if (nextAvailableDate) {
+                var startDatePicker2 = new Date(selectedDate2);
+                startDatePicker2.setDate(startDatePicker2.getDate() - 1);
+                $('#date-picker1').datepicker('setStartDate', nextAvailableDate);
+                $('#date-picker1').datepicker('setEndDate', startDatePicker2);
+            } else {
+                var startDatePicker2 = new Date(selectedDate2);
+                startDatePicker2.setDate(startDatePicker2.getDate() - 1);
+                $('#date-picker1').datepicker('setStartDate', today);
+                $('#date-picker1').datepicker('setEndDate', startDatePicker2);
+                // 예약내역 오늘 날짜 지나면 만료 상태로 변경 해줘야 정상 작동.. 더 좋게 없을까
+            }
+        });
+
+        $('#clear-dates-btn').on('click', function() {
+            clearDates();
+        });
+
+        function updateDatePicker1() {
+            $('#date-picker1').datepicker('setStartDate', selectedDate1 ? selectedDate1 : today);
+            $('#date-picker1').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function updateDatePicker2() {
+            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : tomorrow);
+            $('#date-picker2').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function clearDates() {
+            selectedDate1 = null;
+            selectedDate2 = null;
+            $('#date-picker1').datepicker('clearDates');
+            $('#date-picker2').datepicker('clearDates');
+            updateDatePicker1();
+            updateDatePicker2();
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('reservationForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+        const formData = new FormData(this);
+
+        const startDate = formData.get('startDate');
+        console.log(startDate);
+        const endDate = formData.get('endDate');
+        console.log(endDate);
+        const request = formData.get('request2');
+        console.log(request);
+
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate,
+                endDate: endDate,
+                request: request
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+                alert('예약 신청이 완료되었습니다.');
+                return response.json();
+                //TODO: 나중에 내정보 페이지로 가도록 하면 될 듯
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('예약 신청 중 오류가 발생했습니다.입력한 날짜를 확인해 주세요');
+            });
+    });
 </script>
 
 </body>
