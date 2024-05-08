@@ -1,27 +1,27 @@
 -- Insert dummy data for Member
+-- 1234
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test1@gmail.com', '김상형', '이용자', '1900-05-01', '1234', '일반', '010-1234-1234');
+VALUES ('test1@gmail.com', '김상형', '이용자', '1900-05-01', '$2a$12$GiLgp9UrAqlaVIxfbHq4peMVsmMcJOT78jmhee2MRH7S3w1p4lhfi', '일반', '010-1234-1234');
 SET @member_id_kim = LAST_INSERT_ID();
-
+-- 12345
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '12345', '일반', '010-2345-1735');
+VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '$2a$12$ButAQozslP.KtYJWCnilWezIyN5rodbNrvQvrjEHk0IZ86E35JHge', '일반', '010-2345-1735');
 SET @member_id_park = LAST_INSERT_ID();
-
+-- 123456
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '123456', '일반', '010-3716-5576');
+VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '$2a$12$MeL9ZRf0LkL2buqGxhGoVenE6gwMgy1Aj3AciuKkvZs3BvTIvtD6K', '일반', '010-3716-5576');
 SET @member_id_song = LAST_INSERT_ID();
-
+-- 1234567
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '1234567', '일반', '010-3742-9985');
+VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '$2a$12$Cl.T37Nntk8Q9Uzdgj2NRu/o930DKBshwIOTNBkyZQrhx4.bGuGK.', '일반', '010-3742-9985');
 SET @member_id_lee = LAST_INSERT_ID();
-
+-- 12345678
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '12345678', '일반', '010-7324-5421');
+VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '$2a$12$y7h/Jux3BV6mXrhmzRf33OxPm709Y/Fw62B0ZG/dyChpoVYHu5piS', '일반', '010-7324-5421');
 SET @member_id_jeong = LAST_INSERT_ID();
-
-
+-- 123456789
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '123456789', '일반', '010-6785-3452');
+VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '$2a$12$qU9kKWpGjrbmgavQU4/VOeU3CHBIqgpEuDHo4JvvENKX5ZfhhPUWe', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
 --member end
 

@@ -48,8 +48,8 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "join room A on AA.accommodation_id = A.accommodation_id   "
                 + "left join review R on AA.accommodation_id = R.accommodation_id   "
                 + "where 1=1   "
-                + "and A.is_deleted is false   "
-                + "and AA.is_deleted is false   "
+                + "and A.is_deleted = false   "
+                + "and AA.is_deleted = false   "
                 + "and A.room_id not in (   "
                 + "    select B.room_id   "
                 + "    from reservation B   "
@@ -59,7 +59,6 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "and (AA.region = :keyword or AA.name like %:keyword%) "
                 + "group by A.accommodation_id,   "
                 + "         A.cost, "
-                + "         R.score, "
                 + "         AA.region, "
                 + "         AA.address, "
                 + "         AA.name ",
