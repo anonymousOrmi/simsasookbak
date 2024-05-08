@@ -33,7 +33,7 @@ public class AccommodationDto {
 
     @Builder
     public AccommodationDto(Long id, String name, String content, String region, String address, String checkIn, String checkOut,
-                            Boolean isDeleted, List<String> facilityList, Long avgScore) {
+                            Boolean isDeleted, List<String> facilityList) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -43,7 +43,7 @@ public class AccommodationDto {
         this.checkOut = LocalTime.parse(checkOut);
         this.isDeleted = isDeleted;
         this.facilityList = facilityList;
-        this.avgScore = avgScore;
+//        this.avgScore = avgScore;
     }
 
 
@@ -80,8 +80,8 @@ public class AccommodationDto {
                 .build();
     }
 
-    public void setAvgScore(double avgScore) {
-        this.avgScore = avgScore;
-    }
+//    public void setAvgScore(double avgScore) {
+//        this.avgScore = avgScore;
+//    }
 
 }
