@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <section th:replace="~{/layout/head::headFragment}"></section>
+    <title>내 정보 페이지</title>
+</head>
+<body>
+<div th:replace="~{/layout/top-bar :: top}" style="background-color: #0b204a"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}" style="background-color: #0c4128"></div>
+<div class="booking" style="width: max-content;height: 100px"></div>
+<div style="display: flex;flex-direction: column;align-items: center;justify-content: center">
+    <h2 style="color: #0b204a; margin-top: 88px">내 정보 수정</h2>
+    <h3>이름</h3>
+    <input class="border-box" name="name" th:value="${member.name}">
+    <h3>전화번호</h3>
+    <input class="border-box" name="phone" th:value="${member.phone}">
+    <h3>Email</h3>
+    <input class="border-box" name="email" th:value="${member.email}" disabled>
+    <h3>생년월일</h3>
+    <input class="border-box" name="birthDate" th:value="${member.birthDate}" disabled>
+
+    <div style="display: flex;justify-content: space-between; gap: 30px">
+        <input type="radio" name="role" value="이용자" th:if="${member.role}=='이용자'" id="user" checked>
+        <label for="user" th:if="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>
+        <input type="radio" name="role" value="이용자" th:unless="${member.role}=='이용자'" id="user" disabled>
+        <label for="user" th:unless="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>
+        <input type="radio" name="role" value="사업자" th:if="${member.role}=='사업자'" id="business" checked>
+        <label for="user" th:if="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>
+        <input type="radio" name="role" value="사업자" th:unless="${member.role}=='사업자'" id="business" disabled>
+        <label for="user" th:unless="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>
+        <input type="radio" name="role" value="관리자" th:if="${member.role}=='관리자'" id="admin" checked>
+        <label for="user" th:if="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>
+        <input type="radio" name="role" value="관리자" th:unless="${member.role}=='관리자'" id="admin" disabled>
+        <label for="user" th:unless="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>
+    </div>
+</div>
+
+<div th:replace="~{/layout/footer :: footerFragment}"></div>
+</body>
+</html>

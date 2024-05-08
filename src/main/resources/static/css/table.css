@@ -1,0 +1,20 @@
+.table {
+    text-align: center;
+    width: 900px;
+}
+
+tr{
+    display: flex;
+    justify-content: space-between;
+}
+
+th{
+    padding: 0 250px;
+    width: 116px;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}

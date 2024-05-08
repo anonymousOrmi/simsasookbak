@@ -114,4 +114,8 @@ public class Member extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public MemberDto toDto(){
+        return new MemberDto(this.email,this.name,this.role,this.birthDate,this.phone);
+    }
 }
