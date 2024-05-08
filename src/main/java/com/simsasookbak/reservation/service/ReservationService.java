@@ -1,5 +1,7 @@
 package com.simsasookbak.reservation.service;
 
+import static com.simsasookbak.global.exception.ErrorMessage.UNEXPECTED_ROW_COUNT;
+
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -7,30 +9,35 @@ import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
+import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
+import com.simsasookbak.reservation.dto.response.ReservationResponse;
 import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
-import com.simsasookbak.reservation.dto.response.ReservationResponse;
-import java.time.LocalDateTime;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ReservationService {
-
     private final ReservationRepository reservationRepository;
     private final AccommodationService accommodationService;
     private final RoomService roomService;
+
+    private static LocalDate addDays(LocalDate date, int days) {
+        return date.plusDays(days);
+    }
 
     public ReservationUnableDto getReservationUnableDates(Long roomId) {
         List<Reservation> reservations = findAllCompleteStatusRoomByRoomId(roomId);
@@ -65,10 +72,6 @@ public class ReservationService {
         return reservationRepository.findAllCompleteStatusRoomByRoomId(roomId);
     }
 
-    private static LocalDate addDays(LocalDate date, int days) {
-        return date.plusDays(days);
-    }
-
     public ReservationAddResponseDto save(Long accommodationId, Long roomId, ReservationAddRequestDto request) {
 
         AccommodationDto accommodationDto = accommodationService.findAccommodationById(accommodationId);
@@ -93,5 +96,24 @@ public class ReservationService {
                         .build()
                 )
                 .toList();
+    }
+
+    public List<ReservationResponse> getExpiredReservations() {
+        return reservationRepository.findAllReservationByCurrentDate()
+                .stream()
+                .map(ReservationResponse::new)
+                .toList();
+    }
+
+    @Transactional
+    public void updateAllReservation(List<ReservationResponse> expiredReservations, String status) throws SQLException {
+        List<Long> idByExpiredReservation = expiredReservations.stream()
+                .map(ReservationResponse::getId)
+                .toList();
+        int rowCount = reservationRepository.updateAllByReservationStatus(idByExpiredReservation, status);
+
+        if (rowCount != expiredReservations.size()) {
+            throw new SQLDataException(UNEXPECTED_ROW_COUNT.getMessage());
+        }
     }
 }

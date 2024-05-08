@@ -31,9 +31,16 @@ spring:
   devtools:
     livereload:
       enabled: true
+
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/
+
+  schedule: # interval 1 hour
+    cron : 0 0 0/1 * * *
+    use : true
+
+
 youtube:
-    api:
-      key: ${YOUTUBE_API_KEY}
+  api:
+    key: ${YOUTUBE_API_KEY}
