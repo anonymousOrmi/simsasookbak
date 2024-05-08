@@ -6,6 +6,7 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.reservation.domain.Reservation;
+import com.simsasookbak.reservation.domain.Status;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
@@ -99,7 +100,7 @@ public class ReservationService {
     }
 
     public List<ReservationResponse> getExpiredReservations() {
-        return reservationRepository.findAllReservationByCurrentDate()
+        return reservationRepository.findAllReservationByCurrentDate(Status.EXPIRE.getName())
                 .stream()
                 .map(ReservationResponse::new)
                 .toList();

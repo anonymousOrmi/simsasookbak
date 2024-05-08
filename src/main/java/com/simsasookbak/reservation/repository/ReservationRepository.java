@@ -42,10 +42,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
          + "from Reservation reservation "
          + "join Accommodation accommodation on reservation.accommodation.id = accommodation.id "
          + "where reservation.accommodation.isDeleted = false "
-         + "and reservation.status <> '만료' "
+         + "and reservation.status <> :status "
          + "and timestamp(reservation.endDate || ' ' || reservation.accommodation.checkOut) < current_timestamp "
     )
-    List<ReservationView> findAllReservationByCurrentDate();
+    List<ReservationView> findAllReservationByCurrentDate(@Param("status") String status);
 
     @Modifying(clearAutomatically = true)
     @Query("update Reservation set status = :status where id in (:ids)")
