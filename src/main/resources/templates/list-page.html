@@ -1,33 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-
 <head>
-    <meta charset="utf-8">
-    <title>Travela - Tourism Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
+    <section th:replace="~{/layout/head::headFragment}"></section>
+    <link href="/css/index.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,57 +17,8 @@
 </div>
 <!-- Spinner End -->
 
-<!-- Topbar Start -->
-<div class="container-fluid bg-primary px-5 d-none d-lg-block">
-    <div class="row gx-0">
-        <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
-        </div>
-        <div class="col-lg-4 text-center text-lg-end">
-            <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
-                    <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
-                    <a href="#"><small class="me-3 text-light"><i class="fas fa-power-off me-2"></i> Log Out</small></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Topbar End -->
-
-<!-- Navbar & Hero Start -->
-<div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-        <a href="" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>심사 숙박</h1>
-            <!-- <img src="img/logo.png" alt="Logo"> -->
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">홈</a>
-                <a href="" class="nav-item nav-link">숙소 목록</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">마이 페이지</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">내 정보</a>
-                        <a href="" class="dropdown-item">예약한 내역</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">내 숙소</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">숙소 관리</a>
-                        <a href="" class="dropdown-item">예약된 내역</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
-<!-- Navbar & Hero End -->
+<div th:replace="~{/layout/top-bar :: top}"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}"></div>
 
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
@@ -163,6 +90,7 @@
         </div>
         <div class="row row-cols-4 row-cols-md-4 g-4">
             <div class="col" th:each="accommodation : ${accommodations}">
+                <a th:href="@{${'/accommodation/' + accommodation.getAccommodationId()}}">
                 <div class="card h-100">
                     <img th:src="@{/img/destination-1.jpg}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -171,6 +99,7 @@
                         <p class="card-text" th:text="${#numbers.formatInteger(accommodation.getCost(), 3, 'COMMA')} + ' 원'">Room Cost</p>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
     </div>
