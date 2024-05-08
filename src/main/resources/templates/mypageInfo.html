@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <section th:replace="~{/layout/head::headFragment}"></section>
     <title>내 정보 페이지</title>
+    <script async src="/js/mypage.js"></script>
 </head>
 <body>
 <div th:replace="~{/layout/top-bar :: top}" style="background-color: #0b204a"></div>
@@ -40,8 +41,8 @@
         </div>
         <button type="submit" class="btn btn-primary blue" style="margin-top: 30px">변경</button>
     </form>
-    <button class="btn btn-danger red" style="position: absolute;top: 644px">탈퇴</button>
+    <button type="button" class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 644px">탈퇴</button>
 </div>
-
+<input type="hidden" id="useremail" th:value="${member.email}" >
 </body>
 </html>

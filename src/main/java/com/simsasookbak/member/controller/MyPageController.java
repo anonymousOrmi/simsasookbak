@@ -37,4 +37,10 @@ public class MyPageController {
         return "index";
     }
 
+    //탈퇴
+    @DeleteMapping("/memberinfo/{email}/delete")
+    public void deleteMember(@PathVariable String email){
+        memberService.deleteMember(email);
+    }
+
 }

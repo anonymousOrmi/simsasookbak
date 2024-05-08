@@ -31,4 +31,10 @@ public class MemberService  {
         member.editInfo(memberDto.getName(),memberDto.getPhone());
     }
 
+    @Transactional
+    public void deleteMember(String email){
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+        member.cancellation();
+    }
+
 }
