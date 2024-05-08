@@ -118,4 +118,9 @@ public class Member extends BaseEntity implements UserDetails {
     public MemberDto toDto(){
         return new MemberDto(this.email,this.name,this.role,this.birthDate,this.phone);
     }
+
+    public void editInfo(String name,String phone){
+        this.name=name;
+        this.phone=phone;
+    }
 }
