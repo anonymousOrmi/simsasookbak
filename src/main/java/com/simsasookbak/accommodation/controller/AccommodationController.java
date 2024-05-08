@@ -1,8 +1,17 @@
 package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.dto.AccommodationDto;
+
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
+
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
@@ -83,4 +92,3 @@ public class AccommodationController {
         return "review-register";
     }
 }
-
