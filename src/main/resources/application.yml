@@ -37,3 +37,9 @@ spring:
 youtube:
     api:
       key: ${YOUTUBE_API_KEY}
+
+alan:
+    one:
+      url: ${ALAN_ONE_URL}
+client:
+  id: ${CLIENT_ID}

@@ -1,22 +1,24 @@
-package com.simsasookbak.alan.service;
+package com.simsasookbak.external.ai.alan.service;
 
-import com.simsasookbak.alan.dto.AlanResponseDto;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import com.simsasookbak.external.ai.alan.dto.AlanResponseDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
+@RequiredArgsConstructor
 public class AlanService {
 
-    private static final String URL = "https://kdt-api-function.azurewebsites.net/api/v1/question";
+    @Value("${ALAN_ONE_URL}")
+    private String URL;
 
-    private static final String CLIENT_ID = "980f05cc-e7c9-433b-9581-8a5b2837d4e0";
+    @Value("${CLIENT_ID}")
+    private String CLIENT_ID;
+
     private final RestTemplate restTemplate;
 
-    public AlanService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-    }
 
     public AlanResponseDto getAlan(String content) {
         String uri = UriComponentsBuilder
