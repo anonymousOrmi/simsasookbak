@@ -67,7 +67,7 @@ public class AccommodationService {
 //            throw new RuntimeException("Date를 명확히 입력");
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
 
-    Pageable pageable = PageRequest.of(pageNum, 1);
+    Pageable pageable = PageRequest.of(pageNum, 16);
     String keyword = request.getKeyword();
     Page<AccommodationView> page;
     if (request.isEmptyAllDates() && Strings.isNotBlank(keyword)) {
