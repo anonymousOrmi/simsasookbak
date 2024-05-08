@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -109,35 +109,31 @@
 <div class="container-fluid booking py-5">
     <div class="container py-5">
         <h1 class="text-white mb-3">Search A Your Room</h1>
-        <p class="text-white mb-4"><span class="text-warning">Find rooms that suits you !</span></p>
-        <form>
+        <p class="text-white mb-4"> <span class="text-warning">Find rooms that suits you !</span> </p>
+        <form action="/accommodation" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name">
-                        <label for="name">숙소명 or 지역명</label>
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword" placeholder="Your Name" type="text">
+                        <label for="keyword">숙소명 or 지역명</label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input type="text" id="date-picker1" class="form-control bg-white border-0 small"
-                               aria-label="Search" aria-describedby="basic-addon2" value="2024-05-01">
-                        <label>입실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="date">
+                        <label for="start-date">입실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input type="text" id="date-picker2" class="form-control bg-white border-0 small"
-                               aria-label="Search" aria-describedby="basic-addon2" value="2024-05-01">
-                        <label>퇴실 </label>
+                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
+                        <label for="end-date">퇴실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
                         <select class="form-select bg-white border-0" id="SelectPerson">
                             <option value="1">Persons 1</option>
-                            <!--                            <option value="2">Persons 2</option>-->
-                            <!--                            <option value="3">Persons 3</option>-->
                         </select>
                         <label for="SelectPerson">Persons</label>
                     </div>
@@ -152,155 +148,48 @@
 <!-- Tour Booking End -->
 
 
-<!-- Blog Start -->
+<!-- List Start -->
 <div class="container-fluid packages py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Packages</h5>
             <h1 class="mb-0">Awesome Packages</h1>
         </div>
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col">
+        <div class="row row-cols-4 row-cols-md-4 g-4">
+            <div class="col" th:each="accommodation : ${accommodations}">
                 <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
+                    <img th:src="@{/img/destination-1.jpg}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/img/destination-1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a href=""><h5 class="card-title">Card title</h5></a>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
+                        <h5 class="card-title" th:text="${accommodation.getName()}">Name</h5>
+                        <p class="card-text" th:text="${accommodation.getAddress()}">Address</p>
+                        <p class="card-text" th:text="${#numbers.formatInteger(accommodation.getCost(), 3, 'COMMA')} + ' 원'">Room Cost</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 </div>
+<!-- List End -->
 
+<!-- 페이지네이션 추가 -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 버튼 -->
+        <li class="page-item" th:class="${currentPage == 1} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{/accommodations(page=${currentPage - 1})}">Prev</a>
+        </li>
 
-<!-- Blog End -->
+        <!-- 페이지 번호들 -->
+        <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+            <a class="page-link" th:href="@{/accommodations(page=${pageNum})}" th:text="${pageNum}"></a>
+        </li>
 
+        <!-- 다음 페이지 버튼 -->
+        <li class="page-item" th:class="${currentPage == totalPages} ? 'disabled' : ''">
+            <a class="page-link" th:href="@{/accommodations(page=${currentPage + 1})}">Next</a>
+        </li>
+    </ul>
+</nav>
 
 <!-- Copyright Start -->
 <div class="container-fluid copyright text-body py-4">

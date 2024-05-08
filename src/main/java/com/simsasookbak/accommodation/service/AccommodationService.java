@@ -4,12 +4,16 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
+import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
 import com.simsasookbak.review.service.ReviewService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -61,23 +65,23 @@ public class AccommodationService {
 //            return new ArrayList<>(mergedAccommodationDtos);
 //        } else {
 //            throw new RuntimeException("Date를 명확히 입력");
-    public List<AccommodationResponse> searchAccommodations(AccommodationRequest request) {
-        String keyword = request.getKeyword();
-        if (request.isEmptyAllDates() && Strings.isNotBlank(request.getKeyword())) {
-            return accommodationRepository.findAllByKeyword(keyword.trim())
-                    .stream()
-                    .map(AccommodationResponse::new)
-                    .toList();
-        }
-        return accommodationRepository.findAllByStartDateAndEndDate(
-                        request.getStartDate(),
-                        request.getEndDate(),
-                        Strings.isBlank(keyword) ? keyword : keyword.trim()
-                )
-                .stream()
-                .map(AccommodationResponse::new)
-                .toList();
+public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
+
+    Pageable pageable = PageRequest.of(pageNum, 16);
+    String keyword = request.getKeyword();
+    Page<AccommodationView> page;
+    if (request.isEmptyAllDates() && Strings.isNotBlank(keyword)) {
+        page = accommodationRepository.findAllByKeyword(keyword.trim(), pageable);
+    } else {
+        page = accommodationRepository.findAllByStartDateAndEndDate(
+                request.getStartDate(),
+                request.getEndDate(),
+                Strings.isBlank(keyword) ? keyword : keyword.trim(),
+                pageable
+        );
     }
+    return page.map(AccommodationResponse::new);
+}
 
     public List<AccommodationDto> getHighScoreAccommodation() {
         // 상위 6개의 accommodation ID를 가져오기

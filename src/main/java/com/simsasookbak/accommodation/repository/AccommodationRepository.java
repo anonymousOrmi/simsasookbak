@@ -4,6 +4,8 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,9 +23,9 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
         + "from Accommodation accommodation "
         + "join Room room on accommodation.id = room.accommodation.id "
         + "left join Review review on accommodation.id = review.accommodation.id "
-        + "where accommodation.isDeleted is false "
-        + "and room.isDeleted is false "
-        + "and (review.isDeleted is null or review.isDeleted is false) "
+        + "where accommodation.isDeleted = false "
+        + "and room.isDeleted = false "
+        + "and (review.isDeleted = null or review.isDeleted = false) "
         + "and (accommodation.region =:keyword or accommodation.name like %:keyword%) "
         + "group by room.cost, "
         + "review.score, "
@@ -32,7 +34,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
         + "accommodation.name, "
         + "accommodation.address "
     )
-    List<AccommodationView> findAllByKeyword(@Param("keyword") String keyword);
+    Page<AccommodationView> findAllByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // inline view 사용을 위한 native 쿼리 사용 (JPQL에서는 미지원)
     @Query(
@@ -63,10 +65,11 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "         AA.name ",
         nativeQuery = true
     )
-    List<AccommodationView> findAllByStartDateAndEndDate(
+    Page<AccommodationView> findAllByStartDateAndEndDate(
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
-            @Param("keyword") String keyword
+            @Param("keyword") String keyword,
+            Pageable pageable
     );
 
     Accommodation findAccommodationById(Long id);

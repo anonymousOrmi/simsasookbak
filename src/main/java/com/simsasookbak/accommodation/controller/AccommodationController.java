@@ -11,6 +11,10 @@ import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -34,11 +39,15 @@ public class AccommodationController {
     @GetMapping
     public String showAccommodations(
             @ModelAttribute AccommodationRequest request,
+            @RequestParam(value="page", defaultValue="0") int pageNum,
             Model model
     ) {
-        List<AccommodationResponse> response = accommodationService.searchAccommodations(request);
+        Page<AccommodationResponse> response = accommodationService.searchAccommodations(request, pageNum);
+        model.addAttribute("currentPage", response.getNumber() + 1);
+        model.addAttribute("totalPages", response.getTotalPages());
         model.addAttribute("accommodations", response);
-        return "/accommodations";
+
+        return "list-page";
     }
 
     //상세 페이지 조회 (영석)
