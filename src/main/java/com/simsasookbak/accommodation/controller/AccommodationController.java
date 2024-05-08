@@ -52,8 +52,10 @@ public class AccommodationController {
             Model model
     ) {
         Page<AccommodationResponse> response = accommodationService.searchAccommodations(request, pageNum);
-        model.addAttribute("currentPage", response.getNumber() + 1);
+        model.addAttribute("currentPage", response.getNumber());
         model.addAttribute("totalPages", response.getTotalPages());
+
+        model.addAttribute("request", request);
         model.addAttribute("accommodations", response);
 
         return "list-page";

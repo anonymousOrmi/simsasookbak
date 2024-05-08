@@ -39,25 +39,6 @@ INSERT INTO accommodation (member_id, name, content, region, address, check_in, 
 VALUES (@member_id_choi, '숙소3', '숙소 설명 3', '대전','00구 ~', '14:00:00', '18:00:00', false);
 SET @accommodation_id_daejeon = LAST_INSERT_ID();
 
-INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소4', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
-SET @accommodation_id_seoul = LAST_INSERT_ID();
-
-INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소5', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
-SET @accommodation_id_seoul = LAST_INSERT_ID();
-
-INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소6', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
-SET @accommodation_id_seoul = LAST_INSERT_ID();
-
-INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소7', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
-SET @accommodation_id_seoul = LAST_INSERT_ID();
-
-INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '숙소8', '숙소 설명 1', '서울', '00구 ~','08:00:00', '12:00:00', false);
-SET @accommodation_id_seoul = LAST_INSERT_ID();
 --accommodation end
 
 --room start
