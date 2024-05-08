@@ -14,24 +14,28 @@
 <div class="container-fluid booking py-5">
     <div class="container py-5">
         <h1 class="text-white mb-3">Search A Your Room</h1>
-        <p class="text-white mb-4"> <span class="text-warning">Find rooms that suits you !</span> </p>
+        <p class="text-white mb-4"><span class="text-warning">Find rooms that suits you !</span></p>
         <form action="/accommodation" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-floating">
-                        <input class="form-control bg-white border-0" id="keyword" name="keyword" placeholder="Your Name" type="text">
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword"
+                               placeholder="Your Name" type="text">
                         <label for="keyword">숙소명 or 지역명</label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="date">
+                        <input aria-describedby="basic-addon2" aria-label="Search"
+                               class="form-control bg-white border-0 small" id="start-date" name="startDate"
+                               type="date">
                         <label for="start-date">입실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
+                        <input aria-describedby="basic-addon2" aria-label="Search"
+                               class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
                         <label for="end-date">퇴실 </label>
                     </div>
                 </div>
@@ -63,14 +67,15 @@
             <div class="packages-item" th:each="accommodation : ${highScoreAccommodations}">
                 <div class="packages-img">
                     <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
+                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
+                         style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
                     <div class="packages-price py-2 px-4">Top</div>
                 </div>
                 <div class="packages-content bg-light">
                     <div class="p-4 pb-0">
                         <h5 class="mb-0" th:text="${accommodation.name}"></h5>
-                        <small class="text-uppercase"  th:text="${accommodation.region}"></small>
-                        <small class="text-uppercase"  th:text="${accommodation.address}"></small>
+                        <small class="text-uppercase" th:text="${accommodation.region}"></small>
+                        <small class="text-uppercase" th:text="${accommodation.address}"></small>
                         <p class="mb-4" th:text="${accommodation.content}"></p>
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
@@ -109,7 +114,7 @@
 <!-- 인기 지역 끝 -->
 
 <!-- 유튜브 추천 -->
-<article class="container-fluid gallery py-5 my-5"  id="youtube-container">
+<article class="container-fluid gallery py-5 my-5" id="youtube-container">
     <div class="mx-auto text-center mb-5" style="max-width: 900px;">
         <h5 class="section-title px-3">Recommendations</h5>
         <h1 class="mb-4">추천 여행지</h1>
