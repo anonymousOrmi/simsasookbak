@@ -18,7 +18,7 @@
         <div class="d-inline-flex align-items-center" style="height: 45px;">
 <!--          <sec:authentication property="principal.username" var="principal"/>-->
 <!--          <span sec:authentication></span>-->
-          <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2" sec:authentication="principal.username"></i><i>님 환영합니다</i></small></a>
+          <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2" sec:authentication="principal.username"></i>님 환영합니다</small></a>
           <a href="/login" sec:authorize="isAnonymous()"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
           <a href="/logout" sec:authorize="isAuthenticated()"><small class="me-3 text-light"><i class="fas fa-power-off me-2"></i> Log Out</small></a>
         </div>
