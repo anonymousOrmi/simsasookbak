@@ -21,8 +21,10 @@ public class MyPageController {
 
     @GetMapping("/mypage")
     public String goMyPage(JoinPoint joinPoint,Model model){
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MemberDto memberDto = ((Member) authentication.getPrincipal()).toDto();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member) authentication.getPrincipal();
+        member = memberService.findById(member.getId());
+        MemberDto memberDto = member.toDto();
 //        MemberDto memberDto = (MemberDto)joinPoint.getSignature();
         log.error("{}", memberDto);
         model.addAttribute("member", memberDto);
@@ -34,7 +36,7 @@ public class MyPageController {
         log.error("memberDto = {}",memberDto);
         memberService.editMemberInfo(email,memberDto);
 
-        return "index";
+        return "redirect:/";
     }
 
     //탈퇴
