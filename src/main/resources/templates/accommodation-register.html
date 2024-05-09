@@ -52,7 +52,7 @@
     <div class="container-fluid booking py-5">
         <div class="container py-5">
             <h1 class="text-white mb-3">숙소 정보</h1>
-            <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="get">
+            <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="post">
                 <!-- 숙소 영역 -->
                 <div class="row g-3">
                     <div class="col-md-3">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <select name="region" class="form-select bg-white border-0" id="selectRegion">
+                            <select class="form-select bg-white border-0" id="selectRegion">
                                 <option value="1">서울</option>
                                 <option value="2">경기</option>
                                 <option value="3">강원</option>
@@ -397,36 +397,39 @@
     document.getElementById('registerForm').addEventListener('submit', function (e) {
         e.preventDefault(); // 폼의 기본 제출 동작 방지
 
-        // const formData = new FormData(this);
+        const formData = new FormData(this);
 
-        // const accommodationName = formData.get('accommodationName');
-        // const region = formData.get('region');
-        // const address = formData.get('address');
-        // const checkIn = formData.get('checkIn');
-        // const checkOut = formData.get('checkOut');
-        // const content = formData.get('accommodationContent');
+        const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
+        const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
+
+        const accommodationName = formData.get('accommodationName');
+        const region = regionSelect.options[regionIndex].text;
+        const address = formData.get('address');
+        const checkIn = formData.get('checkIn');
+        const checkOut = formData.get('checkOut');
+        const content = formData.get('accommodationContent');
         // const facilityList = formData.get('facilityList');
 
-        // console.log(accommodationName);
-        // console.log(region);
-        // console.log(address);
-        // console.log(checkIn);
-        // console.log(checkOut);
-        // console.log(content);
+        console.log(accommodationName);
+        console.log(region);
+        console.log(address);
+        console.log(checkIn);
+        console.log(checkOut);
+        console.log(content);
         // console.log(facilityList);
 
         fetch(this.action, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                // accommodationName: accommodationName,
-                // region: region,
-                // address: address,
-                // checkIn: checkIn,
-                // checkOut: checkOut,
-                // content: content,
+                name: accommodationName,
+                region: region,
+                address: address,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                content: content,
                 // facilityList: facilityList
             })
         })

@@ -2,10 +2,13 @@ package com.simsasookbak.accommodation.service;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.service.ReviewService;
 import java.util.List;
@@ -75,6 +78,13 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
     public List<String> findImgByAcomId(Long id) {
         return accommodationRepository.findImgByAcomId(id);
+    }
+
+    public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {
+        Accommodation accommodation = request.toEntity(member);
+        Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+
+        return new AccommodationAddResponseDto(savedAccommodation);
     }
 }
 

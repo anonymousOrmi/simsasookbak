@@ -2,7 +2,9 @@ package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 
+import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 
 import com.simsasookbak.member.domain.Member;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -101,10 +104,12 @@ public class AccommodationController {
         return "review-register";
     }
 
-    @GetMapping("/registerPage/register")
-    public ResponseEntity<MemberDto> register(@AuthenticationPrincipal Member member) {
-        MemberDto memberDto = member.toDto();
-        return ResponseEntity.status(HttpStatus.OK).body(memberDto);
+    @PostMapping("/registerPage/register")
+    public ResponseEntity<AccommodationAddResponseDto> register(@AuthenticationPrincipal Member member, @RequestBody
+                                              AccommodationAddRequestDto accommodationAddRequestDto) {
+        AccommodationAddResponseDto response = accommodationService.save(member, accommodationAddRequestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 }
