@@ -39,8 +39,12 @@ spring:
   schedule: # interval 1 hour
     cron : 0 0 0/1 * * *
     use : true
-
-
+    
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+        
 youtube:
   api:
     key: ${YOUTUBE_API_KEY}

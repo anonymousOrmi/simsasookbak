@@ -29,6 +29,8 @@ public class AccommodationDto {
 
     private final List<String> facilityList;
 
+    private double avgScore;
+
     @Builder
     public AccommodationDto(Long id, String name, String content, String region, String address, String checkIn, String checkOut,
                             Boolean isDeleted, List<String> facilityList) {
@@ -41,7 +43,7 @@ public class AccommodationDto {
         this.checkOut = LocalTime.parse(checkOut);
         this.isDeleted = isDeleted;
         this.facilityList = facilityList;
-
+//        this.avgScore = avgScore;
     }
 
 
@@ -77,5 +79,9 @@ public class AccommodationDto {
                 .facilityList(facilityList)
                 .build();
     }
+
+//    public void setAvgScore(double avgScore) {
+//        this.avgScore = avgScore;
+//    }
 
 }
