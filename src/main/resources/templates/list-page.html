@@ -85,8 +85,8 @@
 <div class="container-fluid packages py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Packages</h5>
-            <h1 class="mb-0">Awesome Packages</h1>
+            <h5 class="section-title px-3">숙소</h5>
+            <h1 class="mb-0">호텔/리조트/팬션/모텔</h1>
         </div>
         <div class="row row-cols-4 row-cols-md-4 g-4">
             <div class="col" th:each="accommodation : ${accommodations}">
@@ -111,7 +111,7 @@
     <ul class="pagination justify-content-center">
         <!-- 이전 페이지 버튼 -->
         <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate().toString() + '&endDate=' + request.getEndDate().toString() + '&page=' + (currentPage - 1)}}">Prev</a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate() + '&endDate=' + request.getEndDate() + '&page=' + (currentPage - 1)}}">Prev</a>
         </li>
 
         <!-- 페이지 번호들 -->
@@ -119,12 +119,12 @@
             th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
             th:class="${pageNum == currentPage + 1} ? 'page-item active' : 'page-item'"
             th:if="${pageNum >= currentPage - 3 and pageNum <= currentPage + 3}">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate.toString() + '&endDate=' + request.getEndDate.toString() + '&page=' + pageNum}}" th:text="${pageNum}"></a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + pageNum}}" th:text="${pageNum}"></a>
         </li>
 
         <!-- 다음 페이지 버튼 -->
         <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate.toString() + '&endDate=' + request.getEndDate.toString() + '&page=' + (currentPage + 1)}}">Next</a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + (currentPage + 1)}}">Next</a>
         </li>
     </ul>
 </nav>
