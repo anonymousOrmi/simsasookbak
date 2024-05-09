@@ -85,6 +85,12 @@ public class Member extends BaseEntity implements UserDetails {
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities(String role) {
+//        return List.of(new SimpleGrantedAuthority("user"));
+//    }
+
+
     @Override
     public String getUsername() {
         return email;
@@ -113,5 +119,25 @@ public class Member extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public MemberDto toDto(){
+        return new MemberDto(this.email,this.name,this.role,this.birthDate,this.phone);
+    }
+
+    //회원정보 수정
+    public void editInfo(String name,String phone){
+        this.name=name;
+        this.phone=phone;
+    }
+
+    //탈퇴처리
+    public void cancellation(){
+        this.name+=" (탈퇴)";
+        this.email+=" (탈퇴)";
+        this.status="탈퇴";
+//        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+//
+//        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }
