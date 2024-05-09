@@ -5,8 +5,13 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 
+import java.security.Principal;
 import java.util.Date;
+
+import com.simsasookbak.member.domain.Member;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -90,7 +95,11 @@ public class AccommodationController {
 
     //리뷰 등록 페이지 이동
     @GetMapping("/{acom_id}/comment")
-    public String review(@PathVariable Integer acom_id) {
+    public String review(@PathVariable Long acom_id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member) authentication.getPrincipal();
+        model.addAttribute("accommodation", acom_id);
+        model.addAttribute("member",member.getId());
         return "review-register";
     }
 }

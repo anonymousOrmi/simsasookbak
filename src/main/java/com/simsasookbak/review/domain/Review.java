@@ -14,13 +14,17 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
 public class Review extends BaseEntity {
 
     @Id
@@ -47,6 +51,7 @@ public class Review extends BaseEntity {
     @ColumnDefault("0")
     @Comment("삭제여부")
     private Boolean isDeleted;
+
 
     /*`summary_id`	bigint	NOT NULL*/
 }

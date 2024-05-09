@@ -1,5 +1,6 @@
 package com.simsasookbak.review.service;
 
+import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.repository.ReviewRepository;
@@ -54,5 +55,10 @@ public class ReviewService {
 //                .collect(Collectors.toList());
 
         return averageScoresByAccommodationId;
+    }
+
+    @Transactional
+    public void registComment(Review review){
+        reviewRepository.save(review);
     }
 }
