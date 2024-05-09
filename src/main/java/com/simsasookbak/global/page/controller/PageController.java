@@ -33,7 +33,7 @@ public class PageController {
         return "reservationPage";
     }
 
-    @GetMapping("/accommodation/register")
+    @GetMapping("/accommodation/registerPage")
     public String viewAccommodationRegisterPage() {
         return "accommodation-register";
     }

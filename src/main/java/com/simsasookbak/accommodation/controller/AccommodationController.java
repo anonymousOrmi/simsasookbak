@@ -5,8 +5,15 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 
+import com.simsasookbak.member.domain.Member;
+import com.simsasookbak.member.domain.MemberDto;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("accommodation")
+@RequestMapping("accommodation") // 앞에  / 없어도 되나
 @Slf4j
 public class AccommodationController {
 
@@ -93,4 +100,11 @@ public class AccommodationController {
     public String review(@PathVariable Integer acom_id) {
         return "review-register";
     }
+
+    @GetMapping("/registerPage/register")
+    public ResponseEntity<MemberDto> register(@AuthenticationPrincipal Member member) {
+        MemberDto memberDto = member.toDto();
+        return ResponseEntity.status(HttpStatus.OK).body(memberDto);
+    }
+
 }

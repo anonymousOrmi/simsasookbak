@@ -52,22 +52,23 @@
     <div class="container-fluid booking py-5">
         <div class="container py-5">
             <h1 class="text-white mb-3">숙소 정보</h1>
-            <form>
+            <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="get">
+                <!-- 숙소 영역 -->
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label for="imageInput" class="form-label">이미지 업로드</label>
                         <input class="form-control" type="file" id="imageInput" accept="image/*" multiple>
                     </div>
-                    <div class="col-md-9"></div>
+                    <div class="col-md-9"></div> <!-- 공백 위한 것 -->
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <input type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
+                            <input name="accommodationName" type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
                             <label for="accommodationName">숙소 명</label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <select class="form-select bg-white border-0" id="selectRegion">
+                            <select name="region" class="form-select bg-white border-0" id="selectRegion">
                                 <option value="1">서울</option>
                                 <option value="2">경기</option>
                                 <option value="3">강원</option>
@@ -84,25 +85,25 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <input type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
+                            <input name="address" type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
                             <label for="address">상세 주소</label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-floating date" id="date3" data-target-input="nearest">
-                            <input type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                            <input name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
                             <label for="datetime1">체크 인</label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-floating date" id="date4" data-target-input="nearest">
-                            <input type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                            <input name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
                             <label for="datetime2">체크 아웃</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
+                            <textarea name="accommodationContent" class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
                             <label for="accommodationContent">숙소 소개글</label>
                         </div>
                     </div>
@@ -160,6 +161,7 @@
                     </div>
                     <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
                 </div>
+                <!-- 객실 영역 -->
                 <div class="rooms row g-3">
                     <div class="room row g-3">
                         <h2 class="text-white mb-3">객실 정보</h2>
@@ -244,12 +246,13 @@
                     </div>
                     <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
                 </div>
+                <!-- 버튼 영역 -->
                 <div class="row g-3">
                     <div class="col-3">
                         <button class="btn btn-primary text-white w-100 py-3 add-room-btn" type="button">객실 추가하기</button>
                     </div>
                     <div class="col-3">
-                        <button class="btn btn-primary text-white w-100 py-3" type="submit">숙소 등록 완료 (누르면 전체 완료 되게)</button>
+                        <button class="btn btn-primary text-white w-100 py-3" type="submit">숙소 등록 완료</button>
                     </div>
                 </div>
             </form>
@@ -386,6 +389,60 @@
 
             roomsContainer.appendChild(newRoom);
         });
+    });
+</script>
+
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+        // const formData = new FormData(this);
+
+        // const accommodationName = formData.get('accommodationName');
+        // const region = formData.get('region');
+        // const address = formData.get('address');
+        // const checkIn = formData.get('checkIn');
+        // const checkOut = formData.get('checkOut');
+        // const content = formData.get('accommodationContent');
+        // const facilityList = formData.get('facilityList');
+
+        // console.log(accommodationName);
+        // console.log(region);
+        // console.log(address);
+        // console.log(checkIn);
+        // console.log(checkOut);
+        // console.log(content);
+        // console.log(facilityList);
+
+        fetch(this.action, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // accommodationName: accommodationName,
+                // region: region,
+                // address: address,
+                // checkIn: checkIn,
+                // checkOut: checkOut,
+                // content: content,
+                // facilityList: facilityList
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+                alert('숙소 등록이 완료되었습니다.');
+                return response.json();
+                //TODO: 어디로 보내지
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('숙소 등록 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
+            });
     });
 </script>
 
