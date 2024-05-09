@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -44,5 +44,6 @@
     <button type="button" class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 644px">탈퇴</button>
 </div>
 <input type="hidden" id="useremail" th:value="${member.email}" >
+<span sec:authentication="principal.authorities"></span>
 </body>
 </html>

@@ -6,6 +6,7 @@ accountCancellation.addEventListener('click',()=>{
             fetch(`/memberinfo/${email}/delete`,{method:'DELETE'}).then(()=>{
                 alert('탈퇴되었습니다.');
                 location.replace('/');
+                fetch('/logout',{method:'GET'}).then();
             })
         }
     }
