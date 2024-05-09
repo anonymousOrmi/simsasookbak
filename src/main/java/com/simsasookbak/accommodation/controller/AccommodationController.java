@@ -77,14 +77,14 @@ public class AccommodationController {
 
         AccommodationDto accommodation = accommodationService.findAccommodationById(acom_id);
         List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
-//        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
+        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
         List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
         List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("roomList", roomList);
-//        model.addAttribute("exSummary", exSummary);
+        model.addAttribute("exSummary", exSummary);
         model.addAttribute("inSummary", inSummary);
         model.addAttribute("reviewList",reviewList);
         model.addAttribute("imgList",imgList);

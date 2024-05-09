@@ -1,7 +1,7 @@
 package com.simsasookbak.review.service;
 
-import com.simsasookbak.member.domain.Member;
-import com.simsasookbak.member.service.MemberService;
+import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.review.domain.ExternalSummary;
 import com.simsasookbak.review.dto.ExternalSummaryRequest;
 import com.simsasookbak.review.dto.ExternalSummaryResponse;
@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExternalSummaryService {
 
     private final ExternalSummaryRepository externalSummaryRepository;
-    private final MemberService memberService;
+    private final AccommodationService accommodationService;
 
-    public ExternalSummaryResponse save(Long memberId, ExternalSummaryRequest request) {
-        Member member = memberService.findById(memberId);
-        ExternalSummary externalSummary = request.toEntity(member);
+    public ExternalSummaryResponse save(Long accommodationId, ExternalSummaryRequest request) {
+        Accommodation accommodation = accommodationService.findById(accommodationId);
+        ExternalSummary externalSummary = request.toEntity(accommodation);
 
         ExternalSummary savedExternalSummary = externalSummaryRepository.save(externalSummary);
 
