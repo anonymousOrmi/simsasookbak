@@ -64,12 +64,11 @@
             <h1 class="mb-0">인기 숙소 Top6</h1>
         </div>
         <div class="packages-carousel owl-carousel">
-            <div class="packages-item" th:each="accommodation : ${highScoreAccommodations}">
+            <div th:each="accommodation,accommodationStat : ${highScoreAccommodations}" class="packages-item">
                 <div class="packages-img">
                     <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-                         style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
-                    <div class="packages-price py-2 px-4">Top</div>
+                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
+                    <div class="packages-price py-2 px-4" style="text-align: center" th:text="'TOP '+${accommodationStat.index+1}"></div>
                 </div>
                 <div class="packages-content bg-light">
                     <div class="p-4 pb-0">
@@ -80,10 +79,10 @@
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#"></a>
+                            <a class="btn-hover btn text-white py-2 px-4"></a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a class="btn-hover btn text-white py-2 px-4" href="#">Book Now</a>
+                            <a class="btn-hover btn text-white py-2 px-4" th:href="'/accommodation/'+${accommodation.getId()}">Book Now</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -25,9 +25,9 @@
                 <a href="/" class="nav-item nav-link active">홈</a>
                 <a href="" class="nav-item nav-link">숙소 찾기</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">My Page</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAuthenticated()">My Page</a>
                     <div class="dropdown-menu m-0">
-                        <a href="" class="dropdown-item">내 정보</a>
+                        <a href="/mypage" class="dropdown-item">내 정보</a>
                         <a href="" class="dropdown-item">예약 내역</a>
                     </div>
                 </div>
