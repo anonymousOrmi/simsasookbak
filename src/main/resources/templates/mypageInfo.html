@@ -12,7 +12,8 @@
 <body>
 <div th:replace="~{/layout/top-bar :: top}" style="background-color: #0b204a"></div>
 <div th:replace="~{/layout/navigation-bar :: nav}" style="background-color: #0c4128"></div>
-<div style="background-color: #1a04c4;height: 97px;"></div>
+<div style="background: linear-gradient(rgba(19, 53, 123, .8), rgba(19, 53, 123, .8)), url(/img/tour-booking-bg.jpg);
+;height: 97px;"></div>
 <div style="display: flex;flex-direction: column;align-items: center;justify-content: center">
     <h2 style="color: #0b204a; margin-top: 88px">내 정보 수정</h2>
     <form th:action="@{/memberinfo/{email}/change(email=${member.email})}" th:method="put">
@@ -24,26 +25,29 @@
         <input class="border-box" name="email" th:value="${member.email}" disabled>
         <h3>생년월일</h3>
         <input class="border-box" name="birthDate" th:value="${member.birthDate}" disabled>
-
-        <div style="display: flex;justify-content: space-between; gap: 30px; margin-top: 30px">
-            <input type="radio" name="role" value="이용자" th:if="${member.role}=='이용자'" id="user" checked>
-            <label for="user" th:if="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>
-            <input type="radio" name="role" value="이용자" th:unless="${member.role}=='이용자'" id="user" disabled>
-            <label for="user" th:unless="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>
-            <input type="radio" name="role" value="사업자" th:if="${member.role}=='사업자'" id="business" checked>
-            <label for="user" th:if="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>
-            <input type="radio" name="role" value="사업자" th:unless="${member.role}=='사업자'" id="business" disabled>
-            <label for="user" th:unless="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>
-            <input type="radio" name="role" value="관리자" th:if="${member.role}=='관리자'" id="admin" checked>
-            <label for="user" th:if="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>
-            <input type="radio" name="role" value="관리자" th:unless="${member.role}=='관리자'" id="admin" disabled>
-            <label for="user" th:unless="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>
-        </div>
-        <button type="submit" class="btn btn-primary blue" style="margin-top: 30px">변경</button>
+        <h3 style="margin-top: 15px">권한</h3>
+        <input class="border-box" name="role" th:value="${member.role}" disabled>
+        <br>
+        <button type="submit" class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px">변경</button>
+<!--radio version-->
+<!--        <div style="display: flex;justify-content: space-between; gap: 30px; margin-top: 30px">-->
+<!--            <input type="radio" name="role" value="이용자" th:if="${member.role}=='이용자'" id="user" checked>-->
+<!--            <label for="user" th:if="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>-->
+<!--            <input type="radio" name="role" value="이용자" th:unless="${member.role}=='이용자'" id="user" disabled>-->
+<!--            <label for="user" th:unless="${member.role}=='이용자'" style="margin-left: -30px">이용자</label>-->
+<!--            <input type="radio" name="role" value="사업자" th:if="${member.role}=='사업자'" id="business" checked>-->
+<!--            <label for="user" th:if="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>-->
+<!--            <input type="radio" name="role" value="사업자" th:unless="${member.role}=='사업자'" id="business" disabled>-->
+<!--            <label for="user" th:unless="${member.role}=='사업자'" style="margin-left: -30px">사업자</label>-->
+<!--            <input type="radio" name="role" value="관리자" th:if="${member.role}=='관리자'" id="admin" checked>-->
+<!--            <label for="user" th:if="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>-->
+<!--            <input type="radio" name="role" value="관리자" th:unless="${member.role}=='관리자'" id="admin" disabled>-->
+<!--            <label for="user" th:unless="${member.role}=='관리자'" style="margin-left: -30px">관리자</label>-->
+<!--        </div>-->
     </form>
-    <button type="button" class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 644px">탈퇴</button>
+    <button type="button" class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 675px">탈퇴</button>
 </div>
 <input type="hidden" id="useremail" th:value="${member.email}" >
-<span sec:authentication="principal.authorities"></span>
+<!--<span sec:authentication="principal.authorities"></span>-->
 </body>
 </html>
