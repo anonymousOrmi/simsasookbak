@@ -20,6 +20,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -140,4 +141,6 @@ public class Member extends BaseEntity implements UserDetails {
 //
 //        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
+
+
 }
