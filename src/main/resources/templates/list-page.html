@@ -111,7 +111,7 @@
     <ul class="pagination justify-content-center">
         <!-- 이전 페이지 버튼 -->
         <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate().toString() + '&endDate=' + request.getEndDate().toString() + '&page=' + (currentPage - 1)}}">Prev</a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate() + '&endDate=' + request.getEndDate() + '&page=' + (currentPage - 1)}}">Prev</a>
         </li>
 
         <!-- 페이지 번호들 -->
@@ -119,12 +119,12 @@
             th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
             th:class="${pageNum == currentPage + 1} ? 'page-item active' : 'page-item'"
             th:if="${pageNum >= currentPage - 3 and pageNum <= currentPage + 3}">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate.toString() + '&endDate=' + request.getEndDate.toString() + '&page=' + pageNum}}" th:text="${pageNum}"></a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + pageNum}}" th:text="${pageNum}"></a>
         </li>
 
         <!-- 다음 페이지 버튼 -->
         <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
-            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate.toString() + '&endDate=' + request.getEndDate.toString() + '&page=' + (currentPage + 1)}}">Next</a>
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + (currentPage + 1)}}">Next</a>
         </li>
     </ul>
 </nav>
