@@ -1,11 +1,15 @@
 package com.simsasookbak.reservation.controller;
 
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
+import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import com.simsasookbak.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +50,13 @@ public class ReservationController {
     @GetMapping
     public String reservationList(Model model) {
 
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+         Member member = (Member) authentication.getPrincipal();
+
+        List<ReservationResponseDto> reservationList = reservationService.findAllReservationByMemberId(member.getId());
+
+        model.addAttribute("reservationList",reservationList);
 
         return "my-reservation-list";
     }
