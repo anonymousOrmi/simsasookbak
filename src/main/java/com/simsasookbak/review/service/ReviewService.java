@@ -35,7 +35,7 @@ public class ReviewService {
         }
          return reviewList;
     }
-    public List<Long> findScoreSixAccommodation() {
+    public List<ScoreAverageDto> findScoreSixAccommodation() {
 //         accommodation ID별 평균 점수를 조회합니다.
         List<ScoreAverageDto> averageScoresByAccommodationId = reviewRepository.findAverageScoreByAccommodationId();
 
@@ -48,15 +48,11 @@ public class ReviewService {
 
 
         // 상위 6개의 accommodation ID를 선택합니다.
-        List<Long> topSixAccommodationIds = averageScoresByAccommodationId.stream()
-                .limit(6)
-                .map(ScoreAverageDto::getAccommodationId) // ScoreAverageDto에서 숙소 아이디만 추출합니다.
-                .collect(Collectors.toList());
+//        List<Long> topSixAccommodationIds = averageScoresByAccommodationId.stream()
+//                .limit(6)
+//                .map(ScoreAverageDto::getAccommodationId) // ScoreAverageDto에서 숙소 아이디만 추출합니다.
+//                .collect(Collectors.toList());
 
-
-        return topSixAccommodationIds;
-
-
-
+        return averageScoresByAccommodationId;
     }
 }
