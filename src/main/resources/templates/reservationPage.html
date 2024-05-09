@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="reservationForm" th:action="@{/accommodation/{accommodationId}/{roomId}/reservationPage(accommodationId=${accommodation.id}, roomId=${room.roomId})}" method="post">
+                <form id="reservationForm" th:action="@{/reservation/{accommodationId}/{roomId}(accommodationId=${accommodation.id}, roomId=${room.roomId})}" method="post">
                     <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-5">

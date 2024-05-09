@@ -2,6 +2,7 @@ package com.simsasookbak.review.domain;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.global.BaseEntity;
+import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +23,6 @@ import org.hibernate.annotations.Comment;
 @Comment("외부 숙박 리뷰 요약")
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ExternalSummary extends BaseEntity {
 
     @Id
@@ -30,12 +30,17 @@ public class ExternalSummary extends BaseEntity {
     @Column(name = "external_summary_id")
     private Long id;
 
-    @Column(name = "summary", length = 300, nullable = false)
+    @Column(name = "summary", length = 10000, nullable = false)
     @Comment("외부 사이트 리뷰 요약")
     private String summary;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "accommodation_id")
+//    private Accommodation accommodation;
+
+    // TODO : 현재 숙소 등록이 없어서 멤버 등록으로 일단 해봄 나중에 바꿔야함
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }
