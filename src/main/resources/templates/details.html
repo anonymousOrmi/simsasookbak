@@ -202,13 +202,12 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
-                                <div class="img-container">
-                                    <img alt="Image"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         src="/img/explore-tour-1.jpg">
-                                    <img alt="Image"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         src="/img/explore-tour-1.jpg">
+                                <div th:if="${review.reviewImages}">
+                                    <div  th:each="reviewImage:${review.reviewImages}" class="img-container">
+                                        <img alt="Image"
+                                             class="img-fluid w-35 mx-auto rounded d-block"
+                                             th:src="@{${reviewImage.url}}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
