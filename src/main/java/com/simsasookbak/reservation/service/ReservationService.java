@@ -1,5 +1,6 @@
 package com.simsasookbak.reservation.service;
 
+import static com.simsasookbak.global.exception.ErrorMessage.NOT_EXIST_RESERVATION;
 import static com.simsasookbak.global.exception.ErrorMessage.UNEXPECTED_ROW_COUNT;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -121,18 +121,18 @@ public class ReservationService {
         }
     }
 
+    public Reservation findReservationById(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_RESERVATION.getMessage() + "(id : " + id + ")"));
+    }
+
     public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
         return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
                 Collectors.toList());
     }
 
     @Transactional
-    public void cancelReservation(Optional<Long> reservationId) {
-        if (reservationId.isPresent()) {
-            reservationRepository.cancelReservationById(reservationId);
-        } else {
-            // Handle the case where reservationId is empty (optional with no value)
-        }
+    public void cancelReservation(Long reservationId) {
+        reservationRepository.cancelReservationById(reservationId);
     }
-
 }
