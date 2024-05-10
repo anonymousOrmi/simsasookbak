@@ -50,14 +50,21 @@ public class ReservationController {
     @GetMapping
     public String reservationList(Model model) {
 
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-         Member member = (Member) authentication.getPrincipal();
+        Member member = (Member) authentication.getPrincipal();
 
         List<ReservationResponseDto> reservationList = reservationService.findAllReservationByMemberId(member.getId());
 
-        model.addAttribute("reservationList",reservationList);
+        model.addAttribute("reservationList", reservationList);
 
         return "my-reservation-list";
+    }
+
+    @GetMapping("/{reservationId}")
+    public String reservationDetail(@PathVariable Long reservationId, Model model) {
+
+
+        return "reservation-detail";
     }
 }

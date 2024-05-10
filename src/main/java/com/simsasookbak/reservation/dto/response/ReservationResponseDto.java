@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class ReservationResponseDto {
+
+    private Long id;
     private Accommodation accommodation;
     private Member loginMember;
     private Room room;
@@ -24,7 +26,9 @@ public class ReservationResponseDto {
     private String request;
 
     public ReservationResponseDto(Reservation reservation) {
+        this.id = reservation.getId();
         this.accommodation = reservation.getAccommodation();
+        this.loginMember = reservation.getMember();
         this.room = reservation.getRoom();
         this.status = reservation.getStatus();
         this.startDate = reservation.getStartDate();

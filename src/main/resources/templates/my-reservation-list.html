@@ -38,11 +38,11 @@
 <div class="container-fluid bg-breadcrumb">
     <div class="container text-center py-5" style="max-width: 900px;">
         <h3 class="text-white display-3 mb-4">예약 내역</h3>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="/">홈</a></li>
-                <li class="breadcrumb-item"><a href="#">My Page</a></li>
-                <li class="breadcrumb-item active text-white">예약 내역</li>
-            </ol>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">My Page</a></li>
+            <li class="breadcrumb-item active text-white">예약 내역</li>
+        </ol>
     </div>
 </div>
 <!-- Header End -->
@@ -55,53 +55,116 @@
             <h1 class="mb-0">my reservations</h1>
         </div>
         <div class="row g-3">
-            <div class="col-lg-12">
-                <div class="row g-3" th:each="reservation:${reservationList}">
-                    <div class="col-12">
-                        <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
-                            <div class="service-icon p-4">
-                                <i class="fa fa-globe fa-4x text-primary"></i>
-                            </div>
-                            <div class="service-content">
-                                <h5 class="mb-4"><a th:href="'/accommodation/'+${reservation.getAccommodation().getId()}" th:text="${reservation.getAccommodation().getName()}"></a></h5>
-                                <p class="mb-2" th:text="${reservation.getAccommodation().getContent()}">
-                                </p>
-                                <div class="row gy-2 gx-4 mb-4">
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'지역 : '+${reservation.getAccommodation().getRegion()}"></span></p>
+            <!-- accodion start-->
+            <div class="accordion" id="accordionFlushExample" th:each="reservation:${reservationList}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                th:data-bs-target="'#flush-collapse'+${reservationStat.index}" aria-expanded="false"
+                                th:aria-controls="'flush-collapse'+${reservationStat.index}"
+                                th:text="${reservation.getAccommodation().getName()}+'-'+${reservation.getRoom().getName()} + '(' + ${reservation.getStartDate()}+' ~ ' + ${reservation.getEndDate()} + ')'">
+                        </button>
+                    </h2>
+                    <div th:id="flush-collapse+${reservationStat.index}" class="accordion-collapse collapse"
+                         th:aria-labelledby="'flush-heading'+${reservationStat.index}"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="card">
+                                <h5 class="card-header"><strong>예약 상세 정보</strong></h5>
+                                <div class="card-body">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>숙소명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getAccommodation().getName()}"></td>
+                                                <td>
+                                                    <strong>객실명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getRoom().getName()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>가격</strong>
+                                                </td>
+                                                <td th:text="${reservation.getRoom().getCost()}+'원'"></td>
+                                                <td>
+                                                    <strong>인원 수</strong>
+                                                </td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약일자</strong>
+                                                </td>
+                                                <td th:text="${reservation.getStartDate()}+ ' ~ ' + ${reservation.getEndDate()}"></td>
+                                                <td>
+                                                    <strong>예약 상태</strong>
+                                                </td>
+                                                <td th:text="${reservation.getStatus()}">대기</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>숙박업소 전화번호</strong>
+                                                </td>
+                                                <td th:text="${reservation.getAccommodation().getMember().getPhone()}"></td>
+                                                <td>
+                                                    <strong>숙박업소 이메일</strong>
+                                                </td>
+                                                <td th:text="${reservation.getAccommodation().getMember().getEmail()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약자명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getLoginMember().getName()}"></td>
+                                                <td>
+                                                    <strong>예약자 전화번호</strong>
+                                                </td>
+                                                <td th:text="${reservation.getLoginMember().getPhone()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약자 이메일</strong>
+                                                </td>
+                                                <td colspan="3" th:text="${reservation.getLoginMember().getEmail()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>요청 사항</strong>
+                                                </td>
+                                                <td colspan="3" th:text="${reservation.getRequest()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'가격 : '+${reservation.getRoom().getCost()}+'원'"></span></p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'방 이름 : '+${reservation.getRoom().getName()}"></span></p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'예약 일자 : ' + ${reservation.getStartDate()} + ' ~ ' + ${reservation.getEndDate()}"></span></p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'이용 시간 : 당일 ' + ${reservation.getAccommodation().getCheckIn()} + ' ~ 익일 ' + ${reservation.getAccommodation().getCheckOut()}"></span></p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="'예약 상태 : ' + ${reservation.getStatus()}"></span></p>
+                                    <div class="text-md-end">
+                                        <button type="button" class="btn btn-primary">예약 확정</button>
+                                        <button type="button" class="btn btn-danger">예약 취소</button>
                                     </div>
                                 </div>
-                                <a th:href="${reservation.}">상세 보기</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="text-center">
-                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">더보기(아직 미구현)</a>
+            <!-- accodion end -->
+            <div class="col-lg-12">
+                <div class="row g-3" th:each="reservation:${reservationList}">
+
+                </div>
             </div>
         </div>
+        <!--        <div class="col-12">-->
+        <!--            <div class="text-center">-->
+        <!--                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">더보기(아직 미구현)</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 <!-- my accommodation list End -->
-
 
 
 <!-- Copyright Start -->
@@ -115,7 +178,8 @@
                 <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                 <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                 <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
+                    href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
     </div>
@@ -133,7 +197,6 @@
 <script src="/lib/waypoints/waypoints.min.js"></script>
 <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="/lib/lightbox/js/lightbox.min.js"></script>
-
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
