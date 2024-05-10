@@ -20,12 +20,6 @@ public class PageController {
     private final RoomService roomService;
     private final ReservationService reservationService;
 
-//    @GetMapping("/")
-//    public String home() {
-//
-//        return "index";
-//    }
-
     @GetMapping("/accommodation/{accommodationId}/{roomId}/reservationPage")
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
@@ -38,5 +32,11 @@ public class PageController {
 
         return "reservationPage";
     }
+
+    @GetMapping("/accommodation/registerPage")
+    public String viewAccommodationRegisterPage() {
+        return "accommodation-register";
+    }
+
 
 }
