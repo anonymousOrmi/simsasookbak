@@ -399,8 +399,12 @@
 
         const formData = new FormData(this);
 
+        //지역 선택
         const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
         const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
+
+        //시설 선택
+        const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
         const accommodationName = formData.get('accommodationName');
         const region = regionSelect.options[regionIndex].text;
@@ -408,7 +412,7 @@
         const checkIn = formData.get('checkIn');
         const checkOut = formData.get('checkOut');
         const content = formData.get('accommodationContent');
-        // const facilityList = formData.get('facilityList');
+        const facilityList = Array.from(checkedCheckboxes).map(checkbox => checkbox.nextSibling.nodeValue.trim());
 
         console.log(accommodationName);
         console.log(region);
@@ -416,7 +420,7 @@
         console.log(checkIn);
         console.log(checkOut);
         console.log(content);
-        // console.log(facilityList);
+        console.log(facilityList);
 
         fetch(this.action, {
             method: 'POST',
@@ -439,8 +443,8 @@
                 }
                 // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
                 alert('숙소 등록이 완료되었습니다.');
-                return response.json();
                 //TODO: 어디로 보내지
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error('Error:', error);

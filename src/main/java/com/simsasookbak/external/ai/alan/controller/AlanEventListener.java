@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AlanEventListener {
 
-    private static final String ALAN_QUESTION = "숙소의 리뷰에 대해서 요약해서 100자 내외로 알려줘, 또 별점을 5점 만점으로 해서 매겨줘. 출처는 필요 없어";
+    private static final String ALAN_QUESTION = "숙소의 후기를 요약해서 100자 내외로 알려주는데 출처는 붙이지마. 또 별점을 5점 만점으로 해서 매겨줘.";
     private final AccommodationService accommodationService;
     private final AlanService alanService;
     private final ExternalSummaryService externalSummaryService;
