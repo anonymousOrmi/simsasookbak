@@ -31,19 +31,19 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r WHERE r.room.id = :roomId AND r.status = '완료'")
     List<Reservation> findAllCompleteStatusRoomByRoomId(@Param("roomId") Long roomId);
 
-    @Query("select reservation.id as id, "
-         + "reservation.accommodation.id as accommodationId, "
-         + "reservation.room.id as roomId, "
-         + "reservation.status as status, "
-         + "timestamp(reservation.startDate || ' ' || reservation.accommodation.checkIn) as checkinDate, "
-         + "timestamp(reservation.endDate || ' ' || reservation.accommodation.checkOut) as checkoutDate, "
-         + "reservation.createdAt as createdAt, "
-         + "reservation.updatedAt as updatedAt "
-         + "from Reservation reservation "
-         + "join Accommodation accommodation on reservation.accommodation.id = accommodation.id "
-         + "where reservation.accommodation.isDeleted = false "
-         + "and reservation.status <> :status "
-         + "and timestamp(reservation.endDate || ' ' || reservation.accommodation.checkOut) < current_timestamp "
+    @Query("select re.id as id, "
+            + "re.accommodation.id as accommodationId, "
+            + "re.room.id as roomId, "
+            + "re.status as status, "
+            + "timestamp(re.startDate || ' ' || re.accommodation.checkIn) as checkinDate, "
+            + "timestamp(re.endDate || ' ' || re.accommodation.checkOut) as checkoutDate, "
+            + "re.createdAt as createdAt, "
+            + "re.updatedAt as updatedAt "
+            + "from Reservation re "
+            + "join Accommodation accommodation on re.accommodation.id = accommodation.id "
+            + "where re.accommodation.isDeleted = false "
+            + "and re.status <> :status "
+            + "and timestamp(re.endDate || ' ' || re.accommodation.checkOut) < current_timestamp "
     )
     List<ReservationView> findAllReservationByCurrentDate(@Param("status") String status);
 
@@ -54,4 +54,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("status") String status
     );
 
+    @Query("Select r from Reservation r Where r.member.id = :userId")
+    List<Reservation> findAllReservationByUserId(@Param("userId") Long userId);
 }
