@@ -79,4 +79,6 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     @Query("SELECT a.accommodationFacility.name FROM AccommodationFacilityMapping a WHERE a.accommodation.id = :id")
     List<String> findAccommodationFacilityById(Long id);
 
+    @Query("select a from Accommodation a where a.member.id = :memberId")
+    List<AccommodationView> findAccommodationByMemberId(Long memberId);
 }

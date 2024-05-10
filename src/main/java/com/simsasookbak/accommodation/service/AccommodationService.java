@@ -76,7 +76,8 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
     public List<String> findImgByAcomId(Long id) {
         return accommodationRepository.findImgByAcomId(id);
     }
+
+    public List<AccommodationResponse> findMyAccommodations(Long memberId) {
+        return accommodationRepository.findAccommodationByMemberId(memberId).stream().map(AccommodationResponse::new).collect(Collectors.toList());
+    }
 }
-
-
-
