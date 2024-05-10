@@ -5,6 +5,7 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
+import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
@@ -84,9 +85,9 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
     }
 
 
-    public List<AccommodationResponse> findMyAccommodations(Long memberId) {
-        return accommodationRepository.findAccommodationByMemberId(memberId).stream().map(AccommodationResponse::new)
-                .collect(Collectors.toList());
+    public List<AccommodationRegisteredResponse> findMyAccommodations(Long memberId) {
+        return accommodationRepository.findByMemberId(memberId).stream().map(AccommodationRegisteredResponse::new).collect(
+                Collectors.toList());
     }
 
     public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {

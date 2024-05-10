@@ -1,6 +1,8 @@
 package com.simsasookbak.accommodation.repository;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.dto.AccommodationDto;
+import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import java.time.LocalDate;
 import java.util.List;
@@ -79,6 +81,5 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     @Query("SELECT a.accommodationFacility.name FROM AccommodationFacilityMapping a WHERE a.accommodation.id = :id")
     List<String> findAccommodationFacilityById(Long id);
 
-    @Query("select a from Accommodation a where a.member.id = :memberId")
-    List<AccommodationView> findAccommodationByMemberId(Long memberId);
+    List<Accommodation> findByMemberId(@Param("memberId") Long memberId);
 }
