@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccommodationFacilityRepository extends JpaRepository<AccommodationFacility, Long> {
+
+    AccommodationFacility findByName(String name);
+
 }

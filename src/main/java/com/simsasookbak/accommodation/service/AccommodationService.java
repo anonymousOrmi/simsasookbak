@@ -28,6 +28,7 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReviewService reviewService;
     private final ApplicationEventPublisher publisher;
+    private final AccommodationFacilityMappingService accommodationFacilityMappingService;
 
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
 
@@ -58,7 +59,8 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
                 .map(accommodation -> accommodationRepository.findAccommodationById(accommodation.getAccommodationId()))
                 .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
-                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId())))
+                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,
+                        findAccommodationFacilityById(accommodation.getId())))
                 .collect(Collectors.toList());
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
@@ -72,7 +74,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         Accommodation accommodation = accommodationRepository.findAccommodationById(id);
         List<String> facilityList = findAccommodationFacilityById(id);
 
-        return AccommodationDto.toAccommodationDto(accommodation,facilityList);
+        return AccommodationDto.toAccommodationDto(accommodation, facilityList);
     }
 
     public List<String> findAccommodationFacilityById(Long id) {
@@ -85,7 +87,9 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
     public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {
         Accommodation accommodation = request.toEntity(member);
+        List<String> facilityList = request.getFacilityList();
         Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+        accommodationFacilityMappingService.registerMapping(accommodation, facilityList);
 
         publisher.publishEvent(new RegistrationEvent(this, savedAccommodation.getId()));
 

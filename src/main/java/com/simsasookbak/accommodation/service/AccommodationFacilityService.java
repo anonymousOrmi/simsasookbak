@@ -14,6 +14,10 @@ public class AccommodationFacilityService {
 
     private final AccommodationFacilityRepository accommodationFacilityRepository;
 
+    public AccommodationFacility findByName(String name) {
+        return accommodationFacilityRepository.findByName(name);
+    }
+
     public List<AccommodationFacility> findAll() {
         return accommodationFacilityRepository.findAll();
     }

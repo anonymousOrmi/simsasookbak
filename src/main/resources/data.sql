@@ -112,10 +112,10 @@ VALUES ('주차장'),('편의점'),('레스토랑'),('헬스장'),('수영장'),
 
 -- --accommodation facility end
 --
--- --accommodation facility mapping start
--- INSERT INTO accommodation_facility_mapping (accommodation_id,accommodation_facility_id)
--- VALUES (1,1),(2,1),(2,2);
--- --accommodation facility mapping end
+--accommodation facility mapping start
+INSERT INTO accommodation_facility_mapping (accommodation_id,accommodation_facility_id)
+VALUES (1,1),(2,1),(2,2);
+--accommodation facility mapping end
 --
 -- --room facility start
 --
