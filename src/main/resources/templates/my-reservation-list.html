@@ -141,8 +141,8 @@
                                         </table>
                                     </div>
                                     <div class="text-md-end">
-                                        <button type="button" class="btn btn-primary">예약 확정</button>
-                                        <button type="button" class="btn btn-danger">예약 취소</button>
+                                        <button type="button" class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}">예약 수정</button>
+                                        <button type="button" class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'">예약 취소</button>
                                     </div>
                                 </div>
                             </div>
@@ -151,11 +151,6 @@
                 </div>
             </div>
             <!-- accodion end -->
-            <div class="col-lg-12">
-                <div class="row g-3" th:each="reservation:${reservationList}">
-
-                </div>
-            </div>
         </div>
         <!--        <div class="col-12">-->
         <!--            <div class="text-center">-->
@@ -200,6 +195,7 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script src="/js/reservationList.js"></script>
 </body>
 
 </html>
