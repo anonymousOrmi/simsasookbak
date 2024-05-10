@@ -6,11 +6,11 @@ import org.springframework.context.ApplicationEvent;
 @Getter
 public class RegistrationEvent extends ApplicationEvent {
 
-    private final Long memberId;
+    private final Long AccommodationId;
 
-    public RegistrationEvent(Object source, Long memberId) {
+    public RegistrationEvent(Object source, Long AccommodationId) {
         super(source);
-        this.memberId = memberId;
+        this.AccommodationId = AccommodationId;
     }
 
 }

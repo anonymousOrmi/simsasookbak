@@ -2,16 +2,21 @@ package com.simsasookbak.accommodation.service;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
+import com.simsasookbak.external.ai.alan.event.RegistrationEvent;
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.service.ReviewService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +27,7 @@ import org.springframework.stereotype.Service;
 public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReviewService reviewService;
+    private final ApplicationEventPublisher publisher;
 
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
 
@@ -77,7 +83,22 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findImgByAcomId(id);
     }
 
+
     public List<AccommodationResponse> findMyAccommodations(Long memberId) {
-        return accommodationRepository.findAccommodationByMemberId(memberId).stream().map(AccommodationResponse::new).collect(Collectors.toList());
+        return accommodationRepository.findAccommodationByMemberId(memberId).stream().map(AccommodationResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {
+        Accommodation accommodation = request.toEntity(member);
+        Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+
+        publisher.publishEvent(new RegistrationEvent(this, savedAccommodation.getId()));
+
+        return new AccommodationAddResponseDto(savedAccommodation);
+    }
+
+    public Accommodation findById(Long accommodationId) {
+        return accommodationRepository.findById(accommodationId).orElseThrow();
     }
 }
