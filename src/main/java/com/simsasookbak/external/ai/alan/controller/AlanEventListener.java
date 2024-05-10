@@ -43,14 +43,14 @@ public class AlanEventListener {
 
         String alanAnswer = alanResponse.getContent();
 
-        final String regexResult = moveSourceToEnd(alanAnswer);
+        final String regexResult = applyRegex(alanAnswer);
 
         ExternalSummaryRequest request = new ExternalSummaryRequest(regexResult);
 
         return externalSummaryService.save(accommodationID, request);
     }
 
-    public String moveSourceToEnd(String input) {
+    public String applyRegex(String input) {
         StringBuilder sources = new StringBuilder();
         Pattern pattern = Pattern.compile("\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)");
         Matcher matcher = pattern.matcher(input);
