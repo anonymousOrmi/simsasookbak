@@ -172,43 +172,42 @@
             <div class="row g-3">
                 <div class="col-lg-12">
                     <div class="row g-3">
-                        <div class="border border-primary rounded p-3">
+                        <div class="border border-primary rounded p-3" th:each="review:${reviewList}">
                             <div class="container py-5">
                                 <div class="row g-3">
                                     <div class="col-md-6 text-md-start text-center" style="font-size: 20px;"
-                                         th:text="${reviewList[0].content}">
+                                         th:text="${review.roomTitle}">
                                     </div>
                                     <div class="col-md-6 text-md-end text-center">
                                         <div class="row g-3">
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="${reviewList[0].getMemberName()}">
+                                                 th:text="${review.getMemberName()}">
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'생성일자 : '+ ${reviewList[0].getFormattedCreatedAt()}">
+                                                 th:text="'생성일자 : '+ ${review.getFormattedCreatedAt()}">
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'수정일자 : '+ ${reviewList[0].getFormattedUpdatedAt()}">
+                                                 th:text="'수정일자 : '+ ${review.getFormattedUpdatedAt()}">
                                                 수정일
                                             </div>
                                             <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'별점'+ ${reviewList[0].getScore()}">
+                                                 th:text="'별점'+ ${review.getScore()}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
                                     <div class="col-md-12 border rounded p-3">
-                                        <div class="mb-2" th:text="${reviewList[0].getContent()}">
+                                        <div class="mb-2" th:text="${review.getContent()}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
-                                <div class="img-container">
-                                    <img alt="Image"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         src="/img/explore-tour-1.jpg">
-                                    <img alt="Image"
-                                         class="img-fluid w-35 mx-auto rounded d-block"
-                                         src="/img/explore-tour-1.jpg">
+                                <div th:if="${review.reviewImages}">
+                                    <div  th:each="reviewImage:${review.reviewImages}" class="img-container">
+                                        <img alt="Image"
+                                             class="img-fluid w-35 mx-auto rounded d-block"
+                                             th:src="@{${reviewImage.url}}">
+                                    </div>
                                 </div>
                             </div>
                         </div>

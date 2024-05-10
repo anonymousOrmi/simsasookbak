@@ -1,7 +1,10 @@
 package com.simsasookbak.review.service;
 
+import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.domain.ReviewImage;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.dto.ScoreAverageDto;
+import com.simsasookbak.review.repository.ReviewImageRepository;
 import com.simsasookbak.review.repository.ReviewRepository;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final ReviewImageRepository reviewImageRepository;
 
     public String findExSummaryByAcomId(Long id) {
         return reviewRepository.findExSummaryByAcomId(id);
@@ -28,7 +32,7 @@ public class ReviewService {
     }
 
     public List<ReviewDto> findAllReviewByAcomId(Long id) {
-         List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream().map(ReviewDto::toDto).collect(Collectors.toList());
+         List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream().map(review -> ReviewDto.toDto(review,reviewImageRepository.findAllByReview(review))).collect(Collectors.toList());
         for (ReviewDto reviewDto : reviewList) {
             reviewDto.setFormattedCreatedAt(reviewDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             reviewDto.setFormattedUpdatedAt(reviewDto.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -55,4 +59,23 @@ public class ReviewService {
 
         return averageScoresByAccommodationId;
     }
+
+    @Transactional
+    public Review registComment(Review review){
+        return reviewRepository.save(review);
+    }
+
+
+
+    @Transactional
+    public void registReviewImage(String url,Long reviewId){
+        ReviewImage reviewImage = new ReviewImage(reviewRepository.findById(reviewId).orElseThrow(),url);
+//        reviewImageRepository.saveToDb(reviewId,url);
+        reviewImageRepository.save(reviewImage);
+    }
+
+    public List<ReviewImage> findAllImageByReviewId(Review reviewId){
+        return reviewImageRepository.findAllByReview(reviewId);
+    }
+
 }
