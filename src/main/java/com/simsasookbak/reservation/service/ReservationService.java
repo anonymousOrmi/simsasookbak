@@ -12,6 +12,7 @@ import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
 import com.simsasookbak.reservation.dto.response.ReservationResponse;
+import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
@@ -21,6 +22,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -117,4 +120,19 @@ public class ReservationService {
             throw new SQLDataException(UNEXPECTED_ROW_COUNT.getMessage());
         }
     }
+
+    public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
+        return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
+                Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelReservation(Optional<Long> reservationId) {
+        if (reservationId.isPresent()) {
+            reservationRepository.cancelReservationById(reservationId);
+        } else {
+            // Handle the case where reservationId is empty (optional with no value)
+        }
+    }
+
 }

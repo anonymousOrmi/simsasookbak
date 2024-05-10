@@ -64,9 +64,10 @@ public class Accommodation extends BaseEntity {
 	private List<AccommodationFacilityMapping> accommodationFacilityMappingList = new ArrayList<>();
 
 	@Builder
-	public Accommodation(Long id, String name, String content, String region, String checkIn, String checkOut,
+	public Accommodation(Long id, Member member, String name, String content, String region, String checkIn, String checkOut,
 						 Boolean isDeleted, String address) {
 		this.id = id;
+		this.member = member;
 		this.name = name;
 		this.content = content;
 		this.region = region;

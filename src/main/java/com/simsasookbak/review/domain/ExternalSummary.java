@@ -2,7 +2,6 @@ package com.simsasookbak.review.domain;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.global.BaseEntity;
-import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,13 +33,8 @@ public class ExternalSummary extends BaseEntity {
     @Comment("외부 사이트 리뷰 요약")
     private String summary;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "accommodation_id")
-//    private Accommodation accommodation;
-
-    // TODO : 현재 숙소 등록이 없어서 멤버 등록으로 일단 해봄 나중에 바꿔야함
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
 
 }
