@@ -126,7 +126,7 @@ public class ReservationService {
                 Collectors.toList());
     }
 
-//    @Transactional
+    @Transactional
     public void cancelReservation(Optional<Long> reservationId) {
         if (reservationId.isPresent()) {
             reservationRepository.cancelReservationById(reservationId);

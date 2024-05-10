@@ -58,7 +58,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("Select r from Reservation r Where r.member.id = :userId")
     List<Reservation> findAllReservationByUserId(@Param("userId") Long userId);
 
-    @Modifying  // Optional for update/delete queries
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE Reservation r SET r.status = '취소' WHERE r.id = :reservationId AND r.status IN ('완료', '대기')")
     void cancelReservationById(@Param("reservationId") Optional<Long> reservationId);
 }
