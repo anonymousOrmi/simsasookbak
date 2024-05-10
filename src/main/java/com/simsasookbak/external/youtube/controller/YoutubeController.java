@@ -1,7 +1,7 @@
 package com.simsasookbak.external.youtube.controller;
 
-import com.simsasookbak.external.youtube.dto.response.YouTubeResponse;
 import com.simsasookbak.external.youtube.service.YoutubeService;
+import com.simsasookbak.external.youtube.dto.response.YouTubeResponse;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

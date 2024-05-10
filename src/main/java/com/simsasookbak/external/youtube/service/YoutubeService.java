@@ -1,10 +1,5 @@
 package com.simsasookbak.external.youtube.service;
 
-import static com.simsasookbak.external.youtube.dto.YoutubeProperties.MAX_RESULT;
-import static com.simsasookbak.external.youtube.dto.YoutubeProperties.PART;
-import static com.simsasookbak.external.youtube.dto.YoutubeProperties.QUERY;
-import static com.simsasookbak.external.youtube.dto.YoutubeProperties.REGION_CODE;
-import static com.simsasookbak.external.youtube.dto.YoutubeProperties.TYPE;
 import static com.simsasookbak.global.exception.ErrorMessage.YOUTUBE_VIDEO_NOT_FOUND;
 
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -14,8 +9,9 @@ import com.google.api.services.youtube.YouTube.Search;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.simsasookbak.external.youtube.domain.Youtube;
-import com.simsasookbak.external.youtube.dto.response.YouTubeResponse;
+import com.simsasookbak.external.youtube.dto.YoutubeProperties;
 import com.simsasookbak.external.youtube.repository.YoutubeRepository;
+import com.simsasookbak.external.youtube.dto.response.YouTubeResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -53,11 +49,11 @@ public class YoutubeService {
                 .list(Collections.singletonList("id,snippet"));
 
         search.setKey(API_KEY);
-        search.setPart(Collections.singletonList(PART));
-        search.setRegionCode(REGION_CODE);
-        search.setType(Collections.singletonList(TYPE));
-        search.setMaxResults(MAX_RESULT);
-        search.setQ(QUERY);
+        search.setPart(Collections.singletonList(YoutubeProperties.PART));
+        search.setRegionCode(YoutubeProperties.REGION_CODE);
+        search.setType(Collections.singletonList(YoutubeProperties.TYPE));
+        search.setMaxResults(YoutubeProperties.MAX_RESULT);
+        search.setQ(YoutubeProperties.QUERY);
 
         SearchListResponse searchResponse = search.execute();
         List<SearchResult> searchResults = searchResponse.getItems();
