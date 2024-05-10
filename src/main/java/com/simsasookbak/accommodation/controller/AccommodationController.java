@@ -7,10 +7,15 @@ import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 
+import java.security.Principal;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.domain.MemberDto;
 import java.util.Date;
+
+import com.simsasookbak.member.domain.Member;
+import com.simsasookbak.reservation.service.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -53,6 +58,7 @@ public class AccommodationController {
     private final AccommodationService accommodationService;
     private final RoomService roomService;
     private final ReviewService reviewService;
+    private final ReservationService reservationService;
 
 
     @GetMapping
@@ -100,7 +106,12 @@ public class AccommodationController {
 
     //리뷰 등록 페이지 이동
     @GetMapping("/{acom_id}/comment")
-    public String review(@PathVariable Integer acom_id) {
+    public String review(@PathVariable Long acom_id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Member member = (Member) authentication.getPrincipal();
+        model.addAttribute("accommodation", acom_id);
+        model.addAttribute("member",member.getId());
+        model.addAttribute("RoomNames",reservationService.getReservationRoomName(acom_id,member.getId()));
         return "review-register";
     }
 
