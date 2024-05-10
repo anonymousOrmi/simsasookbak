@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -123,6 +124,15 @@ public class ReservationService {
     public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
         return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
                 Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelReservation(Optional<Long> reservationId) {
+        if (reservationId.isPresent()) {
+            reservationRepository.cancelReservationById(reservationId);
+        } else {
+            // Handle the case where reservationId is empty (optional with no value)
+        }
     }
 
 }

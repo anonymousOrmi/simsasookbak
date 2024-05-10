@@ -60,11 +60,4 @@ public class ReservationController {
 
         return "my-reservation-list";
     }
-
-    @GetMapping("/{reservationId}")
-    public String reservationDetail(@PathVariable Long reservationId, Model model) {
-
-
-        return "reservation-detail";
-    }
 }

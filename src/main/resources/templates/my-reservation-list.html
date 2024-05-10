@@ -55,8 +55,11 @@
             <h1 class="mb-0">my reservations</h1>
         </div>
         <div class="row g-3">
+            <div class="text-center" th:if="${reservationList.size()==0}">
+                <h3 class="mb-0"><strong>예약내역이 없습니다!</strong></h3>
+            </div>
             <!-- accodion start-->
-            <div class="accordion" id="accordionFlushExample" th:each="reservation:${reservationList}">
+            <div class="accordion" id="accordionFlushExample" th:each="reservation,reservationStat:${reservationList}">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -141,8 +144,8 @@
                                         </table>
                                     </div>
                                     <div class="text-md-end">
-                                        <button type="button" class="btn btn-primary">예약 확정</button>
-                                        <button type="button" class="btn btn-danger">예약 취소</button>
+                                        <button type="button" class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}">예약 수정</button>
+                                        <button type="button" class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'">예약 취소</button>
                                     </div>
                                 </div>
                             </div>
@@ -151,11 +154,6 @@
                 </div>
             </div>
             <!-- accodion end -->
-            <div class="col-lg-12">
-                <div class="row g-3" th:each="reservation:${reservationList}">
-
-                </div>
-            </div>
         </div>
         <!--        <div class="col-12">-->
         <!--            <div class="text-center">-->
@@ -200,6 +198,7 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script src="/js/reservationList.js"></script>
 </body>
 
 </html>
