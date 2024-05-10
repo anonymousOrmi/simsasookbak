@@ -52,6 +52,9 @@ public class Review extends BaseEntity {
     @Comment("삭제여부")
     private Boolean isDeleted;
 
+    @Column(name = "room_title")
+    @ColumnDefault("'일반실'")
+    private String roomTitle;
 
     /*`summary_id`	bigint	NOT NULL*/
 }

@@ -23,6 +23,7 @@ public class ReviewDto {
     private LocalDateTime updatedAt;
     private String formattedCreatedAt;
     private String formattedUpdatedAt;
+    private String roomTitle;
 
     public static ReviewDto toDto(Review review) {
         return ReviewDto.builder()
@@ -35,6 +36,7 @@ public class ReviewDto {
                 .isDeleted(review.getIsDeleted())
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
+                .roomTitle(review.getRoomTitle())
                 .build();
     }
 

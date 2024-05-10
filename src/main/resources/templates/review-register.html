@@ -43,10 +43,13 @@
         </div>
         <form th:action="@{/review/register/{acom_id}(acom_id=${acom_id})}" th:method="post">
             <div class="row g-3">
-<!--                <div class="col-md-5">-->
-<!--                    <label for="reviewTitle" class="form-label">리뷰 제목</label>-->
+                <div class="col-md-5">
+                    <label for="reviewTitle" class="form-label">리뷰할 방 선택</label>
 <!--                    <input type="text" class="form-control" id="reviewTitle" placeholder="리뷰 제목을 입력하세요" required>-->
-<!--                </div>-->
+                    <select name="roomTitle" id="reviewTitle" class="form-control" required>
+                        <option th:each="roomName:${RoomNames}" th:value="${roomName}" th:text="${roomName}"></option>
+                    </select>
+                </div>
                 <input type="hidden" name="accommodation" th:value="${accommodation}">
                 <input type="hidden" name="member" th:value="${member}">
                 <div class="col-md-5">
