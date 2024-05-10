@@ -1,12 +1,17 @@
 package com.simsasookbak.reservation.controller;
 
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
+import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import com.simsasookbak.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,8 +41,30 @@ public class ReservationController {
     }
 
     @GetMapping("/popular-region")
-    public ResponseEntity<List<ReservationResponse>> getPopularRegionsByDate(@ModelAttribute PopularRegionRequest request) {
+    public ResponseEntity<List<ReservationResponse>> getPopularRegionsByDate(
+            @ModelAttribute PopularRegionRequest request) {
         List<ReservationResponse> response = reservationService.findPopularRegionsByDate(request);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public String reservationList(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Member member = (Member) authentication.getPrincipal();
+
+        List<ReservationResponseDto> reservationList = reservationService.findAllReservationByMemberId(member.getId());
+
+        model.addAttribute("reservationList", reservationList);
+
+        return "my-reservation-list";
+    }
+
+    @GetMapping("/{reservationId}")
+    public String reservationDetail(@PathVariable Long reservationId, Model model) {
+
+
+        return "reservation-detail";
     }
 }
