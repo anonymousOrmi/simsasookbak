@@ -1,7 +1,8 @@
 package com.simsasookbak.reservation.controller;
 
+import com.simsasookbak.email.domain.MailType;
+import com.simsasookbak.email.service.MailService;
 import com.simsasookbak.reservation.service.ReservationService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,18 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/reservations")
 public class ReservationApiController {
-
     private final ReservationService reservationService;
+    private final MailService mailService;
 
-//    @Autowired
-//    public ReservationRestController(ReservationService reservationService) {
-//        this.reservationService = reservationService;
-//    }
 
     @PutMapping("/{reservationId}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable Long reservationId){
-        Optional<Long> optionalReservationId = Optional.of(reservationId);
-        reservationService.cancelReservation(optionalReservationId);
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long reservationId) throws Exception {
+        reservationService.cancelReservation(reservationId);
+        mailService.sendMail(MailType.CANCEL_USER_RESERVATION, reservationId);
         return ResponseEntity.ok().build();
     }
 }

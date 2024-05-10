@@ -6,7 +6,6 @@ import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.room.domain.Room;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,15 +30,18 @@ public class Reservation extends BaseEntity {
     @Column(name = "reservation_id", updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)*/
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)*/
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
