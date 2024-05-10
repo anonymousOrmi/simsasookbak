@@ -2,16 +2,24 @@ package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 
+import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 
 import java.security.Principal;
+import com.simsasookbak.member.domain.Member;
+import com.simsasookbak.member.domain.MemberDto;
 import java.util.Date;
 
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.service.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,13 +44,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("accommodation")
+@RequestMapping("accommodation") // 앞에  / 없어도 되나
 @Slf4j
 public class AccommodationController {
 
@@ -74,14 +83,14 @@ public class AccommodationController {
 
         AccommodationDto accommodation = accommodationService.findAccommodationById(acom_id);
         List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
-//        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
+        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
         String inSummary = reviewService.findInSummaryByAcomId(acom_id);
         List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
         List<String> imgList = accommodationService.findImgByAcomId(acom_id);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("roomList", roomList);
-//        model.addAttribute("exSummary", exSummary);
+        model.addAttribute("exSummary", exSummary);
         model.addAttribute("inSummary", inSummary);
         model.addAttribute("reviewList",reviewList);
         model.addAttribute("imgList",imgList);
@@ -105,4 +114,13 @@ public class AccommodationController {
         model.addAttribute("RoomNames",reservationService.getReservationRoomName(acom_id,member.getId()));
         return "review-register";
     }
+
+    @PostMapping("/registerPage/register")
+    public ResponseEntity<AccommodationAddResponseDto> register(@AuthenticationPrincipal Member member, @RequestBody
+                                              AccommodationAddRequestDto accommodationAddRequestDto) {
+        AccommodationAddResponseDto response = accommodationService.save(member, accommodationAddRequestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
 }

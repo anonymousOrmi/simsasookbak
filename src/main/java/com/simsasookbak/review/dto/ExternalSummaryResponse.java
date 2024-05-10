@@ -12,11 +12,11 @@ public class ExternalSummaryResponse {
 
     private Long id;
     private String summary;
-    private Long memberId;
+    private Long accommodationId;
 
     public ExternalSummaryResponse(ExternalSummary externalSummary) {
         this.id = externalSummary.getId();
         this.summary = externalSummary.getSummary();
-        this.memberId = externalSummary.getMember().getId();
+        this.accommodationId = externalSummary.getAccommodation().getId();
     }
 }

@@ -135,8 +135,8 @@ VALUES (1,'https://i.namu.wiki/i/_VdL80a6q8YfJ3ob0cH0g6M4C4u3eafyHQV8oHFnZetT7yE
 --accommodationImage end
 
 --external summary start
--- INSERT INTO external_summary (accommodation_id, summary)
--- VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
+INSERT INTO external_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
 --external summary end
 
 --internal summary start

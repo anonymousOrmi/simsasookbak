@@ -23,9 +23,9 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewImageRepository reviewImageRepository;
 
-//    public String findExSummaryByAcomId(Long id) {
-//        return reviewRepository.findExSummaryByAcomId(id);
-//    }
+    public String findExSummaryByAcomId(Long id) {
+        return reviewRepository.findExSummaryByAcomId(id);
+    }
 
     public String findInSummaryByAcomId(Long id) {
         return reviewRepository.findInSummaryByAcomId(id);

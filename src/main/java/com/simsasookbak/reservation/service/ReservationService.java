@@ -13,6 +13,7 @@ import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
 import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.dto.request.PopularRegionRequest;
 import com.simsasookbak.reservation.dto.response.ReservationResponse;
+import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -136,4 +138,18 @@ public class ReservationService {
         List<String> results = entityManager.createNativeQuery(sql).getResultList().stream().map(x->(String)x).toList();
         return results;
     }
+    public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
+        return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
+                Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelReservation(Optional<Long> reservationId) {
+        if (reservationId.isPresent()) {
+            reservationRepository.cancelReservationById(reservationId);
+        } else {
+            // Handle the case where reservationId is empty (optional with no value)
+        }
+    }
+
 }
