@@ -18,7 +18,7 @@ public class AccommodationAddRequestDto {
     private String address;
     private String checkIn;
     private String checkOut;
-    private List<AccommodationFacility> accommodationFacilityList;
+    private List<String> facilityList;
 
     public Accommodation toEntity(Member member) {
         return Accommodation.builder()
