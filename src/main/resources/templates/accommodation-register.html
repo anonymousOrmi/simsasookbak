@@ -80,7 +80,7 @@
                                 <option value="3">경남</option>
                                 <option value="3">제주</option>
                             </select>
-                            <label for="SelectPerson">지역</label>
+                            <label for="SelectRegion">지역</label>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -167,42 +167,14 @@
                             <div class="row">
                                 <div class="col">
                                     <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            욕조
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            커피포트
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            TV
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            냉장고
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            에어컨
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            조리시설
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            발코니
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            헤어 드라이어
-                                        </li>
-                                        <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                            욕실용품
-                                        </li>
+                                        <!-- 객실 시설 목록을 반복하여 각 항목을 체크박스로 표시 -->
+                                        <th:block th:each="roomFacility : ${roomFacilityList}">
+                                            <li class="list-group-item">
+                                                <!-- 첫 번째 객실 시설을 체크박스로 표시 -->
+                                                <input class="form-check-input me-1" type="checkbox" th:id="'roomFacility1_' + ${roomFacility.id}" th:value="${roomFacility.name}" aria-label="...">
+                                                <label th:for="'roomFacility1_' + ${roomFacility.id}" th:text="${roomFacility.name}">Facility Name</label>
+                                            </li>
+                                        </th:block>
                                     </ul>
                                 </div>
                             </div>
@@ -259,13 +231,12 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-<script>
+<script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
         const addButton = document.querySelector('.add-room-btn');
         const roomsContainer = document.querySelector('.rooms');
 
-        let roomIndex = 1; // 현재 방의 수를 추적합니다.
-
+        let roomIndex = 1;
 
         addButton.addEventListener('click', function() {
             addRoom();
@@ -277,95 +248,65 @@
             const newRoom = document.createElement('div');
             newRoom.classList.add('room', 'row', 'g-3');
 
-            newRoom.innerHTML = `
-            <h2 class="text-white mb-3">객실 정보</h2>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control bg-white border-0" id="roomName${roomIndex}" name="roomName${roomIndex}" placeholder="Your Name">
-                    <label for="roomName${roomIndex}">객실 명</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control bg-white border-0" id="cost${roomIndex}" name="cost${roomIndex}" placeholder="Your Name">
-                    <label for="cost${roomIndex}">가격</label>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-floating">
-                    <select class="form-select bg-white border-0" id="SelectPerson${roomIndex}" name="SelectPerson${roomIndex}">
-                        <option value="1">Persons 1</option>
-                        <option value="2">Persons 2</option>
-                        <option value="3">Persons 3</option>
-                    </select>
-                    <label for="SelectPerson${roomIndex}">수용인원</label>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="form-floating">
-                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="content${roomIndex}" name="content${roomIndex}" style="height: 100px"></textarea>
-                    <label for="content${roomIndex}">객실 소개글</label>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="form-floating">
-                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="useGuide${roomIndex}" name="useGuide${roomIndex}" style="height: 100px"></textarea>
-                    <label for="useGuide${roomIndex}">이용 안내</label>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul class="list-group list-group-horizontal">
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                욕조
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                커피포트
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                TV
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                냉장고
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                에어컨
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                조리시설
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                발코니
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                헤어 드라이어
-                            </li>
-                            <li class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                욕실용품
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
-        `;
-
+            newRoom.innerHTML = '\
+            <h2 class="text-white mb-3">객실 정보</h2>\
+            <div class="col-md-2">\
+                <div class="form-floating">\
+                    <input type="text" class="form-control bg-white border-0" id="roomName' + roomIndex + '" name="roomName' + roomIndex + '" placeholder="Your Name">\
+                    <label for="roomName' + roomIndex + '">객실 명</label>\
+                </div>\
+            </div>\
+            <div class="col-md-2">\
+                <div class="form-floating">\
+                    <input type="text" class="form-control bg-white border-0" id="cost' + roomIndex + '" name="cost' + roomIndex + '" placeholder="Your Name">\
+                    <label for="cost' + roomIndex + '">가격</label>\
+                </div>\
+            </div>\
+            <div class="col-md-3">\
+                <div class="form-floating">\
+                    <select class="form-select bg-white border-0" id="SelectPerson' + roomIndex + '" name="SelectPerson' + roomIndex + '">\
+                        <option value="1">Persons 1</option>\
+                        <option value="2">Persons 2</option>\
+                        <option value="3">Persons 3</option>\
+                    </select>\
+                    <label for="SelectPerson' + roomIndex + '">수용인원</label>\
+                </div>\
+            </div>\
+            <div class="col-12">\
+                <div class="form-floating">\
+                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="content' + roomIndex + '" name="content' + roomIndex + '" style="height: 100px"></textarea>\
+                    <label for="content' + roomIndex + '">객실 소개글</label>\
+                </div>\
+            </div>\
+            <div class="col-12">\
+                <div class="form-floating">\
+                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="useGuide' + roomIndex + '" name="useGuide' + roomIndex + '" style="height: 100px"></textarea>\
+                    <label for="useGuide' + roomIndex + '">이용 안내</label>\
+                </div>\
+            </div>\
+            <div class="container">\
+                <div class="row">\
+                    <div class="col">\
+                        <ul class="list-group list-group-horizontal" id="roomFacilityList' + roomIndex + '"></ul>\
+                    </div>\
+                 </div>\
+            </div>\
+            <div class="row mb-3"></div>';
 
             roomsContainer.appendChild(newRoom);
-        };
+
+            // 여기에 객실 시설 목록 추가
+            [[${roomFacilityList}]].forEach(function(roomFacility) {
+                const facilityList = document.getElementById('roomFacilityList' + roomIndex);
+                facilityList.innerHTML += '\
+                <li class="list-group-item">\
+                    <input class="form-check-input me-1" type="checkbox" id="roomFacility' + roomIndex + '_' + roomFacility.id + '" value="' + roomFacility.name + '" aria-label="...">\
+                    <label for="roomFacility' + roomIndex + '_' + roomFacility.id + '">' + roomFacility.name + '</label>\
+                </li>';
+            });
+        }
     });
 </script>
-
 
 <script>
     document.getElementById('registerForm').addEventListener('submit', function (e) {

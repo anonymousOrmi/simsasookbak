@@ -119,8 +119,8 @@ VALUES (1,1),(2,1),(2,2);
 --
 -- --room facility start
 --
--- INSERT INTO room_facility (name)
--- VALUES ('커피포트'),('녹차티백');
+INSERT INTO room_facility (name)
+VALUES ('욕조'),('커피포트'),('TV'),('냉장고'),('에어컨'),('조리시설'),('발코니'),('헤어 드라이어'),('욕실용품');
 --
 -- --room facility end
 --
