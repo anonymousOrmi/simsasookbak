@@ -18,4 +18,8 @@ public class RoomFacilityService {
         return roomFacilityRepository.findAll();
     }
 
+    public RoomFacility findByName(String name) {
+        return roomFacilityRepository.findByName(name);
+    }
+
 }
