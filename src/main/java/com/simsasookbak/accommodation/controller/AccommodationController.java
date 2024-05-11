@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.controller;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.request.MasterDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -101,9 +102,8 @@ public class AccommodationController {
 
     @PostMapping("/registerPage/register")
     public ResponseEntity<AccommodationAddResponseDto> register(@AuthenticationPrincipal Member member,
-                                                                @RequestBody AccommodationAddRequestDto accommodationAddRequestDto,
-                                                                @RequestBody List<RoomAddRequestDto> roomAddRequestDtoList) {
-        AccommodationAddResponseDto response = accommodationService.save(member, accommodationAddRequestDto, roomAddRequestDtoList);
+                                                                @RequestBody MasterDto masterDto) {
+        AccommodationAddResponseDto response = accommodationService.save(member, masterDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -115,7 +115,7 @@
                                     <th:block th:each="facility : ${accommodationFacilityList}">
                                         <li class="list-group-item">
                                             <!-- 각 숙박 시설을 체크박스로 표시 -->
-                                            <input class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="...">
+                                            <input id="accommodation-check-input" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="...">
                                             <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                                         </li>
                                     </th:block>
@@ -139,16 +139,6 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control bg-white border-0" id="cost1" placeholder="Your Name">
                                 <label for="cost1">가격</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectPerson1">
-                                    <option value="1">Persons 1</option>
-                                    <option value="2">Persons 2</option>
-                                    <option value="3">Persons 3</option>
-                                </select>
-                                <label for="SelectPerson1">수용인원 (일단 넣어 놓음 나중에 삭제)</label>
                             </div>
                         </div>
                         <div class="col-12">
@@ -262,16 +252,6 @@
                     <label for="cost' + roomIndex + '">가격</label>\
                 </div>\
             </div>\
-            <div class="col-md-3">\
-                <div class="form-floating">\
-                    <select class="form-select bg-white border-0" id="SelectPerson' + roomIndex + '" name="SelectPerson' + roomIndex + '">\
-                        <option value="1">Persons 1</option>\
-                        <option value="2">Persons 2</option>\
-                        <option value="3">Persons 3</option>\
-                    </select>\
-                    <label for="SelectPerson' + roomIndex + '">수용인원</label>\
-                </div>\
-            </div>\
             <div class="col-12">\
                 <div class="form-floating">\
                     <textarea class="form-control bg-white border-0" placeholder="Special Request" id="content' + roomIndex + '" name="content' + roomIndex + '" style="height: 100px"></textarea>\
@@ -314,47 +294,89 @@
 
         const formData = new FormData(this);
 
+        ////////////////////////////////////////////////////////////////////숙소시작
         //지역 선택
         const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
         const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
-
-        const accommodationName = formData.get('accommodationName');
-        const region = regionSelect.options[regionIndex].text;
-        const address = formData.get('address');
-        const checkIn = formData.get('checkIn');
-        const checkOut = formData.get('checkOut');
-        const content = formData.get('accommodationContent');
         // 체크된 숙박 시설 목록 추적
         const facilityList = [];
-        const checkboxes = document.querySelectorAll('.form-check-input[type=checkbox]:checked');
+        const checkboxes = document.querySelectorAll('#accommodation-check-input[type=checkbox]:checked');
         checkboxes.forEach(function(checkbox) {
             if (checkbox.value !== '') {
                 facilityList.push(checkbox.value);
             }
         });
+        // 숙소 정보 수집
+        var accommodationAddRequestDto = {
+            name: formData.get('accommodationName'),
+            region: regionSelect.options[regionIndex].text,
+            address: formData.get('address'),
+            checkIn: formData.get('checkIn'),
+            checkOut: formData.get('checkOut'),
+            content: formData.get('accommodationContent'),
+            facilityList: facilityList
+        };
 
+        // // 숙소 정보를 FormData에 추가
+        // for (var key in accommodationAddRequestDto) {
+        //     formData.append('accommodationAddRequestDto.' + key, accommodationAddRequestDto[key]);
+        // }
+        ////////////////////////////////////////////////////////////////////숙소끝
 
-        console.log(accommodationName);
-        console.log(region);
-        console.log(address);
-        console.log(checkIn);
-        console.log(checkOut);
-        console.log(content);
-        console.log(facilityList);
+        // 배열 초기화
+        var roomAddRequestDtoList = [];
 
+        // 모든 객실 정보를 순회하면서 데이터 수집
+        var roomElements = document.querySelectorAll('.room');
+        roomElements.forEach(function(roomElement, index) {
+            var roomAddRequestDto = {};
+
+            // 객실명
+            var roomNameInput = roomElement.querySelector('input[id^="roomName"]');
+            roomAddRequestDto['name'] = roomNameInput.value;
+            console.log(roomNameInput.value);
+
+            // 가격
+            var costInput = roomElement.querySelector('input[id^="cost"]');
+            roomAddRequestDto['cost'] = costInput.value;
+            console.log(costInput.value);
+            // 객실 소개글
+            var contentTextarea = roomElement.querySelector('textarea[id^="content"]');
+            roomAddRequestDto['content'] = contentTextarea.value;
+            console.log(contentTextarea.value);
+
+            // 이용 안내
+            var useGuideTextarea = roomElement.querySelector('textarea[id^="useGuide"]');
+            roomAddRequestDto['useGuide'] = useGuideTextarea.value;
+            console.log(useGuideTextarea.value);
+
+            // 객실 시설 목록
+            roomAddRequestDto['facilityList'] = [];
+            var facilityCheckboxes = roomElement.querySelectorAll('input[id^="roomFacility"]:checked');
+            facilityCheckboxes.forEach(function(checkbox) {
+                roomAddRequestDto['facilityList'].push(checkbox.value);
+            });
+            console.log(roomAddRequestDto['facilityList']);
+
+            // 해당 객실의 정보를 전체 데이터 배열에 추가
+            roomAddRequestDtoList.push(roomAddRequestDto);
+
+            // // FormData에 객실 정보를 추가
+            // for (var key in roomAddRequestDto) {
+            //     formData.append('roomAddRequestDto[' + index + '].' + key, roomAddRequestDto[key]);
+            // }
+        });
+        console.log(roomAddRequestDtoList);
+
+        // JSON 형태로 변환하여 반환
         fetch(this.action, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: accommodationName,
-                region: region,
-                address: address,
-                checkIn: checkIn,
-                checkOut: checkOut,
-                content: content,
-                facilityList: facilityList
+                accommodationAddRequestDto: accommodationAddRequestDto,
+                roomAddRequestDtoList: roomAddRequestDtoList
             })
         })
             .then(response => {
