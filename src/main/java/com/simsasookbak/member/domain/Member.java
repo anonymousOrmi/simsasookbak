@@ -86,11 +86,6 @@ public class Member extends BaseEntity implements UserDetails {
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities(String role) {
-//        return List.of(new SimpleGrantedAuthority("user"));
-//    }
-
 
     @Override
     public String getUsername() {
