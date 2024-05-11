@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
-<meta content="ie=edge" http-equiv="X-UA-Compatible">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+</head>
 <body>
     <article>
-        <h1 th:text="${form.getTitle()}"></h1>
         <h1>안녕하세요.</h1>
         <h1 th:text="${form.getSubTitle()}"></h1>
-        <p>자세한 내용은 아래 버튼을 클릭 시, 연결되는 예약 내역 기능을 통해 예약 정보 확인이 가능합니다. </p>
-        <a href="#" style="background-color:#5392f9;display:inline-block;margin:0 auto;max-width:400px;border-radius:4px;color:#fff;font-size:16px;font-weight:bold;border:solid #5392f9;border-width:12px 82px;text-decoration:none"  ><!--data-saferedirecturl="#"-->
-            예약 관리
-        </a>
-        <th:block th:text="${form.getAccommodationName()}"></th:block>
-        <th:block th:text="${form.getRoomName()}"></th:block>
-        <th:block th:text="${form.getAddress()}"></th:block>
-        <th:block th:text="${#temporals.format(form.getCheckIn(), 'yyyy-MM-dd HH:mm')}"></th:block>
-        <th:block th:text="${#temporals.format(form.getCheckout(), 'yyyy-MM-dd HH:mm')}"></th:block>
-        <!--TODO 숙박관련 정보 (사업자 전화번호 및 메일)-->
-        <th:block th:text="${form.getTel()}"></th:block>
-        <th:block th:text="${form.getEmail()}"></th:block>
+        <p>자세한 내용은 심사숙박 앱의 예약 내역 기능을 통해 확인 가능합니다.</p>
+        <!--TODO 웹 배포 시 해당 주소 연결 예정-->
+        <!--<p>자세한 내용은 아래 버튼을 클릭 시, 연결되는 예약 내역 기능을 통해 예약 정보 확인이 가능합니다. </p>
+        <a href="#">예약 관리</a>-->
+        <h3 th:text="${form.getAccommodationName()}"></h3>
+        <h4 th:text="${form.getRoomName()}"></h4>
+        <p>
+            <span th:text="${#temporals.format(form.getCheckIn(), 'yyyy-MM-dd HH:mm')}"></span> ~ <span th:text="${#temporals.format(form.getCheckout(), 'yyyy-MM-dd HH:mm')}"></span>
+        </p>
+        <p class="card-text">
+            <b>주소: </b><span th:text="${form.getAddress()}"></span>
+        </p>
+        <p th:if="${!form.getTel().isEmpty()}">
+            <b>Tel: </b><span th:text="${form.getTel()}"></span>
+        </p>
+        <p th:if="${!form.getEmail().isEmpty()}">
+            <b>Email: </b><span th:text="${form.getEmail()}"></span>
+        </p>
     </article>
 </body>
 </html>

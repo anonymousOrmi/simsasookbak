@@ -49,9 +49,6 @@ public class MailService {
     ) throws MailException, MessagingException {
         Reservation reservation = reservationRepository.findReservationById(id);
         MimeMessage mailMessage = createMailMessage(type, reservation);
-        // TODO 예외 발생 테스트
-        //throw new MessagingException();
-
         mailSender.send(mailMessage);
     }
 
