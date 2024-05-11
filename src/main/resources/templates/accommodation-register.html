@@ -316,13 +316,10 @@
             content: formData.get('accommodationContent'),
             facilityList: facilityList
         };
-
-        // // 숙소 정보를 FormData에 추가
-        // for (var key in accommodationAddRequestDto) {
-        //     formData.append('accommodationAddRequestDto.' + key, accommodationAddRequestDto[key]);
-        // }
         ////////////////////////////////////////////////////////////////////숙소끝
 
+
+        ////////////////////////////////////////////////////////////////////객실시작
         // 배열 초기화
         var roomAddRequestDtoList = [];
 
@@ -361,11 +358,8 @@
             // 해당 객실의 정보를 전체 데이터 배열에 추가
             roomAddRequestDtoList.push(roomAddRequestDto);
 
-            // // FormData에 객실 정보를 추가
-            // for (var key in roomAddRequestDto) {
-            //     formData.append('roomAddRequestDto[' + index + '].' + key, roomAddRequestDto[key]);
-            // }
         });
+        ////////////////////////////////////////////////////////////////////객실끝
         console.log(roomAddRequestDtoList);
 
         // JSON 형태로 변환하여 반환
