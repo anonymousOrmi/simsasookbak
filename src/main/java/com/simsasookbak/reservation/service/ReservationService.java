@@ -126,11 +126,6 @@ public class ReservationService {
         }
     }
 
-    public Reservation findReservationById(Long id) {
-        return reservationRepository.findReservationById(id);
-    }
-
-
     public List<String> getReservationRoomName(Long accommodationId, Long reviewWriterMemberId) {
 
         String sql = "SELECT name FROM reservation JOIN room WHERE reservation.room_id = room.room_id" +
