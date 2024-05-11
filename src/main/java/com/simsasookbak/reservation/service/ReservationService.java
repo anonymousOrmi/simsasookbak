@@ -1,6 +1,5 @@
 package com.simsasookbak.reservation.service;
 
-import static com.simsasookbak.global.exception.ErrorMessage.NOT_EXIST_RESERVATION;
 import static com.simsasookbak.global.exception.ErrorMessage.UNEXPECTED_ROW_COUNT;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
@@ -25,16 +24,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -134,9 +127,9 @@ public class ReservationService {
     }
 
     public Reservation findReservationById(Long id) {
-        return reservationRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_RESERVATION.getMessage() + "(id : " + id + ")"));
+        return reservationRepository.findReservationById(id);
     }
+
 
     public List<String> getReservationRoomName(Long accommodationId, Long reviewWriterMemberId) {
 
