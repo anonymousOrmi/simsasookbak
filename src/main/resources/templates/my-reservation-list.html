@@ -9,12 +9,12 @@
     <meta content="" name="description">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -62,15 +62,15 @@
             <div class="accordion" id="accordionFlushExample" th:each="reservation,reservationStat:${reservationList}">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                th:data-bs-target="'#flush-collapse'+${reservationStat.index}" aria-expanded="false"
-                                th:aria-controls="'flush-collapse'+${reservationStat.index}"
-                                th:text="${reservation.getAccommodation().getName()}+'-'+${reservation.getRoom().getName()} + '(' + ${reservation.getStartDate()}+' ~ ' + ${reservation.getEndDate()} + ')'">
+                        <button aria-expanded="false" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                th:aria-controls="'flush-collapse'+${reservationStat.index}" th:data-bs-target="'#flush-collapse'+${reservationStat.index}"
+                                th:text="${reservation.getAccommodation().getName()}+'-'+${reservation.getRoom().getName()} + '(' + ${reservation.getStartDate()}+' ~ ' + ${reservation.getEndDate()} + ')'"
+                                type="button">
                         </button>
                     </h2>
-                    <div th:id="flush-collapse+${reservationStat.index}" class="accordion-collapse collapse"
+                    <div class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
                          th:aria-labelledby="'flush-heading'+${reservationStat.index}"
-                         data-bs-parent="#accordionFlushExample">
+                         th:id="flush-collapse+${reservationStat.index}">
                         <div class="accordion-body">
                             <div class="card">
                                 <h5 class="card-header"><strong>예약 상세 정보</strong></h5>
@@ -144,8 +144,8 @@
                                         </table>
                                     </div>
                                     <div class="text-md-end">
-                                        <button type="button" class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}">예약 수정</button>
-                                        <button type="button" class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'">예약 취소</button>
+                                        <button class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" type="button">예약 수정</button>
+                                        <button class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'" type="button">예약 취소</button>
                                     </div>
                                 </div>
                             </div>
@@ -164,29 +164,10 @@
 </div>
 <!-- my accommodation list End -->
 
-
-<!-- Copyright Start -->
-<div class="container-fluid copyright text-body py-4">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-end mb-md-0">
-                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">심사숙박</a>, All right reserved.
-            </div>
-            <div class="col-md-6 text-center text-md-start">
-                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
-                    href="https://themewagon.com">ThemeWagon</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Copyright End -->
-
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
 
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
