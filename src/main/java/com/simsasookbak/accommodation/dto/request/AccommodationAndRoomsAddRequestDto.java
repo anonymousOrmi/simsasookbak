@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class MasterDto {
+public class AccommodationAndRoomsAddRequestDto {
 
     private AccommodationAddRequestDto accommodationAddRequestDto;
     private List<RoomAddRequestDto> roomAddRequestDtoList;

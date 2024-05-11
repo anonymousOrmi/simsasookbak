@@ -4,7 +4,7 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
-import com.simsasookbak.accommodation.dto.request.MasterDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
@@ -92,9 +92,9 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findImgByAcomId(id);
     }
 
-    public AccommodationAddResponseDto save(Member member, MasterDto masterDto) {
-        AccommodationAddRequestDto accommodationRequest = masterDto.getAccommodationAddRequestDto();
-        List<RoomAddRequestDto> roomAddRequestDtoList = masterDto.getRoomAddRequestDtoList();
+    public AccommodationAddResponseDto save(Member member, AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
+        AccommodationAddRequestDto accommodationRequest = accommodationAndRoomsAddRequestDto.getAccommodationAddRequestDto();
+        List<RoomAddRequestDto> roomAddRequestDtoList = accommodationAndRoomsAddRequestDto.getRoomAddRequestDtoList();
 
         Accommodation accommodation = accommodationRequest.toEntity(member);
         List<String> accommodationFacilityList = accommodationRequest.getFacilityList();
