@@ -1,43 +1,27 @@
 package com.simsasookbak.accommodation.controller;
 
 import com.simsasookbak.accommodation.dto.AccommodationDto;
-
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
-
-import java.security.Principal;
-import com.simsasookbak.member.domain.Member;
-import com.simsasookbak.member.domain.MemberDto;
-import java.util.Date;
-
+import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.service.ReservationService;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.Authentication;
+import com.simsasookbak.review.dto.ReviewDto;
+import com.simsasookbak.review.service.ReviewService;
+import com.simsasookbak.room.dto.RoomAddRequestDto;
+import com.simsasookbak.room.dto.RoomDto;
+import com.simsasookbak.room.service.RoomService;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.simsasookbak.accommodation.service.AccommodationService;
-import com.simsasookbak.review.dto.ReviewDto;
-import com.simsasookbak.review.service.ReviewService;
-import java.util.List;
-import com.simsasookbak.room.dto.RoomDto;
-import com.simsasookbak.room.service.RoomService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +48,7 @@ public class AccommodationController {
     @GetMapping
     public String showAccommodations(
             @ModelAttribute AccommodationRequest request,
-            @RequestParam(value="page", defaultValue="0") int pageNum,
+            @RequestParam(value = "page", defaultValue = "0") int pageNum,
             Model model
     ) {
         Page<AccommodationResponse> response = accommodationService.searchAccommodations(request, pageNum);
@@ -92,15 +76,15 @@ public class AccommodationController {
         model.addAttribute("roomList", roomList);
         model.addAttribute("exSummary", exSummary);
         model.addAttribute("inSummary", inSummary);
-        model.addAttribute("reviewList",reviewList);
-        model.addAttribute("imgList",imgList);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("imgList", imgList);
 
         return "details";
     }
 
     //예약 성공 메세지 전송 (상형)
     @PostMapping("/reservation/message")
-    public void reservationMessage(){
+    public void reservationMessage() {
 
     }
 
@@ -110,15 +94,16 @@ public class AccommodationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = (Member) authentication.getPrincipal();
         model.addAttribute("accommodation", acom_id);
-        model.addAttribute("member",member.getId());
-        model.addAttribute("RoomNames",reservationService.getReservationRoomName(acom_id,member.getId()));
+        model.addAttribute("member", member.getId());
+        model.addAttribute("RoomNames", reservationService.getReservationRoomName(acom_id, member.getId()));
         return "review-register";
     }
 
     @PostMapping("/registerPage/register")
-    public ResponseEntity<AccommodationAddResponseDto> register(@AuthenticationPrincipal Member member, @RequestBody
-                                              AccommodationAddRequestDto accommodationAddRequestDto) {
-        AccommodationAddResponseDto response = accommodationService.save(member, accommodationAddRequestDto);
+    public ResponseEntity<AccommodationAddResponseDto> register(@AuthenticationPrincipal Member member,
+                                                                @RequestBody AccommodationAddRequestDto accommodationAddRequestDto,
+                                                                @RequestBody List<RoomAddRequestDto> roomAddRequestDtoList) {
+        AccommodationAddResponseDto response = accommodationService.save(member, accommodationAddRequestDto, roomAddRequestDtoList);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

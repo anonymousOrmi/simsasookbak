@@ -12,6 +12,10 @@ import com.simsasookbak.external.ai.alan.event.RegistrationEvent;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.service.ReviewService;
+import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.room.dto.RoomAddRequestDto;
+import com.simsasookbak.room.service.RoomFacilityMappingService;
+import com.simsasookbak.room.service.RoomService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +33,8 @@ public class AccommodationService {
     private final ReviewService reviewService;
     private final ApplicationEventPublisher publisher;
     private final AccommodationFacilityMappingService accommodationFacilityMappingService;
+    private final RoomService roomService;
+    private final RoomFacilityMappingService roomFacilityMappingService;
 
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
 
@@ -85,11 +91,18 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findImgByAcomId(id);
     }
 
-    public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {
-        Accommodation accommodation = request.toEntity(member);
-        List<String> facilityList = request.getFacilityList();
+    public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto accommodationRequest, List<RoomAddRequestDto> roomAddRequestDtoList) {
+        Accommodation accommodation = accommodationRequest.toEntity(member);
+        List<String> accommodationFacilityList = accommodationRequest.getFacilityList();
         Accommodation savedAccommodation = accommodationRepository.save(accommodation);
-        accommodationFacilityMappingService.registerMapping(accommodation, facilityList);
+        accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
+
+        for(RoomAddRequestDto roomRequest : roomAddRequestDtoList) {
+            Room room = roomRequest.toEntity(accommodation);
+            List<String> roomFacilityList = roomRequest.getFacilityList();
+            Room savedRoom = roomService.save(room);
+            roomFacilityMappingService.registerMapping(savedRoom, roomFacilityList);
+        }
 
         publisher.publishEvent(new RegistrationEvent(this, savedAccommodation.getId()));
 
