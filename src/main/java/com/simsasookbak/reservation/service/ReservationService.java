@@ -125,4 +125,8 @@ public class ReservationService {
                 Collectors.toList());
     }
 
+    public List<ReservationResponseDto> findReservationByAccommodationId(Long id) {
+        return reservationRepository.findByAccommodationId(id).stream().map(ReservationResponseDto::new).collect(
+                Collectors.toList());
+    }
 }
