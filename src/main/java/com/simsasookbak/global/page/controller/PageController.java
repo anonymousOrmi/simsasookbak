@@ -51,5 +51,13 @@ public class PageController {
         return "accommodation-register";
     }
 
+    @GetMapping("/accommodation/{accommodationId}/updatePage")
+    public String viewAccommodationUpdatePage(@PathVariable Long accommodationId, Model model) {
+
+        AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
+        model.addAttribute("accommodation", accommodation);
+
+        return "accommodation-update";
+    }
 
 }
