@@ -98,6 +98,12 @@
             </div>
           </div>
         </div>
+        <div class="col-6">
+          <div class="form-floating">
+            <input name="facilityAdd" type="text" class="form-control bg-white border-0" id="facilityAdd" placeholder="facilityAdd"/>
+            <label for="facilityAdd">추가 시설을 ,(쉼표) 를 기준으로 추가해 주세요</label>
+          </div>
+        </div>
         <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
         <div class="col-3">
           <button class="btn btn-primary text-white w-100 py-3" type="submit">수정 완료</button>
@@ -127,6 +133,12 @@
     const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
     const region = regionSelect.options[regionIndex].text;
 
+    // 입력된 값을 가져옴
+    const facilityAdd = document.getElementById('facilityAdd').value;
+
+    // 쉼표를 기준으로 문자열을 분할하여 배열로 변환
+    const facilityArray = facilityAdd.split(',');
+
     const name = formData.get('accommodationName');
     const checkIn = formData.get('checkIn');
     const checkOut = formData.get('checkOut');
@@ -141,6 +153,10 @@
         facilityList.push(checkbox.value);
       }
     });
+
+    // 쉼표를 기준으로 분할한 배열을 facilityList에 추가
+    facilityList.push(...facilityArray.filter(facility => facility.trim() !== ''));
+
     console.log(region);
     console.log(name);
     console.log(checkIn);
