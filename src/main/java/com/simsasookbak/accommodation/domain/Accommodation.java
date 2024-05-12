@@ -1,6 +1,6 @@
 package com.simsasookbak.accommodation.domain;
 
-import com.simsasookbak.accommodation.dto.request.AccommodationUpdateRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationUpdateDto;
 import com.simsasookbak.global.BaseEntity;
 import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;
@@ -78,7 +78,7 @@ public class Accommodation extends BaseEntity {
 		this.address = address;
 	}
 
-	public void update(AccommodationUpdateRequestDto requestDto) {
+	public void update(AccommodationUpdateDto requestDto) {
 		this.name = requestDto.getName();
 		this.content = requestDto.getContent();
 		this.region = requestDto.getContent();

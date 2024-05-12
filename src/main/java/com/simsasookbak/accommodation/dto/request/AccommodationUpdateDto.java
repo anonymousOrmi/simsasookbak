@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AccommodationUpdateRequestDto {
+public class AccommodationUpdateDto {
     private String name;
     private String content;
     private String region;

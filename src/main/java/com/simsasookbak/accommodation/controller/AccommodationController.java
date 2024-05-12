@@ -1,10 +1,9 @@
 package com.simsasookbak.accommodation.controller;
 
-import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationUpdateRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationUpdateDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -27,7 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -106,12 +104,12 @@ public class AccommodationController {
     }
 
     @PutMapping("/{accommodationId}/updatePage")
-    public ResponseEntity<?> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
-    AccommodationUpdateRequestDto accommodationUpdateRequestDto) {
+    public ResponseEntity<AccommodationUpdateDto> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
+    AccommodationUpdateDto accommodationUpdateDto) {
 
-        accommodationService.updateAccommodation(accommodationId, accommodationUpdateRequestDto);
+        accommodationService.updateAccommodation(accommodationId, accommodationUpdateDto);
 
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationUpdateDto);
     }
 
 }
