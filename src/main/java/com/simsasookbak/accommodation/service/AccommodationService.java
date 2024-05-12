@@ -4,6 +4,7 @@ import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
+import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
@@ -12,6 +13,10 @@ import com.simsasookbak.external.ai.alan.event.RegistrationEvent;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.service.ReviewService;
+import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.room.dto.RoomAddRequestDto;
+import com.simsasookbak.room.service.RoomFacilityMappingService;
+import com.simsasookbak.room.service.RoomService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +33,9 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReviewService reviewService;
     private final ApplicationEventPublisher publisher;
+    private final AccommodationFacilityMappingService accommodationFacilityMappingService;
+    private final RoomService roomService;
+    private final RoomFacilityMappingService roomFacilityMappingService;
 
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
 
@@ -58,7 +66,8 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
                 .map(accommodation -> accommodationRepository.findAccommodationById(accommodation.getAccommodationId()))
                 .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
-                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,findAccommodationFacilityById(accommodation.getId())))
+                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,
+                        findAccommodationFacilityById(accommodation.getId())))
                 .collect(Collectors.toList());
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
@@ -72,7 +81,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         Accommodation accommodation = accommodationRepository.findAccommodationById(id);
         List<String> facilityList = findAccommodationFacilityById(id);
 
-        return AccommodationDto.toAccommodationDto(accommodation,facilityList);
+        return AccommodationDto.toAccommodationDto(accommodation, facilityList);
     }
 
     public List<String> findAccommodationFacilityById(Long id) {
@@ -83,9 +92,21 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findImgByAcomId(id);
     }
 
-    public AccommodationAddResponseDto save(Member member, AccommodationAddRequestDto request) {
-        Accommodation accommodation = request.toEntity(member);
+    public AccommodationAddResponseDto save(Member member, AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
+        AccommodationAddRequestDto accommodationRequest = accommodationAndRoomsAddRequestDto.getAccommodationAddRequestDto();
+        List<RoomAddRequestDto> roomAddRequestDtoList = accommodationAndRoomsAddRequestDto.getRoomAddRequestDtoList();
+
+        Accommodation accommodation = accommodationRequest.toEntity(member);
+        List<String> accommodationFacilityList = accommodationRequest.getFacilityList();
         Accommodation savedAccommodation = accommodationRepository.save(accommodation);
+        accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
+
+        for(RoomAddRequestDto roomRequest : roomAddRequestDtoList) {
+            Room room = roomRequest.toEntity(accommodation);
+            List<String> roomFacilityList = roomRequest.getFacilityList();
+            Room savedRoom = roomService.save(room);
+            roomFacilityMappingService.registerMapping(savedRoom, roomFacilityList);
+        }
 
         publisher.publishEvent(new RegistrationEvent(this, savedAccommodation.getId()));
 

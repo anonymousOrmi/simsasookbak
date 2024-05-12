@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,4 +31,10 @@ public class RoomFacilityMapping {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_facility_id", nullable = false)
     private RoomFacility roomFacility;
+
+    @Builder
+    public RoomFacilityMapping(Room room, RoomFacility roomFacility) {
+        this.room = room;
+        this.roomFacility = roomFacility;
+    }
 }
