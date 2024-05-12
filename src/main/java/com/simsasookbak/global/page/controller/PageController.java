@@ -57,6 +57,9 @@ public class PageController {
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
         model.addAttribute("accommodation", accommodation);
 
+        List<AccommodationFacility> accommodationFacilityList = accommodationFacilityService.findAll();
+        model.addAttribute("accommodationFacilityList", accommodationFacilityList);
+
         return "accommodation-update";
     }
 
