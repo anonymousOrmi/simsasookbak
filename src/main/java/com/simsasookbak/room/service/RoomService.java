@@ -6,7 +6,6 @@ import com.simsasookbak.room.repository.RoomRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +39,10 @@ public class RoomService {
 
     public List<String> findRoomFacilityById(Long roomId) {
         return roomRepository.findRoomFacilityById(roomId);
+    }
+
+    public Room save(Room room) {
+        return roomRepository.save(room);
     }
 
 }

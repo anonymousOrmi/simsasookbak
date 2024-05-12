@@ -27,15 +27,14 @@
                 <div class="col-md-2">
                     <div class="form-floating">
                         <input aria-describedby="basic-addon2" aria-label="Search"
-                               class="form-control bg-white border-0 small" id="start-date" name="startDate"
-                               type="date">
+                               autocomplete="off" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="text">
                         <label for="start-date">입실 </label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating">
                         <input aria-describedby="basic-addon2" aria-label="Search"
-                               class="form-control bg-white border-0 small" id="end-date" name="endDate" type="date">
+                               autocomplete="off" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="text">
                         <label for="end-date">퇴실 </label>
                     </div>
                 </div>
@@ -64,7 +63,7 @@
             <h1 class="mb-0">인기 숙소 Top6</h1>
         </div>
         <div class="packages-carousel owl-carousel">
-            <div th:each="accommodation,accommodationStat : ${highScoreAccommodations}" class="packages-item">
+            <div class="packages-item" th:each="accommodation,accommodationStat : ${highScoreAccommodations}">
                 <div class="packages-img">
                     <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>

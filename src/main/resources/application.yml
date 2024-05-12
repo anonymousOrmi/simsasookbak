@@ -47,14 +47,17 @@ spring:
 
   mail:
     host: smtp.gmail.com
-    port: 587
-    username: chanhyeog@gmail.com
-    password: ${GOOGLE_APP_PASSWORD}
+    port: 587 # gmail tls port
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD} # 구글에서 설정한 앱 비밀번호
     properties:
       mail:
         smtp:
-          starttls.enable: true
           auth: true
+          timeout: 5000 # Socket Read Timeout 시간(ms) (기본값 : 무한대)
+          starttls:
+            enable: true # StartTLS 활성화 여부 (기본값 : false)
+    default-encoding: "UTF-8"
 
 
 youtube:
