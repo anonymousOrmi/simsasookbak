@@ -29,4 +29,8 @@ public class AccommodationFacilityMappingService {
         }
     }
 
+    public void deleteMapping(Long accommodationId) {
+        accommodationFacilityMappingRepository.deleteAccommodationFacilityMappingByAccommodationId(accommodationId);
+    }
+
 }

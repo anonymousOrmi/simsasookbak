@@ -7,6 +7,7 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationUpdateRequestDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
@@ -123,5 +124,15 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
     public Accommodation findById(Long accommodationId) {
         return accommodationRepository.findById(accommodationId).orElseThrow();
+    }
+
+    public void updateAccommodation(Long accommodationId, AccommodationUpdateRequestDto accommodationUpdateRequestDto) {
+        Accommodation accommodation = findById(accommodationId);
+        accommodation.update(accommodationUpdateRequestDto);
+        List<String> accommodationFacilityList = accommodationUpdateRequestDto.getFacilityList();
+
+        accommodationFacilityMappingService.deleteMapping(accommodationId);
+
+        accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
     }
 }

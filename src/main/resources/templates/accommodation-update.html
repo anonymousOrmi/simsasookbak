@@ -52,7 +52,7 @@
 <div class="container-fluid booking py-5">
   <div class="container py-5">
     <h1 class="text-white mb-3">숙소 정보</h1>
-    <form id="registerForm" th:action="@{/accommodation/${accommodation.id}/updatePage}" method="post">
+    <form id="registerForm" th:action="@{/accommodation/{accommodationId}/updatePage(accommodationId=${accommodation.id})}" method="post">
       <!-- 숙소 영역 -->
       <div class="row g-3">
         <div class="col-md-3">
@@ -161,6 +161,14 @@
     //지역 선택
     const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
     const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
+    const region = regionSelect.options[regionIndex].text;
+
+    const name = formData.get('accommodationName');
+    const checkIn = formData.get('checkIn');
+    const checkOut = formData.get('checkOut');
+    const address = formData.get('address');
+    const content = formData.get('accommodationContent');
+
     // 체크된 숙박 시설 목록 추적
     const facilityList = [];
     const checkboxes = document.querySelectorAll('.accommodation-check-input[type=checkbox]:checked');
@@ -169,23 +177,29 @@
         facilityList.push(checkbox.value);
       }
     });
+    console.log(region);
+    console.log(name);
+    console.log(checkIn);
+    console.log(checkOut);
+    console.log(address);
+    console.log(content);
     console.log(facilityList);
 
     ////////////////////////////////////////////////////////////////////숙소끝
 
 
     fetch(this.action, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: formData.get('accommodationName'),
-        region: regionSelect.options[regionIndex].text,
-        address: formData.get('address'),
-        checkIn: formData.get('checkIn'),
-        checkOut: formData.get('checkOut'),
-        content: formData.get('accommodationContent'),
+        name: name,
+        region: region,
+        address: address,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        content: content,
         facilityList: facilityList
       })
     })
