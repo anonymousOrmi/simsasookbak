@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.dto.request;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.domain.AccommodationFacility;
 import com.simsasookbak.member.domain.Member;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class AccommodationAddRequestDto {
     private String address;
     private String checkIn;
     private String checkOut;
-    private List<AccommodationFacility> accommodationFacilityList;
+    private List<String> facilityList;
 
     public Accommodation toEntity(Member member) {
         return Accommodation.builder()

@@ -16,26 +16,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccommodationRepository  extends JpaRepository<Accommodation, Long> {
 
-    @Query("select accommodation.id as accommodationId, "
-        + "accommodation.name as name, "
-        + "accommodation.address as address, "
-        + "accommodation.region as region,"
-        + "min(room.cost) as cost, "
-        + "avg(coalesce(review.score, 0.0)) as score "
-        + "from Accommodation accommodation "
-        + "join Room room on accommodation.id = room.accommodation.id "
-        + "left join Review review on accommodation.id = review.accommodation.id "
-        + "where accommodation.isDeleted = false "
-        + "and room.isDeleted = false "
-        + "and (review.isDeleted = null or review.isDeleted = false) "
-        + "and (accommodation.region =:keyword or accommodation.name like %:keyword%) "
-        + "group by room.cost, "
-        + "review.score, "
-        + "accommodation.id, "
-        + "accommodation.region, "
-        + "accommodation.name, "
-        + "accommodation.address "
-    )
+    @Query("select room.accommodation.id as accommodationId, "
+            + "room.accommodation.address as address, "
+            + "room.accommodation.region as region, "
+            + "min(room.cost) as cost, "
+            + "avg(coalesce(review.score, 0.0)) as score "
+            + "from Room room "
+            + "join room.accommodation "
+            + "left join Review review on room.accommodation.id = review.accommodation.id "
+            + "where room.isDeleted = false "
+            + "and room.accommodation.isDeleted = false "
+            + "and review.isDeleted = false "
+            + "and (room.accommodation.region =:keyword or room.accommodation.name like %:keyword%) "
+            + "group by room.accommodation.id ")
     Page<AccommodationView> findAllByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // inline view 사용을 위한 native 쿼리 사용 (JPQL에서는 미지원)

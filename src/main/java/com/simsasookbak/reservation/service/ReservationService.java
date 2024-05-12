@@ -17,12 +17,19 @@ import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +44,10 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final AccommodationService accommodationService;
     private final RoomService roomService;
+
+    @PersistenceContext
+    EntityManager entityManager;
+
 
     private static LocalDate addDays(LocalDate date, int days) {
         return date.plusDays(days);
@@ -75,7 +86,7 @@ public class ReservationService {
         return reservationRepository.findAllCompleteStatusRoomByRoomId(roomId);
     }
 
-    public ReservationAddResponseDto save(Long accommodationId, Long roomId, ReservationAddRequestDto request) {
+    public ReservationAddResponseDto save(Member member, Long accommodationId, Long roomId, ReservationAddRequestDto request) {
 
         AccommodationDto accommodationDto = accommodationService.findAccommodationById(accommodationId);
         Accommodation accommodation = AccommodationDto.toAccommodation(accommodationDto);
@@ -83,7 +94,7 @@ public class ReservationService {
         RoomDto roomDto = roomService.findRoomById(roomId);
         Room room = roomDto.toEntity(accommodation);
 
-        Reservation reservation = request.toEntity(accommodation, room);
+        Reservation reservation = request.toEntity(member, accommodation, room);
         Reservation savedReservation = reservationRepository.save(reservation);
 
         return new ReservationAddResponseDto(savedReservation);
@@ -120,6 +131,16 @@ public class ReservationService {
         }
     }
 
+    public List<String> getReservationRoomName(Long accommodationId, Long reviewWriterMemberId) {
+
+        String sql = "SELECT name FROM reservation JOIN room WHERE reservation.room_id = room.room_id" +
+                " AND reservation.accommodation_id=" + accommodationId +
+                " AND reservation.member_id=" + reviewWriterMemberId;
+
+        List<String> results = entityManager.createNativeQuery(sql).getResultList().stream().map(x->(String)x).toList();
+        return results;
+    }
+
     public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
         return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
                 Collectors.toList());
@@ -129,4 +150,10 @@ public class ReservationService {
         return reservationRepository.findByAccommodationId(id).stream().map(ReservationResponseDto::new).collect(
                 Collectors.toList());
     }
+  
+    @Transactional
+    public void cancelReservation(Long reservationId) {
+        reservationRepository.cancelReservationById(reservationId);
+    }
+
 }
