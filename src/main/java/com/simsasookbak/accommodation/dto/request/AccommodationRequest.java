@@ -1,17 +1,17 @@
 package com.simsasookbak.accommodation.dto.request;
 
-import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
 public class AccommodationRequest {
     private String keyword;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
 
     public boolean isEmptyAllDates() {
-        return startDate == null && endDate == null;
+        return StringUtils.isBlank(startDate) && StringUtils.isBlank(endDate);
     }
 }

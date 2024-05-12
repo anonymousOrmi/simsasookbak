@@ -9,12 +9,12 @@
     <meta content="" name="description">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -41,19 +41,24 @@
             <h5 class="section-title px-3">Review</h5>
             <h1 class="mb-0">솔직한 후기를 작성해 주세요!</h1>
         </div>
-        <form>
+        <form enctype="multipart/form-data" th:action="@{/review/register/{acom_id}(acom_id=${acom_id})}" th:method="post">
             <div class="row g-3">
                 <div class="col-md-5">
-                    <label for="reviewTitle" class="form-label">리뷰 제목</label>
-                    <input type="text" class="form-control" id="reviewTitle" placeholder="리뷰 제목을 입력하세요" required>
+                    <label class="form-label" for="reviewTitle">리뷰할 방 선택</label>
+<!--                    <input type="text" class="form-control" id="reviewTitle" placeholder="리뷰 제목을 입력하세요" required>-->
+                    <select class="form-control" id="reviewTitle" name="roomTitle" required>
+                        <option th:each="roomName:${RoomNames}" th:text="${roomName}" th:value="${roomName}"></option>
+                    </select>
                 </div>
+                <input name="accommodation" th:value="${accommodation}" type="hidden">
+                <input name="member" th:value="${member}" type="hidden">
                 <div class="col-md-5">
-                    <label for="imageUpload" class="form-label">이미지 업로드</label>
-                    <input type="file" class="form-control" id="imageUpload">
+                    <label class="form-label" for="imageUpload">이미지 업로드</label>
+                    <input accept="image/*" class="form-control" id="imageUpload" multiple name="file" onchange="addFile(this);" type="file">
                 </div>
                 <div class="col-md-2">
-                    <label for="starRating" class="form-label">별점</label>
-                    <select class="form-select" id="starRating">
+                    <label class="form-label" for="starRating">별점</label>
+                    <select class="form-select" id="starRating" name="score">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -62,12 +67,12 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="reviewContent" class="form-label">리뷰 내용</label>
-                    <textarea class="form-control" id="reviewContent" rows="10" placeholder="리뷰 내용을 입력하세요" required></textarea>
+                    <label class="form-label" for="reviewContent">리뷰 내용</label>
+                    <textarea class="form-control" id="reviewContent" name="content" placeholder="리뷰 내용을 입력하세요" required rows="10"></textarea>
                 </div>
                 <div class="col-12">
                     <div class="text-center">
-                        <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">리뷰 등록</a>
+                        <button class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="" type="submit">리뷰 등록</button>
                     </div>
                 </div>
             </div>
@@ -76,27 +81,10 @@
 </div>
 <!-- Review End -->
 
-<!-- Copyright Start -->
-<div class="container-fluid copyright text-body py-4">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-end mb-md-0">
-                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">심사숙박</a>, All right reserved.
-            </div>
-            <div class="col-md-6 text-center text-md-start">
-                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Copyright End -->
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->
@@ -111,5 +99,4 @@
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
 </body>
-
 </html>

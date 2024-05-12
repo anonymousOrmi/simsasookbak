@@ -2,6 +2,9 @@ package com.simsasookbak.review.dto;
 
 import com.simsasookbak.review.domain.Review;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.simsasookbak.review.domain.ReviewImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +26,10 @@ public class ReviewDto {
     private LocalDateTime updatedAt;
     private String formattedCreatedAt;
     private String formattedUpdatedAt;
+    private String roomTitle;
+    private List<ReviewImage> reviewImages;
 
-    public static ReviewDto toDto(Review review) {
+    public static ReviewDto toDto(Review review,List<ReviewImage> reviewImages) {
         return ReviewDto.builder()
                 .reviewId(review.getId())
                 .accommodationId(review.getAccommodation().getId())
@@ -35,6 +40,8 @@ public class ReviewDto {
                 .isDeleted(review.getIsDeleted())
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
+                .roomTitle(review.getRoomTitle())
+                .reviewImages(reviewImages)
                 .build();
     }
 

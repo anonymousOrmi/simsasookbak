@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +33,11 @@ public class ReservationController {
 
     //TODO: 회원정보 받아오기
     @PostMapping("/{accommodationId}/{roomId}")
-    public ResponseEntity<ReservationAddResponseDto> saveReservation(@PathVariable Long accommodationId,
+    public ResponseEntity<ReservationAddResponseDto> saveReservation(@AuthenticationPrincipal Member member, @PathVariable Long accommodationId,
                                                                      @PathVariable Long roomId,
                                                                      @RequestBody ReservationAddRequestDto request) {
 
-        ReservationAddResponseDto responseDto = reservationService.save(accommodationId, roomId, request);
+        ReservationAddResponseDto responseDto = reservationService.save(member, accommodationId, roomId, request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }

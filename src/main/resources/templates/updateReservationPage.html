@@ -29,6 +29,8 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/reservationForm.css" rel="stylesheet">
 
+    <script defer src="/js/updateReservation.js"></script>
+
     <style>
         /* 날짜 선택기의 날짜 크기 조정 */
         .datepicker table tr td,
@@ -129,16 +131,14 @@
                         </div>
                     </div>
                 </div>
-                <form id="reservationForm"
-                      th:action="@{'/api/reservations/renew/'+${reservation.getId()}}"
-                      method="put">
+                <form id="reservationForm">
                     <p class="text-white mb-4 py-3"><span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-5">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
                                 <input name="startDate"
                                        th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}"
-                                       type="text" id="date-picker1" class="form-control bg-white border-0 small"
+                                       th:value="${reservation.getStartDate()}" type="text" id="date-picker1" class="form-control bg-white border-0 small"
                                        aria-label="Search" aria-describedby="basic-addon2">
                                 <label>입실 일 선택</label>
                             </div>
@@ -147,7 +147,7 @@
                             <div class="form-floating date" id="date4" data-target-input="nearest">
                                 <input name="endDate"
                                        th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}"
-                                       type="text" id="date-picker2" class="form-control bg-white border-0 small"
+                                       th:value="${reservation.getEndDate()}" type="text" id="date-picker2" class="form-control bg-white border-0 small"
                                        aria-label="Search" aria-describedby="basic-addon2">
                                 <label>퇴실 일 선택</label>
                             </div>
@@ -157,13 +157,13 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <textarea name="request2" class="form-control bg-white border-0" placeholder="요청 사항"
-                                          id="request" style="height: 250px"></textarea>
+                                          id="request" style="height: 250px" th:text="${reservation.getRequest()}"></textarea>
                                 <label for="request">요청 사항</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary text-white w-50 py-3 reservation-submit-button"
-                                    type="submit">예약 신청하기
+                                    type="button" th:onclick="'submitForm('+${reservation.getId()}+')'">예약 수정하기
                             </button>
                         </div>
                     </div>

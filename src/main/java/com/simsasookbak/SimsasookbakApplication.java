@@ -9,9 +9,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-@EnableAsync
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-//@SpringBootApplication
+//<<<<<<< HEAD
+//@EnableAsync
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+////@SpringBootApplication
+//=======
+@SpringBootApplication
 public class SimsasookbakApplication {
 
     public static void main(String[] args) {

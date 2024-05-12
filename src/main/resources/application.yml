@@ -44,7 +44,22 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-        
+
+  mail:
+    host: smtp.gmail.com
+    port: 587 # gmail tls port
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD} # 구글에서 설정한 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000 # Socket Read Timeout 시간(ms) (기본값 : 무한대)
+          starttls:
+            enable: true # StartTLS 활성화 여부 (기본값 : false)
+    default-encoding: "UTF-8"
+
+
 youtube:
     api:
       key: ${YOUTUBE_API_KEY}
@@ -54,3 +69,16 @@ alan:
       url: ${ALAN_ONE_URL}
 client:
   id: ${CLIENT_ID}
+
+cloud:
+  aws:
+    s3:
+      bucket: simsasookbak
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: ${S3_ACCESS_KEY}
+      secretKey: ${S3_SECRET_KEY}
+

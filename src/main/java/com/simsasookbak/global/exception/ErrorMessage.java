@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ErrorMessage {
     YOUTUBE_VIDEO_NOT_FOUND("Youtube 영상 데이터를 찾을 수 없습니다."),
-
+    NOT_EXIST_RESERVATION("해당 예약 내역이 존재하지 않습니다."),
     UNEXPECTED_ROW_COUNT("예상 ROW 반환과 상이한 ROW 수가 반환 되었습니다.");
 
     private final String message;
