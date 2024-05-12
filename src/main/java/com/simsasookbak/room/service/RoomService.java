@@ -2,6 +2,7 @@ package com.simsasookbak.room.service;
 
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
+import com.simsasookbak.room.dto.RoomUpdateDto;
 import com.simsasookbak.room.repository.RoomRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final RoomFacilityMappingService roomFacilityMappingService;
 
     // TODO: NOTFOUNDEXCEPTION 커스텀하기
     public RoomDto findRoomById(Long roomId) {
@@ -43,6 +45,14 @@ public class RoomService {
 
     public Room save(Room room) {
         return roomRepository.save(room);
+    }
+
+    public void updateRoom(Long roomId, RoomUpdateDto roomUpdateDto) {
+        Room room = roomRepository.findById(roomId).orElseThrow();
+        room.update(roomUpdateDto);
+        List<String> roomFacilityList = roomUpdateDto.getFacilityList();
+
+
     }
 
 }
