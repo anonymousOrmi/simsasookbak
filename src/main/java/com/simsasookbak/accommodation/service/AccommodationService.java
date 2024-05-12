@@ -8,6 +8,7 @@ import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
+import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import com.simsasookbak.accommodation.repository.AccommodationRepository;
@@ -93,6 +94,12 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findImgByAcomId(id);
     }
 
+
+    public List<AccommodationRegisteredResponse> findMyAccommodations(Long memberId) {
+        return accommodationRepository.findByMemberId(memberId).stream().map(AccommodationRegisteredResponse::new).collect(
+                Collectors.toList());
+    }
+
     public AccommodationAddResponseDto save(Member member, AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
         AccommodationAddRequestDto accommodationRequest = accommodationAndRoomsAddRequestDto.getAccommodationAddRequestDto();
         List<RoomAddRequestDto> roomAddRequestDtoList = accommodationAndRoomsAddRequestDto.getRoomAddRequestDtoList();
@@ -118,6 +125,3 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findById(accommodationId).orElseThrow();
     }
 }
-
-
-
