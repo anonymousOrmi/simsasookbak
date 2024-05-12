@@ -62,48 +62,48 @@
         <div class="col-md-9"></div> <!-- 공백 위한 것 -->
         <div class="col-md-2">
           <div class="form-floating">
-            <input name="accommodationName" type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
+            <input name="accommodationName" th:value="${accommodation.getName()}" type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
             <label for="accommodationName">숙소 명</label>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-floating">
-            <select class="form-select bg-white border-0" id="selectRegion">
-              <option value="1">서울</option>
-              <option value="2">경기</option>
-              <option value="3">강원</option>
-              <option value="2">충북</option>
-              <option value="3">충남</option>
-              <option value="2">전북</option>
-              <option value="3">전남</option>
-              <option value="2">경북</option>
-              <option value="3">경남</option>
-              <option value="3">제주</option>
+            <select class="form-select bg-white border-0" id="selectRegion" name="region">
+              <option th:selected="${accommodation.getRegion()} == '서울'">서울</option>
+              <option th:selected="${accommodation.getRegion()} == '경기'">경기</option>
+              <option th:selected="${accommodation.getRegion()} == '강원'">강원</option>
+              <option th:selected="${accommodation.getRegion()} == '충북'">충북</option>
+              <option th:selected="${accommodation.getRegion()} == '충남'">충남</option>
+              <option th:selected="${accommodation.getRegion()} == '전북'">전북</option>
+              <option th:selected="${accommodation.getRegion()} == '전남'">전남</option>
+              <option th:selected="${accommodation.getRegion()} == '경북'">경북</option>
+              <option th:selected="${accommodation.getRegion()} == '경남'">경남</option>
+              <option th:selected="${accommodation.getRegion()} == '제주'">제주</option>
             </select>
-            <label for="SelectRegion">지역</label>
+            <label for="selectRegion">지역</label>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-floating">
-            <input name="address" type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
+            <input th:value="${accommodation.getAddress()}" name="address" type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
             <label for="address">상세 주소</label>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date3" data-target-input="nearest">
-            <input name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime1">체크 인</label>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date4" data-target-input="nearest">
-            <input name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.checkOut}" name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime2">체크 아웃</label>
           </div>
         </div>
         <div class="col-12">
           <div class="form-floating">
-            <textarea name="accommodationContent" class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
+            <textarea th:text="${accommodation.getContent()}" name="accommodationContent" class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
             <label for="accommodationContent">숙소 소개글</label>
           </div>
         </div>
@@ -111,14 +111,14 @@
           <div class="row">
             <div class="col">
               <ul class="list-group list-group-horizontal">
-                <!-- 숙박 시설 목록을 반복하여 각 항목을 체크박스로 표시 -->
-                <th:block th:each="facility : ${accommodationFacilityList}">
-                  <li class="list-group-item">
-                    <!-- 각 숙박 시설을 체크박스로 표시 -->
-                    <input id="accommodation-check-input" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="...">
-                    <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
-                  </li>
-                </th:block>
+<!--                &lt;!&ndash; 숙박 시설 목록을 반복하여 각 항목을 체크박스로 표시 &ndash;&gt;-->
+<!--                <th:block th:each="facility : ${accommodationFacilityList}">-->
+<!--                  <li class="list-group-item">-->
+<!--                    &lt;!&ndash; 각 숙박 시설을 체크박스로 표시 &ndash;&gt;-->
+<!--                    <input id="accommodation-check-input" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="...">-->
+<!--                    <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>-->
+<!--                  </li>-->
+<!--                </th:block>-->
               </ul>
             </div>
           </div>

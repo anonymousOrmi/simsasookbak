@@ -107,7 +107,10 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-//    @PatchMapping()
-//    public ResponseEntity<>
+    @PatchMapping()
+    public ResponseEntity<?> update() {
+
+        return null;
+    }
 
 }
