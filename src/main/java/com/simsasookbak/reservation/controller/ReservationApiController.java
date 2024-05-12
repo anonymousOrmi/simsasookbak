@@ -21,7 +21,7 @@ public class ReservationApiController {
     @PutMapping("/{reservationId}")
     public ResponseEntity<Void> cancelReservation(@PathVariable Long reservationId) throws Exception {
         reservationService.cancelReservation(reservationId);
-        mailService.sendMail(MailType.CANCEL_USER_RESERVATION, reservationId);
+        mailService.sendMail(MailType.RESERVATION_CANCEL, reservationId);
         return ResponseEntity.ok().build();
     }
 }

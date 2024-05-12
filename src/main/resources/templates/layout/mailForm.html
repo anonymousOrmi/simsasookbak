@@ -22,10 +22,10 @@
         <p class="card-text">
             <b>주소: </b><span th:text="${form.getAddress()}"></span>
         </p>
-        <p th:if="${!form.getTel().isEmpty()}">
+        <p>
             <b>Tel: </b><span th:text="${form.getTel()}"></span>
         </p>
-        <p th:if="${!form.getEmail().isEmpty()}">
+        <p>
             <b>Email: </b><span th:text="${form.getEmail()}"></span>
         </p>
     </article>
