@@ -14,7 +14,7 @@ public class ReviewImage extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", updatable = false) //, columnDefinition = "bigint AUTO_INCREMENT"
+    @Column(name = "review_image_id", updatable = false) //, columnDefinition = "bigint AUTO_INCREMENT"
     private Long id;
 
     /*`review_id`	bigint(20)	NOT NULL,*/

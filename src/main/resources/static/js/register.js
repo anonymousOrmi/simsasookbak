@@ -1,3 +1,4 @@
+
 const signInBtn = document.getElementById("signIn");
 const signUpBtn = document.getElementById("signUp");
 const fistForm = document.getElementById("form1");
@@ -6,6 +7,7 @@ const container = document.querySelector(".container");
 const signinButton = document.querySelector(".sign-in-button");
 // const signUpBtn2 = document.querySelector('.sign-up');
 const signUpClick = document.querySelector('.sign-up-button');
+let emailcheckResponse ;
 signInBtn.addEventListener("click", () => {
     container.classList.remove("right-panel-active");
 });
@@ -21,26 +23,39 @@ signUpClick.addEventListener("click",()=>{
     const password = document.querySelector('#password').value;
     const password_check = document.querySelector('#password-check').value;
     const errorMsg=document.querySelector('.error-message');
-    if(password === password_check){
-        console.log('비밀번호 일치');
-        signup(password);
+    const inputEnable = document.getElementById('email-check-input').value;
+    console.log(emailcheckResponse);
+    console.log(typeof emailcheckResponse);
+
+    console.log(inputEnable);
+    console.log(typeof inputEnable);
+    if(emailcheckResponse.toString()===inputEnable){
+        console.log('true');
+    }
+    if(inputEnable !== "") {
+        if (password === password_check && inputEnable===emailcheckResponse.toString()) {
+            let email = document.getElementById('email').value;
+            console.log('비밀번호 일치');
+            signup(password,email);
+
+        } else {
+            errorMsg.innerText = '비밀번호가 일치하지 않거나 이메일 인증번호가 다릅니다.';
+        }
     }else{
-        errorMsg.innerText='비밀번호가 일치하지 않습니다.';
+        alert('이메일이 인증되지 않았습니다.')
     }
 });
 
-function signup(password){
-    role = document.getElementsByName('role');
+function signup(password,email){
+    let role = document.getElementsByName('role');
     if(role[0].checked===true) {
         role = role[0].value;
     }else if(role[1].checked===true){
         role = role[1].value;
-    }else{
-        role = role[2].value;
     }
     var formData={
         name : document.getElementById('name').value,
-        email : document.getElementById('email').value,
+        email : email,
         password : password,
         phone : document.getElementById('phone').value,
         birthDate : document.getElementById('birthDate').value,
@@ -64,10 +79,11 @@ function signup(password){
         body:JSON.stringify(formData)
     }).then(response=>{
         if(response.ok){
-            fetch(`/t?msg=${role.value}`,{method:'GET'});
+            alert('회원가입이 완료되었습니다.');
             // window.location.href='/login';
         }else{
             throw new Error('회원가입 실패');
+
         }
 
     }).catch(error=>{
@@ -88,25 +104,29 @@ if(signinButton) {
 
     })
 }
-/*
- <input type="text" placeholder="이름" class="input" name="name"/>
-            <div style="display: flex">
-                <input type="email" placeholder="Email" class="input" name="email" id="email"/>
-                <button type="button" style="margin-left: 20px">중복확인</button>
-            </div>
-            <input type="password" placeholder="Password" class="input" name="password" id="password"/>
-            <input type="password" placeholder="Password 확인" class="input" id="password-check">
-            <span class="error-message"></span>
-            <fieldset>
-                <label for="user-register">이용자</label>
-                <input type="radio" id="user-register" name="role" value="이용자"/>
-                <label for="accommodation-provider-register">숙박업자</label>
-                <input type="radio"  id="accommodation-provider-register" name="role" value="숙박업자"/>
-            </fieldset>
-            <input type="tel" placeholder="Phone Number" name="phone" id="phone" pattern="[0-9]{11}" required class="input">
-            <small>생일</small>
-            <input type="date" class="input" name="birthDate" id="birthDate">
-            <button class="btn sign-up-button" type="submit">Sign Up</button>
 
-
- */
+const emailCheckBtn = document.getElementById('email-check');
+emailCheckBtn.addEventListener('click', ()=>{
+    const email = document.getElementById('email').value;
+    if(email !== "") {
+        fetch('/email/check/message', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                "email": email
+            })
+        }).then(async (response) => {
+            if(response.ok) {
+                const inputEnable = document.getElementById('email-check-input');
+                const inputLabelEnable = document.getElementById('email-check-input-label');
+                inputEnable.classList.toggle('disable');
+                inputLabelEnable.classList.toggle('disable');
+                emailcheckResponse = await response.json();
+            }else{
+                alert('이미 가입되어있습니다.')
+            }
+        })
+    }else{
+        alert('이메일을 입력하지않았습니다.');
+    }
+})

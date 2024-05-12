@@ -231,7 +231,11 @@ body {
     animation: scale-up 1.1s linear;
 }
 
-.height-500{
-    height: 500px;
+.height-600{
+    height: 600px;
 
+}
+
+.disable{
+    visibility: hidden;
 }

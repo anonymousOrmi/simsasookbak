@@ -18,10 +18,15 @@ public class MemberService {
     public void register(Member member) {
         Member member1 = new Member(member.getEmail(), member.getName(), encoder.encode(member.getPassword()),
                 member.getRole(), member.getBirthDate(), member.getStatus(), member.getPhone());
+        memberRepository.save(member1);
     }
 
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow();
+    }
+
+    public boolean isInDb(String email){
+        return memberRepository.findByEmail(email).isPresent();
     }
 
     @Transactional
@@ -34,6 +39,12 @@ public class MemberService {
     public void deleteMember(String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
         member.cancellation();
+    }
+
+    public String makeRandomInt(){
+        int i=0;
+        i = (int) (Math.random()*10000000);
+        return String.valueOf(i);
     }
 
 }
