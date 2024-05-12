@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-//@SpringBootApplication
+@SpringBootApplication
 public class SimsasookbakApplication {
 
     public static void main(String[] args) {

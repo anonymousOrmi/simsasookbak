@@ -4,11 +4,13 @@ import com.simsasookbak.external.ai.alan.dto.AlanResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AlanService {
 
     @Value("${ALAN_ONE_URL}")

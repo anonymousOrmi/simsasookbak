@@ -27,6 +27,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -84,7 +85,7 @@ public class ReservationService {
         return reservationRepository.findAllCompleteStatusRoomByRoomId(roomId);
     }
 
-    public ReservationAddResponseDto save(Long accommodationId, Long roomId, ReservationAddRequestDto request) {
+    public ReservationAddResponseDto save(Member member, Long accommodationId, Long roomId, ReservationAddRequestDto request) {
 
         AccommodationDto accommodationDto = accommodationService.findAccommodationById(accommodationId);
         Accommodation accommodation = AccommodationDto.toAccommodation(accommodationDto);
@@ -92,7 +93,7 @@ public class ReservationService {
         RoomDto roomDto = roomService.findRoomById(roomId);
         Room room = roomDto.toEntity(accommodation);
 
-        Reservation reservation = request.toEntity(accommodation, room);
+        Reservation reservation = request.toEntity(member, accommodation, room);
         Reservation savedReservation = reservationRepository.save(reservation);
 
         return new ReservationAddResponseDto(savedReservation);
