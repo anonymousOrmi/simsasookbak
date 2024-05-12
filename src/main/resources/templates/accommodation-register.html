@@ -1,34 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>Travela - Tourism Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
-</head>
-
+<html lang="ko-KR">
+<head th:replace="~{/layout/head::headFragment}"></head>
 <body>
 
 <div th:replace="~{/layout/top-bar :: top}"></div>
@@ -52,17 +24,17 @@
     <div class="container-fluid booking py-5">
         <div class="container py-5">
             <h1 class="text-white mb-3">숙소 정보</h1>
-            <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="post">
+            <form id="registerForm" method="post" th:action="@{/accommodation/registerPage/register}">
                 <!-- 숙소 영역 -->
                 <div class="row g-3">
                     <div class="col-md-3">
-                        <label for="imageInput" class="form-label">이미지 업로드</label>
-                        <input class="form-control" type="file" id="imageInput" accept="image/*" multiple>
+                        <label class="form-label" for="imageInput">이미지 업로드</label>
+                        <input accept="image/*" class="form-control" id="imageInput" multiple type="file">
                     </div>
                     <div class="col-md-9"></div> <!-- 공백 위한 것 -->
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <input name="accommodationName" type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
+                            <input class="form-control bg-white border-0" id="accommodationName" name="accommodationName" placeholder="Your Name" type="text">
                             <label for="accommodationName">숙소 명</label>
                         </div>
                     </div>
@@ -85,25 +57,25 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <input name="address" type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
+                            <input class="form-control bg-white border-0" id="address" name="address" placeholder="Your Email" type="text">
                             <label for="address">상세 주소</label>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-floating date" id="date3" data-target-input="nearest">
-                            <input name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                        <div class="form-floating date" data-target-input="nearest" id="date3">
+                            <input class="form-control bg-white border-0" data-target="#date3" data-toggle="datetimepicker" id="datetime1" name="checkIn" placeholder="Date & Time" type="text" />
                             <label for="datetime1">체크 인</label>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-floating date" id="date4" data-target-input="nearest">
-                            <input name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                        <div class="form-floating date" data-target-input="nearest" id="date4">
+                            <input class="form-control bg-white border-0" data-target="#date3" data-toggle="datetimepicker" id="datetime2" name="checkOut" placeholder="Date & Time" type="text" />
                             <label for="datetime2">체크 아웃</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea name="accommodationContent" class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
+                            <textarea class="form-control bg-white border-0" id="accommodationContent" name="accommodationContent" placeholder="Special Request" style="height: 100px"></textarea>
                             <label for="accommodationContent">숙소 소개글</label>
                         </div>
                     </div>
@@ -115,7 +87,7 @@
                                     <th:block th:each="facility : ${accommodationFacilityList}">
                                         <li class="list-group-item">
                                             <!-- 각 숙박 시설을 체크박스로 표시 -->
-                                            <input id="accommodation-check-input" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="...">
+                                            <input aria-label="..." class="form-check-input me-1" id="accommodation-check-input" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" type="checkbox">
                                             <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                                         </li>
                                     </th:block>
@@ -131,25 +103,25 @@
                         <h2 class="text-white mb-3">객실 정보</h2>
                         <div class="col-md-2">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="roomName1" placeholder="Your Name">
+                                <input class="form-control bg-white border-0" id="roomName1" placeholder="Your Name" type="text">
                                 <label for="roomName1">객실 명</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="cost1" placeholder="Your Name">
+                                <input class="form-control bg-white border-0" id="cost1" placeholder="Your Name" type="text">
                                 <label for="cost1">가격</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="content1" style="height: 100px"></textarea>
+                                <textarea class="form-control bg-white border-0" id="content1" placeholder="Special Request" style="height: 100px"></textarea>
                                 <label for="content1">객실 소개글</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="useGuide1" style="height: 100px"></textarea>
+                                <textarea class="form-control bg-white border-0" id="useGuide1" placeholder="Special Request" style="height: 100px"></textarea>
                                 <label for="useGuide1">이용 안내</label>
                             </div>
                         </div>
@@ -161,7 +133,7 @@
                                         <th:block th:each="roomFacility : ${roomFacilityList}">
                                             <li class="list-group-item">
                                                 <!-- 첫 번째 객실 시설을 체크박스로 표시 -->
-                                                <input class="form-check-input me-1" type="checkbox" th:id="'roomFacility1_' + ${roomFacility.id}" th:value="${roomFacility.name}" aria-label="...">
+                                                <input aria-label="..." class="form-check-input me-1" th:id="'roomFacility1_' + ${roomFacility.id}" th:value="${roomFacility.name}" type="checkbox">
                                                 <label th:for="'roomFacility1_' + ${roomFacility.id}" th:text="${roomFacility.name}">Facility Name</label>
                                             </li>
                                         </th:block>
@@ -186,18 +158,11 @@
     </div>
     <!-- Tour Booking End -->
 
-<footer th:replace="~{/layout/footer::footerFragment}">
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="/lib/lightbox/js/lightbox.min.js"></script>
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 
 <!-- Template Javascript -->
