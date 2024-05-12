@@ -18,15 +18,12 @@ import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,10 +38,6 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final AccommodationService accommodationService;
     private final RoomService roomService;
-
-    @PersistenceContext
-    EntityManager entityManager;
-
 
     private static LocalDate addDays(LocalDate date, int days) {
         return date.plusDays(days);
@@ -129,13 +122,7 @@ public class ReservationService {
     }
 
     public List<String> getReservationRoomName(Long accommodationId, Long reviewWriterMemberId) {
-
-        String sql = "SELECT name FROM reservation JOIN room WHERE reservation.room_id = room.room_id" +
-                " AND reservation.accommodation_id=" + accommodationId +
-                " AND reservation.member_id=" + reviewWriterMemberId;
-
-        List<String> results = entityManager.createNativeQuery(sql).getResultList().stream().map(x->(String)x).toList();
-        return results;
+        return reservationRepository.findAllReservationRoomNameById(accommodationId, reviewWriterMemberId);
     }
 
     public List<ReservationResponseDto> findAllReservationByMemberId(Long id){

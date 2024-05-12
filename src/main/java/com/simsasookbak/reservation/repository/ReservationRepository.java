@@ -75,4 +75,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             + "where reservation.id = :id ")
     Reservation findReservationById(@Param("id") Long id);
 
+    @Query("select reservation.room.name "
+            + "from Reservation reservation "
+            + "join reservation.room "
+            + "where reservation.room.accommodation.id = :accommodationId "
+            + "and reservation.member.id = :reviewWriterMemberId "
+            + "group by reservation.room.id ")
+    List<String> findAllReservationRoomNameById(
+            @Param("accommodationId") Long accommodationId,
+            @Param("reviewWriterMemberId") Long reviewWriterMemberId
+    );
 }
