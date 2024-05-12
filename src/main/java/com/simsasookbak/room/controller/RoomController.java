@@ -25,7 +25,7 @@ public class RoomController {
         return ResponseEntity.ok().body(room);
     }
 
-    @PutMapping("/{roomId}/roomUpdatePage")
+    @PutMapping("/room/{roomId}/roomUpdatePage")
     public ResponseEntity<RoomUpdateDto> updateAccommodation(@PathVariable Long roomId, @RequestBody
     RoomUpdateDto accommodationUpdateDto) {
 

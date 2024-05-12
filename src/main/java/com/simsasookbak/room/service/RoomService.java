@@ -52,7 +52,9 @@ public class RoomService {
         room.update(roomUpdateDto);
         List<String> roomFacilityList = roomUpdateDto.getFacilityList();
 
+        roomFacilityMappingService.deleteMapping(roomId);
 
+        roomFacilityMappingService.registerMapping(room, roomFacilityList);
     }
 
 }
