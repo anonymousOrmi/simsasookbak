@@ -5,7 +5,6 @@ import static com.simsasookbak.global.exception.ErrorMessage.UNEXPECTED_ROW_COUN
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
-import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.domain.Status;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
@@ -18,6 +17,8 @@ import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,8 +32,6 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +46,7 @@ public class ReservationService {
 
     @PersistenceContext
     EntityManager entityManager;
+
 
     private static LocalDate addDays(LocalDate date, int days) {
         return date.plusDays(days);
@@ -139,18 +139,15 @@ public class ReservationService {
         List<String> results = entityManager.createNativeQuery(sql).getResultList().stream().map(x->(String)x).toList();
         return results;
     }
+
     public List<ReservationResponseDto> findAllReservationByMemberId(Long id){
         return reservationRepository.findAllReservationByUserId(id).stream().map(ReservationResponseDto::new).collect(
                 Collectors.toList());
     }
 
     @Transactional
-    public void cancelReservation(Optional<Long> reservationId) {
-        if (reservationId.isPresent()) {
-            reservationRepository.cancelReservationById(reservationId);
-        } else {
-            // Handle the case where reservationId is empty (optional with no value)
-        }
+    public void cancelReservation(Long reservationId) {
+        reservationRepository.cancelReservationById(reservationId);
     }
 
 }
