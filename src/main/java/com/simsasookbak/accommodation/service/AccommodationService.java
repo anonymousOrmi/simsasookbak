@@ -1,5 +1,7 @@
 package com.simsasookbak.accommodation.service;
 
+import static com.simsasookbak.global.util.ConvertToDateTime.convertToLocalDate;
+
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
@@ -20,6 +22,7 @@ import com.simsasookbak.room.service.RoomService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -38,17 +41,16 @@ public class AccommodationService {
     private final RoomFacilityMappingService roomFacilityMappingService;
 
 public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
-
     Pageable pageable = PageRequest.of(pageNum, 16);
     String keyword = request.getKeyword();
     Page<AccommodationView> page;
-    if (request.isEmptyAllDates() && Strings.isNotBlank(keyword)) {
+    if (request.isEmptyAllDates() && StringUtils.isNotBlank(keyword)) {
         page = accommodationRepository.findAllByKeyword(keyword.trim(), pageable);
     } else {
         page = accommodationRepository.findAllByStartDateAndEndDate(
-                request.getStartDate(),
-                request.getEndDate(),
-                Strings.isBlank(keyword) ? keyword : keyword.trim(),
+                Strings.isBlank(request.getStartDate()) ? null : convertToLocalDate(request.getStartDate()),
+                Strings.isBlank(request.getEndDate()) ? null : convertToLocalDate(request.getEndDate()),
+                StringUtils.isBlank(keyword) ? keyword : keyword.trim(),
                 pageable
         );
     }
@@ -59,8 +61,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         // 상위 6개의 accommodation ID를 가져오기
         List<ScoreAverageDto> topSixAccommodations = reviewService.findScoreSixAccommodation();
 
-        List<Double> avgScoreList = topSixAccommodations.stream().map(ScoreAverageDto::getAverageScore).collect(
-                Collectors.toList());
+        List<Double> avgScoreList = topSixAccommodations.stream().map(ScoreAverageDto::getAverageScore).toList();
 
         // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
