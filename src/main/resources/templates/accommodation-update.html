@@ -52,7 +52,7 @@
 <div class="container-fluid booking py-5">
   <div class="container py-5">
     <h1 class="text-white mb-3">숙소 정보</h1>
-    <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="post">
+    <form id="registerForm" th:action="@{/accommodation/${accommodation.id}/updatePage}" method="post">
       <!-- 숙소 영역 -->
       <div class="row g-3">
         <div class="col-md-3">
@@ -91,13 +91,13 @@
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date3" data-target-input="nearest">
-            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="time" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime1">체크 인</label>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date4" data-target-input="nearest">
-            <input th:value="${accommodation.checkOut}" name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.checkOut}" name="checkOut" type="time" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime2">체크 아웃</label>
           </div>
         </div>
@@ -115,7 +115,7 @@
                 <th:block th:each="facility : ${accommodationFacilityList}">
                   <li class="list-group-item">
                     <!-- 각 숙박 시설을 체크박스로 표시 -->
-                    <input id="facility_${facility.id}" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="..."
+                    <input class="accommodation-check-input form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="..."
                            th:checked="${accommodation.facilityList.contains(facility.name)}">
                     <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                   </li>
@@ -125,6 +125,9 @@
           </div>
         </div>
         <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
+        <div class="col-3">
+          <button class="btn btn-primary text-white w-100 py-3" type="submit">수정 완료</button>
+        </div>
       </div>
     </form>
   </div>
@@ -148,6 +151,59 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+    const formData = new FormData(this);
+
+    ////////////////////////////////////////////////////////////////////숙소시작
+    //지역 선택
+    const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
+    const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
+    // 체크된 숙박 시설 목록 추적
+    const facilityList = [];
+    const checkboxes = document.querySelectorAll('.accommodation-check-input[type=checkbox]:checked');
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.value !== '') {
+        facilityList.push(checkbox.value);
+      }
+    });
+    console.log(facilityList);
+
+    ////////////////////////////////////////////////////////////////////숙소끝
+
+
+    fetch(this.action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.get('accommodationName'),
+        region: regionSelect.options[regionIndex].text,
+        address: formData.get('address'),
+        checkIn: formData.get('checkIn'),
+        checkOut: formData.get('checkOut'),
+        content: formData.get('accommodationContent'),
+        facilityList: facilityList
+      })
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+              alert('숙소 수정 완료되었습니다.');
+              //TODO: 어디로 보내지
+              window.location.href = '/';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('숙소 수정 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
+            });
+  });
+</script>
 </body>
 
 </html>

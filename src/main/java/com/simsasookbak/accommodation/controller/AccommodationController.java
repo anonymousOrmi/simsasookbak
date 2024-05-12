@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.controller;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationUpdateRequestDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -82,11 +83,6 @@ public class AccommodationController {
         return "details";
     }
 
-    //예약 성공 메세지 전송 (상형)
-    @PostMapping("/reservation/message")
-    public void reservationMessage() {
-
-    }
 
     //리뷰 등록 페이지 이동
     @GetMapping("/{acom_id}/comment")
@@ -107,8 +103,11 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PatchMapping()
-    public ResponseEntity<?> update() {
+    @PatchMapping("/accommodation/{accommodationId}/updatePage")
+    public ResponseEntity<?> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
+    AccommodationUpdateRequestDto accommodationUpdateRequestDto) {
+
+
 
         return null;
     }
