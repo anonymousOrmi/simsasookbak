@@ -116,6 +116,10 @@
         </div>
         <div class="text-lg-end">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+               th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
+        </div>
+        <div class="text-lg-end">
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
         </div>
     </div>
