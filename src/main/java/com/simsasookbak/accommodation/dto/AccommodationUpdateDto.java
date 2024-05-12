@@ -1,4 +1,4 @@
-package com.simsasookbak.accommodation.dto.request;
+package com.simsasookbak.accommodation.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

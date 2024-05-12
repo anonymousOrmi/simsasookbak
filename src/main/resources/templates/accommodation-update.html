@@ -26,7 +26,7 @@
 <div class="container-fluid booking py-5">
   <div class="container py-5">
     <h1 class="text-white mb-3">숙소 정보</h1>
-    <form id="registerForm" th:action="@{/accommodation/{accommodationId}/updatePage(accommodationId=${accommodation.id})}" method="post">
+    <form id="registerForm" th:action="@{/accommodation/{accommodationId}/accommodationUpdate(accommodationId=${accommodation.id})}" method="post">
       <!-- 숙소 영역 -->
       <div class="row g-3">
         <div class="col-md-3">

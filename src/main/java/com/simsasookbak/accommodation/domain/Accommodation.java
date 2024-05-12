@@ -1,6 +1,6 @@
 package com.simsasookbak.accommodation.domain;
 
-import com.simsasookbak.accommodation.dto.request.AccommodationUpdateDto;
+import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
 import com.simsasookbak.global.BaseEntity;
 import com.simsasookbak.member.domain.Member;
 import jakarta.persistence.Column;

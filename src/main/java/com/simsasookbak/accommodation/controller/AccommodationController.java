@@ -3,7 +3,7 @@ package com.simsasookbak.accommodation.controller;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationUpdateDto;
+import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -103,7 +103,7 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/{accommodationId}/updatePage")
+    @PutMapping("/{accommodationId}/accommodationUpdate")
     public ResponseEntity<AccommodationUpdateDto> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
     AccommodationUpdateDto accommodationUpdateDto) {
 

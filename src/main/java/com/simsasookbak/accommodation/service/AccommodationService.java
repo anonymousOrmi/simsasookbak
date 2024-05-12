@@ -7,7 +7,7 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationUpdateDto;
+import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
