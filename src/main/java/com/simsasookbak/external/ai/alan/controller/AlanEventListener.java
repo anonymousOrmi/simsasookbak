@@ -10,6 +10,7 @@ import com.simsasookbak.review.service.ExternalSummaryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ public class AlanEventListener {
     private final ExternalSummaryService externalSummaryService;
 
     @EventListener
+    @Async
     public void handleRegistrationEvent(RegistrationEvent event) {
         final ExternalSummaryResponse alanResponse = ExternalSummaryWithAlan(event.getAccommodationId());
         log.info("AI Comment Response: {}", alanResponse);

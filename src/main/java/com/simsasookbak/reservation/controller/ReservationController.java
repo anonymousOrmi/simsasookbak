@@ -3,6 +3,7 @@ package com.simsasookbak.reservation.controller;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
+import com.simsasookbak.reservation.dto.ReservationUnableDto;
 import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import com.simsasookbak.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +60,18 @@ public class ReservationController {
         model.addAttribute("reservationList", reservationList);
 
         return "my-reservation-list";
+    }
+
+    @GetMapping("/renew/{reservation_id}")
+    public String updateReservation(@PathVariable Long reservation_id, Model model) {
+
+        ReservationResponseDto reservationDto = reservationService.findReservationById(reservation_id);
+        ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(reservationDto.getRoom().getId());
+
+        model.addAttribute("reservation",reservationDto);
+        model.addAttribute("reservationUnable", reservationUnable);
+
+
+        return "updateReservationPage";
     }
 }

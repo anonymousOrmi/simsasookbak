@@ -16,15 +16,17 @@ public class ReservationApiController {
 
     private final ReservationService reservationService;
 
-//    @Autowired
-//    public ReservationRestController(ReservationService reservationService) {
-//        this.reservationService = reservationService;
-//    }
-
     @PutMapping("/{reservationId}")
     public ResponseEntity<Void> cancelReservation(@PathVariable Long reservationId){
-        Optional<Long> optionalReservationId = Optional.of(reservationId);
-        reservationService.cancelReservation(optionalReservationId);
+        reservationService.cancelReservation(reservationId);
         return ResponseEntity.ok().build();
     }
+
+//    @PutMapping("/renew/{reservationId}")
+//    public ResponseEntity<Void> updateReservation(@PathVariable Long reservationId){
+//        reservationService.updateReservation(reservationId);
+//
+//
+//        return ResponseEntity.ok().build();
+//    }
 }

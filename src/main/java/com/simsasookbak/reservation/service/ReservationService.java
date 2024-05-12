@@ -127,12 +127,18 @@ public class ReservationService {
     }
 
     @Transactional
-    public void cancelReservation(Optional<Long> reservationId) {
-        if (reservationId.isPresent()) {
-            reservationRepository.cancelReservationById(reservationId);
-        } else {
-            // Handle the case where reservationId is empty (optional with no value)
-        }
+    public void cancelReservation(Long reservationId) {
+        reservationRepository.cancelReservationById(reservationId);
+    }
+
+//    public void updateReservation(Long reservationId) {
+//        reservationRepository.updateReservationById(reservationId);
+//    }
+
+    public ReservationResponseDto findReservationById(Long reservationId){
+        ReservationResponseDto reservationResponseDto = new ReservationResponseDto(reservationRepository.findReservationById(reservationId));
+
+        return reservationResponseDto;
     }
 
 }

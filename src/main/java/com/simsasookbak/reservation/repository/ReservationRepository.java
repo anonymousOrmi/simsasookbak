@@ -60,5 +60,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Reservation r SET r.status = '취소' WHERE r.id = :reservationId AND r.status IN ('완료', '대기')")
-    void cancelReservationById(@Param("reservationId") Optional<Long> reservationId);
+    void cancelReservationById(@Param("reservationId") Long reservationId);
+
+//    @Modifying(clearAutomatically = true)
+//    void updateReservationById(@Param("reservationId") Long reservationId);
+
+    Reservation findReservationById(@Param("reservationId")Long reservationId);
 }
