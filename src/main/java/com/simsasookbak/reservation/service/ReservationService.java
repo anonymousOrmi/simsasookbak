@@ -5,6 +5,7 @@ import static com.simsasookbak.global.exception.ErrorMessage.UNEXPECTED_ROW_COUN
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.domain.Status;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
@@ -24,10 +25,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;

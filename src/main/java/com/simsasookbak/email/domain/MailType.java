@@ -4,13 +4,9 @@ import java.util.function.Function;
 import lombok.Getter;
 
 public enum MailType {
-    CANCEL_USER_RESERVATION(
+    RESERVATION_CANCEL(
             "[심사숙박] 예약 취소",
             msg -> msg + "님의 예약이 취소 되었습니다."
-    ),
-    CANCEL_BUSINESS_PERSON_RESERVATION(
-            "[심사숙박] 예약 취소",
-            msg -> "요청하신 숙소의 예약이 취소되었습니다"
     ),
     RESERVATION_APPROVAL(
             "[심사숙박] 예약 확정",
