@@ -124,34 +124,32 @@
         console.log(facilityList);
 
 
-        // fetch(this.action, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         name: name,
-        //         region: region,
-        //         address: address,
-        //         checkIn: checkIn,
-        //         checkOut: checkOut,
-        //         content: content,
-        //         facilityList: facilityList
-        //     })
-        // })
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error('Network response was not ok');
-        //         }
-        //         // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
-        //         alert('숙소 수정 완료되었습니다.');
-        //         //TODO: 어디로 보내지
-        //         window.location.href = '/';
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //         alert('숙소 수정 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
-        //     });
+        fetch(this.action, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                cost: cost,
+                content: content,
+                useGuide: useGuide,
+                facilityList: facilityList
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+                alert('객실 수정 완료되었습니다.');
+                //TODO: 어디로 보내지
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('객실 수정 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
+            });
     });
 </script>
 
