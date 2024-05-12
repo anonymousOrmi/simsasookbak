@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/register.css">
 </head>
 <body>
-<div class="container right-panel-active height-500">
+<div class="container right-panel-active height-600">
     <!-- Sign Up -->
     <div class="container__form container--signup sign-up">
         <form class="form" id="form1">
@@ -19,8 +19,10 @@
             <input type="text" placeholder="이름" class="input" name="name" id="name"/>
             <div style="display: flex">
                 <input type="email" placeholder="Email" class="input" name="email" id="email"/>
-                <button type="button" style="margin-left: 20px">중복확인</button>
+                <button type="button" style="margin-left: 20px" id="email-check">중복확인</button>
             </div>
+            <label for="email-check-input" class="disable d-sm-inline" id="email-check-input-label">인증번호를 입력해주세요</label>
+            <input type="text" class="disable d-sm-inline" name="email-check-input" id="email-check-input">
             <input type="password" placeholder="Password" class="input" name="password" id="password"/>
             <input type="password" placeholder="Password 확인" class="input" id="password-check">
             <span class="error-message"></span>
@@ -29,10 +31,8 @@
                 <input type="radio" id="user-register" name="role" value="이용자"/>
                 <label for="accommodation-provider-register">사업자</label>
                 <input type="radio"  id="accommodation-provider-register" name="role" value="사업자"/>
-                <label for="accommodation-provider-register">관리자</label>
-                <input type="radio"  id="administrator" name="role" value="관리자"/>
             </fieldset>
-            <input type="tel" placeholder="Phone Number" name="phone" id="phone" pattern="[0-9]{11}" required class="input">
+            <input type="tel" placeholder="Phone Number -를 빼고 입력해주세요" name="phone" id="phone" pattern="[0-9]{11}" required class="input">
             <small>생일</small>
             <input type="date" class="input" name="birthDate" id="birthDate">
             <button class="btn sign-up-button" type="submit">Sign Up</button>

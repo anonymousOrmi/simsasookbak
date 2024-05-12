@@ -44,7 +44,19 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-        
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: chanhyeog@gmail.com
+    password: ${GOOGLE_APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          starttls.enable: true
+          auth: true
+
+
 youtube:
     api:
       key: ${YOUTUBE_API_KEY}
