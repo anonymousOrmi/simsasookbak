@@ -64,10 +64,8 @@
                         <td th:text="${member.status}"></td>
                         <td th:text="${#strings.substring(member.createdAt, 0, 10)}"></td>
                         <td th:text="${#strings.substring(member.updatedAt, 0, 10)}"></td>
-
-
                         <td>
-                            <button class="btn btn-danger red cancel-register" type="button" id="deleteButton" th:value="${member.id}">탈퇴</button>
+                            <button class="btn btn-danger red cancel-register deleteButton" type="button" th:value="${member.id}">탈퇴</button>
                         </td>
                     </tr>
                     </tbody>
