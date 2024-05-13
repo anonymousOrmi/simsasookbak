@@ -4,6 +4,7 @@ import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.domain.MemberDto;
 import com.simsasookbak.member.dto.MemberResponseDto;
 import com.simsasookbak.member.repository.MemberRepository;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,5 +24,15 @@ public class AdminService {
 
         return members;
     }
+
+    //유저 이름 검색
+    public List<Member> searchMemberByName(String name) {
+        return memberRepository.getSearchMemberByName(name)
+                .orElseThrow(() -> new NoSuchElementException("No member found with name: " + name));
+    }
+
+
+
+
 
 }

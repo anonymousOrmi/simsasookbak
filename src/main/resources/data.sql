@@ -23,6 +23,27 @@ SET @member_id_jeong = LAST_INSERT_ID();
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
 VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '$2a$12$qU9kKWpGjrbmgavQU4/VOeU3CHBIqgpEuDHo4JvvENKX5ZfhhPUWe', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test7@gmail.com', '유재석', '사업자', '2000-08-01', '$2a$12$9cj38gMAAJFlTN1WqQp6.eHWKWKEfbJgKjxPxGbScjRhvMivo9KKK', '일반', '010-6785-3452');
+SET @member_id_yu = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test8@gmail.com', '정형돈', '사업자', '2000-08-01', '$2a$12$fZxx/VotwmLdEbz/Csouiuk5APTwPl2HSf09Uo4C1rWk1vb5BtsqO', '일반', '010-6785-3452');
+SET @member_id_yu = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test9@gmail.com', '노홍철', '사업자', '2000-08-01', '$2a$12$PiBrP7ZaokzPNzETdDvNZOwmhAVFoAht16NQgBNTMmkP5bPUwAvkW', '일반', '010-6785-3452');
+SET @member_id_no = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test10@gmail.com', '박명수', '사업자', '2000-08-01', '$2a$12$5hRKU27PvUptfKBo0z5KUOkA/IxCo9AwTyD2fVnCIwMA0hMJYcP9G', '일반', '010-6785-3452');
+SET @member_id_park2 = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('tes11@gmail.com', '정준하', '사업자', '2000-08-01', '$2a$12$.WFOztLxY/K5ulKHFpPcp.sDJQk.s4sgT2zINkKkwTkDhyr16fV4.', '일반', '010-6785-3452');
+SET @member_id_park2 = LAST_INSERT_ID();
+
 --member end
 
 --accommodation start

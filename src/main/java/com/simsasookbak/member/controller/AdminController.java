@@ -1,25 +1,23 @@
 package com.simsasookbak.member.controller;
 
 import com.simsasookbak.member.domain.Member;
-import com.simsasookbak.member.domain.MemberDto;
 import com.simsasookbak.member.dto.MemberResponseDto;
 import com.simsasookbak.member.service.AdminService;
-import com.simsasookbak.member.service.MemberService;
-import com.simsasookbak.reservation.dto.response.ReservationResponseDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
-public class AdimController {
+@RequestMapping("/admin")
+public class AdminController {
 
     @Autowired
     private AdminService adminService;
@@ -52,6 +50,18 @@ public class AdimController {
         model.addAttribute("members", memberDtos);
         return "adminPage";
     }
+
+    // 이름으로 유저 검색
+    @GetMapping("/searchMember")
+    public String searchMemberByName(@RequestParam("keyword") String name, Model model) {
+        List<MemberResponseDto> memberDtos = adminService.searchMemberByName(name).stream()
+                .map(MemberResponseDto::toDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("members", memberDtos);
+        return "adminPage";
+    }
+
 
 
 

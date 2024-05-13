@@ -22,13 +22,13 @@
                 <li class="breadcrumb-item active text-white">유저 정보 조회</li>
             </ol>
         </div>
-        <form action="/accommodation" method="get">
+        <form action="/admin/searchMember" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
                     <div class="form-floating">
                         <input class="form-control bg-white border-0" id="keyword" name="keyword"
                                placeholder="Your Name" type="text">
-                        <label for="keyword">유저 이메일</label>
+                        <label for="keyword">유저 이름</label>
                     </div>
                 </div>
                 <div class="col-3">
@@ -36,6 +36,7 @@
                 </div>
             </div>
         </form>
+
 
         <div class="card-body">
             <div class="table-responsive text-nowrap">
@@ -77,174 +78,8 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        const addButton = document.querySelector('.add-room-btn');
-        const roomsContainer = document.querySelector('.rooms');
-
-        let roomIndex = 1;
-
-        addButton.addEventListener('click', function() {
-            addRoom();
-        });
-
-        function addRoom() {
-            roomIndex++;
-
-            const newRoom = document.createElement('div');
-            newRoom.classList.add('room', 'row', 'g-3');
-
-            newRoom.innerHTML = '\
-            <h2 class="text-white mb-3">객실 정보</h2>\
-            <div class="col-md-2">\
-                <div class="form-floating">\
-                    <input type="text" class="form-control bg-white border-0" id="roomName' + roomIndex + '" name="roomName' + roomIndex + '" placeholder="Your Name">\
-                    <label for="roomName' + roomIndex + '">객실 명</label>\
-                </div>\
-            </div>\
-            <div class="col-md-2">\
-                <div class="form-floating">\
-                    <input type="text" class="form-control bg-white border-0" id="cost' + roomIndex + '" name="cost' + roomIndex + '" placeholder="Your Name">\
-                    <label for="cost' + roomIndex + '">가격</label>\
-                </div>\
-            </div>\
-            <div class="col-12">\
-                <div class="form-floating">\
-                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="content' + roomIndex + '" name="content' + roomIndex + '" style="height: 100px"></textarea>\
-                    <label for="content' + roomIndex + '">객실 소개글</label>\
-                </div>\
-            </div>\
-            <div class="col-12">\
-                <div class="form-floating">\
-                    <textarea class="form-control bg-white border-0" placeholder="Special Request" id="useGuide' + roomIndex + '" name="useGuide' + roomIndex + '" style="height: 100px"></textarea>\
-                    <label for="useGuide' + roomIndex + '">이용 안내</label>\
-                </div>\
-            </div>\
-            <div class="container">\
-                <div class="row">\
-                    <div class="col">\
-                        <ul class="list-group list-group-horizontal" id="roomFacilityList' + roomIndex + '"></ul>\
-                    </div>\
-                 </div>\
-            </div>\
-            <div class="row mb-3"></div>';
-
-            roomsContainer.appendChild(newRoom);
-
-            // 여기에 객실 시설 목록 추가
-            [[${roomFacilityList}]].forEach(function(roomFacility) {
-                const facilityList = document.getElementById('roomFacilityList' + roomIndex);
-                facilityList.innerHTML += '\
-                <li class="list-group-item">\
-                    <input class="form-check-input me-1" type="checkbox" id="roomFacility' + roomIndex + '_' + roomFacility.id + '" value="' + roomFacility.name + '" aria-label="...">\
-                    <label for="roomFacility' + roomIndex + '_' + roomFacility.id + '">' + roomFacility.name + '</label>\
-                </li>';
-            });
-        }
-    });
-</script>
-
-<script>
-    document.getElementById('registerForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // 폼의 기본 제출 동작 방지
-
-        const formData = new FormData(this);
-
-        ////////////////////////////////////////////////////////////////////숙소시작
-        //지역 선택
-        const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
-        const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
-        // 체크된 숙박 시설 목록 추적
-        const facilityList = [];
-        const checkboxes = document.querySelectorAll('.accommodation-check-input[type=checkbox]:checked');
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.value !== '') {
-                facilityList.push(checkbox.value);
-            }
-        });
-        console.log(facilityList);
-        // 숙소 정보 수집
-        var accommodationAddRequestDto = {
-            name: formData.get('accommodationName'),
-            region: regionSelect.options[regionIndex].text,
-            address: formData.get('address'),
-            checkIn: formData.get('checkIn'),
-            checkOut: formData.get('checkOut'),
-            content: formData.get('accommodationContent'),
-            facilityList: facilityList
-        };
-        ////////////////////////////////////////////////////////////////////숙소끝
 
 
-        ////////////////////////////////////////////////////////////////////객실시작
-        // 배열 초기화
-        var roomAddRequestDtoList = [];
-
-        // 모든 객실 정보를 순회하면서 데이터 수집
-        var roomElements = document.querySelectorAll('.room');
-        roomElements.forEach(function(roomElement, index) {
-            var roomAddRequestDto = {};
-
-            // 객실명
-            var roomNameInput = roomElement.querySelector('input[id^="roomName"]');
-            roomAddRequestDto['name'] = roomNameInput.value;
-            console.log(roomNameInput.value);
-
-            // 가격
-            var costInput = roomElement.querySelector('input[id^="cost"]');
-            roomAddRequestDto['cost'] = costInput.value;
-            console.log(costInput.value);
-            // 객실 소개글
-            var contentTextarea = roomElement.querySelector('textarea[id^="content"]');
-            roomAddRequestDto['content'] = contentTextarea.value;
-            console.log(contentTextarea.value);
-
-            // 이용 안내
-            var useGuideTextarea = roomElement.querySelector('textarea[id^="useGuide"]');
-            roomAddRequestDto['useGuide'] = useGuideTextarea.value;
-            console.log(useGuideTextarea.value);
-
-            // 객실 시설 목록
-            roomAddRequestDto['facilityList'] = [];
-            var facilityCheckboxes = roomElement.querySelectorAll('input[id^="roomFacility"]:checked');
-            facilityCheckboxes.forEach(function(checkbox) {
-                roomAddRequestDto['facilityList'].push(checkbox.value);
-            });
-            console.log(roomAddRequestDto['facilityList']);
-
-            // 해당 객실의 정보를 전체 데이터 배열에 추가
-            roomAddRequestDtoList.push(roomAddRequestDto);
-
-        });
-        ////////////////////////////////////////////////////////////////////객실끝
-        console.log(roomAddRequestDtoList);
-
-        // JSON 형태로 변환하여 반환
-        fetch(this.action, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                accommodationAddRequestDto: accommodationAddRequestDto,
-                roomAddRequestDtoList: roomAddRequestDtoList
-            })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
-                alert('숙소 등록이 완료되었습니다.');
-                //TODO: 어디로 보내지
-                window.location.href = '/';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('숙소 등록 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
-            });
-    });
-</script>
 
 </body>
 
