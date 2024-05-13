@@ -148,6 +148,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.email+=" (탈퇴)";
         this.status="탈퇴";
         createAuthorities(Role.LEAVER);
+        this.role=Role.LEAVER;
 //        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
 //
 //        SecurityContextHolder.getContext().setAuthentication(newAuth);
