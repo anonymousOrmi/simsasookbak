@@ -143,7 +143,7 @@ VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,
 INSERT INTO internal_summary (accommodation_id, summary)
 VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
 --internal summary end
---
+
 -- -- INSERT INTO member (email, name, password, role, birth_date, status, phone) VALUES
 -- --                                                                                 ('user1@example.com', 'User 1', 'password1', '이용자', '1990-01-01', '일반', '010-1234-5678'),
 -- --                                                                                 ('user2@example.com', 'User 2', 'password2', '이용자', '1995-05-15', '일반', '010-2345-6789');

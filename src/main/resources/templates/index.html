@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <section th:replace="~{/layout/head::headFragment}"></section>
@@ -65,7 +65,8 @@
         <div class="packages-carousel owl-carousel">
             <div class="packages-item" th:each="accommodation,accommodationStat : ${highScoreAccommodations}">
                 <div class="packages-img">
-                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">
+<!--                    <img alt="Image" class="img-fluid w-100 rounded-top" src="/img/packages-4.jpg">-->
+                    <img alt="Image" class="img-fluid w-100 rounded-top" th:src="${accommodation.imageUrl}" th:style="'height: 300px;'">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;"></div>
                     <div class="packages-price py-2 px-4" style="text-align: center" th:text="'TOP '+${accommodationStat.index+1}"></div>
                 </div>

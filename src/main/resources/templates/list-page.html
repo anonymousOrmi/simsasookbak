@@ -94,6 +94,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${accommodation.getName()}">Name</h5>
                         <p class="card-text" th:text="${accommodation.getAddress()}">Address</p>
+                        <p class="card-text" th:text="${accommodation.getScore()}">Score</p>
                         <p class="card-text" th:text="${#numbers.formatInteger(accommodation.getCost(), 3, 'COMMA')} + ' 원'">Room Cost</p>
                     </div>
                 </div>
