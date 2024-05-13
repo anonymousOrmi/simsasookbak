@@ -4,14 +4,12 @@ import com.simsasookbak.global.BaseEntity;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 
 @Entity
@@ -71,6 +70,17 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ElementCollection
+    private Collection<GrantedAuthority> authorities;
+
+    private void createAuthorities(Role role){
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        this.authorities=authorities;
+    }
+
     public Member(String email,String name,String password,String role,LocalDate birthDate, String status,String phone){
         this.email=email;
         this.name=name;
@@ -79,11 +89,22 @@ public class Member extends BaseEntity implements UserDetails {
         this.birthDate=birthDate;
         this.status=status;
         this.phone=phone;
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        if(role.equals("이용자")){
+            createAuthorities(Role.USER);
+        }else if(role.equals("사업자")){
+            createAuthorities(Role.BUSINESS_PERSON);
+        }else if(status.equals("탈퇴")) {
+            createAuthorities(Role.LEAVER);
+        }else{
+            createAuthorities(Role.ADMIN);
+        }
+
+        return this.authorities;
     }
 
 
@@ -132,6 +153,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.name+=" (탈퇴)";
         this.email+=" (탈퇴)";
         this.status="탈퇴";
+        createAuthorities(Role.LEAVER);
 //        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
 //
 //        SecurityContextHolder.getContext().setAuthentication(newAuth);
