@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{/layout/head::headFragment}"></head>
 
@@ -7,19 +7,6 @@
 
 <div th:replace="~{/layout/top-bar :: top}"></div>
 <div th:replace="~{/layout/navigation-bar :: nav}"></div>
-
-<!-- Header Start
-<div class="container-fluid bg-breadcrumb">
-    <div class="container text-center py-5" style="max-width: 900px;">
-        <h2 class="text-white display-3 mb-4">내 숙소 관리</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="index.html">홈</a></li>
-                <li class="breadcrumb-item"><a href="#">내 숙소</a></li>
-                <li class="breadcrumb-item active text-white">숙소 관리</li>
-            </ol>
-    </div>
-</div>
- Header End -->
 
 <!-- my accommodations list Start -->
 <div class="container-fluid bg-light service py-5">
