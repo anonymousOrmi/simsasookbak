@@ -5,11 +5,15 @@ import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.domain.MemberDto;
 import com.simsasookbak.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -41,10 +45,18 @@ public class MemberService {
         member.cancellation();
     }
 
+    public boolean checkLogin(String password,String email){
+        Member member = memberRepository.findByEmail(email).orElse(new Member());
+        return new BCryptPasswordEncoder().matches(password,member.getPassword());
+    }
+
+
     public String makeRandomInt(){
         int i=0;
         i = (int) (Math.random()*10000000);
         return String.valueOf(i);
     }
+
+
 
 }

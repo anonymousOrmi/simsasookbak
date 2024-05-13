@@ -94,6 +94,18 @@ public class MemberController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("/member/check/{email}/{password}")
+    public ResponseEntity<Boolean> checkIdAndPasswordValidate(@PathVariable String email, @PathVariable String password){
+        log.warn("비크립트 확인 {}", memberService.checkLogin(password,email));
+
+        if(!memberService.isInDb(email) || !memberService.checkLogin(password,email)){
+            return ResponseEntity.ok(false);
+        }else{
+            return ResponseEntity.ok(true);
+        }
+    }
+
     /* *
     * 페이지
     *  */

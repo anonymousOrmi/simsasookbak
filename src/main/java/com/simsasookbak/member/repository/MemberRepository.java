@@ -21,4 +21,5 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     Optional<List<Member>> getSearchMemberByName(@Param("name") String name);
 
 
+
 }

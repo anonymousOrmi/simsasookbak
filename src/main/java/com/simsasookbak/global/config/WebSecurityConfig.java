@@ -76,7 +76,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
-                        auth.requestMatchers("/login", "/signup", "/member/register", "/api/**","/","/email/check/message","/accommodation","/accommodation/*").permitAll()
+                        auth.requestMatchers("/login", "/signup", "/member/register", "/api/**","/","/email/check/message","/accommodation","/accommodation/*","/member/check/**").permitAll()
                                 .requestMatchers("/reservation/**","/api/reservations/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정

@@ -92,19 +92,27 @@ function signup(password,email){
     });
 
 }
-// if(signinButton) {
-//     signinButton.addEventListener('click', (event) => {
-//         console.log(`click ${event}`);
-//         // const username= document.getElementById('username').value;
-//         // const password = document.getElementById('pwd').value;
-//         // fetch(`/login?username=${username}&password=${password}`,{
-//         //     method:'POST'
-//         // }).then(()=>{
-//         //     window.location.href='/'
-//         // });
-//
-//     })
-// }
+if(signinButton) {
+    signinButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const username= document.getElementById('username').value;
+        const password = document.getElementById('pwd').value;
+        fetch(`/member/check/${username}/${password}`,{
+            method:'POST'
+        }).then(async (response)=>{
+            let flag = await response.json();
+            console.log(flag);
+            if(flag){
+                fetch(`/login?username=${username}&password=${password}`,{method:'POST'}).then(()=>{window.location.href='/'});
+            }else{
+                alert('아이디나 비밀번호가 다릅니다.');
+            }
+        });
+
+
+
+    })
+}
 
 const emailCheckBtn = document.getElementById('email-check');
 emailCheckBtn.addEventListener('click', ()=>{
