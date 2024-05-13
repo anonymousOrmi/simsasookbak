@@ -133,5 +133,6 @@ emailCheckBtn.addEventListener('click', ()=>{
         })
     }else{
         alert('이메일을 입력하지않았습니다.');
+
     }
 })
