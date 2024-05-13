@@ -31,9 +31,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
-    - name: Build with Gradle Wrapper
+    - name: Build with Gradle 
       run: ./gradlew build -x test # "-x test" : 빌드 시, 테스트 코드를 제외하는 옵션
 
+ 
   dependency-submission:
 
     runs-on: ubuntu-latest
