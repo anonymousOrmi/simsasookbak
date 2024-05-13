@@ -7,6 +7,7 @@ import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
@@ -62,7 +63,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         // 상위 6개의 accommodation ID를 가져오기
         List<ScoreAverageDto> topSixAccommodations = reviewService.findScoreSixAccommodation();
 
-        List<Double> avgScoreList = topSixAccommodations.stream().map(ScoreAverageDto::getAverageScore).toList();
+//        List<Double> avgScoreList = topSixAccommodations.stream().map(ScoreAverageDto::getAverageScore).toList();
 
         // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
@@ -71,6 +72,13 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
                 .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,
                         findAccommodationFacilityById(accommodation.getId())))
                 .collect(Collectors.toList());
+
+        // 평균 점수 데이터를 AccommodationDto에 설정
+        for (int i = 0; i < highScoreAccommodations.size(); i++) {
+            AccommodationDto accommodationDto = highScoreAccommodations.get(i);
+            ScoreAverageDto scoreAverageDto = topSixAccommodations.get(i);
+            accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
+        }
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
         for (AccommodationDto accommodationDto : highScoreAccommodations) {
@@ -123,5 +131,15 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
     public Accommodation findById(Long accommodationId) {
         return accommodationRepository.findById(accommodationId).orElseThrow();
+    }
+
+    public void updateAccommodation(Long accommodationId, AccommodationUpdateDto accommodationUpdateDto) {
+        Accommodation accommodation = findById(accommodationId);
+        accommodation.update(accommodationUpdateDto);
+        List<String> accommodationFacilityList = accommodationUpdateDto.getFacilityList();
+
+        accommodationFacilityMappingService.deleteMapping(accommodationId);
+
+        accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
     }
 }

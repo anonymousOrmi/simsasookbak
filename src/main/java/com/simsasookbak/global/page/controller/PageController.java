@@ -63,4 +63,16 @@ public class PageController {
         return "accommodation-update";
     }
 
+    @GetMapping("/{roomId}/roomUpdatePage")
+    public String viewRoomUpdatePage(@PathVariable Long roomId, Model model) {
+
+        RoomDto room = roomService.findRoomById(roomId);
+        model.addAttribute("room", room);
+
+        List<RoomFacility> roomFacilityList = roomFacilityService.findAll();
+        model.addAttribute("roomFacilityList", roomFacilityList);
+
+        return "room-update";
+    }
+
 }

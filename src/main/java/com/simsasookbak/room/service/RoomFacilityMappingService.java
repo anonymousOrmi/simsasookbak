@@ -27,4 +27,8 @@ public class RoomFacilityMappingService {
         }
     }
 
+    public void deleteMapping(Long roomId) {
+        roomFacilityMappingRepository.deleteRoomFacilityMappingByRoomId(roomId);
+    }
+
 }

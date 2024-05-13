@@ -89,7 +89,7 @@
         </div>
         <div class="text-lg-end">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
-               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">정보 수정</a>
+               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">숙소 수정</a>
         </div>
     </div>
 </div>
@@ -113,6 +113,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-lg-end">
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+               th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
         </div>
         <div class="text-lg-end">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
