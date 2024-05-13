@@ -10,8 +10,8 @@ on:
 env:
   S3_BUCKET_NAME:  ${{ secrets.S3_BUCKET_NAME }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  #CODEDEPLOY_NAME: github-actions
-  #CODEDEPLOY_GROUP: mycode-github-action-group
+  CODEDEPLOY_NAME: ${{ secrets.CODEDEPLOY_NAME }}
+  CODEDEPLOY_GROUP: ${{ secrets.CODEDEPLOY_GROUP }}
 
 jobs:
   build:
@@ -48,9 +48,9 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
         
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+      run: aws s3 cp --region ${{ env.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
-    #- name: Code Deploy
-    #  run: aws deploy create-deployment --application-name $CODEDEPLOY_NAME --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name $CODEDEPLOY_GROUP --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip 
+    - name: Code Deploy
+      run: aws deploy create-deployment --application-name $CODEDEPLOY_NAME --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name $CODEDEPLOY_GROUP --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip 
 
  
