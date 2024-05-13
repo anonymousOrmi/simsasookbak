@@ -30,7 +30,7 @@ public class MethodExecutionRestrictionAspect {
         Long lastInvocationTime = lastInvocationTimes.get(username);
         long currentTime = System.currentTimeMillis();
 
-        if (lastInvocationTime != null && currentTime - lastInvocationTime < 10 * 1000) {
+        if (lastInvocationTime != null && currentTime - lastInvocationTime < 60 * 1000) {
             throw new MethodInvocationLimitException("같은 사용자가 반복적인 호출을 시도하였습니다");
         }
 
