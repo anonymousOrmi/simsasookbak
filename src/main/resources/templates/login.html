@@ -21,16 +21,16 @@
                 <input class="input" id="email" name="email" placeholder="Email" type="email"/>
                 <button id="email-check" style="margin-left: 20px" type="button">중복확인</button>
             </div>
-            <label class="disable d-sm-inline" for="email-check-input" id="email-check-input-label">인증번호를 입력해주세요</label>
-            <input class="disable d-sm-inline" id="email-check-input" name="email-check-input" type="text">
+            <label for="email-check-input" id="email-check-input-label" style="display: none">인증번호를 입력해주세요</label>
+            <input id="email-check-input" name="email-check-input" type="text" style="display: none">
             <input class="input" id="password" name="password" placeholder="Password" type="password"/>
             <input class="input" id="password-check" placeholder="Password 확인" type="password">
             <span class="error-message"></span>
             <fieldset>
                 <label for="user-register">이용자</label>
-                <input id="user-register" name="role" type="radio" value="이용자"/>
+                <input id="user-register" name="role" type="radio" value="USER"/>
                 <label for="accommodation-provider-register">사업자</label>
-                <input id="accommodation-provider-register"  name="role" type="radio" value="사업자"/>
+                <input id="accommodation-provider-register"  name="role" type="radio" value="BUSINESS"/>
             </fieldset>
             <input class="input" id="phone" name="phone" pattern="[0-9]{11}" placeholder="Phone Number -를 빼고 입력해주세요" required type="tel">
             <small>생일</small>
