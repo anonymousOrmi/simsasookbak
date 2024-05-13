@@ -17,7 +17,7 @@ public class MemberService {
 
     public void register(Member member) {
         Member member1 = new Member(member.getEmail(), member.getName(), encoder.encode(member.getPassword()),
-                member.getRole(), member.getBirthDate(), member.getStatus(), member.getPhone());
+                member.getRole().toString(), member.getBirthDate(), member.getStatus(), member.getPhone());
         memberRepository.save(member1);
     }
 
