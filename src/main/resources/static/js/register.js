@@ -17,10 +17,10 @@ signUpBtn.addEventListener("click", () => {
     container.classList.add("right-panel-active");
 });
 
-fistForm.addEventListener("submit", (e) => e.preventDefault());
-secondForm.addEventListener("submit", (e) => e.preventDefault());
+// fistForm.addEventListener("submit", (e) => e.preventDefault());
+// secondForm.addEventListener("submit", (e) => e.preventDefault());
 
-signUpClick.addEventListener("click",()=>{
+signUpClick.addEventListener("click",(e)=>{
     const password = document.querySelector('#password').value;
     const password_check = document.querySelector('#password-check').value;
     const errorMsg=document.querySelector('.error-message');
@@ -33,6 +33,7 @@ signUpClick.addEventListener("click",()=>{
     if(emailcheckResponse.toString()===inputEnable){
         console.log('true');
     }
+    e.preventDefault();
     if(inputEnable !== "") {
         if (password === password_check && inputEnable===emailcheckResponse.toString()) {
             console.log('비밀번호 일치');
