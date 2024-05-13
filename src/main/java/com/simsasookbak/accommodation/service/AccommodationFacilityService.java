@@ -21,4 +21,10 @@ public class AccommodationFacilityService {
     public List<AccommodationFacility> findAll() {
         return accommodationFacilityRepository.findAll();
     }
+
+    public AccommodationFacility save(String name) {
+        AccommodationFacility accommodationFacility = new AccommodationFacility(name);
+
+        return accommodationFacilityRepository.save(accommodationFacility);
+    }
 }

@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.controller;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
 import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -25,9 +26,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("accommodation") // 앞에  / 없어도 되나
+@RequestMapping("accommodation")
 @Slf4j
 public class AccommodationController {
 
@@ -82,11 +83,6 @@ public class AccommodationController {
         return "details";
     }
 
-    //예약 성공 메세지 전송 (상형)
-    @PostMapping("/reservation/message")
-    public void reservationMessage() {
-
-    }
 
     //리뷰 등록 페이지 이동
     @GetMapping("/{acom_id}/comment")
@@ -107,10 +103,13 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PatchMapping()
-    public ResponseEntity<?> update() {
+    @PutMapping("/{accommodationId}/accommodationUpdate")
+    public ResponseEntity<AccommodationUpdateDto> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
+    AccommodationUpdateDto accommodationUpdateDto) {
 
-        return null;
+        accommodationService.updateAccommodation(accommodationId, accommodationUpdateDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationUpdateDto);
     }
 
 }

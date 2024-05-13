@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccommodationFacilityMappingRepository extends JpaRepository<AccommodationFacilityMapping, Long> {
+    void deleteAccommodationFacilityMappingByAccommodationId(Long accommodationId);
+
 }

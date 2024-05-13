@@ -1,33 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <title>Travela - Tourism Website Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Google Web Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
-
-  <!-- Icon Font Stylesheet -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-  <!-- Libraries Stylesheet -->
-  <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-
-  <!-- Customized Bootstrap Stylesheet -->
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Template Stylesheet -->
-  <link href="/css/style.css" rel="stylesheet">
-</head>
+<head th:replace="~{/layout/head::headFragment}"></head>
 
 <body>
 
@@ -52,7 +26,7 @@
 <div class="container-fluid booking py-5">
   <div class="container py-5">
     <h1 class="text-white mb-3">숙소 정보</h1>
-    <form id="registerForm" th:action="@{/accommodation/registerPage/register}" method="post">
+    <form id="registerForm" th:action="@{/accommodation/{accommodationId}/accommodationUpdate(accommodationId=${accommodation.id})}" method="post">
       <!-- 숙소 영역 -->
       <div class="row g-3">
         <div class="col-md-3">
@@ -91,13 +65,13 @@
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date3" data-target-input="nearest">
-            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="text" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="time" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime1">체크 인</label>
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-floating date" id="date4" data-target-input="nearest">
-            <input th:value="${accommodation.checkOut}" name="checkOut" type="text" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+            <input th:value="${accommodation.checkOut}" name="checkOut" type="time" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
             <label for="datetime2">체크 아웃</label>
           </div>
         </div>
@@ -115,7 +89,7 @@
                 <th:block th:each="facility : ${accommodationFacilityList}">
                   <li class="list-group-item">
                     <!-- 각 숙박 시설을 체크박스로 표시 -->
-                    <input id="facility_${facility.id}" class="form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="..."
+                    <input class="accommodation-check-input form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="..."
                            th:checked="${accommodation.facilityList.contains(facility.name)}">
                     <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                   </li>
@@ -124,7 +98,16 @@
             </div>
           </div>
         </div>
+        <div class="col-6">
+          <div class="form-floating">
+            <input name="facilityAdd" type="text" class="form-control bg-white border-0" id="facilityAdd" placeholder="facilityAdd"/>
+            <label for="facilityAdd">추가 시설을 ,(쉼표) 를 기준으로 추가해 주세요</label>
+          </div>
+        </div>
         <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
+        <div class="col-3">
+          <button class="btn btn-primary text-white w-100 py-3" type="submit">수정 완료</button>
+        </div>
       </div>
     </form>
   </div>
@@ -136,18 +119,85 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="/lib/lightbox/js/lightbox.min.js"></script>
-
-
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+    const formData = new FormData(this);
+
+    ////////////////////////////////////////////////////////////////////숙소시작
+    //지역 선택
+    const regionSelect = document.getElementById('selectRegion'); // select 요소 가져오기
+    const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
+    const region = regionSelect.options[regionIndex].text;
+
+    // 입력된 값을 가져옴
+    const facilityAdd = document.getElementById('facilityAdd').value;
+
+    // 쉼표를 기준으로 문자열을 분할하여 배열로 변환
+    const facilityArray = facilityAdd.split(',');
+
+    const name = formData.get('accommodationName');
+    const checkIn = formData.get('checkIn');
+    const checkOut = formData.get('checkOut');
+    const address = formData.get('address');
+    const content = formData.get('accommodationContent');
+
+    // 체크된 숙박 시설 목록 추적
+    const facilityList = [];
+    const checkboxes = document.querySelectorAll('.accommodation-check-input[type=checkbox]:checked');
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.value !== '') {
+        facilityList.push(checkbox.value);
+      }
+    });
+
+    // 쉼표를 기준으로 분할한 배열을 facilityList에 추가
+    facilityList.push(...facilityArray.filter(facility => facility.trim() !== ''));
+
+    console.log(region);
+    console.log(name);
+    console.log(checkIn);
+    console.log(checkOut);
+    console.log(address);
+    console.log(content);
+    console.log(facilityList);
+
+    ////////////////////////////////////////////////////////////////////숙소끝
+
+
+    fetch(this.action, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        region: region,
+        address: address,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        content: content,
+        facilityList: facilityList
+      })
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+              alert('숙소 수정 완료되었습니다.');
+              //TODO: 어디로 보내지
+              window.location.href = '/';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('숙소 수정 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
+            });
+  });
+</script>
 </body>
 
 </html>

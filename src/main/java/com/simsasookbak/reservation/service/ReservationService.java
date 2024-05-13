@@ -144,4 +144,14 @@ public class ReservationService {
     public void approveReservation(Long reservationId) {
         reservationRepository.approveReservationById(reservationId);
     }
+    public void updateReservation(Long reservationId, LocalDate startDate, LocalDate endDate, String requestMessage) {
+        reservationRepository.updateReservationById(reservationId, startDate, endDate, requestMessage);
+    }
+
+    public ReservationResponseDto findReservationById(Long reservationId){
+        ReservationResponseDto reservationResponseDto = new ReservationResponseDto(reservationRepository.findReservationById(reservationId));
+
+        return reservationResponseDto;
+    }
+
 }

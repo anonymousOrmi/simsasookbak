@@ -2,6 +2,7 @@ package com.simsasookbak.room.domain;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.global.BaseEntity;
+import com.simsasookbak.room.dto.RoomUpdateDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -56,4 +57,11 @@ public class Room extends BaseEntity {
 	@ColumnDefault("0")
 	@Comment("삭제여부")
 	private Boolean isDeleted;
+
+	public void update(RoomUpdateDto updateDto) {
+		this.name = updateDto.getName();
+		this.cost = updateDto.getCost();
+		this.content = updateDto.getContent();
+		this.useGuide = updateDto.getUseGuide();
+	}
 }
