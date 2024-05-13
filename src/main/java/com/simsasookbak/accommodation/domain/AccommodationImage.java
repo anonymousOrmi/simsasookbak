@@ -20,12 +20,8 @@ import lombok.NoArgsConstructor;
 public class AccommodationImage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "accommodation_image", updatable = false)
+    @Column(name = "accommodation_image_id", updatable = false)
     private Long id;
-    /*        `accomodation_id`	bigint(20)	NOT NULL	COMMENT '숙박 ID',*/
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "accommodation_id")
-//    private Accommodation accommodation;
 
     @Column(name = "url", nullable = false, columnDefinition = "text")
     private String url;
