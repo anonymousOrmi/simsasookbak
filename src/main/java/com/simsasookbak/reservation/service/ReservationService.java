@@ -140,4 +140,14 @@ public class ReservationService {
         reservationRepository.cancelReservationById(reservationId);
     }
 
+    public void updateReservation(Long reservationId, LocalDate startDate, LocalDate endDate, String requestMessage) {
+        reservationRepository.updateReservationById(reservationId, startDate, endDate, requestMessage);
+    }
+
+    public ReservationResponseDto findReservationById(Long reservationId){
+        ReservationResponseDto reservationResponseDto = new ReservationResponseDto(reservationRepository.findReservationById(reservationId));
+
+        return reservationResponseDto;
+    }
+
 }

@@ -144,8 +144,8 @@
                                         </table>
                                     </div>
                                     <div class="text-md-end">
-                                        <button class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" type="button">예약 수정</button>
-                                        <button class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'" type="button">예약 취소</button>
+                                        <button type="button" class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="|location.href='@{/reservation/renew/{reservationId}(reservationId=${reservation.getId()})}'|">예약 수정</button>
+                                        <button type="button" class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'">예약 취소</button>
                                     </div>
                                 </div>
                             </div>
@@ -155,11 +155,6 @@
             </div>
             <!-- accodion end -->
         </div>
-        <!--        <div class="col-12">-->
-        <!--            <div class="text-center">-->
-        <!--                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">더보기(아직 미구현)</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </div>
 <!-- my accommodation list End -->
