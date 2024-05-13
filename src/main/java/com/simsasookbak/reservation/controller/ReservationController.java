@@ -30,7 +30,6 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    //TODO: 회원정보 받아오기
     @PostMapping("/{accommodationId}/{roomId}")
     public ResponseEntity<ReservationAddResponseDto> saveReservation(@AuthenticationPrincipal Member member, @PathVariable Long accommodationId,
                                                                      @PathVariable Long roomId,
