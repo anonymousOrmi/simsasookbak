@@ -3,6 +3,8 @@ package com.simsasookbak.member.domain;
 import com.simsasookbak.global.BaseEntity;
 
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,9 +49,12 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "role", nullable = false, length = 10)
-    @Comment("권한 (이용자/사업자/관리자)")
-    private String role;
+//    @Column(name = "role", nullable = false, length = 10)
+//    @Comment("권한 (이용자/사업자/관리자)")
+//    private String role;
+    @Enumerated(EnumType.STRING)
+//    @Builder.Default
+    private Role role;
 
     @Column(name = "birth_date", nullable = false)
     @Comment("생년월일")
@@ -62,7 +68,6 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
-
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -75,7 +80,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.email=email;
         this.name=name;
         this.password=password;
-        this.role=role;
+        this.role= Role.valueOf(role);
         this.birthDate=birthDate;
         this.status=status;
         this.phone=phone;
@@ -83,9 +88,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
-
 
     @Override
     public String getUsername() {
