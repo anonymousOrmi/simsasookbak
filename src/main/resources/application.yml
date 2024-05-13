@@ -73,11 +73,11 @@ client:
 cloud:
   aws:
     s3:
-      bucket: simsasookbak
+      bucket: ${S3_BUCKET_NAME}
     stack:
       auto: false
     region:
-      static: ap-northeast-2
+      static: ${S3_REGION}
     credentials:
       accessKey: ${S3_ACCESS_KEY}
       secretKey: ${S3_SECRET_KEY}
