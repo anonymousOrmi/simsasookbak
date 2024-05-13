@@ -1,22 +1,35 @@
 package com.simsasookbak.member.service;
 
 
+import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.repository.AccommodationRepository;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.domain.MemberDto;
+import com.simsasookbak.member.domain.Role;
 import com.simsasookbak.member.repository.MemberRepository;
+import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.repository.ReviewRepository;
+import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final AccommodationRepository accommodationRepository;
+    private final RoomRepository roomRepository;
+    private final ReviewRepository reviewRepository;
     private final BCryptPasswordEncoder encoder;
 
     public void register(Member member) {
@@ -42,6 +55,17 @@ public class MemberService {
     @Transactional
     public void deleteMember(String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
+        if(member.getRole().equals(Role.BUSINESS)){
+            List<List<Room>> roomList = new ArrayList<>();
+            List<Accommodation> accommodationList = accommodationRepository.findAllByMember_Id(member.getId());
+            accommodationList.stream().forEach(x->{
+                x.changeToDelete();
+                roomList.add(roomRepository.findRoomsByAcomId(x.getId()));
+            });
+            roomList.stream().forEach(list->list.stream().forEach(Room::changeToDelete));
+        }
+        List<Review> reviewList = reviewRepository.findAllByMember_Id(member.getId());
+        reviewList.stream().forEach(review -> review.changeToDelete());
         member.cancellation();
     }
 
