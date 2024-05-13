@@ -22,21 +22,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/adminPage")
-    public String goAdminPage(JoinPoint joinPoint, Model model){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Member member = (Member) authentication.getPrincipal();
-//        log.error("{}", member.getName());
-//        member = memberService.findById(member.getId());
-//        MemberResponseDto memberDto = member.toDto();
-//
-////        MemberResponseDto memberDto = (MemberResponseDto)joinPoint.getSignature();
-//
-//        model.addAttribute("member", memberDto);
-        return "adminPage";
-    }
-
-
     //모든 유저 정보 가져오기
 
     @GetMapping("/getAllMember")

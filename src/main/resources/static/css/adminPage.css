@@ -10,3 +10,10 @@
     text-align: center;
 
 }
+.py-5{
+    padding-bottom: 5.3rem !important;
+}
+
+.card-body{
+    padding: 2rem 1rem;
+}
