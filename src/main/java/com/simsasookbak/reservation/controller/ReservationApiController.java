@@ -26,7 +26,7 @@ public class ReservationApiController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{reservationId}")
+    @PutMapping("/approve/{reservationId}")
     public ResponseEntity<Void> approveReservation(@PathVariable Long reservationId) throws MessagingException {
         reservationService.approveReservation(reservationId);
         mailService.sendMail(MailType.RESERVATION_APPROVAL, reservationId);
