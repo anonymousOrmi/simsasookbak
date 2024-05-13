@@ -14,4 +14,12 @@ public class MemberDto {
     LocalDate birthDate;
     String phone;
 
+
+    public MemberDto(String email, String name, Role role, LocalDate birthDate, String phone) {
+        this.email = email;
+        this.name = name;
+        this.role = role.toString();
+        this.birthDate = birthDate;
+        this.phone = phone;
+    }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -34,5 +34,7 @@
 </div>
 <input id="useremail" th:value="${member.email}" type="hidden" >
 <!--<span sec:authentication="principal.authorities"></span>-->
+
+<div th:replace="~{/layout/footer::footerFragment}"></div>
 </body>
 </html>

@@ -1,27 +1,27 @@
 -- Insert dummy data for Member
 -- 1234
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test1@gmail.com', '김상형', '이용자', '1900-05-01', '$2a$12$GiLgp9UrAqlaVIxfbHq4peMVsmMcJOT78jmhee2MRH7S3w1p4lhfi', '일반', '010-1234-1234');
+VALUES ('test1@gmail.com', '김상형', 'USER', '1900-05-01', '$2a$12$GiLgp9UrAqlaVIxfbHq4peMVsmMcJOT78jmhee2MRH7S3w1p4lhfi', '일반', '010-1234-1234');
 SET @member_id_kim = LAST_INSERT_ID();
 -- 12345
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test2@gmail.com', '박지은', '사업자', '1920-06-02', '$2a$12$ButAQozslP.KtYJWCnilWezIyN5rodbNrvQvrjEHk0IZ86E35JHge', '일반', '010-2345-1735');
+VALUES ('test2@gmail.com', '박지은', 'BUSINESS', '1920-06-02', '$2a$12$ButAQozslP.KtYJWCnilWezIyN5rodbNrvQvrjEHk0IZ86E35JHge', '일반', '010-2345-1735');
 SET @member_id_park = LAST_INSERT_ID();
 -- 123456
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test3@gmail.com', '송찬혁', '관리자', '1950-02-03', '$2a$12$MeL9ZRf0LkL2buqGxhGoVenE6gwMgy1Aj3AciuKkvZs3BvTIvtD6K', '일반', '010-3716-5576');
+VALUES ('test3@gmail.com', '송찬혁', 'ADMIN', '1950-02-03', '$2a$12$MeL9ZRf0LkL2buqGxhGoVenE6gwMgy1Aj3AciuKkvZs3BvTIvtD6K', '일반', '010-3716-5576');
 SET @member_id_song = LAST_INSERT_ID();
 -- 1234567
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test4@gmail.com', '이영석', '이용자', '1970-12-21', '$2a$12$Cl.T37Nntk8Q9Uzdgj2NRu/o930DKBshwIOTNBkyZQrhx4.bGuGK.', '일반', '010-3742-9985');
+VALUES ('test4@gmail.com', '이영석', 'USER', '1970-12-21', '$2a$12$Cl.T37Nntk8Q9Uzdgj2NRu/o930DKBshwIOTNBkyZQrhx4.bGuGK.', '일반', '010-3742-9985');
 SET @member_id_lee = LAST_INSERT_ID();
 -- 12345678
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test5@gmail.com', '정민석', '이용자', '1985-12-21', '$2a$12$y7h/Jux3BV6mXrhmzRf33OxPm709Y/Fw62B0ZG/dyChpoVYHu5piS', '일반', '010-7324-5421');
+VALUES ('test5@gmail.com', '정민석', 'USER', '1985-12-21', '$2a$12$y7h/Jux3BV6mXrhmzRf33OxPm709Y/Fw62B0ZG/dyChpoVYHu5piS', '일반', '010-7324-5421');
 SET @member_id_jeong = LAST_INSERT_ID();
 -- 123456789
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
-VALUES ('test6@gmail.com', '최보현', '사업자', '2000-08-01', '$2a$12$qU9kKWpGjrbmgavQU4/VOeU3CHBIqgpEuDHo4JvvENKX5ZfhhPUWe', '일반', '010-6785-3452');
+VALUES ('test6@gmail.com', '최보현', 'BUSINESS', '2000-08-01', '$2a$12$qU9kKWpGjrbmgavQU4/VOeU3CHBIqgpEuDHo4JvvENKX5ZfhhPUWe', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
 --member end
 
@@ -110,40 +110,40 @@ VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,
 INSERT INTO accommodation_facility (name)
 VALUES ('주차장'),('편의점'),('레스토랑'),('헬스장'),('수영장'),('와인바'),('바베큐'),('키즈클럽'),('이벤트공간'),('셔틀버스'),('와이파이');
 
--- --accommodation facility end
---
+--accommodation facility end
+
 --accommodation facility mapping start
 INSERT INTO accommodation_facility_mapping (accommodation_id,accommodation_facility_id)
 VALUES (1,1),(2,1),(2,2);
 --accommodation facility mapping end
---
--- --room facility start
---
+
+--room facility start
+
 INSERT INTO room_facility (name)
 VALUES ('욕조'),('커피포트'),('TV'),('냉장고'),('에어컨'),('조리시설'),('발코니'),('헤어 드라이어'),('욕실용품');
---
--- --room facility end
---
--- --room facility mapping start
--- INSERT INTO room_facility_mapping (room_id,room_facility_id)
--- VALUES (1,1),(2,1),(2,2);
--- --room facility mapping end
---
--- --accommodationImage start
--- INSERT INTO accommodation_image (accommodation_id,url)
--- VALUES (1,'https://i.namu.wiki/i/_VdL80a6q8YfJ3ob0cH0g6M4C4u3eafyHQV8oHFnZetT7yEjHPC8hybEh7-Xwfz6H6S4EkwBn6mkLvhb7rGscQ.webp'),(2,'https://youonejae.com/kor/accommodation/images/accommodation01.png'),(3,'https://q-xx.bstatic.com/xdata/images/hotel/max500/311482139.jpg?k=569f279a3105dfafe82cf60a10f722f4ef24fbfff07cf0954ef484385cbabb87&o=');
--- --accommodationImage end
---
--- --external summary start
--- INSERT INTO external_summary (accommodation_id, summary)
--- VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
--- --external summary end
---
--- --internal summary start
--- INSERT INTO internal_summary (accommodation_id, summary)
--- VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
--- --internal summary end
---
+
+--room facility end
+
+--room facility mapping start
+INSERT INTO room_facility_mapping (room_id,room_facility_id)
+VALUES (1,1),(2,1),(2,2);
+--room facility mapping end
+
+--accommodationImage start
+INSERT INTO accommodation_image (accommodation_id,url)
+VALUES (1,'https://i.namu.wiki/i/_VdL80a6q8YfJ3ob0cH0g6M4C4u3eafyHQV8oHFnZetT7yEjHPC8hybEh7-Xwfz6H6S4EkwBn6mkLvhb7rGscQ.webp'),(2,'https://youonejae.com/kor/accommodation/images/accommodation01.png'),(3,'https://q-xx.bstatic.com/xdata/images/hotel/max500/311482139.jpg?k=569f279a3105dfafe82cf60a10f722f4ef24fbfff07cf0954ef484385cbabb87&o=');
+--accommodationImage end
+
+--external summary start
+INSERT INTO external_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,'3번 숙소의 외부 요약');
+--external summary end
+
+--internal summary start
+INSERT INTO internal_summary (accommodation_id, summary)
+VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
+--internal summary end
+
 -- -- INSERT INTO member (email, name, password, role, birth_date, status, phone) VALUES
 -- --                                                                                 ('user1@example.com', 'User 1', 'password1', '이용자', '1990-01-01', '일반', '010-1234-5678'),
 -- --                                                                                 ('user2@example.com', 'User 2', 'password2', '이용자', '1995-05-15', '일반', '010-2345-6789');

@@ -3,16 +3,17 @@ package com.simsasookbak.member.domain;
 import com.simsasookbak.global.BaseEntity;
 
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 
 @Entity
@@ -46,9 +48,12 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "role", nullable = false, length = 10)
-    @Comment("권한 (이용자/사업자/관리자)")
-    private String role;
+//    @Column(name = "role", nullable = false, length = 10)
+//    @Comment("권한 (이용자/사업자/관리자)")
+//    private String role;
+    @Enumerated(EnumType.STRING)
+//    @Builder.Default
+    private Role role;
 
     @Column(name = "birth_date", nullable = false)
     @Comment("생년월일")
@@ -62,7 +67,6 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
-
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -71,21 +75,32 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ElementCollection
+    private Collection<GrantedAuthority> authorities;
+
+    private void createAuthorities(Role role){
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        this.authorities=authorities;
+    }
+
     public Member(String email,String name,String password,String role,LocalDate birthDate, String status,String phone){
         this.email=email;
         this.name=name;
         this.password=password;
-        this.role=role;
+        this.role= Role.valueOf(role);
         this.birthDate=birthDate;
         this.status=status;
         this.phone=phone;
+
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
-
 
     @Override
     public String getUsername() {
@@ -132,6 +147,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.name+=" (탈퇴)";
         this.email+=" (탈퇴)";
         this.status="탈퇴";
+        createAuthorities(Role.LEAVER);
 //        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
 //
 //        SecurityContextHolder.getContext().setAuthentication(newAuth);
