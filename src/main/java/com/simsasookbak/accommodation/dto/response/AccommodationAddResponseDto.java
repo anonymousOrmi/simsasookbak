@@ -16,7 +16,6 @@ public class AccommodationAddResponseDto {
     private String address;
     private LocalTime checkIn;
     private LocalTime checkOut;
-//    private List<AccommodationFacilityMapping> accommodationFacilityMappingList;
 
     public AccommodationAddResponseDto(Accommodation accommodation) {
         this.accommodationId = accommodation.getId();
