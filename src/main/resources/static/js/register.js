@@ -8,6 +8,7 @@ const signinButton = document.querySelector(".sign-in-button");
 // const signUpBtn2 = document.querySelector('.sign-up');
 const signUpClick = document.querySelector('.sign-up-button');
 let emailcheckResponse ;
+let emailCheckValue;
 signInBtn.addEventListener("click", () => {
     container.classList.remove("right-panel-active");
 });
@@ -16,10 +17,10 @@ signUpBtn.addEventListener("click", () => {
     container.classList.add("right-panel-active");
 });
 
-fistForm.addEventListener("submit", (e) => e.preventDefault());
-secondForm.addEventListener("submit", (e) => e.preventDefault());
+// fistForm.addEventListener("submit", (e) => e.preventDefault());
+// secondForm.addEventListener("submit", (e) => e.preventDefault());
 
-signUpClick.addEventListener("click",()=>{
+signUpClick.addEventListener("click",(e)=>{
     const password = document.querySelector('#password').value;
     const password_check = document.querySelector('#password-check').value;
     const errorMsg=document.querySelector('.error-message');
@@ -32,11 +33,11 @@ signUpClick.addEventListener("click",()=>{
     if(emailcheckResponse.toString()===inputEnable){
         console.log('true');
     }
+    e.preventDefault();
     if(inputEnable !== "") {
         if (password === password_check && inputEnable===emailcheckResponse.toString()) {
-            let email = document.getElementById('email').value;
             console.log('비밀번호 일치');
-            signup(password,email);
+            signup(password,emailCheckValue);
 
         } else {
             errorMsg.innerText = '비밀번호가 일치하지 않거나 이메일 인증번호가 다릅니다.';
@@ -91,19 +92,19 @@ function signup(password,email){
     });
 
 }
-if(signinButton) {
-    signinButton.addEventListener('click', (event) => {
-        console.log(`click ${event}`);
-        const username= document.getElementById('username').value;
-        const password = document.getElementById('pwd').value;
-        fetch(`/login?username=${username}&password=${password}`,{
-            method:'POST'
-        }).then(()=>{
-            window.location.href='/'
-        });
-
-    })
-}
+// if(signinButton) {
+//     signinButton.addEventListener('click', (event) => {
+//         console.log(`click ${event}`);
+//         // const username= document.getElementById('username').value;
+//         // const password = document.getElementById('pwd').value;
+//         // fetch(`/login?username=${username}&password=${password}`,{
+//         //     method:'POST'
+//         // }).then(()=>{
+//         //     window.location.href='/'
+//         // });
+//
+//     })
+// }
 
 const emailCheckBtn = document.getElementById('email-check');
 emailCheckBtn.addEventListener('click', ()=>{
@@ -119,9 +120,13 @@ emailCheckBtn.addEventListener('click', ()=>{
             if(response.ok) {
                 const inputEnable = document.getElementById('email-check-input');
                 const inputLabelEnable = document.getElementById('email-check-input-label');
-                inputEnable.classList.toggle('disable');
-                inputLabelEnable.classList.toggle('disable');
+                // inputEnable.classList.remove('disable')
+                // inputLabelEnable.classList.remove('disable');
+                inputEnable.style.cssText="display:block";
+                inputLabelEnable.style.cssText="display:block";
+                emailCheckValue = email;
                 emailcheckResponse = await response.json();
+                alert("인증번호를 해당 이메일로 보냈습니다.")
             }else{
                 alert('이미 가입되어있습니다.')
             }
