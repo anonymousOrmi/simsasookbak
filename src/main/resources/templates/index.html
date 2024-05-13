@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <section th:replace="~{/layout/head::headFragment}"></section>
@@ -72,6 +72,7 @@
                 <div class="packages-content bg-light">
                     <div class="p-4 pb-0">
                         <h5 class="mb-0" th:text="${accommodation.name}"></h5>
+                        <small class="text-uppercase" th:text="'별점: ' + ${accommodation.averageScore}"></small><br>
                         <small class="text-uppercase" th:text="${accommodation.region}"></small>
                         <small class="text-uppercase" th:text="${accommodation.address}"></small>
                         <p class="mb-4" th:text="${accommodation.content}"></p>

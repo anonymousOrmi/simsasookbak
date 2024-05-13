@@ -9,12 +9,12 @@
     <meta content="" name="description">
 
     <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -28,6 +28,8 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/reservationForm.css" rel="stylesheet">
+
+    <script defer src="/js/updateReservation.js"></script>
 
     <style>
         /* 날짜 선택기의 날짜 크기 조정 */
@@ -78,47 +80,47 @@
                                     <div class="border rounded p-3">
                                         <div class="container pb-0">
                                             <div class="img-container">
-                                                <img alt="Image"
+                                                <img src="/img/explore-tour-1.jpg"
                                                      class="img-fluid w-35 mx-auto rounded d-block"
-                                                     src="/img/explore-tour-1.jpg">
+                                                     alt="Image">
                                             </div>
                                             <div class="row g-3">
-                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;" th:text="${room.name}">
+                                                <div class="col-md-6 text-md-start text-center text-white"
+                                                     style="font-size: 20px;" th:text="${reservation.getRoom().getName()}">
                                                     객실명
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
+                                                        <div class="col-md-3 text-white text-md-end text-center"
+                                                             style="font-size: 15px;">
                                                             또 뭐
                                                         </div>
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${room.cost}">
+                                                        <div class="col-md-3 text-white text-md-end text-center"
+                                                             style="font-size: 15px;" th:text="${reservation.getRoom().getCost()}">
                                                             가격
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 text-md-start text-center text-white" style="font-size: 20px;">
+                                                <div class="col-md-2 text-md-start text-center text-white"
+                                                     style="font-size: 20px;">
                                                 </div>
                                                 <div class="col-md-10">
                                                     <div class="row g-3 justify-content-end">
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 인 : ' + accommodation.checkIn}">
+                                                        <div th:text="${'체크 인 : ' + reservation.getAccommodation().getCheckIn()}"
+                                                             class="col-md-3 text-white text-md-end text-center"
+                                                             style="font-size: 15px;">
                                                             체크 인 표기
                                                         </div>
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 아웃 : ' + accommodation.checkOut}">
+                                                        <div th:text="${'체크 아웃 : ' + reservation.getAccommodation().getCheckOut()}"
+                                                             class="col-md-3 text-white text-md-end text-center"
+                                                             style="font-size: 15px;">
                                                             체크 아웃 표기
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 border rounded p-3">
-                                                    <div class="mb-2 text-white" th:text="${room.useGuide}">
-                                                        객실 이용 가이드를 넣으세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                        Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
-                                                        tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
-                                                        libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
-                                                        euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
-                                                        quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
-                                                        amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
-                                                        aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
-                                                        condimentum, nec scelerisque eros fermentum.
+                                                    <div class="mb-2 text-white" th:text="${reservation.getRoom().getUseGuide()}">
+                                                        객실 이용 가이드를 넣으세요.
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,30 +131,40 @@
                         </div>
                     </div>
                 </div>
-                <form id="reservationForm" method="post" th:action="@{/reservation/{accommodationId}/{roomId}(accommodationId=${accommodation.id}, roomId=${room.roomId})}">
-                    <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
+                <form id="reservationForm">
+                    <p class="text-white mb-4 py-3"><span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
                     <div class="row g-3">
                         <div class="col-md-5">
-                            <div class="form-floating date" data-target-input="nearest" id="date3">
-                                <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="date-picker1" name="startDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="text">
+                            <div class="form-floating date" id="date3" data-target-input="nearest">
+                                <input name="startDate"
+                                       th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}"
+                                       th:value="${reservation.getStartDate()}" type="text" id="date-picker1" class="form-control bg-white border-0 small"
+                                       aria-label="Search" aria-describedby="basic-addon2">
                                 <label>입실 일 선택</label>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="form-floating date" data-target-input="nearest" id="date4">
-                                <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="date-picker2" name="endDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="text">
+                            <div class="form-floating date" id="date4" data-target-input="nearest">
+                                <input name="endDate"
+                                       th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}"
+                                       th:value="${reservation.getEndDate()}" type="text" id="date-picker2" class="form-control bg-white border-0 small"
+                                       aria-label="Search" aria-describedby="basic-addon2">
                                 <label>퇴실 일 선택</label>
                             </div>
                         </div>
-                        <input class="btn btn-primary text-white col-md-2" id="clear-dates-btn" type="button" value="날짜 초기화">
+                        <input type="button" class="btn btn-primary text-white col-md-2" id="clear-dates-btn"
+                               value="날짜 초기화">
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" id="request" name="request2" placeholder="요청 사항" style="height: 250px"></textarea>
+                                <textarea name="request2" class="form-control bg-white border-0" placeholder="요청 사항"
+                                          id="request" style="height: 250px" th:text="${reservation.getRequest()}"></textarea>
                                 <label for="request">요청 사항</label>
                             </div>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary text-white w-50 py-3 reservation-submit-button" type="submit">예약 신청하기</button>
+                            <button class="btn btn-primary text-white w-50 py-3 reservation-submit-button"
+                                    type="button" th:onclick="'submitForm('+${reservation.getId()}+')'">예약 수정하기
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -174,15 +186,17 @@
                 <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                 <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                 <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a>
+                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
+                    href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
     </div>
 </div>
-<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+</div>
+<!-- Copyright End -->
 
 <!-- Back to Top -->
-<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
+<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->
@@ -194,9 +208,14 @@
 <script src="/lib/lightbox/js/lightbox.min.js"></script>
 
 <!--datepicker load-->
-<script crossorigin="anonymous" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script crossorigin="anonymous" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"
+        integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
@@ -216,7 +235,7 @@
         datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
     }
 
-    $(function() {
+    $(function () {
         var selectedDate1 = null;
         var selectedDate2 = null;
         var today = new Date();
@@ -232,7 +251,7 @@
             todayHighlight: true,
             toggleActive: true,
             weekStart: 0,
-        }).on('changeDate', function(selected) {
+        }).on('changeDate', function (selected) {
             selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
 
             var disabledDates = datesDisabledCheckIn;
@@ -270,7 +289,7 @@
             todayHighlight: true,
             toggleActive: true,
             weekStart: 0,
-        }).on('changeDate', function(selected) {
+        }).on('changeDate', function (selected) {
             selectedDate2 = selected.date; // 선택한 날짜를 변수에 저장
 
             var disabledDates = datesDisabledCheckOut;
@@ -298,7 +317,7 @@
             }
         });
 
-        $('#clear-dates-btn').on('click', function() {
+        $('#clear-dates-btn').on('click', function () {
             clearDates();
         });
 
@@ -323,46 +342,5 @@
     });
 </script>
 
-<script>
-    document.getElementById('reservationForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // 폼의 기본 제출 동작 방지
-
-        const formData = new FormData(this);
-
-        const startDate = formData.get('startDate');
-        console.log(startDate);
-        const endDate = formData.get('endDate');
-        console.log(endDate);
-        const request = formData.get('request2');
-        console.log(request);
-
-        fetch(this.action, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                startDate: startDate,
-                endDate: endDate,
-                request: request
-            })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
-                alert('예약 신청이 완료되었습니다.');
-                //TODO: 나중에 내정보 페이지로 가도록 하면 될 듯
-                window.location.href = '/';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('예약 신청 중 오류가 발생했습니다. 입력한 날짜가 잘 못 되었거나 여러번 요청을 반복하실 수 없습니다');
-            });
-    });
-</script>
-
 </body>
-
 </html>

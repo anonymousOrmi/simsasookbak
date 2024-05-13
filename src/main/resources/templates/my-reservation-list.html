@@ -1,34 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="utf-8">
-    <title>Travela - Tourism Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
-</head>
-
+<head th:replace="~{/layout/head::headFragment}"></head>
 <body>
 
 <div th:replace="~{/layout/top-bar :: top}"></div>
@@ -144,7 +117,7 @@
                                         </table>
                                     </div>
                                     <div class="text-md-end">
-                                        <button class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" type="button">예약 수정</button>
+                                        <button class="btn btn-primary" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="|location.href='@{/reservation/renew/{reservationId}(reservationId=${reservation.getId()})}'|" type="button">예약 수정</button>
                                         <button class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'" type="button">예약 취소</button>
                                     </div>
                                 </div>
@@ -155,11 +128,6 @@
             </div>
             <!-- accodion end -->
         </div>
-        <!--        <div class="col-12">-->
-        <!--            <div class="text-center">-->
-        <!--                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">더보기(아직 미구현)</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </div>
 <!-- my accommodation list End -->
@@ -168,14 +136,6 @@
 <a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 <footer th:replace="~{/layout/footer::footerFragment}"></footer>
-
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="/lib/lightbox/js/lightbox.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>

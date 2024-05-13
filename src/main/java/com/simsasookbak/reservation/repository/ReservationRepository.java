@@ -2,6 +2,7 @@ package com.simsasookbak.reservation.repository;
 
 import com.simsasookbak.reservation.domain.Reservation;
 import com.simsasookbak.reservation.dto.response.ReservationView;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -66,6 +67,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Reservation r SET r.status = '취소' WHERE r.id = :reservationId AND r.status IN ('완료', '대기')")
     void cancelReservationById(@Param("reservationId") Long reservationId);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Reservation r SET r.startDate = :startDate, r.endDate = :endDate,r.request= :request WHERE r.id = :reservationId")
+    void updateReservationById(@Param("reservationId") Long reservationId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("request")String request);
+
+    @Modifying
+    @Query("UPDATE Reservation r SET r.status = '완료' WHERE r.id = :reservationId AND r.status IN ('대기')")
+    void approveReservationById(@Param("reservationId") Long reservationId);
 
     @Query("select reservation "
             + "from Reservation reservation "
