@@ -33,7 +33,7 @@ public class MyPageController {
         member = memberService.findById(member.getId());
         MemberDto memberDto = member.toDto();
 
-//        MemberDto memberDto = (MemberDto)joinPoint.getSignature();
+//        MemberResponseDto memberDto = (MemberResponseDto)joinPoint.getSignature();
 
         model.addAttribute("member", memberDto);
         return "mypageInfo";
