@@ -64,9 +64,15 @@ public class MemberService {
             });
             roomList.stream().forEach(list->list.stream().forEach(Room::changeToDelete));
         }
-        List<Review> reviewList = reviewRepository.findAllByMember_Id(member.getId());
-        reviewList.stream().forEach(review -> review.changeToDelete());
+        deleteReview(member.getId());
         member.cancellation();
+    }
+
+    @Transactional
+    public void deleteReview(Long memberId){
+        List<Review> reviewList = reviewRepository.findAllByMember_Id(memberId);
+        reviewList.stream().forEach(review -> review.changeToDelete());
+
     }
 
     public boolean checkLogin(String password,String email){
