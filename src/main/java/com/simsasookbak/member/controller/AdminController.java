@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,16 +48,17 @@ public class AdminController {
 
     @GetMapping("/getAllMember")
     public String getAllMember(
-            @RequestParam(value = "page", defaultValue = "0") int pageNum,
-            @RequestParam(value = "size", defaultValue = "10") int pageSize,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
             Model model
     ) {
-        Page<Member> membersPage = adminService.findAllMembersPaged(pageNum, pageSize);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Member> membersPage = adminService.findAllMembersPaged(pageable);
 
         model.addAttribute("members", membersPage.getContent());
-        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", membersPage.getTotalPages());
-
         return "adminPage";
     }
 

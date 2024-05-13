@@ -16,10 +16,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Optional<Member> findByEmail(String email);
 
-//    @Query("SELECT m FROM Member m")
-//    Optional<List<Member>> getAllMember();
-
-    @Query("SELECT m FROM Member m")
     Page<Member> findAll(Pageable pageable);
 
     @Query("SELECT m FROM Member m WHERE m.name = :name")

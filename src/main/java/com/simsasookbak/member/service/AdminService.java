@@ -10,7 +10,6 @@ import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.dto.MemberResponseDto;
 import com.simsasookbak.member.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -28,15 +28,8 @@ public class AdminService {
     private final MemberRepository memberRepository;
 
 
-//    public List<Member> findAllMembersPaged() {
-//        List<Member> members = memberRepository.getAllMember()
-//                .orElseThrow(() -> new NoSuchElementException("Member list is empty"));
-//
-//        return members;
-//    }
 
-    public Page<Member> findAllMembersPaged(int pageNum, int pageSize) {
-        PageRequest pageable = PageRequest.of(pageNum, pageSize);
+    public Page<Member> findAllMembersPaged(Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
 
