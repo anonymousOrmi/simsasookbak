@@ -49,14 +49,6 @@ public class ReviewService {
             Double averageScore = scoreAverageDto.getAverageScore();
             System.out.println("Accommodation ID: " + accommodationId + ", Average Score: " + averageScore);
         }
-
-
-        // 상위 6개의 accommodation ID를 선택합니다.
-//        List<Long> topSixAccommodationIds = averageScoresByAccommodationId.stream()
-//                .limit(6)
-//                .map(ScoreAverageDto::getAccommodationId) // ScoreAverageDto에서 숙소 아이디만 추출합니다.
-//                .collect(Collectors.toList());
-
         return averageScoresByAccommodationId;
     }
 
@@ -70,7 +62,6 @@ public class ReviewService {
     @Transactional
     public void registReviewImage(String url,Long reviewId){
         ReviewImage reviewImage = new ReviewImage(reviewRepository.findById(reviewId).orElseThrow(),url);
-//        reviewImageRepository.saveToDb(reviewId,url);
         reviewImageRepository.save(reviewImage);
     }
 
