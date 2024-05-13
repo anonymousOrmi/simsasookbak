@@ -33,7 +33,7 @@
     <button class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 675px" type="button">탈퇴</button>
 </div>
 <input id="useremail" th:value="${member.email}" type="hidden" >
-<span sec:authentication="principal.authorities"></span>
+<!--<span sec:authentication="principal.authorities"></span>-->
 
 <div th:replace="~{/layout/footer::footerFragment}"></div>
 </body>
