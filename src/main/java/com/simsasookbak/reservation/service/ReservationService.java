@@ -140,4 +140,8 @@ public class ReservationService {
         reservationRepository.cancelReservationById(reservationId);
     }
 
+    @Transactional
+    public void approveReservation(Long reservationId) {
+        reservationRepository.approveReservationById(reservationId);
+    }
 }

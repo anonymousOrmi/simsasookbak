@@ -130,10 +130,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="text-md-end">
-                                        <button type="button" class="btn btn-primary">예약 확정</button>
-                                        <button type="button" class="btn btn-danger">예약 취소</button>
-                                    </div>
+                                    <button th:if="${reservation.getStatus()=='대기'}" type="button" class="btn btn-primary">예약 확정</button>
+                                    <button th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료'}" type="button" class="btn btn-danger">예약 취소</button>
                                 </div>
                             </div>
                         </div>
