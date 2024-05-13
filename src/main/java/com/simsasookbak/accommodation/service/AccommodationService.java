@@ -63,22 +63,28 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         // 상위 6개의 accommodation ID를 가져오기
         List<ScoreAverageDto> topSixAccommodations = reviewService.findScoreSixAccommodation();
 
-//        List<Double> avgScoreList = topSixAccommodations.stream().map(ScoreAverageDto::getAverageScore).toList();
-
         // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
-                .map(accommodation -> accommodationRepository.findAccommodationById(accommodation.getAccommodationId()))
-                .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
-                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,
-                        findAccommodationFacilityById(accommodation.getId())))
-                .collect(Collectors.toList());
+                .map(scoreAverageDto -> {
+                    Accommodation accommodation = accommodationRepository.findAccommodationById(scoreAverageDto.getAccommodationId());
+                    if (accommodation != null && !accommodation.getIsDeleted()) {
+                        List<String> facilityList = findAccommodationFacilityById(accommodation.getId());
+                        AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation, facilityList);
+                        accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
 
-        // 평균 점수 데이터를 AccommodationDto에 설정
-        for (int i = 0; i < highScoreAccommodations.size(); i++) {
-            AccommodationDto accommodationDto = highScoreAccommodations.get(i);
-            ScoreAverageDto scoreAverageDto = topSixAccommodations.get(i);
-            accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
-        }
+                        // 이미지 URL 추가
+                        List<String> imageUrlList = accommodationRepository.findImgByAcomId(accommodation.getId());
+                        if (!imageUrlList.isEmpty()) {
+                            accommodationDto.setImageUrl(imageUrlList.get(0)); //첫번째 이미지만 사용
+                        }
+
+                        return accommodationDto;
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(accommodationDto -> accommodationDto != null)
+                .collect(Collectors.toList());
 
         // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
         for (AccommodationDto accommodationDto : highScoreAccommodations) {
@@ -86,6 +92,32 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         }
         return highScoreAccommodations;
     }
+
+//    public List<AccommodationDto> getHighScoreAccommodation() {
+//        // 상위 6개의 accommodation ID를 가져오기
+//        List<ScoreAverageDto> topSixAccommodations = reviewService.findScoreSixAccommodation();
+//
+//        // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
+//        List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
+//                .map(accommodation -> accommodationRepository.findAccommodationById(accommodation.getAccommodationId()))
+//                .filter(accommodation -> accommodation != null && !accommodation.getIsDeleted()) // 삭제되지 않은 숙소만 필터링
+//                .map(accommodation -> AccommodationDto.toAccommodationDto(accommodation,
+//                        findAccommodationFacilityById(accommodation.getId())))
+//                .collect(Collectors.toList());
+//
+//        // 평균 점수 데이터를 AccommodationDto에 설정
+//        for (int i = 0; i < highScoreAccommodations.size(); i++) {
+//            AccommodationDto accommodationDto = highScoreAccommodations.get(i);
+//            ScoreAverageDto scoreAverageDto = topSixAccommodations.get(i);
+//            accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
+//        }
+//
+//        // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
+//        for (AccommodationDto accommodationDto : highScoreAccommodations) {
+//            System.out.println("Accommodation ID: " + accommodationDto.getId());
+//        }
+//        return highScoreAccommodations;
+//    }
 
     public AccommodationDto findAccommodationById(Long id) {
         Accommodation accommodation = accommodationRepository.findAccommodationById(id);
