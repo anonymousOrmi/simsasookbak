@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <section th:replace="~{/layout/head::headFragment}"></section>
-    <link href="/css/index.css" rel="stylesheet">
-</head>
+<head th:replace="~{/layout/head::headFragment}"></head>
 
 <body>
-
-<!-- Spinner Start -->
-<div class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-     id="spinner">
-    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<!-- Spinner End -->
 
 <div th:replace="~{/layout/top-bar :: top}"></div>
 <div th:replace="~{/layout/navigation-bar :: nav}"></div>
@@ -25,9 +13,9 @@
     <div class="container text-center py-5" style="max-width: 900px;">
         <h3 class="text-white display-3 mb-4">숙소 리스트</h3>
         <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">Blog</li>
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 찾기</a></li>
+            <li class="breadcrumb-item active text-white">숙소 리스트</li>
         </ol>
     </div>
 </div>
@@ -127,8 +115,6 @@
         </li>
     </ul>
 </nav>
-
-<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 <footer th:replace="~{/layout/footer::footerFragment}"></footer>
 
