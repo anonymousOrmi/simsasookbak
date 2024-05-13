@@ -122,7 +122,7 @@ public class Member extends BaseEntity implements UserDetails {
     }
 
     public MemberDto toDto(){
-        return new MemberDto(this.email,this.name,this.role,this.birthDate,this.phone);
+        return new MemberDto(this.id,this.email,this.name,this.role,this.birthDate,this.phone);
     }
 
     //회원정보 수정

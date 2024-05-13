@@ -2,11 +2,13 @@ package com.simsasookbak.member.controller;
 
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.domain.MemberDto;
+import com.simsasookbak.member.domain.MemberRequestDto;
 import com.simsasookbak.member.service.MemberService;
 import com.simsasookbak.member.service.UserDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,17 +41,20 @@ public class MyPageController {
         return "mypageInfo";
     }
 
-    @PutMapping("/memberinfo/{email}/change")
-    public String changeMemberInfo(@PathVariable String email, @ModelAttribute MemberDto memberDto){
-        log.error("memberDto = {}",memberDto);
-        memberService.editMemberInfo(email,memberDto);
+    @PutMapping("/memberinfo/{id}/change")
+    public ResponseEntity<Void> changeMemberInfo(@PathVariable Long id, @RequestBody MemberRequestDto data){
+
+        String name = data.getName();
+        String phone = data.getPhone();
+        memberService.updateMemberInfo(id,name,phone);
 
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        Authentication newAuth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials());
 //        SecurityContextHolder.getContext().setAuthentication(newAuth);
-        SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication,memberDto.getEmail()));
-        return "redirect:/";
+        SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication,id));
+
+        return ResponseEntity.ok().build();
     }
 
     //탈퇴
@@ -58,8 +63,8 @@ public class MyPageController {
         memberService.deleteMember(email);
     }
 
-    protected Authentication createNewAuthentication(Authentication currentAuth, String username) {
-        UserDetails newPrincipal = userDetailService.loadUserByUsername(username);
+    protected Authentication createNewAuthentication(Authentication currentAuth, Long id) {
+        UserDetails newPrincipal = userDetailService.loadUserById(id);
         UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(newPrincipal, currentAuth.getCredentials(), newPrincipal.getAuthorities());
         newAuth.setDetails(currentAuth.getDetails());
         return newAuth;

@@ -70,7 +70,7 @@ public class MemberController {
         new SecurityContextLogoutHandler()
                 .logout(request, response, SecurityContextHolder.getContext()
                 .getAuthentication());
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @ResponseBody
@@ -100,21 +100,5 @@ public class MemberController {
     @GetMapping("/login")
     public String registerPage(){
         return "login";
-    }
-
-
-
-    @GetMapping("/userinfo")
-    @ResponseBody
-    public ResponseEntity<String> getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member user = (Member)authentication.getPrincipal();
-
-        log.info("현재 로그인된 사용자의 id(pk): {}", user.getId());
-        log.info("현재 로그인된 사용자의 아이디(userId): {}", user.getEmail());
-        log.info("현재 로그인된 사용자의 비밀번호(password): {}", user.getPassword());
-        log.info("현재 로그인된 사용자의 유저네임(nickname): {}", user.getName());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(user.toString());
     }
 }

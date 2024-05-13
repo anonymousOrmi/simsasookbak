@@ -8,6 +8,8 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class MemberDto {
+
+    Long id;
     String email;
     String name;
     String role;
@@ -15,7 +17,8 @@ public class MemberDto {
     String phone;
 
 
-    public MemberDto(String email, String name, Role role, LocalDate birthDate, String phone) {
+    public MemberDto(Long id, String email, String name, Role role, LocalDate birthDate, String phone) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.role = role.toString();
