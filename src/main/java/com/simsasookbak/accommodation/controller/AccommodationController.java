@@ -11,6 +11,7 @@ import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationImageService;
 import com.simsasookbak.accommodation.service.AccommodationService;
+import com.simsasookbak.global.aop.MethodInvocationLimit;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.dto.ReviewDto;
@@ -111,10 +112,10 @@ public class AccommodationController {
         return "review-register";
     }
 
+    @MethodInvocationLimit
     @PostMapping("/registerPage/register")
     public ResponseEntity<Long> register(@AuthenticationPrincipal Member member,
                                                                 @RequestBody AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
-
         AccommodationAddResponseDto response = accommodationService.save(member, accommodationAndRoomsAddRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response.getAccommodationId());
@@ -147,6 +148,7 @@ public class AccommodationController {
         return ResponseEntity.ok().build();
     }
 
+    @MethodInvocationLimit
     @PutMapping("/{accommodationId}/accommodationUpdate")
     public ResponseEntity<AccommodationUpdateDto> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
     AccommodationUpdateDto accommodationUpdateDto) {

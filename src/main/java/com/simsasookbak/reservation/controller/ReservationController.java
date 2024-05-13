@@ -1,5 +1,6 @@
 package com.simsasookbak.reservation.controller;
 
+import com.simsasookbak.global.aop.MethodInvocationLimit;
 import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.reservation.dto.ReservationAddRequestDto;
 import com.simsasookbak.reservation.dto.ReservationAddResponseDto;
@@ -31,7 +32,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    //TODO: 회원정보 받아오기
+    @MethodInvocationLimit
     @PostMapping("/{accommodationId}/{roomId}")
     public ResponseEntity<ReservationAddResponseDto> saveReservation(@AuthenticationPrincipal Member member, @PathVariable Long accommodationId,
                                                                      @PathVariable Long roomId,

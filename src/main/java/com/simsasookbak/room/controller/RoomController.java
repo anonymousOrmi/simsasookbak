@@ -1,6 +1,6 @@
 package com.simsasookbak.room.controller;
 
-import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.global.aop.MethodInvocationLimit;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.dto.RoomUpdateDto;
 import com.simsasookbak.room.service.RoomService;
@@ -25,8 +25,9 @@ public class RoomController {
         return ResponseEntity.ok().body(room);
     }
 
+    @MethodInvocationLimit
     @PutMapping("/room/{roomId}/roomUpdate")
-    public ResponseEntity<RoomUpdateDto> updateAccommodation(@PathVariable Long roomId, @RequestBody
+    public ResponseEntity<RoomUpdateDto> updateRoom(@PathVariable Long roomId, @RequestBody
     RoomUpdateDto accommodationUpdateDto) {
 
         roomService.updateRoom(roomId, accommodationUpdateDto);
