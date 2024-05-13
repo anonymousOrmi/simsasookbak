@@ -91,19 +91,19 @@ function signup(password,email){
     });
 
 }
-if(signinButton) {
-    signinButton.addEventListener('click', (event) => {
-        console.log(`click ${event}`);
-        const username= document.getElementById('username').value;
-        const password = document.getElementById('pwd').value;
-        fetch(`/login?username=${username}&password=${password}`,{
-            method:'POST'
-        }).then(()=>{
-            window.location.href='/'
-        });
-
-    })
-}
+// if(signinButton) {
+//     signinButton.addEventListener('click', (event) => {
+//         console.log(`click ${event}`);
+//         // const username= document.getElementById('username').value;
+//         // const password = document.getElementById('pwd').value;
+//         // fetch(`/login?username=${username}&password=${password}`,{
+//         //     method:'POST'
+//         // }).then(()=>{
+//         //     window.location.href='/'
+//         // });
+//
+//     })
+// }
 
 const emailCheckBtn = document.getElementById('email-check');
 emailCheckBtn.addEventListener('click', ()=>{
