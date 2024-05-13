@@ -1,8 +1,6 @@
 package com.simsasookbak.accommodation.repository;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
-import com.simsasookbak.accommodation.dto.AccommodationDto;
-import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface AccommodationRepository  extends JpaRepository<Accommodation, Long> {
 
     @Query("select room.accommodation.id as accommodationId, "
+            + "room.accommodation.name as name, "
             + "room.accommodation.address as address, "
             + "room.accommodation.region as region, "
             + "min(room.cost) as cost, "

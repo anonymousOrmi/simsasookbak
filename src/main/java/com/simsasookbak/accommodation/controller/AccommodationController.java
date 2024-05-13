@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("accommodation") // 앞에  / 없어도 되나
+@RequestMapping("accommodation")
 @Slf4j
 public class AccommodationController {
 
