@@ -73,7 +73,7 @@ client:
 cloud:
   aws:
     s3:
-      bucket: simsasookbak
+      bucket: ${S3_BUCKET_NAME}
     stack:
       auto: false
     region:
