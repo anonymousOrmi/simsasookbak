@@ -1,15 +1,12 @@
 package com.simsasookbak.member.dto;
 
 import com.simsasookbak.member.domain.Member;
-import com.simsasookbak.member.domain.MemberDto;
+import com.simsasookbak.member.domain.Role;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.checkerframework.checker.units.qual.A;
 
 @Getter
 @AllArgsConstructor
@@ -22,7 +19,7 @@ public class MemberResponseDto {
 
     private String name;
 
-    private String role;
+    private Role role;
 
     private LocalDate birthDate;
 
