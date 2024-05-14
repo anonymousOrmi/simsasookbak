@@ -181,7 +181,10 @@
                                                  th:text="'별점 : '+ ${review.getScore()}">
                                             </div>
                                             <div class="btn-area col-md-2">
-                                                <button class="btn btn-primary" type="button">Button</button>
+                                                <!--TODO 수정 버튼 -->
+                                                <button class="btn btn-primary" id="modify-btn"
+                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|"
+                                                        type="button">수정</button>
                                                 <button class="btn btn-primary" type="button">Button</button>
                                             </div>
                                         </div>
@@ -208,7 +211,7 @@
         </div>
         <div class="text-center">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" id="moreButton" style="margin-right: 20px">리뷰 더보기</a>
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()}+'/comment'}">리뷰 등록</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰 등록</a>
         </div>
     </div>
 </div>
@@ -218,7 +221,6 @@
 <input id="reviewList" th:value="${reviewList}" type="hidden"/>
 
 <footer th:replace="~{layout/footer::footerFragment}"></footer>
-
 </body>
 
 </html>
