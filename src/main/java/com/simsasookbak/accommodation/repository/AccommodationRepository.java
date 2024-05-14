@@ -65,6 +65,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
             Pageable pageable
     );
 
+    @Query("SELECT a FROM Accommodation a WHERE a.id = :id AND a.isDeleted = false")
     Accommodation findAccommodationById(Long id);
 
     @Query("SELECT a.url FROM AccommodationImage a WHERE a.accommodation.id = :acom_id")
