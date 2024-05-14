@@ -5,13 +5,13 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <section th:replace="~{/layout/head::headFragment}"></section>
+    <section th:replace="~{layout/head::headFragment}"></section>
     <title>내 정보 페이지</title>
     <script async src="/js/mypage.js"></script>
 </head>
 <body>
-<div style="background-color: #0b204a" th:replace="~{/layout/top-bar :: top}"></div>
-<div style="background-color: #0c4128" th:replace="~{/layout/navigation-bar :: nav}"></div>
+<div style="background-color: #0b204a" th:replace="~{layout/top-bar :: top}"></div>
+<div style="background-color: #0c4128" th:replace="~{layout/navigation-bar :: nav}"></div>
 <div style="background: linear-gradient(rgba(19, 53, 123, .8), rgba(19, 53, 123, .8)), url(/img/tour-booking-bg.jpg);
 ;height: 97px;"></div>
 <div style="display: flex;flex-direction: column;align-items: center;justify-content: center">
@@ -29,7 +29,7 @@
         <input class="border-box" disabled name="role" th:value="${member.role}">
         <br>
         <div style="margin-top: 30px; display: flex; justify-content: end">
-            <button class="btn btn-primary blue"  type="button" th:onclick="'updateUser('+${member.getId()}+')'" style="margin-right: 5px">변경</button>
+            <button class="btn btn-primary blue"  style="margin-right: 5px" th:onclick="'updateUser('+${member.getId()}+')'" type="button">변경</button>
             <button class="btn btn-danger red" id="cancel-register" type="button">탈퇴</button>
         </div>
     </form>
@@ -38,7 +38,7 @@
 <!--<span sec:authentication="principal.authorities"></span>-->
 
 <footer style="margin-top: 100px">
-    <div th:replace="~{/layout/footer::footerFragment}"></div>
+    <div th:replace="~{layout/footer::footerFragment}"></div>
 </footer>
 </body>
 </html>
