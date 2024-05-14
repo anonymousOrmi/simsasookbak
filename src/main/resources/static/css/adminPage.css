@@ -13,6 +13,11 @@
 .py-5{
     padding-bottom: 5.3rem !important;
 }
+@media (min-width: 768px) {
+    .text-md-end {
+         text-align: center;
+    }
+}
 
 .card-body{
     padding: 2rem 1rem;

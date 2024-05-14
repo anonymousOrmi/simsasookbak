@@ -29,7 +29,7 @@
                     <div class="dropdown-menu m-0">
                         <a href="/mypage" class="dropdown-item">내 정보</a>
                         <a href="/reservation" class="dropdown-item">예약 내역</a>
-                        <a href="" class="dropdown-item" sec:authorize="hasAuthority('ADMIN')">관리자 페이지</a>
+                        <a href="/admin/getAllMember" class="dropdown-item" sec:authorize="hasAuthority('ADMIN')">관리자 페이지</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
