@@ -1,6 +1,8 @@
 package com.simsasookbak.member.service;
 
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.member.repository.MemberRepository;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,5 +31,11 @@ public class UserDetailService implements UserDetailsService {
         return repository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException(email));
     }
+
+    public Member loadUserById(Long id) {
+        return repository.findUserById(id);
+    }
+
+
 
 }

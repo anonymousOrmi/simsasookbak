@@ -16,11 +16,11 @@
 ;height: 97px;"></div>
 <div style="display: flex;flex-direction: column;align-items: center;justify-content: center">
     <h2 style="color: #0b204a; margin-top: 88px">내 정보 수정</h2>
-    <form th:action="@{/memberinfo/{email}/change(email=${member.email})}" th:method="put">
+    <form>
         <h3>이름</h3>
-        <input class="border-box" name="name" th:value="${member.name}">
+        <input class="border-box" id="name" name="name" th:value="${member.name}">
         <h3>전화번호</h3>
-        <input class="border-box" name="phone" th:value="${member.phone}">
+        <input class="border-box" id="phone" name="phone" th:value="${member.phone}">
         <h3>Email</h3>
         <input class="border-box" disabled name="email" th:value="${member.email}">
         <h3>생년월일</h3>
@@ -28,7 +28,7 @@
         <h3 style="margin-top: 15px">권한</h3>
         <input class="border-box" disabled name="role" th:value="${member.role}">
         <br>
-        <button class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px" type="submit">변경</button>
+        <button class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px" type="button" th:onclick="'updateUser('+${member.getId()}+')'">변경</button>
     </form>
     <button class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 675px" type="button">탈퇴</button>
 </div>
