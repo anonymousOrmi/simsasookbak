@@ -81,7 +81,7 @@ function signup(password,email){
     }).then(response=>{
         if(response.ok){
             alert('회원가입이 완료되었습니다.');
-            // window.location.href='/login';
+            window.location.reload();
         }else{
             throw new Error('회원가입 실패');
 
@@ -98,6 +98,10 @@ if(signinButton) {
         event.preventDefault();
         const username= document.getElementById('username').value;
         const password = document.getElementById('pwd').value;
+        const errorMsg=document.querySelector('#error-message-1');
+        if(username===""||password===""){
+            errorMsg.innerText='아이디, 비밀번호를 입력해주세요';
+        }
         fetch(`/member/check/${username}/${password}`,{
             method:'POST'
         }).then(async (response)=>{
@@ -107,6 +111,7 @@ if(signinButton) {
                 fetch(`/login?username=${username}&password=${password}`,{method:'POST'}).then(()=>{window.location.href='/'});
             }else{
                 alert('아이디나 비밀번호가 다릅니다.');
+                window.location.reload();
             }
         });
     })
