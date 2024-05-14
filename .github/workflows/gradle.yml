@@ -35,7 +35,7 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle 
-      run: ./gradlew build -x test # "-x test" : 빌드 시, 테스트 코드를 제외하는 옵션
+      run: ./gradlew clean build -x test # "-x test" : 빌드 시, 테스트 코드를 제외하는 옵션
 
     - name: Make zip file
       run: zip -r ./$GITHUB_SHA.zip .
