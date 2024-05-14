@@ -38,10 +38,8 @@ public class AdminService {
     }
 
 
-
-    //유저 이름 검색
-    public List<Member> searchMemberByName(String name) {
-        return memberRepository.getSearchMemberByName(name)
+    public Page<Member> searchMemberByNamePaged(String name, Pageable pageable) {
+        return memberRepository.getSearchMemberByName(name, pageable)
                 .orElseThrow(() -> new NoSuchElementException("No member found with name: " + name));
     }
 
