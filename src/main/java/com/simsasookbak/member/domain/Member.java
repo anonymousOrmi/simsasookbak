@@ -62,14 +62,6 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "phone", length = 20, nullable = false)
     private String phone;
 
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
     @ElementCollection
     private Collection<GrantedAuthority> authorities;
 
@@ -143,6 +135,4 @@ public class Member extends BaseEntity implements UserDetails {
         createAuthorities(Role.LEAVER);
         this.role=Role.LEAVER;
     }
-
-
 }

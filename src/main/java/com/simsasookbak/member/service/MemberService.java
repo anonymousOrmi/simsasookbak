@@ -93,5 +93,4 @@ public class MemberService {
         i = (int) (Math.random()*10000000);
         return String.valueOf(i);
     }
-
 }

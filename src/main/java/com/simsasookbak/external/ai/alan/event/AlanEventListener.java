@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 @Slf4j
 public class AlanEventListener {
-
     private static final String ALAN_EXTERNAL_QUESTION = "이름이 %s인 숙소의 후기를 요약해서 출처를 포함하여 총 150자 내외로 알려줘. 또 별점을 5점 만점으로 해서 매겨줘.";
     private static final String ALAN_INTERNAL_QUESTION = "인 숙소에 대한 리뷰들인데 요약해줘. 숙소 이름, 출처 정보, 별점 정보 필요없으니 알려주지마.";
     private static final String REGEX = "\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)";
@@ -132,5 +131,4 @@ public class AlanEventListener {
 
         return input.trim();
     }
-
 }

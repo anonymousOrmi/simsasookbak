@@ -12,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 @Transactional
 public class AlanService {
-
     @Value("${ALAN_ONE_URL}")
     private String URL;
 

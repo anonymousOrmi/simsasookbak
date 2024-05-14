@@ -15,7 +15,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class MethodExecutionRestrictionAspect {
-
     private final Map<String, Long> lastInvocationTimes = new HashMap<>();
 
     @Pointcut("@annotation(com.simsasookbak.global.aop.MethodInvocationLimit)")

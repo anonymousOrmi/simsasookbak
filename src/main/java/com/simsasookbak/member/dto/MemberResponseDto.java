@@ -44,5 +44,4 @@ public class MemberResponseDto {
                 member.getUpdatedAt()
         );
     }
-
 }

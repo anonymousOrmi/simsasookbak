@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
     @ExceptionHandler(MethodInvocationLimitException.class)
     public ResponseEntity<String> handleMethodInvocationLimitException(MethodInvocationLimitException e) {
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(e.getMessage());
@@ -18,5 +17,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
-
 }
