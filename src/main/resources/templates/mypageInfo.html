@@ -26,7 +26,12 @@
         <h3>생년월일</h3>
         <input class="border-box" disabled name="birthDate" th:value="${member.birthDate}">
         <h3 style="margin-top: 15px">권한</h3>
-        <input class="border-box" disabled name="role" th:value="${member.role}">
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_USER'}" value="사용자">
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_ADMIN'}" value="관리자">
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_BUSINESS'}" value="사업자">
         <br>
         <div style="margin-top: 30px; display: flex; justify-content: end">
             <button class="btn btn-primary blue"  style="margin-right: 5px" th:onclick="'updateUser('+${member.getId()}+')'" type="button">변경</button>
