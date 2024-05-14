@@ -20,13 +20,13 @@ $(document).on('click', '.deleteButton', function() {
     }
 });
 
-$(document).ready(function() {
-    $('.page-link').click(function(event) {
-        event.preventDefault();
-        var pageNum = parseInt($(this).text());
-        var url = '/admin/getAllMember?page=' + pageNum;
-        window.location.href = url;
-    });
-});
+// $(document).ready(function() {
+//     $('.page-link').click(function(event) {
+//         event.preventDefault();
+//         var pageNum = parseInt($(this).text());
+//         var url = '/admin/getAllMember?page=' + pageNum-1;
+//         window.location.href = url;
+//     });
+// });
 
 

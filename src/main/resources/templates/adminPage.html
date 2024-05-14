@@ -79,7 +79,7 @@
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/getAllMember?page=${currentPage - 1}}">Prev</a>
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage - 1)}}">Prev</a>
                 </li>
 
                 <!-- 페이지 번호들 -->
@@ -87,13 +87,12 @@
                     th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'"
                     th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
                     th:if="${pageNum >= currentPage - 5 and pageNum <= currentPage + 5}">
-                    <a class="page-link" th:href="@{/admin/getAllMember?page=${pageNum}}" th:text="${pageNum + 1}"></a>
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + pageNum}}" th:text="${pageNum + 1}"></a>
                 </li>
-
 
                 <!-- 다음 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/getAllMember?page=${currentPage + 1}}">Next</a>
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage + 1)}}">Next</a>
                 </li>
             </ul>
         </nav>
