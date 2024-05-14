@@ -66,7 +66,7 @@ DB
 
 <br></br>
 ## 6️⃣ 요구사항 및 기능 명세  
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/8759b35e-0b31-47c7-8407-6ad7dc1e8f91)
+
 
 <br></br>
 ## 7️⃣ 데이터베이스 모델링(ERD)  
@@ -80,21 +80,10 @@ DB
 <br></br>
 ##  배포 아키텍처  
 
-사용자가 URL을 통해 ec2 인스턴스에 빌드된 스프링부트 서버에 접속요청을 보내면, 
-서버는 RDS에 있는 MySQL DB에 메인 페이지의 thymeleaf에서 필요한 공지사항, 카테고리 종류 데이터를 요청하고, HTML,CSS(Bootstrap),JS를 구성해 사용자에게 요청한 View를 반환해줍니다.  
-IntelliJ에서 작업한 작업내용은 Github Repo에 저장하며, commit, merge, pr 등 레포지토리에서 발생하는 모든 변화는 디스코드 웹훅을 통해 즉시 알림메세지 형태로 전달됩니다.
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/0c6b9539-d7ac-4223-a1d2-a4c6e2a521ab)
 
 <br></br>
 ##  API 명세서
 
-➰ :  표시 중 최소 1개 필요
-
-✔️ :  체크 표시만 가능
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/cf2025c4-e728-4be9-84dc-c5569c145213)
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/8fe72f45-8c90-4d27-b30b-ed7b165985c4)
 
 <br></br>
 ##  프로젝트 구조
