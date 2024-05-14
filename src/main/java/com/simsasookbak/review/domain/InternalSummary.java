@@ -37,5 +37,4 @@ public class InternalSummary extends BaseEntity {
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
-    // latest_review_id // 최신 리뷰 ID
 }

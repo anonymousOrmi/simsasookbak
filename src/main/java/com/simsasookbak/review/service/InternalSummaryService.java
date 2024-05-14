@@ -6,6 +6,7 @@ import com.simsasookbak.review.domain.InternalSummary;
 import com.simsasookbak.review.dto.InternalSummaryRequest;
 import com.simsasookbak.review.dto.InternalSummaryResponse;
 import com.simsasookbak.review.repository.InternalSummaryRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +28,14 @@ public class InternalSummaryService {
         return new InternalSummaryResponse(savedInternalSummary);
     }
 
+    public void resetInternalSummary(Long accommodationId) {
+        Optional<InternalSummary> internalSummary = internalSummaryRepository.findByAccommodationId(accommodationId);
+
+        internalSummary.ifPresent(this::delete);
+    }
+
+    private void delete(InternalSummary internalSummary) {
+        internalSummaryRepository.delete(internalSummary);
+    }
 
 }
