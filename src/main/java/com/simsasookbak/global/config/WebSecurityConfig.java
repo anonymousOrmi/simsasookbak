@@ -77,7 +77,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
                         auth.requestMatchers("/management/myAccommodations","/management/reservations","/accommodation/registerPage","/accommodation/*/updatePage","*/roomUpdatePage").hasAuthority("BUSINESS").
-                        requestMatchers("/login", "/signup", "/member/register", "/api/**","/","/email/check/message","/accommodation","/accommodation/*").permitAll()
+                        requestMatchers("/login", "/signup", "/member/register", "/api/**","/","/email/check/message","/accommodation","/accommodation/*","/reservation/popular-region").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
                         .defaultSuccessUrl("/"))
