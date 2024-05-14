@@ -150,12 +150,12 @@ public class AccommodationController {
 
     @MethodInvocationLimit
     @PutMapping("/{accommodationId}/accommodationUpdate")
-    public ResponseEntity<AccommodationUpdateDto> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
+    public ResponseEntity<Long> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
     AccommodationUpdateDto accommodationUpdateDto) {
 
         accommodationService.updateAccommodation(accommodationId, accommodationUpdateDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationUpdateDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationId);
     }
 
 }

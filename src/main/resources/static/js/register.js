@@ -92,6 +92,7 @@ function signup(password,email){
     });
 
 }
+
 if(signinButton) {
     signinButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -108,9 +109,6 @@ if(signinButton) {
                 alert('아이디나 비밀번호가 다릅니다.');
             }
         });
-
-
-
     })
 }
 
