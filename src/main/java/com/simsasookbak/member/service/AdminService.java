@@ -1,14 +1,14 @@
 package com.simsasookbak.member.service;
-
-import static com.simsasookbak.global.util.ConvertToDateTime.convertToLocalDate;
-
-import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
-import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
-import com.simsasookbak.accommodation.dto.response.AccommodationView;
+import com.simsasookbak.accommodation.domain.Accommodation;
+import com.simsasookbak.accommodation.repository.AccommodationRepository;
 import com.simsasookbak.member.domain.Member;
-
-import com.simsasookbak.member.dto.MemberResponseDto;
+import com.simsasookbak.member.domain.Role;
+import com.simsasookbak.member.domain.Status;
 import com.simsasookbak.member.repository.MemberRepository;
+import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.repository.ReviewRepository;
+import com.simsasookbak.room.domain.Room;
+import com.simsasookbak.room.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
 public class AdminService {
 
     private final MemberRepository memberRepository;
+    private final AccommodationRepository accommodationRepository;
+    private final ReviewRepository reviewRepository;
+    private final RoomRepository roomRepository;
 
 
 
@@ -41,12 +45,32 @@ public class AdminService {
                 .orElseThrow(() -> new NoSuchElementException("No member found with name: " + name));
     }
 
-    //유저 삭제 -> status 탈퇴로 변경
+    @Transactional
     public void deleteMember(Long memberId) {
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
-        member.setStatus("탈퇴");
-        memberRepository.save(member);
+
+        if(member.getRole().equals(Role.BUSINESS)){
+            List<List<Room>> roomList = new ArrayList<>();
+            List<Accommodation> accommodationList = accommodationRepository.findAllByMember_Id(member.getId());
+            for (Accommodation accommodation : accommodationList) {
+                accommodation.changeToDelete();
+                roomList.add(roomRepository.findRoomsByAcomId(accommodation.getId()));
+            }
+            for (List<Room> list : roomList) {
+                list.forEach(Room::changeToDelete);
+            }
+        }
+        deleteReview(member.getId());
+        member.cancellation();
+    }
+
+    @Transactional
+    public void deleteReview(Long memberId){
+        List<Review> reviewList = reviewRepository.findAllByMember_Id(memberId);
+        reviewList.forEach(Review::changeToDelete);
+
     }
 
 
