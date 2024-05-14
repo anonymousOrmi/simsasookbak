@@ -3,6 +3,7 @@ package com.simsasookbak.accommodation.repository;
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.response.AccommodationView;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,4 +75,8 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     List<String> findAccommodationFacilityById(Long id);
 
     List<Accommodation> findByMemberId(@Param("memberId") Long memberId);
+
+    @Query("SELECT a FROM Accommodation a WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime)")
+    List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime);
+
 }

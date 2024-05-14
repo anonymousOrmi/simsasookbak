@@ -1,18 +1,26 @@
 package com.simsasookbak.external.ai.alan.controller;
 
+import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.external.ai.alan.dto.AlanResponseDto;
 import com.simsasookbak.external.ai.alan.event.RegistrationEvent;
 import com.simsasookbak.external.ai.alan.service.AlanService;
+import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.dto.ExternalSummaryRequest;
 import com.simsasookbak.review.dto.ExternalSummaryResponse;
+import com.simsasookbak.review.dto.InternalSummaryRequest;
 import com.simsasookbak.review.service.ExternalSummaryService;
+import com.simsasookbak.review.service.InternalSummaryService;
+import com.simsasookbak.review.service.ReviewService;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +33,8 @@ public class AlanEventListener {
     private final AccommodationService accommodationService;
     private final AlanService alanService;
     private final ExternalSummaryService externalSummaryService;
+    private final ReviewService reviewService;
+    private final InternalSummaryService internalSummaryService;
 
     @EventListener
     @Async
@@ -35,7 +45,7 @@ public class AlanEventListener {
 
     private ExternalSummaryResponse ExternalSummaryWithAlan(@PathVariable Long accommodationID) {
 
-        final String accommodationName =accommodationService.findAccommodationById(accommodationID).getName();
+        final String accommodationName = accommodationService.findAccommodationById(accommodationID).getName();
 
         final String prompt = accommodationName + ALAN_QUESTION;
 
@@ -50,7 +60,39 @@ public class AlanEventListener {
         return externalSummaryService.save(accommodationID, request);
     }
 
-    public String applyRegex(String input) {
+    //매시 0분 0초에 실행, 테스트시 변경
+    @Scheduled(cron = "0 0 * * * *")
+    public void executeInternalSummaryWithAlan() {
+        LocalTime currentTime = LocalTime.now();
+        List<Accommodation> accommodations = accommodationService.findAccommodationsByCreatedAtTime(currentTime);
+
+        for (Accommodation accommodation : accommodations) {
+            Long accommodationId = accommodation.getId();
+            InternalSummaryWithAlan(accommodationId);
+        }
+    }
+
+    private void InternalSummaryWithAlan(Long accommodationId) {
+
+        List<Review> reviews = reviewService.findTop3ReviewsByAccommodationIdAndCreatedAt(accommodationId);
+        StringBuilder summaryBuilder = new StringBuilder();
+        summaryBuilder.append("이거 요약해줘: ");
+
+        for (int i = 0; i < reviews.size(); i++) {
+            summaryBuilder.append((i + 1)).append(". ").append(reviews.get(i).getContent());
+        }
+
+        final String prompt = summaryBuilder.toString();
+        final AlanResponseDto alanResponse = alanService.getAlan(prompt);
+
+        String alanAnswer = alanResponse.getContent();
+        final String regexResult = applyRegex(alanAnswer);
+        InternalSummaryRequest internalSummaryRequest = new InternalSummaryRequest(regexResult);
+
+        internalSummaryService.save(accommodationId, internalSummaryRequest);
+    }
+
+    private String applyRegex(String input) {
         StringBuilder sources = new StringBuilder();
         Pattern pattern = Pattern.compile("\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)");
         Matcher matcher = pattern.matcher(input);
@@ -63,4 +105,5 @@ public class AlanEventListener {
 
         return input.trim() + " " + sources.toString().trim();
     }
+
 }

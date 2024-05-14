@@ -1,6 +1,7 @@
 package com.simsasookbak.review.repository;
 
 import com.simsasookbak.review.domain.Review;
+import java.time.LocalDateTime;
 import java.util.List;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import java.util.List;
@@ -33,5 +34,8 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
 
 //    @Query("SELECT ScoreAverageDto(r.accommodation.id, AVG(r.score)) FROM Review r GROUP BY r.accommodation.id ORDER BY AVG(r.score) DESC, r.accommodation.id DESC")
 //    List<ScoreAverageDto> findAverageScoreByAccommodationId();
+
+    @Query("SELECT r FROM Review r WHERE r.accommodation.id = :accommodationId AND r.createdAt >= :startDate AND r.isDeleted = false ORDER BY r.score DESC")
+    List<Review> findReviewsByAccommodationIdAndCreatedAt(@Param("accommodationId") Long accommodationId, @Param("startDate") LocalDateTime startDate);
 
 }

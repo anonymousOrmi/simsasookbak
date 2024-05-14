@@ -21,6 +21,7 @@ import com.simsasookbak.room.domain.Room;
 import com.simsasookbak.room.dto.RoomAddRequestDto;
 import com.simsasookbak.room.service.RoomFacilityMappingService;
 import com.simsasookbak.room.service.RoomService;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -148,4 +149,8 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
         accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
     }
+
+    public List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime) {
+        return accommodationRepository.findAccommodationsByCreatedAtTime(currentTime);
+    };
 }
