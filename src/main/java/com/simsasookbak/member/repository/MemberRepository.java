@@ -19,7 +19,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Page<Member> findAll(Pageable pageable);
 
-    @Query("SELECT m FROM Member m WHERE m.name = :name")
+    @Query("SELECT m FROM Member m WHERE m.name LIKE %:name%")
     Optional<Page<Member>> getSearchMemberByName(@Param("name") String name, Pageable pageable);
 
 }
