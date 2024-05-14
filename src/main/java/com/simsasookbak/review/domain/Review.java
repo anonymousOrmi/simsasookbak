@@ -57,4 +57,9 @@ public class Review extends BaseEntity {
     private String roomTitle;
 
     /*`summary_id`	bigint	NOT NULL*/
+
+
+    public void changeToDelete(){
+        this.isDeleted=true;
+    }
 }

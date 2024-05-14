@@ -61,22 +61,24 @@ public class AlanEventListener {
     }
 
     //매시 0분 0초에 실행, 테스트시 변경
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 10 * * * *")
+    @Async
     public void executeInternalSummaryWithAlan() {
         LocalTime currentTime = LocalTime.now();
         List<Accommodation> accommodations = accommodationService.findAccommodationsByCreatedAtTime(currentTime);
 
         for (Accommodation accommodation : accommodations) {
-            Long accommodationId = accommodation.getId();
-            InternalSummaryWithAlan(accommodationId);
+            InternalSummaryWithAlan(accommodation);
         }
     }
 
-    private void InternalSummaryWithAlan(Long accommodationId) {
+    private void InternalSummaryWithAlan(Accommodation accommodation) {
+        Long accommodationId = accommodation.getId();
+        String accommodationName = accommodation.getName();
 
         List<Review> reviews = reviewService.findTop3ReviewsByAccommodationIdAndCreatedAt(accommodationId);
         StringBuilder summaryBuilder = new StringBuilder();
-        summaryBuilder.append("이거 요약해줘: ");
+        summaryBuilder.append(accommodationName).append("숙소 에 대한 리뷰들인데 요약해줘");
 
         for (int i = 0; i < reviews.size(); i++) {
             summaryBuilder.append((i + 1)).append(". ").append(reviews.get(i).getContent());
@@ -86,7 +88,7 @@ public class AlanEventListener {
         final AlanResponseDto alanResponse = alanService.getAlan(prompt);
 
         String alanAnswer = alanResponse.getContent();
-        final String regexResult = applyRegex(alanAnswer);
+        final String regexResult = removeRegexMatches(alanAnswer);
         InternalSummaryRequest internalSummaryRequest = new InternalSummaryRequest(regexResult);
 
         internalSummaryService.save(accommodationId, internalSummaryRequest);
@@ -104,6 +106,20 @@ public class AlanEventListener {
         }
 
         return input.trim() + " " + sources.toString().trim();
+    }
+
+    private String removeRegexMatches(String input) {
+        StringBuilder removedMatches = new StringBuilder();
+        Pattern pattern = Pattern.compile("\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)");
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            String match = matcher.group();
+            removedMatches.append(match).append(" ");
+            input = input.replace(match, "").trim();
+        }
+
+        return input.trim();
     }
 
 }

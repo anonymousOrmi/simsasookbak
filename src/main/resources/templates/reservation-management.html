@@ -8,7 +8,20 @@
 <div th:replace="~{/layout/top-bar :: top}"></div>
 <div th:replace="~{/layout/navigation-bar :: nav}"></div>
 
-<!-- reservation management list Start -->
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">숙소 관리</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 관리</a></li>
+            <li class="breadcrumb-item active text-white">예약 관리</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- reservation management Start -->
 <div class="container-fluid bg-light service py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
@@ -16,7 +29,7 @@
             <h1 class="mb-0">my reservations</h1>
         </div>
         <div class="row g-3">
-            <!-- accodion start-->
+            <!-- accordion start-->
             <div class="accordion" id="accordionFlushExample" th:each="reservation:${myReservations}">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingOne">
@@ -101,21 +114,13 @@
                     </div>
                 </div>
             </div>
-            <!-- accodion end -->
-            <div class="col-lg-12">
-                <div class="row g-3" th:each="reservation:${myReservations}">
-
-                </div>
-            </div>
+            <!-- accordion end -->
         </div>
     </div>
 </div>
-<!-- reservation management list End -->
+<!-- reservation management End -->
 
 <footer th:replace="~{/layout/footer::footerFragment}"></footer>
-
-<!-- Back to Top -->
-<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>

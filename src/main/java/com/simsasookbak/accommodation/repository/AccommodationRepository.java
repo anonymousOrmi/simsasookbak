@@ -76,7 +76,8 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
 
     List<Accommodation> findByMemberId(@Param("memberId") Long memberId);
 
+    List<Accommodation> findAllByMember_Id(Long memberId);
+
     @Query("SELECT a FROM Accommodation a WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime)")
     List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime);
-
 }
