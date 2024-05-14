@@ -21,7 +21,6 @@ public class AlanService {
 
     private final RestTemplate restTemplate;
 
-
     public AlanResponseDto getAlan(String content) {
         String uri = UriComponentsBuilder
                 .fromHttpUrl(URL)

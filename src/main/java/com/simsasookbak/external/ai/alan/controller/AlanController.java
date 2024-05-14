@@ -21,4 +21,5 @@ public class AlanController {
         AlanResponseDto response = alanService.getAlan(content);
         return ResponseEntity.ok(response);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.simsasookbak.external.ai.alan.controller;
+package com.simsasookbak.external.ai.alan.event;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.service.AccommodationService;
@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Component
 @RequiredArgsConstructor
 @Slf4j
 public class AlanEventListener {
@@ -40,22 +40,18 @@ public class AlanEventListener {
 
     @EventListener
     @Async
-    public void handleRegistrationEvent(RegistrationEvent event) {
+    public void handleAccommodationEvent(RegistrationEvent event) {
         final ExternalSummaryResponse alanResponse = ExternalSummaryWithAlan(event.getAccommodationId());
         log.info("AI Comment Response: {}", alanResponse);
     }
 
     private ExternalSummaryResponse ExternalSummaryWithAlan(@PathVariable Long accommodationID) {
-
-        final String accommodationName = accommodationService.findAccommodationById(accommodationID).getName();
-
-        final String prompt = accommodationName + ALAN_EXTERNAL_QUESTION;
-
-        final AlanResponseDto alanResponse = alanService.getAlan(prompt);
+        String accommodationName = accommodationService.findAccommodationById(accommodationID).getName();
+        String prompt = accommodationName + ALAN_EXTERNAL_QUESTION;
+        AlanResponseDto alanResponse = alanService.getAlan(prompt);
 
         String alanAnswer = alanResponse.getContent();
-
-        final String regexResult = applyRegexForBackUrl(alanAnswer);
+        String regexResult = applyRegexForBackUrl(alanAnswer);
 
         ExternalSummaryRequest request = new ExternalSummaryRequest(regexResult);
 
