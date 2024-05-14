@@ -29,7 +29,7 @@ public class RoomService {
     }
 
     public List<RoomDto> findRoomByAcomId(Long id) {
-        return roomRepository.findRoomsByAcomId(id)
+        return roomRepository.findRoomByAccommodationIdAndIsDeletedFalse(id)
                 .stream()
                 .map(room -> RoomDto.toDto(room,findRoomFacilityById(room.getId()))) // RoomService를 전달
                 .collect(Collectors.toList());
