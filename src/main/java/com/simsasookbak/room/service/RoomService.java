@@ -76,4 +76,8 @@ public class RoomService {
             throw new AccessDeniedException("자신의 객실만 수정할 수 있습니다.");
         }
     }
+
+    public List<Room> findRoomByAccommodationIdToDelete(Long accommodationId) {
+        return roomRepository.findRoomByAccommodationId(accommodationId);
+    }
 }

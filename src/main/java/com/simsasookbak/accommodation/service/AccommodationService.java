@@ -166,4 +166,21 @@ public class AccommodationService {
     public List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime) {
         return accommodationRepository.findAccommodationsByCreatedAtTime(currentTime);
     }
+
+    public void deleteAccommodation(Member member, Long accommodationId) {
+        if (!Objects.equals(member.getId(), accommodationId)) {
+            throw new AccessDeniedException("자신의 숙소만 삭제할 수 있습니다.");
+        }
+
+        Accommodation accommodation = accommodationRepository.findById(accommodationId).orElseThrow();
+        List<Room> rooms = roomService.findRoomByAccommodationIdToDelete(accommodationId);
+
+        accommodation.changeToDelete();
+        accommodationFacilityMappingService.deleteMapping(accommodationId);
+
+        for(Room room : rooms) {
+            room.setIsDeleted(true);
+            roomFacilityMappingService.deleteMapping(room.getId());
+        }
+    }
 }
