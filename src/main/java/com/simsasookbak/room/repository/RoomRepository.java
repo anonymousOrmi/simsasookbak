@@ -12,7 +12,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     Optional<Room> findByIdAndIsDeletedFalse(Long roomId);
 
-    List<Room> findRoomByAccommodationIdAndIsDeletedFalse(Long accommodationId);
+    List<Room> findRoomByAccommodationId(Long accommodationId);
 
     @Query("SELECT a.roomFacility.name FROM RoomFacilityMapping a WHERE a.room.id = :id")
     List<String> findRoomFacilityById(Long id);

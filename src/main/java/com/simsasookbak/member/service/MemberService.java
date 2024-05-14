@@ -61,7 +61,7 @@ public class MemberService {
             List<Accommodation> accommodationList = accommodationRepository.findAccommodationByMemberIdAndIsDeletedFalse(member.getId());
             for (Accommodation accommodation : accommodationList) {
                 accommodation.changeToDelete();
-                roomList.add(roomRepository.findRoomByAccommodationIdAndIsDeletedFalse(accommodation.getId()));
+                roomList.add(roomRepository.findRoomByAccommodationId(accommodation.getId()));
             }
             for (List<Room> list : roomList) {
                 list.forEach(Room::changeToDelete);

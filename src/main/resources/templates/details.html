@@ -23,7 +23,7 @@
 
 <!-- details Start -->
 <div class="container-fluid about py-5">
-    <div class="container py-5">
+    <div class="container py-5 border rounded">
         <div class="row g-5 align-items-center">
             <!-- 이미지가 있는 경우 -->
             <div class="col-lg-5" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
@@ -101,6 +101,9 @@
         <div class="text-lg-end">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
+        </div>
+        <div class="text-lg-end">
+            <button class="btn btn-primary rounded-pill py-3 px-5 mt-2">버튼 텍스트</button>
         </div>
     </div>
 </div>
