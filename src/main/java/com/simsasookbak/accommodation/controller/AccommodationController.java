@@ -78,15 +78,15 @@ public class AccommodationController {
     }
 
     //상세 페이지 조회 (영석)
-    @GetMapping("/{acom_id}")
-    public String details(@PathVariable Long acom_id, Model model) {
+    @GetMapping("/{accommodationId}")
+    public String details(@PathVariable Long accommodationId, Model model) {
 
-        AccommodationDto accommodation = accommodationService.findAccommodationById(acom_id);
-        List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
-        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
-        String inSummary = reviewService.findInSummaryByAcomId(acom_id);
-        List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
-        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
+        AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
+        List<RoomDto> roomList = roomService.findRoomByAcomId(accommodationId);
+        String exSummary = reviewService.findExSummaryByAcomId(accommodationId);
+        String inSummary = reviewService.findInSummaryByAcomId(accommodationId);
+        List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(accommodationId);
+        List<String> imgList = accommodationService.findImgByAccommodationId(accommodationId);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("roomList", roomList);
@@ -100,13 +100,14 @@ public class AccommodationController {
 
 
     //리뷰 등록 페이지 이동
-    @GetMapping("/{acom_id}/comment")
-    public String review(@PathVariable Long acom_id, Model model) {
+    @GetMapping("/{accommodationId}/comment")
+    public String review(@PathVariable Long accommodationId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = (Member) authentication.getPrincipal();
-        model.addAttribute("accommodation", acom_id);
+        model.addAttribute("accommodation", accommodationId);
         model.addAttribute("member", member.getId());
-        model.addAttribute("RoomNames", reservationService.getReservationRoomName(acom_id, member.getId()));
+        model.addAttribute("RoomNames", reservationService.getReservationRoomName(accommodationId, member.getId()));
+
         return "review-register";
     }
 
@@ -119,9 +120,9 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response.getAccommodationId());
     }
 
-    @PostMapping("/image/file/register/{responseAccommId}")
+    @PostMapping("/image/file/register/{responseAccommodationId}")
     public ResponseEntity<Void> uploadAccommodationImage(@ModelAttribute MultipartFile[] file,
-                                                         @PathVariable Long responseAccommId) {
+                                                         @PathVariable Long responseAccommodationId) {
         if (file != null && !Arrays.stream(file).filter(x -> !Objects.equals(x.getOriginalFilename(), "")).toList()
                 .isEmpty()) {
             try {
@@ -138,7 +139,7 @@ public class AccommodationController {
                     metadata[i].setContentLength(file[i].getSize());
                     amazonS3Client.putObject(bucket, fileNames[i], file[i].getInputStream(), metadata[i]);
                     accommodationImageService.saveAccommodationImage(AccommodationImage.builder().url(fileUrls[i])
-                            .accommodation(accommodationService.findById(responseAccommId)).build());
+                            .accommodation(accommodationService.findById(responseAccommodationId)).build());
                 }
 
 
