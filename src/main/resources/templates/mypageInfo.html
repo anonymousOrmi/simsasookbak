@@ -28,9 +28,11 @@
         <h3 style="margin-top: 15px">권한</h3>
         <input class="border-box" disabled name="role" th:value="${member.role}">
         <br>
-        <button class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px" type="button" th:onclick="'updateUser('+${member.getId()}+')'">변경</button>
+        <div style="margin-top: 30px; display: flex; justify-content: end">
+            <button class="btn btn-primary blue"  type="button" th:onclick="'updateUser('+${member.getId()}+')'" style="margin-right: 5px">변경</button>
+            <button class="btn btn-danger red" id="cancel-register" type="button">탈퇴</button>
+        </div>
     </form>
-    <button class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 675px" type="button">탈퇴</button>
 </div>
 <input id="useremail" th:value="${member.email}" type="hidden" >
 <!--<span sec:authentication="principal.authorities"></span>-->
