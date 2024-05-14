@@ -23,16 +23,17 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    @GetMapping("/{room_id}")
-    public ResponseEntity<?> getRoom(@PathVariable Long room_id) {
-        RoomDto room = roomService.findRoomById(room_id);
+    @GetMapping("/{roomId}")
+    public ResponseEntity<?> getRoom(@PathVariable Long roomId) {
+        RoomDto room = roomService.findRoomById(roomId);
         return ResponseEntity.ok().body(room);
     }
 
     @MethodInvocationLimit
     @PutMapping("/room/{roomId}/roomUpdate")
-    public ResponseEntity<RoomUpdateDto> updateRoom(@AuthenticationPrincipal Member member, @PathVariable Long roomId, @RequestBody
-    RoomUpdateDto accommodationUpdateDto) {
+    public ResponseEntity<RoomUpdateDto> updateRoom(@AuthenticationPrincipal Member member, @PathVariable Long roomId,
+                                                    @RequestBody
+                                                    RoomUpdateDto accommodationUpdateDto) {
 
         roomService.updateRoom(member, roomId, accommodationUpdateDto);
 
@@ -40,7 +41,8 @@ public class RoomController {
     }
 
     @PostMapping("/room/{roomId}/toggle")
-    public ResponseEntity<RoomAvailabilityDto> manageRoomAvailability(@AuthenticationPrincipal Member member, @PathVariable Long roomId) {
+    public ResponseEntity<RoomAvailabilityDto> manageRoomAvailability(@AuthenticationPrincipal Member member,
+                                                                      @PathVariable Long roomId) {
 
         RoomAvailabilityDto availabilityDto = roomService.manageRoomAvailability(member, roomId);
 

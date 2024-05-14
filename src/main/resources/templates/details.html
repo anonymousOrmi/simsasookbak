@@ -103,7 +103,7 @@
                th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
         </div>
         <div class="text-lg-end">
-            <button class="btn btn-primary rounded-pill py-3 px-5 mt-2">버튼 텍스트</button>
+            <button th:value="${room.getRoomId()}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">버튼 텍스트</button>
         </div>
     </div>
 </div>
@@ -218,6 +218,28 @@
 <input id="reviewList" th:value="${reviewList}" type="hidden"/>
 
 <footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<script>
+    $(document).on('click', '.room-manage-button', function() {
+        const roomId = parseInt($(this).val(), 10);
+
+        var confirmMessage = "방을 예약을 활성화/비활성화 하시겠습니까?";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/room/${roomId}/toggle`, // roomId를 url에 삽입합니다.
+                success: function(response) {
+                    // 삭제 요청이 성공적으로 처리된 후에만 페이지를 변경합니다.
+                    window.location.reload();
+                    console.log(location.reload );
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 
