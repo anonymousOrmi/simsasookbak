@@ -103,144 +103,99 @@ IntelliJ에서 작업한 작업내용은 Github Repo에 저장하며, commit, me
 📂 src  
 ┣ 📂 main  
 ┃ ┗ 📂 java  
-┃ ┃ ┗ 📂 community  
-┃ ┃ ┃ ┗ 📂 coomon  
-┃ ┃ ┃ ┃ ┗ 📜 TimeStamp.class  
-┃ ┃ ┃ ┃ ┗ 📂 config  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 InterceptorConfig.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 SecurityConfiguration   
-┃ ┃ ┃ ┃ ┃ ┗ 📜 SwaggerConfig  
-┃ ┃ ┃ ┃ ┗ 📂 constant  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryType.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 Role  
-┃ ┃ ┃ ┃ ┗ 📂 controller  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleController.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticlePageController.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentController.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserController.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserViewController.class  
-┃ ┃ ┃ ┃ ┗ 📂 domain  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleCategoryEntity.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleEntity.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentEntity.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryEntity.class   
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserEntity.class   
-┃ ┃ ┃ ┃ ┗ 📂 dto  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 AddUserRequest.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleCategoryDto.class   
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleDto.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentDto.class    
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CheckDuplicateRequest.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryDto.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 DeleteUserIdsRequest.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserDto.class  
-┃ ┃ ┃ ┃ ┗ 📂 exception  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleNotFoundException  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UnauthorizedException  
-┃ ┃ ┃ ┃ ┗ 📂 intreceptor  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleAuthInterceptor 
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentAuthInterceptor  
-┃ ┃ ┃ ┃ ┗ 📂 mapper  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleCategoryMapper  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleMapper  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentMapper  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryMapper  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserMapper  
-┃ ┃ ┃ ┃ ┗ 📂 repository  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleCategoryRepository.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleRepository.class   
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentRepository.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryRepository.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserRepository.class  
-┃ ┃ ┃ ┃ ┗ 📂 service  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleCategoryService.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 ArticleService.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CommentService.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 CategoryService.class  
-┃ ┃ ┃ ┃ ┃ ┗ 📜 UserService.class  
-┃ ┃ ┃ ┗ 📜 Init.class  
-┃ ┗ 📂 resources  
-┃ ┃ ┗ 📂 static   
-┃ ┃ ┃ ┗ 📂 css  
-┃ ┃ ┃ ┃ ┗ 📜 AdminPage.css  
-┃ ┃ ┃ ┃ ┗ 📜 ArticleCreate.css  
-┃ ┃ ┃ ┃ ┗ 📜 articleList.css  
-┃ ┃ ┃ ┃ ┗ 📜 custom.css  
-┃ ┃ ┃ ┃ ┗ 📜 join.css  
-┃ ┃ ┃ ┃ ┗ 📜 login.css  
-┃ ┃ ┃ ┃ ┗ 📜 style.css  
-┃ ┃ ┃ ┃ ┗ 📜 userPage.css  
-┃ ┃ ┗ 📂 js  
-┃ ┃ ┃ ┗ 📜 admin.js  
-┃ ┃ ┃ ┗ 📜 article.js  
-┃ ┃ ┃ ┗ 📜 articleList.js  
-┃ ┃ ┃ ┗ 📜 join.js  
-┃ ┃ ┃ ┗ 📜 main.js  
-┃ ┃ ┃ ┗ 📜 userInfo.js  
-┃ ┗ 📂 templates   
-┃ ┃ ┗ 📜 bootstrapForm.html  
-┃ ┃ ┗ 📜 adminPage.html  
-┃ ┃ ┗ 📜 articleDetail.html  
-┃ ┃ ┗ 📜 articleList.html  
-┃ ┃ ┗ 📜 Join.html  
-┃ ┃ ┗ 📜 login.html  
-┃ ┃ ┗ 📜 main.html  
-┃ ┃ ┗ 📜 userPage.html  
-┃ ┃ ┗ 📜 writeArticle.html  
+┃ ┃ ┗ 📂 com   
+┃ ┃ ┃ ┗ 📂 simsasookbak    
+┃ ┃ ┃ ┃ ┗ 📂 accommodation     
+┃ ┃ ┃ ┃ ┃ ┗ 📂 controller   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto   
+┃ ┃ ┃ ┃ ┗ 📂 email   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 service   
+┃ ┃ ┃ ┃ ┗ 📂 external   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 ai    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 youtube   
+┃ ┃ ┃ ┃ ┗ 📂 global   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 aop   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 config   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 exception   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 page     
+┃ ┃ ┃ ┃ ┃ ┗ 📂 util     
+┃ ┃ ┃ ┃ ┃ ┃ 📜 BaseEntity.class     
+┃ ┃ ┃ ┃ ┗ 📂 member     
+┃ ┃ ┃ ┃ ┃ ┗ 📂 controller     
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 repository    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 service   
+┃ ┃ ┃ ┃ ┗ 📂 reservation  
+┃ ┃ ┃ ┃ ┃ ┗ 📂 controller   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 repository   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 service    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 scheduling    
+┃ ┃ ┃ ┃ ┗ 📂 review    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 controller   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 repository    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 service       
+┃ ┃ ┃ ┃ ┗ 📂 room    
+┃ ┃ ┃ ┃ ┃ ┗ 📂 controller   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 domain      
+┃ ┃ ┃ ┃ ┃ ┗ 📂 dto   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 repository   
+┃ ┃ ┃ ┃ ┃ ┗ 📂 service     
+┃ ┗ 📂 resources    
+┃ ┃ ┗ 📂 static     
+┃ ┃ ┃ ┗ 📂 css    
+┃ ┃ ┃ ┃ ┗ 📜 adminPage.css    
+┃ ┃ ┃ ┃ ┗ 📜 bootstrap.min.css    
+┃ ┃ ┃ ┃ ┗ 📜 index.css    
+┃ ┃ ┃ ┃ ┗ 📜 register.css    
+┃ ┃ ┃ ┃ ┗ 📜 reservationForm.css    
+┃ ┃ ┃ ┃ ┗ 📜 style.css    
+┃ ┃ ┃ ┃ ┗ 📜 table.css     
+┃ ┃ ┃ ┃ ┗ 📜 templatemo-topic-listing.css    
+┃ ┃ ┗ 📂 img   
+┃ ┃ ┗ 📂 js    
+┃ ┃ ┃ ┗ 📜 adminPage.js      
+┃ ┃ ┃ ┗ 📜 index.css    
+┃ ┃ ┃ ┗ 📜 register.css    
+┃ ┃ ┃ ┗ 📜 mypage.js  
+┃ ┃ ┃ ┗ 📜 popularRegion.js    
+┃ ┃ ┃ ┗ 📜 main.js     
+┃ ┃ ┃ ┗ 📜 review.js     
+┃ ┃ ┃ ┗ 📜 reservationList.js    
+┃ ┃ ┃ ┗ 📜 updateReservation.js     
+┃ ┗ 📂 templates       
+┃ ┃ ┗ 📂 layout    
+┃ ┃ ┗ 📜 accommodation-register.html      
+┃ ┃ ┗ 📜 accommodation-update..html         
+┃ ┃ ┗ 📜 adminPage.html      
+┃ ┃ ┗ 📜 details.html      
+┃ ┃ ┗ 📜 index.html     
+┃ ┃ ┗ 📜 list-page.html      
+┃ ┃ ┗ 📜 login.html      
+┃ ┃ ┗ 📜 my-accommodation-list.html      
+┃ ┃ ┗ 📜 my-reservation-list.html     
+┃ ┃ ┗ 📜 mypageInfo.html     
+┃ ┃ ┗ 📜 reservation-management.html        
+┃ ┃ ┗ 📜 review-register.html        
+┃ ┃ ┗ 📜 room-update.html     
+┃ ┃ ┗ 📜 updateReservationPage.html    
 ┗ 📂 test  
 ┣ 📜 gradlew    
 ┣ 📜 gradlew.bat    
 ┣ 📜 README.md    
-┣ 📜 settings.gradle    
+┣ 📜 settings.gradle     
 
 <br></br>
 ##🎨 UI
 
- main.html / 메인페이지 - 상단바(로그인 안하는 경우)
 
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/013ffc5a-e946-4c98-ae52-9520be40d597)
-
-
- main.html / 메인페이지 - 상단바(로그인 한 경우)
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/064def2f-a165-4bf0-bf3e-b1714e2c7d94)
-
-
- articleList.html / 게시물 목록 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/c2798976-6514-4a3a-9e88-9a88475b7250)
-
- articleDetail / 게시물 상세 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/5265c064-cb02-4b95-a2cc-ef50a428915b)
-
- writeArticle.html / 글 등록 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/e905ad55-20a5-4924-b0c5-eac718c2247c)
-
-
- writeArticle.html / 글 수정 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/585834c8-a8bc-4624-b404-ad8dc54a6d91)
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/2189c65f-43ee-4340-82f9-dc887e97aaae)
-
-
- adminPage.html / 관리자 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/42c324d4-1b50-48d0-a52c-144d0b0d33b9)
-
-
- userPage.html / 회원 정보 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/27e1eb53-7fb4-4557-a6f7-ef9e61aa18c7)
-
- login.html / 로그인 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/c5923982-e5c7-4bd7-8381-82319491d147)
-
- join.html / 회원가입 페이지
-
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/683ae25a-facc-48bf-aa8a-880fc1edc4c1)
 
 ## 개발 이슈
 [이슈 이름](링크 주소)
