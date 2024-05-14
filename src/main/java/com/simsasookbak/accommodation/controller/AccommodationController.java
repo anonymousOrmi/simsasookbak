@@ -82,7 +82,7 @@ public class AccommodationController {
     public String details(@PathVariable Long accommodationId, Model model) {
 
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
-        List<RoomDto> roomList = roomService.findRoomByAcomId(accommodationId);
+        List<RoomDto> roomList = roomService.findRoomByAccommodationId(accommodationId);
         String exSummary = reviewService.findExSummaryByAcomId(accommodationId);
         String inSummary = reviewService.findInSummaryByAcomId(accommodationId);
         List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(accommodationId);
