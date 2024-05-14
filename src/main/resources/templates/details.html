@@ -1,53 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta charset="utf-8">
-    <title>Travela - Tourism Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
-
-    <!-- JavaScript Libraries -->
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="/lib/easing/easing.min.js"></script>
-    <script defer src="/lib/waypoints/waypoints.min.js"></script>
-    <script defer src="/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script defer src="/lib/lightbox/js/lightbox.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script defer src="/js/main.js"></script>
-
-
-    <!-- Custom Javascript -->
-    <script defer src="/js/review.js"></script>
-
-    <script th:inline="javascript">
-
-    </script>
-
-</head>
+<head th:replace="~{/layout/head::headFragment}"></head>
 
 <body>
 
@@ -59,15 +13,15 @@
     <div class="container text-center py-5" style="max-width: 900px;">
         <h1 class="text-white display-3 mb-4">숙소 상세</h1>
         <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">About</li>
+            <li class="breadcrumb-item"><a href="index.html">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 찾기</a></li>
+            <li class="breadcrumb-item active text-white">숙소 상세</li>
         </ol>
     </div>
 </div>
 <!-- Header End -->
 
-<!-- About Start -->
+<!-- details Start -->
 <div class="container-fluid about py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
@@ -80,20 +34,39 @@
                  style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(/img/about-img-1.png);">
                 <h1 class="mb-4">숙소명 <span class="text-primary" th:text="${accommodation.getName()}"></span></h1>
                 <p class="mb-lg-5" th:text="${accommodation.getContent()}"></p>
-                <div class="row gy-2 gx-4 mb-4" th:each="facility:${accommodation.facilityList}">
+                <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${facility}"></span></p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getRegion()}"></span></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getAddress()}"></span></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인 : <span th:text="${accommodation.getCheckIn()}"></span></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃 : <span th:text="${accommodation.getCheckOut()}"></span></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0">
+                            <i class="fa fa-arrow-right text-primary me-2"></i>
+                            시설 및 서비스 :
+                            <span th:each="facility, iterStat : ${accommodation.getFacilityList()}">
+                                <span th:text="${facility}"></span>
+                                <span th:unless="${iterStat.last}">, </span>
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="text-lg-end">
+        <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">숙소 수정</a>
         </div>
     </div>
 </div>
-<!-- About End -->
+<!-- details End -->
 
 <div class="container-fluid contact bg-light py-5">
     <div class="container py-5" th:each="room:${roomList}">
@@ -114,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-lg-end">
+        <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
         </div>
@@ -234,8 +207,8 @@
 <!-- 리뷰 리스트 -->
 <input type="hidden" id="reviewList" th:value="${reviewList}"/>
 
-<!-- Back to Top -->
-<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+
 </body>
 
 </html>
