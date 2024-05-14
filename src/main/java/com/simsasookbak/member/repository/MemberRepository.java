@@ -16,11 +16,11 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Optional<Member> findByEmail(String email);
 
+    Member findUserById(Long Id);
+
     Page<Member> findAll(Pageable pageable);
 
     @Query("SELECT m FROM Member m WHERE m.name = :name")
     Optional<List<Member>> getSearchMemberByName(@Param("name") String name);
-
-
 
 }

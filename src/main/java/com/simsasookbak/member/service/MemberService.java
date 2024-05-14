@@ -47,9 +47,9 @@ public class MemberService {
     }
 
     @Transactional
-    public void editMemberInfo(String email, MemberDto memberDto) {
-        Member member = memberRepository.findByEmail(email).orElseThrow();
-        member.editInfo(memberDto.getName(), memberDto.getPhone());
+    public void updateMemberInfo(Long id, String name, String phone) {
+        Member member = memberRepository.findUserById(id);
+        member.editInfo(name, phone);
     }
 
     @Transactional
