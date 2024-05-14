@@ -1,10 +1,9 @@
 package com.simsasookbak.review.dto;
 
 import com.simsasookbak.review.domain.Review;
+import com.simsasookbak.review.domain.ReviewImage;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import com.simsasookbak.review.domain.ReviewImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +17,7 @@ public class ReviewDto {
 
     private Long reviewId;
     private String memberName;
+    private String memberId;
     private Long accommodationId;
     private String content;
     private Integer score;
@@ -33,6 +33,7 @@ public class ReviewDto {
         return ReviewDto.builder()
                 .reviewId(review.getId())
                 .accommodationId(review.getAccommodation().getId())
+                .memberId(review.getMember().getEmail())
                 .memberName(
                         review.getMember().getName())
                 .content(review.getContent())

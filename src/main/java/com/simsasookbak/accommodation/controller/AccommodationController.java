@@ -105,7 +105,6 @@ public class AccommodationController {
             @RequestParam(value = "id", required = false) Long id,
             Model model
     ) {
-        // TODO 테스트 : 댓글을 단 사용자가 아닌경우 수정 불가
         if (id != null) {
             ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId());
             model.addAttribute("reviewWithImages", reviewWithImages);

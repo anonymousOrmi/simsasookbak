@@ -183,8 +183,8 @@
                                             <div class="btn-area col-md-2">
                                                 <!--TODO 수정 버튼 -->
                                                 <button class="btn btn-primary" id="modify-btn"
-                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|"
-                                                        type="button">수정</button>
+                                                        th:if="${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|" type="button" >수정</button>
                                                 <button class="btn btn-primary" type="button">Button</button>
                                             </div>
                                         </div>
