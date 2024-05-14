@@ -63,17 +63,15 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
-                                                            또 뭐
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'지역 : ' + accommodation.region}">
+
                                                         </div>
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${room.cost}">
-                                                            가격
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'주소 : ' + accommodation.address}">
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 text-md-start text-center text-white" style="font-size: 20px;">
-                                                </div>
-                                                <div class="col-md-10">
+                                                <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
                                                         <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 인 : ' + accommodation.checkIn}">
                                                             체크 인 표기
