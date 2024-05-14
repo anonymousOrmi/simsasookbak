@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="~{/layout/head::headFragment}"></head>
+<head th:replace="~{layout/head::headFragment}"></head>
 
 <body>
 
-<div th:replace="~{/layout/top-bar :: top}"></div>
-<div th:replace="~{/layout/navigation-bar :: nav}"></div>
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
 
 
 <!-- Header Start -->
@@ -31,25 +31,25 @@
                     <h2 class="text-white mb-3">객실 정보</h2>
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <input name="roomName1" th:value="${room.getName()}" class="form-control bg-white border-0" id="roomName1" placeholder="Your Name" type="text">
+                            <input class="form-control bg-white border-0" id="roomName1" name="roomName1" placeholder="Your Name" th:value="${room.getName()}" type="text">
                             <label for="roomName1">객실 명</label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-floating">
-                            <input name="cost1" th:value="${room.getCost()}" class="form-control bg-white border-0" id="cost1" min="0" placeholder="Your Name" type="number">
+                            <input class="form-control bg-white border-0" id="cost1" min="0" name="cost1" placeholder="Your Name" th:value="${room.getCost()}" type="number">
                             <label for="cost1">가격</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea name="content1" th:text="${room.getContent()}" class="form-control bg-white border-0" id="content1" placeholder="Special Request" style="height: 100px"></textarea>
+                            <textarea class="form-control bg-white border-0" id="content1" name="content1" placeholder="Special Request" style="height: 100px" th:text="${room.getContent()}"></textarea>
                             <label for="content1">객실 소개글</label>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea name="useGuide1" th:text="${room.getUseGuide()}" class="form-control bg-white border-0" id="useGuide1" placeholder="Special Request" style="height: 100px"></textarea>
+                            <textarea class="form-control bg-white border-0" id="useGuide1" name="useGuide1" placeholder="Special Request" style="height: 100px" th:text="${room.getUseGuide()}"></textarea>
                             <label for="useGuide1">이용 안내</label>
                         </div>
                     </div>
@@ -61,8 +61,8 @@
                                     <th:block th:each="facility : ${roomFacilityList}">
                                         <li class="list-group-item">
                                             <!-- 첫 번째 객실 시설을 체크박스로 표시 -->
-                                            <input aria-label="..." class="form-check-input me-1" th:id="'roomFacility_' + ${facility.id}" th:value="${facility.name}"
-                                                   th:checked="${room.facilityList.contains(facility.name)}" type="checkbox">
+                                            <input aria-label="..." class="form-check-input me-1" th:checked="${room.facilityList.contains(facility.name)}" th:id="'roomFacility_' + ${facility.id}"
+                                                   th:value="${facility.name}" type="checkbox">
                                             <label th:for="'roomFacility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                                         </li>
                                     </th:block>
@@ -81,10 +81,10 @@
 </div>
 
 
-<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>

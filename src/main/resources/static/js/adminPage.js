@@ -3,7 +3,7 @@ $(document).on('click', '.deleteButton', function() {
     console.log('Member ID:', memberId);
 
     // 탈퇴 확인 메시지 표시
-    var confirmMessage = "탈퇴하시겠습니까?";
+    var confirmMessage = "사용자를 탈퇴하시겠습니까?";
     if (confirm(confirmMessage)) {
         $.ajax({
             type: 'POST',
@@ -19,14 +19,3 @@ $(document).on('click', '.deleteButton', function() {
         });
     }
 });
-
-// $(document).ready(function() {
-//     $('.page-link').click(function(event) {
-//         event.preventDefault();
-//         var pageNum = parseInt($(this).text());
-//         var url = '/admin/getAllMember?page=' + pageNum-1;
-//         window.location.href = url;
-//     });
-// });
-
-

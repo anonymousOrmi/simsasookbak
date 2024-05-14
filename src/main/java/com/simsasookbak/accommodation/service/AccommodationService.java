@@ -86,10 +86,6 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
                 .filter(accommodationDto -> accommodationDto != null)
                 .collect(Collectors.toList());
 
-        // 리스트에 있는 내용을 for문을 사용하여 확인합니다.
-        for (AccommodationDto accommodationDto : highScoreAccommodations) {
-            System.out.println("Accommodation ID: " + accommodationDto.getId());
-        }
         return highScoreAccommodations;
     }
 
