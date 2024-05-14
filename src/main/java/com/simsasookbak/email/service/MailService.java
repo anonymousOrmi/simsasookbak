@@ -30,7 +30,7 @@ public class MailService {
 
         Context context = new Context();
         context.setVariable("form", form);
-        String body = templateEngine.process("/layout/mailForm.html", context);
+        String body = templateEngine.process("layout/mailForm.html", context);
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 

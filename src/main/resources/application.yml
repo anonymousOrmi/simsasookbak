@@ -34,8 +34,7 @@ spring:
 
   thymeleaf:
     cache: false
-    prefix: file:src/main/resources/templates/
-
+    prefix: classpath:/templates/
   schedule: # interval 1 hour
     cron : 0 0 0/1 * * *
     use : true

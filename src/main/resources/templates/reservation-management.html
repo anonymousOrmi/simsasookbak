@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{/layout/head::headFragment}"></head>
+<head th:replace="~{layout/head::headFragment}"></head>
 
 <body>
 
-<div th:replace="~{/layout/top-bar :: top}"></div>
-<div th:replace="~{/layout/navigation-bar :: nav}"></div>
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
 
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
@@ -120,7 +120,7 @@
 </div>
 <!-- reservation management End -->
 
-<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
