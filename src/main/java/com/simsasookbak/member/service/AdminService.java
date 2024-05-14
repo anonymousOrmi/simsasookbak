@@ -33,6 +33,8 @@ public class AdminService {
         return memberRepository.findAll(pageable);
     }
 
+
+
     //유저 이름 검색
     public List<Member> searchMemberByName(String name) {
         return memberRepository.getSearchMemberByName(name)

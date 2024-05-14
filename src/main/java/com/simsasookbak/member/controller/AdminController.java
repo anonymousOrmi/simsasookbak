@@ -32,19 +32,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    //모든 유저 정보 가져오기
 
-//    @GetMapping("/getAllMember")
-//    public String getAllMember(Model model){
-//        List<Member> members = adminService.findAllMember();
-//
-//        List<MemberResponseDto> memberDtos = members.stream()
-//                .map(MemberResponseDto::toDto)
-//                .collect(Collectors.toList());
-//
-//        model.addAttribute("members", memberDtos);
-//        return "adminPage";
-//    }
 
     @GetMapping("/getAllMember")
     public String getAllMember(
@@ -73,21 +61,6 @@ public class AdminController {
         return "adminPage";
     }
 
-//    @GetMapping
-//    public String showMembers(
-//            @ModelAttribute AccommodationRequest request,
-//            @RequestParam(value = "page", defaultValue = "0") int pageNum,
-//            Model model
-//    ) {
-//        Page<AccommodationResponse> response = accommodationService.searchAccommodations(request, pageNum);
-//        model.addAttribute("currentPage", response.getNumber());
-//        model.addAttribute("totalPages", response.getTotalPages());
-//
-//        model.addAttribute("request", request);
-//        model.addAttribute("accommodations", response);
-//
-//        return "list-page";
-//    }
 
 
     // 서버 컨트롤러 메서드 수정
