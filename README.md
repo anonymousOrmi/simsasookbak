@@ -14,7 +14,7 @@
 
 
 <br></br>
-## 팀원 소개 😊
+## 2️⃣ 팀원 소개 
 이영석(PL)  
 김상형  
 박지은  
@@ -23,7 +23,7 @@
 최보현  
 
 <br></br>
-## 💻 프로젝트 사용 기술 및 환경
+## 3️⃣ 프로젝트 사용 기술 및 환경
 
 FE
 
@@ -49,20 +49,23 @@ DB
 - Discord + 웹훅을 통한 깃헙 알림 설정
 
 <br></br>
-## 🗓️ 개발 일정  
+## 4️⃣ 개발 일정  
 ![image](https://github.com/teamSeven71/TechTalk/assets/109260733/79041981-d030-4cc8-b833-087445a07fee)
 
 <br></br>
-## 🖌️ Flow Chart  
+## 5️⃣ User Flow
 
-처음 메인 페이지에 들어가면 관리자가 올린 공지사항, 글을 올릴 수 있는 여러 게시판 카테고리 선택란, 네비게이션 상단바가 보이게 됩니다.  
-크게 세 개로 나누어 흐름도를 작성하였습니다.
+✅ 플랫폼의 가장 첫 페이지인 메인페이지를 기준으로 Flow를 나누어 작성하였습니다.   <br></br>
+✅ 노란색은 페이지를 보라색은 이동 버튼 및 트리거를 의미하며, 다이아몬드 모형은 논리 로직을 의미합니다.    <br></br>
+✅ 빨간색 화살표는 비회원도 접근이 가능합니다. 파란색 화살표는 일반 유저의 로그인 상태일 경우, 초록색 화살표의 경우에는 숙박업자가 로그인한 상태에 접근 가능합니다.   <br></br> 
+✅ 메인페이지에서 로그인페이지 이동, 검색을 통한 숙소목록페이지 이동, 마이페이지 및 숙소 찾기 페이지로 등으로의 이동이 가능며, 공통적으로 모든 페이지에서 로그아웃이 가능합니다.  <br></br>
 
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/1a9b8232-47ee-4263-9be0-8fea14804e68)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/40d182bd-e826-4e33-b464-d056792eb734)
+
 
 
 <br></br>
-## 요구사항 및 기능 명세  
+## 6️⃣ 요구사항 및 기능 명세  
 ![image](https://github.com/teamSeven71/TechTalk/assets/109260733/8759b35e-0b31-47c7-8407-6ad7dc1e8f91)
 
 <br></br>
@@ -77,7 +80,7 @@ DB
 ![image](https://github.com/teamSeven71/TechTalk/assets/109260733/4695ba89-5de1-417d-9f88-d4aa3ef8e258)
 
 <br></br>
-## 배포 아키텍처  
+## 7️⃣ 배포 아키텍처  
 
 사용자가 URL을 통해 ec2 인스턴스에 빌드된 스프링부트 서버에 접속요청을 보내면, 
 서버는 RDS에 있는 MySQL DB에 메인 페이지의 thymeleaf에서 필요한 공지사항, 카테고리 종류 데이터를 요청하고, HTML,CSS(Bootstrap),JS를 구성해 사용자에게 요청한 View를 반환해줍니다.  
@@ -85,7 +88,7 @@ IntelliJ에서 작업한 작업내용은 Github Repo에 저장하며, commit, me
 ![image](https://github.com/teamSeven71/TechTalk/assets/109260733/0c6b9539-d7ac-4223-a1d2-a4c6e2a521ab)
 
 <br></br>
-## API 명세서
+## 8️⃣ API 명세서
 
 ➰ :  표시 중 최소 1개 필요
 
@@ -96,8 +99,8 @@ IntelliJ에서 작업한 작업내용은 Github Repo에 저장하며, commit, me
 ![image](https://github.com/teamSeven71/TechTalk/assets/109260733/8fe72f45-8c90-4d27-b30b-ed7b165985c4)
 
 <br></br>
-## 🤓 프로젝트 구조
-- FE + BE
+## 9️⃣ 프로젝트 구조
+### FE + BE
 
 📂 gradle  
 📂 src  
@@ -193,15 +196,15 @@ IntelliJ에서 작업한 작업내용은 Github Repo에 저장하며, commit, me
 ┣ 📜 settings.gradle     
 
 <br></br>
-##🎨 UI
+## 1️⃣0️⃣ UI
 
 
 
-## 개발 이슈
+## 1️⃣1️⃣ 개발 이슈
 [이슈 이름](링크 주소)
 
 <br></br>
-## 개발 회고
+## 1️⃣2️⃣ 개발 회고
 🧑‍💻 이영석
     
 🧑‍💻 김상형
