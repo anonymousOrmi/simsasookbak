@@ -25,9 +25,16 @@
 <div class="container-fluid about py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-5" th:each="img:${imgList}">
+            <!-- 이미지가 있는 경우 -->
+            <div class="col-lg-5" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
                 <div class="h-100">
                     <img th:src="${img}" class="img-fluid w-100 h-100" alt="">
+                </div>
+            </div>
+            <!-- 이미지가 없는 경우 -->
+            <div class="col-lg-5" th:if="${imgList == null or #lists.isEmpty(imgList)}">
+                <div class="h-100 text-center">
+                    <p>숙소 이미지가 없습니다.</p>
                 </div>
             </div>
             <div class="col-lg-7"
