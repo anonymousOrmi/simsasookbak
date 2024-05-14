@@ -21,20 +21,20 @@ public class MethodExecutionRestrictionAspect {
     @Pointcut("@annotation(com.simsasookbak.global.aop.MethodInvocationLimit)")
     private void methodInvocationLimit() {}
 
-//    @Before("methodInvocationLimit()")
-//    public void beforeMethodInvocationLimit() {
-//        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(
-//                RequestContextHolder.getRequestAttributes())).getRequest();
-//        String username = request.getUserPrincipal().getName();
-//
-//        Long lastInvocationTime = lastInvocationTimes.get(username);
-//        long currentTime = System.currentTimeMillis();
-//
-//        if (lastInvocationTime != null && currentTime - lastInvocationTime < 60 * 1000) {
-//            throw new MethodInvocationLimitException("같은 사용자가 반복적인 호출을 시도하였습니다");
-//        }
-//
-//        // 메서드를 호출한 시간을 기록
-//        lastInvocationTimes.put(username, currentTime);
-//    }
+    @Before("methodInvocationLimit()")
+    public void beforeMethodInvocationLimit() {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(
+                RequestContextHolder.getRequestAttributes())).getRequest();
+        String username = request.getUserPrincipal().getName();
+
+        Long lastInvocationTime = lastInvocationTimes.get(username);
+        long currentTime = System.currentTimeMillis();
+
+        if (lastInvocationTime != null && currentTime - lastInvocationTime < 60 * 1000) {
+            throw new MethodInvocationLimitException("같은 사용자가 반복적인 호출을 시도하였습니다");
+        }
+
+        // 메서드를 호출한 시간을 기록
+        lastInvocationTimes.put(username, currentTime);
+    }
 }
