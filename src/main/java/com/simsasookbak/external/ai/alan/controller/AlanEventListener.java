@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AlanEventListener {
 
-    private static final String ALAN_QUESTION = "숙소의 후기를 요약해서 100자 내외로 알려줘. 또 별점을 5점 만점으로 해서 매겨줘.";
+    private static final String ALAN_EXTERNAL_QUESTION = "숙소의 후기를 요약해서 출처를 포함하여 총 150자 내외로 알려줘. 또 별점을 5점 만점으로 해서 매겨줘.";
+    private static final String ALAN_INTERNAL_QUESTION = "숙소에 대한 리뷰들인데 요약해줘. 숙소 이름은 빼주고 별점 정보도 필요없어";
+    private static final String REGEX = "\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)";
     private final AccommodationService accommodationService;
     private final AlanService alanService;
     private final ExternalSummaryService externalSummaryService;
@@ -47,13 +49,13 @@ public class AlanEventListener {
 
         final String accommodationName = accommodationService.findAccommodationById(accommodationID).getName();
 
-        final String prompt = accommodationName + ALAN_QUESTION;
+        final String prompt = accommodationName + ALAN_EXTERNAL_QUESTION;
 
         final AlanResponseDto alanResponse = alanService.getAlan(prompt);
 
         String alanAnswer = alanResponse.getContent();
 
-        final String regexResult = applyRegex(alanAnswer);
+        final String regexResult = applyRegexForBackUrl(alanAnswer);
 
         ExternalSummaryRequest request = new ExternalSummaryRequest(regexResult);
 
@@ -61,7 +63,7 @@ public class AlanEventListener {
     }
 
     //매시 0분 0초에 실행, 테스트시 변경
-    @Scheduled(cron = "0 10 * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     @Async
     public void executeInternalSummaryWithAlan() {
         LocalTime currentTime = LocalTime.now();
@@ -74,11 +76,10 @@ public class AlanEventListener {
 
     private void InternalSummaryWithAlan(Accommodation accommodation) {
         Long accommodationId = accommodation.getId();
-        String accommodationName = accommodation.getName();
 
         List<Review> reviews = reviewService.findTop3ReviewsByAccommodationIdAndCreatedAt(accommodationId);
         StringBuilder summaryBuilder = new StringBuilder();
-        summaryBuilder.append(accommodationName).append("숙소 에 대한 리뷰들인데 요약해줘");
+        summaryBuilder.append(ALAN_INTERNAL_QUESTION);
 
         for (int i = 0; i < reviews.size(); i++) {
             summaryBuilder.append((i + 1)).append(". ").append(reviews.get(i).getContent());
@@ -88,15 +89,15 @@ public class AlanEventListener {
         final AlanResponseDto alanResponse = alanService.getAlan(prompt);
 
         String alanAnswer = alanResponse.getContent();
-        final String regexResult = removeRegexMatches(alanAnswer);
+        final String regexResult = applyRegexForNoUrl(alanAnswer);
         InternalSummaryRequest internalSummaryRequest = new InternalSummaryRequest(regexResult);
 
         internalSummaryService.save(accommodationId, internalSummaryRequest);
     }
 
-    private String applyRegex(String input) {
+    private String applyRegexForBackUrl(String input) {
         StringBuilder sources = new StringBuilder();
-        Pattern pattern = Pattern.compile("\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)");
+        Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
@@ -108,9 +109,9 @@ public class AlanEventListener {
         return input.trim() + " " + sources.toString().trim();
     }
 
-    private String removeRegexMatches(String input) {
+    private String applyRegexForNoUrl(String input) {
         StringBuilder removedMatches = new StringBuilder();
-        Pattern pattern = Pattern.compile("\\[\\(출처(\\d+)\\)\\]|\\((https?://[^\\s]+)\\)");
+        Pattern pattern = Pattern.compile(REGEX);
         Matcher matcher = pattern.matcher(input);
 
         while (matcher.find()) {
