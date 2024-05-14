@@ -140,6 +140,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         Accommodation accommodation = findById(accommodationId);
         accommodation.update(accommodationUpdateDto);
         List<String> accommodationFacilityList = accommodationUpdateDto.getFacilityList();
+        publisher.publishEvent(new RegistrationEvent(this, accommodation.getId()));
 
         accommodationFacilityMappingService.deleteMapping(accommodationId);
 
@@ -148,5 +149,5 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
     public List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime) {
         return accommodationRepository.findAccommodationsByCreatedAtTime(currentTime);
-    };
+    }
 }

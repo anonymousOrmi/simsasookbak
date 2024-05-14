@@ -45,8 +45,10 @@ public class AlanEventListener {
         log.info("AI Comment Response: {}", alanResponse);
     }
 
-    private ExternalSummaryResponse ExternalSummaryWithAlan(@PathVariable Long accommodationID) {
-        String accommodationName = accommodationService.findAccommodationById(accommodationID).getName();
+    private ExternalSummaryResponse ExternalSummaryWithAlan(@PathVariable Long accommodationId) {
+        checkExternalSummaryExist(accommodationId);
+
+        String accommodationName = accommodationService.findAccommodationById(accommodationId).getName();
         String prompt = accommodationName + ALAN_EXTERNAL_QUESTION;
         AlanResponseDto alanResponse = alanService.getAlan(prompt);
 
@@ -55,7 +57,11 @@ public class AlanEventListener {
 
         ExternalSummaryRequest request = new ExternalSummaryRequest(regexResult);
 
-        return externalSummaryService.save(accommodationID, request);
+        return externalSummaryService.save(accommodationId, request);
+    }
+
+    private void checkExternalSummaryExist(Long accommodationId) {
+        externalSummaryService.resetExternalSummary(accommodationId);
     }
 
     //매시 0분 0초에 실행, 테스트시 변경
