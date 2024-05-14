@@ -35,6 +35,8 @@
 <input id="useremail" th:value="${member.email}" type="hidden" >
 <!--<span sec:authentication="principal.authorities"></span>-->
 
-<div th:replace="~{/layout/footer::footerFragment}"></div>
+<footer style="margin-top: 100px">
+    <div th:replace="~{/layout/footer::footerFragment}"></div>
+</footer>
 </body>
 </html>

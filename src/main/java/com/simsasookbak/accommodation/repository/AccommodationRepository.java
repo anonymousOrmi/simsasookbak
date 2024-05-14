@@ -74,4 +74,6 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     List<String> findAccommodationFacilityById(Long id);
 
     List<Accommodation> findByMemberId(@Param("memberId") Long memberId);
+
+    List<Accommodation> findAllByMember_Id(Long memberId);
 }

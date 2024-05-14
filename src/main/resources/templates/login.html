@@ -16,14 +16,14 @@
     <div class="container__form container--signup sign-up">
         <form class="form" id="form1">
             <h2 class="form__title">Sign Up</h2>
-            <input class="input" id="name" name="name" placeholder="이름" type="text"/>
+            <input class="input" id="name" name="name" placeholder="이름" type="text" required/>
             <div style="display: flex">
                 <input class="input" id="email" name="email" placeholder="Email" type="email"/>
                 <button id="email-check" style="margin-left: 20px" type="button">중복확인</button>
             </div>
             <label for="email-check-input" id="email-check-input-label" style="display: none">인증번호를 입력해주세요</label>
             <input id="email-check-input" name="email-check-input" type="text" style="display: none">
-            <input class="input" id="password" name="password" placeholder="Password" type="password"/>
+            <input class="input" id="password" name="password" placeholder="Password" type="password" required/>
             <input class="input" id="password-check" placeholder="Password 확인" type="password">
             <span class="error-message"></span>
             <fieldset>
@@ -34,7 +34,7 @@
             </fieldset>
             <input class="input" id="phone" name="phone" pattern="[0-9]{11}" placeholder="Phone Number -를 빼고 입력해주세요" required type="tel">
             <small>생일</small>
-            <input class="input" id="birthDate" name="birthDate" type="date">
+            <input class="input" id="birthDate" name="birthDate" type="date" required>
             <button class="btn sign-up-button" type="submit">Sign Up</button>
         </form>
     </div>
