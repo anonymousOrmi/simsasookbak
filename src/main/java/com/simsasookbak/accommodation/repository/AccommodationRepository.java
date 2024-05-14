@@ -69,16 +69,14 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     @Query("SELECT a FROM Accommodation a WHERE a.id = :id AND a.isDeleted = false")
     Accommodation findAccommodationById(Long id);
 
-    @Query("SELECT a.url FROM AccommodationImage a WHERE a.accommodation.id = :acom_id")
-    List<String> findImgByAcomId(@Param("acom_id") Long acom_id);
+    @Query("SELECT a.url FROM AccommodationImage a WHERE a.accommodation.id = :accommodationId")
+    List<String> findImgByAccommodationId(@Param("accommodationId") Long accommodationId);
 
     @Query("SELECT a.accommodationFacility.name FROM AccommodationFacilityMapping a WHERE a.accommodation.id = :id")
     List<String> findAccommodationFacilityById(Long id);
 
-    List<Accommodation> findByMemberId(@Param("memberId") Long memberId);
+    List<Accommodation> findAccommodationByMemberIdAndIsDeletedFalse(@Param("memberId") Long memberId);
 
-    List<Accommodation> findAllByMember_Id(Long memberId);
-
-    @Query("SELECT a FROM Accommodation a WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime)")
+    @Query("SELECT a FROM Accommodation a WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime) AND a.isDeleted = false")
     List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime);
 }

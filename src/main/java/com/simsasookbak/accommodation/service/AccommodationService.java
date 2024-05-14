@@ -78,7 +78,7 @@ public class AccommodationService {
                         accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
 
                         // 이미지 URL 추가
-                        List<String> imageUrlList = accommodationRepository.findImgByAcomId(accommodation.getId());
+                        List<String> imageUrlList = accommodationRepository.findImgByAccommodationId(accommodation.getId());
                         if (!imageUrlList.isEmpty()) {
                             accommodationDto.setImageUrl(imageUrlList.get(0)); //첫번째 이미지만 사용
                         }
@@ -106,12 +106,12 @@ public class AccommodationService {
     }
 
     public List<String> findImgByAcomId(Long id) {
-        return accommodationRepository.findImgByAcomId(id);
+        return accommodationRepository.findImgByAccommodationId(id);
     }
 
 
     public List<AccommodationRegisteredResponse> findMyAccommodations(Long memberId) {
-        return accommodationRepository.findByMemberId(memberId).stream().map(AccommodationRegisteredResponse::new)
+        return accommodationRepository.findAccommodationByMemberIdAndIsDeletedFalse(memberId).stream().map(AccommodationRegisteredResponse::new)
                 .collect(
                         Collectors.toList());
     }
