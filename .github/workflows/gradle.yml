@@ -2,9 +2,9 @@ name: github-action-workflow
 
 on:
   push:
-    branches: [ "develop" ] #"release"
+    branches: [ "release"  ] #"release" "develop"
   pull_request:
-    branches: [ "develop" ] #"release"
+    branches: [ "release"  ] #"release" "develop"
   workflow_dispatch:
 
 env:

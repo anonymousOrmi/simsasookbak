@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{/layout/head::headFragment}"></head>
+<head th:replace="~{layout/head::headFragment}"></head>
 
 <body>
 
-<div th:replace="~{/layout/top-bar :: top}"></div>
-<div th:replace="~{/layout/navigation-bar :: nav}"></div>
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
 
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
@@ -25,9 +25,16 @@
 <div class="container-fluid about py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-5" th:each="img:${imgList}">
+            <!-- 이미지가 있는 경우 -->
+            <div class="col-lg-5" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
                 <div class="h-100">
-                    <img th:src="${img}" class="img-fluid w-100 h-100" alt="">
+                    <img alt="" class="img-fluid w-100 h-100" th:src="${img}">
+                </div>
+            </div>
+            <!-- 이미지가 없는 경우 -->
+            <div class="col-lg-5" th:if="${imgList == null or #lists.isEmpty(imgList)}">
+                <div class="h-100 text-center">
+                    <p>숙소 이미지가 없습니다.</p>
                 </div>
             </div>
             <div class="col-lg-7"
@@ -184,7 +191,7 @@
                                 </div>
                                 <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
                                 <div th:if="${review.reviewImages}">
-                                    <div  th:each="reviewImage:${review.reviewImages}" class="img-container">
+                                    <div  class="img-container" th:each="reviewImage:${review.reviewImages}">
                                         <img alt="Image"
                                              class="img-fluid w-35 mx-auto rounded d-block"
                                              th:src="@{${reviewImage.url}}">
@@ -197,7 +204,7 @@
             </div>
         </div>
         <div class="text-center">
-            <a id="moreButton" class="btn btn-primary rounded-pill py-3 px-5 mt-2" style="margin-right: 20px">리뷰 더보기</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" id="moreButton" style="margin-right: 20px">리뷰 더보기</a>
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()}+'/comment'}">리뷰 등록</a>
         </div>
     </div>
@@ -205,9 +212,9 @@
 <!-- 리뷰 조회 End -->
 
 <!-- 리뷰 리스트 -->
-<input type="hidden" id="reviewList" th:value="${reviewList}"/>
+<input id="reviewList" th:value="${reviewList}" type="hidden"/>
 
-<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
 
 </body>
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="~{/layout/head::headFragment}"></head>
+<head th:replace="~{layout/head::headFragment}"></head>
 
 <body>
 
-<div th:replace="~{/layout/top-bar :: top}"></div>
-<div th:replace="~{/layout/navigation-bar :: nav}"></div>
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
 
 
 <!-- Header Start -->
@@ -26,17 +26,17 @@
 <div class="container-fluid booking py-5">
   <div class="container py-5">
     <h1 class="text-white mb-3">숙소 정보</h1>
-    <form enctype="multipart/form-data" id="registerForm" th:action="@{/accommodation/{accommodationId}/accommodationUpdate(accommodationId=${accommodation.id})}" method="post">
+    <form enctype="multipart/form-data" id="registerForm" method="post" th:action="@{/accommodation/{accommodationId}/accommodationUpdate(accommodationId=${accommodation.id})}">
       <!-- 숙소 영역 -->
       <div class="row g-3">
         <div class="col-md-3">
           <label class="form-label" for="imageInput">이미지 업로드</label>
-          <input accept="image/*" class="form-control" id="imageInput" multiple onchange="addFile(this);" type="file" name="file">
+          <input accept="image/*" class="form-control" id="imageInput" multiple name="file" onchange="addFile(this);" type="file">
         </div>
         <div class="col-md-9"></div> <!-- 공백 위한 것 -->
         <div class="col-md-2">
           <div class="form-floating">
-            <input name="accommodationName" th:value="${accommodation.getName()}" type="text" class="form-control bg-white border-0" id="accommodationName" placeholder="Your Name">
+            <input class="form-control bg-white border-0" id="accommodationName" name="accommodationName" placeholder="Your Name" th:value="${accommodation.getName()}" type="text">
             <label for="accommodationName">숙소 명</label>
           </div>
         </div>
@@ -59,25 +59,25 @@
         </div>
         <div class="col-md-4">
           <div class="form-floating">
-            <input th:value="${accommodation.getAddress()}" name="address" type="text" class="form-control bg-white border-0" id="address" placeholder="Your Email">
+            <input class="form-control bg-white border-0" id="address" name="address" placeholder="Your Email" th:value="${accommodation.getAddress()}" type="text">
             <label for="address">상세 주소</label>
           </div>
         </div>
         <div class="col-md-2">
-          <div class="form-floating date" id="date3" data-target-input="nearest">
-            <input th:value="${accommodation.getCheckIn()}" name="checkIn" type="time" class="form-control bg-white border-0" id="datetime1" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+          <div class="form-floating date" data-target-input="nearest" id="date3">
+            <input class="form-control bg-white border-0" data-target="#date3" data-toggle="datetimepicker" id="datetime1" name="checkIn" placeholder="Date & Time" th:value="${accommodation.getCheckIn()}" type="time" />
             <label for="datetime1">체크 인</label>
           </div>
         </div>
         <div class="col-md-2">
-          <div class="form-floating date" id="date4" data-target-input="nearest">
-            <input th:value="${accommodation.checkOut}" name="checkOut" type="time" class="form-control bg-white border-0" id="datetime2" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+          <div class="form-floating date" data-target-input="nearest" id="date4">
+            <input class="form-control bg-white border-0" data-target="#date3" data-toggle="datetimepicker" id="datetime2" name="checkOut" placeholder="Date & Time" th:value="${accommodation.checkOut}" type="time" />
             <label for="datetime2">체크 아웃</label>
           </div>
         </div>
         <div class="col-12">
           <div class="form-floating">
-            <textarea th:text="${accommodation.getContent()}" name="accommodationContent" class="form-control bg-white border-0" placeholder="Special Request" id="accommodationContent" style="height: 100px"></textarea>
+            <textarea class="form-control bg-white border-0" id="accommodationContent" name="accommodationContent" placeholder="Special Request" style="height: 100px" th:text="${accommodation.getContent()}"></textarea>
             <label for="accommodationContent">숙소 소개글</label>
           </div>
         </div>
@@ -89,8 +89,8 @@
                 <th:block th:each="facility : ${accommodationFacilityList}">
                   <li class="list-group-item">
                     <!-- 각 숙박 시설을 체크박스로 표시 -->
-                    <input class="accommodation-check-input form-check-input me-1" type="checkbox" th:id="'facility_' + ${facility.id}" th:value="${facility.name}" aria-label="..."
-                           th:checked="${accommodation.facilityList.contains(facility.name)}">
+                    <input aria-label="..." class="accommodation-check-input form-check-input me-1" th:checked="${accommodation.facilityList.contains(facility.name)}" th:id="'facility_' + ${facility.id}" th:value="${facility.name}"
+                           type="checkbox">
                     <label th:for="'facility_' + ${facility.id}" th:text="${facility.name}">Facility Name</label>
                   </li>
                 </th:block>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-6">
           <div class="form-floating">
-            <input name="facilityAdd" type="text" class="form-control bg-white border-0" id="facilityAdd" placeholder="facilityAdd"/>
+            <input class="form-control bg-white border-0" id="facilityAdd" name="facilityAdd" placeholder="facilityAdd" type="text"/>
             <label for="facilityAdd">추가 시설을 ,(쉼표) 를 기준으로 추가해 주세요</label>
           </div>
         </div>
@@ -114,10 +114,10 @@
 </div>
 
 
-<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
