@@ -4,6 +4,7 @@
 </head>
 <head>
     <link href="/css/adminPage.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
 <!-- Tour Booking Start (검색) -->
 <div class="container-fluid booking py-5">
     <div class="container py-5">
-        <div class="container text-center py-5" style="max-width: 900px;">
+        <div class="container text-center py-5" style="max-width: 900px;max-height: 200px">
             <h3 class="text-white display-3 mb-4">관리자 페이지</h3>
             <ol class="breadcrumb justify-content-center mb-0">
 <!--                <li class="breadcrumb-item"><a href="index.html">Home</a></li>-->
@@ -78,21 +79,20 @@
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/getAllMember?page=${currentPage - 1}}">Prev</a>
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage - 1)}}">Prev</a>
                 </li>
 
                 <!-- 페이지 번호들 -->
                 <li class="page-item"
                     th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'"
                     th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
-                    th:if="${pageNum >= currentPage - 3 and pageNum <= currentPage + 3}">
-                    <a class="page-link" th:href="@{/getAllMember?page=${pageNum}}" th:text="${pageNum + 1}"></a>
+                    th:if="${pageNum >= currentPage - 5 and pageNum <= currentPage + 5}">
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + pageNum}}" th:text="${pageNum + 1}"></a>
                 </li>
-
 
                 <!-- 다음 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/getAllMember?page=${currentPage + 1}}">Next</a>
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage + 1)}}">Next</a>
                 </li>
             </ul>
         </nav>
