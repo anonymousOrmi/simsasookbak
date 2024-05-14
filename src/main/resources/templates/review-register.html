@@ -49,6 +49,14 @@
                     <select class="form-control" id="reviewTitle" name="roomTitle" required>
                         <option th:each="roomName:${RoomNames}" th:text="${roomName}" th:value="${roomName}"></option>
                     </select>
+                    <script>
+                        const titleInput = document.getElementById('reviewTitle');
+                        let inputValue = titleInput.options[titleInput.selectedIndex];
+                        if(inputValue === undefined){
+                            alert('숙소를 예약한 적이 없어 리뷰등록이 불가합니다.');
+                        }
+
+                    </script>
                 </div>
                 <input name="accommodation" th:value="${accommodation}" type="hidden">
                 <input name="member" th:value="${member}" type="hidden">

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/head::headFragment}">
+</head>
+<head>
+    <link href="/css/adminPage.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="~{/layout/top-bar :: top}"></div>
+<div th:replace="~{/layout/navigation-bar :: nav}"></div>
+
+<!-- Tour Booking Start (검색) -->
+<div class="container-fluid booking py-5">
+    <div class="container py-5">
+        <div class="container text-center py-5" style="max-width: 900px;max-height: 200px">
+            <h3 class="text-white display-3 mb-4">관리자 페이지</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+<!--                <li class="breadcrumb-item"><a href="index.html">Home</a></li>-->
+<!--                <li class="breadcrumb-item"><a href="#">My Page</a></li>-->
+                <li class="breadcrumb-item active text-white">유저 정보 조회</li>
+            </ol>
+        </div>
+        <form action="/admin/searchMember" method="get">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword"
+                               placeholder="Your Name" type="text">
+                        <label for="keyword">유저 이름</label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary text-white w-100 py-3" type="submit"> 유저 검색</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>권한</th>
+                        <th>생년월일</th>
+                        <th>전화번호</th>
+                        <th>상태</th>
+                        <th>생성날짜</th>
+                        <th>수정날짜</th>
+                        <th>회원탈퇴</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="member : ${members}">
+                        <td th:text="${member.id}"></td>
+                        <td th:text="${member.name}"></td>
+                        <td th:text="${member.role}"></td>
+                        <td th:text="${member.birthDate}"></td>
+                        <td th:text="${member.phone}"></td>
+                        <td th:text="${member.status}"></td>
+                        <td th:text="${#strings.substring(member.createdAt, 0, 10)}"></td>
+                        <td th:text="${#strings.substring(member.updatedAt, 0, 10)}"></td>
+                        <td>
+                            <button class="btn btn-danger red cancel-register deleteButton" type="button" th:value="${member.id}">탈퇴</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 페이지네이션 추가 -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- 이전 페이지 버튼 -->
+                <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage - 1)}}">Prev</a>
+                </li>
+
+                <!-- 페이지 번호들 -->
+                <li class="page-item"
+                    th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'"
+                    th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:if="${pageNum >= currentPage - 5 and pageNum <= currentPage + 5}">
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + pageNum}}" th:text="${pageNum + 1}"></a>
+                </li>
+
+                <!-- 다음 페이지 버튼 -->
+                <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{${'/admin/getAllMember?page=' + (currentPage + 1)}}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+
+<footer th:replace="~{/layout/footer::footerFragment}"></footer>
+
+
+<!-- Back to Top -->
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
+
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+<script async src="/js/adminPage.js"></script>
+
+
+
+</body>
+
+</html>

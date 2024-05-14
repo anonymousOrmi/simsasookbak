@@ -237,5 +237,9 @@ body {
 }
 
 .disable{
-    visibility: hidden;
+    display: none;
+}
+
+.shown{
+    display: block;
 }
