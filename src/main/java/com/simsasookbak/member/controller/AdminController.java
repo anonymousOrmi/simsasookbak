@@ -67,7 +67,7 @@ public class AdminController {
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("memberId") long memberId) {
         adminService.deleteMember(memberId);
-        return "redirect:/admin"; // 관리자 페이지로 리다이렉트
+        return "redirect:/admin/getAllMember"; // 관리자 페이지로 리다이렉트
     }
 
 
