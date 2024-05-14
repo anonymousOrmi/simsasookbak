@@ -50,16 +50,25 @@ public class AdminController {
         return "adminPage";
     }
 
-    // 이름으로 유저 검색
     @GetMapping("/searchMember")
-    public String searchMemberByName(@RequestParam("keyword") String name, Model model) {
-        List<MemberResponseDto> memberDtos = adminService.searchMemberByName(name).stream()
+    public String searchMemberByName(@RequestParam("keyword") String name,
+                                     @RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "size", defaultValue = "10") int size,
+                                     Model model) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Member> membersPage = adminService.searchMemberByNamePaged(name, pageable);
+
+        List<MemberResponseDto> memberDtos = membersPage.getContent().stream()
                 .map(MemberResponseDto::toDto)
                 .collect(Collectors.toList());
 
         model.addAttribute("members", memberDtos);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", membersPage.getTotalPages());
         return "adminPage";
     }
+
 
 
 
