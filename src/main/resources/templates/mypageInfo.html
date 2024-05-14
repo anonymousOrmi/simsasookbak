@@ -34,16 +34,17 @@
                th:if="${member.role == 'ROLE_BUSINESS'}" value="사업자">
         <br>
         <div style="margin-top: 30px; display: flex; justify-content: end">
-            <button class="btn btn-primary blue"  style="margin-right: 5px" th:onclick="'updateUser('+${member.getId()}+')'" type="button">변경</button>
+            <button class="btn btn-primary blue" style="margin-right: 5px"
+                    th:onclick="'updateUser('+${member.getId()}+')'" type="button">변경
+            </button>
             <button class="btn btn-danger red" id="cancel-register" type="button">탈퇴</button>
         </div>
     </form>
 </div>
-<input id="useremail" th:value="${member.email}" type="hidden" >
+<input id="useremail" th:value="${member.email}" type="hidden">
 <!--<span sec:authentication="principal.authorities"></span>-->
 
-<footer style="margin-top: 100px">
-    <div th:replace="~{layout/footer::footerFragment}"></div>
-</footer>
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
 </body>
 </html>

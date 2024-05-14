@@ -31,8 +31,7 @@
         <div class="row">
             <!-- accommodation 리스트 반복 -->
             <div class="col-12" th:each="accommodation : ${myAccommodations}">
-                <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
-                    <a th:href="@{${'/accommodation/' + accommodation.getAccommodationId()}}">
+                <div th:onclick="|location.href='@{/accommodation/{accommodationId}(accommodationId = ${accommodation.getAccommodationId()})}'|" class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
                     <div class="service-icon p-4">
                         <i class="fa fa-globe fa-4x text-primary"></i>
                     </div>
@@ -56,9 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    </a>
                 </div>
-                </a>
             </div>
         </div>
         <div class="col-12">
