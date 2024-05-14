@@ -4,10 +4,10 @@ import static com.simsasookbak.global.util.ConvertToDateTime.convertToLocalDate;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
-import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
 import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAddRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationRegisteredResponse;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
@@ -23,6 +23,7 @@ import com.simsasookbak.room.service.RoomFacilityMappingService;
 import com.simsasookbak.room.service.RoomService;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +32,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,22 +45,22 @@ public class AccommodationService {
     private final RoomService roomService;
     private final RoomFacilityMappingService roomFacilityMappingService;
 
-public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
-    Pageable pageable = PageRequest.of(pageNum, 16);
-    String keyword = request.getKeyword();
-    Page<AccommodationView> page;
-    if (request.isEmptyAllDates() && StringUtils.isNotBlank(keyword)) {
-        page = accommodationRepository.findAllByKeyword(keyword.trim(), pageable);
-    } else {
-        page = accommodationRepository.findAllByStartDateAndEndDate(
-                Strings.isBlank(request.getStartDate()) ? null : convertToLocalDate(request.getStartDate()),
-                Strings.isBlank(request.getEndDate()) ? null : convertToLocalDate(request.getEndDate()),
-                StringUtils.isBlank(keyword) ? keyword : keyword.trim(),
-                pageable
-        );
+    public Page<AccommodationResponse> searchAccommodations(AccommodationRequest request, int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 16);
+        String keyword = request.getKeyword();
+        Page<AccommodationView> page;
+        if (request.isEmptyAllDates() && StringUtils.isNotBlank(keyword)) {
+            page = accommodationRepository.findAllByKeyword(keyword.trim(), pageable);
+        } else {
+            page = accommodationRepository.findAllByStartDateAndEndDate(
+                    Strings.isBlank(request.getStartDate()) ? null : convertToLocalDate(request.getStartDate()),
+                    Strings.isBlank(request.getEndDate()) ? null : convertToLocalDate(request.getEndDate()),
+                    StringUtils.isBlank(keyword) ? keyword : keyword.trim(),
+                    pageable
+            );
+        }
+        return page.map(AccommodationResponse::new);
     }
-    return page.map(AccommodationResponse::new);
-}
 
     public List<AccommodationDto> getHighScoreAccommodation() {
         // 상위 6개의 accommodation ID를 가져오기
@@ -67,10 +69,12 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         // 상위 6개의 accommodation ID와 일치하는 accommodation DTO 리스트를 반환합니다.
         List<AccommodationDto> highScoreAccommodations = topSixAccommodations.stream()
                 .map(scoreAverageDto -> {
-                    Accommodation accommodation = accommodationRepository.findAccommodationById(scoreAverageDto.getAccommodationId());
+                    Accommodation accommodation = accommodationRepository.findAccommodationById(
+                            scoreAverageDto.getAccommodationId());
                     if (accommodation != null && !accommodation.getIsDeleted()) {
                         List<String> facilityList = findAccommodationFacilityById(accommodation.getId());
-                        AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation, facilityList);
+                        AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation,
+                                facilityList);
                         accommodationDto.setAverageScore(scoreAverageDto.getAverageScore());
 
                         // 이미지 URL 추가
@@ -107,11 +111,13 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
 
 
     public List<AccommodationRegisteredResponse> findMyAccommodations(Long memberId) {
-        return accommodationRepository.findByMemberId(memberId).stream().map(AccommodationRegisteredResponse::new).collect(
-                Collectors.toList());
+        return accommodationRepository.findByMemberId(memberId).stream().map(AccommodationRegisteredResponse::new)
+                .collect(
+                        Collectors.toList());
     }
 
-    public AccommodationAddResponseDto save(Member member, AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
+    public AccommodationAddResponseDto save(Member member,
+                                            AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
         AccommodationAddRequestDto accommodationRequest = accommodationAndRoomsAddRequestDto.getAccommodationAddRequestDto();
         List<RoomAddRequestDto> roomAddRequestDtoList = accommodationAndRoomsAddRequestDto.getRoomAddRequestDtoList();
 
@@ -120,7 +126,7 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         Accommodation savedAccommodation = accommodationRepository.save(accommodation);
         accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
 
-        for(RoomAddRequestDto roomRequest : roomAddRequestDtoList) {
+        for (RoomAddRequestDto roomRequest : roomAddRequestDtoList) {
             Room room = roomRequest.toEntity(accommodation);
             List<String> roomFacilityList = roomRequest.getFacilityList();
             Room savedRoom = roomService.save(room);
@@ -136,8 +142,10 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         return accommodationRepository.findById(accommodationId).orElseThrow();
     }
 
-    public void updateAccommodation(Long accommodationId, AccommodationUpdateDto accommodationUpdateDto) {
+    public void updateAccommodation(Member member, Long accommodationId,
+                                    AccommodationUpdateDto accommodationUpdateDto) {
         Accommodation accommodation = findById(accommodationId);
+        checkMemberValid(member, accommodation);
         accommodation.update(accommodationUpdateDto);
         List<String> accommodationFacilityList = accommodationUpdateDto.getFacilityList();
         publisher.publishEvent(new RegistrationEvent(this, accommodation.getId()));
@@ -145,6 +153,12 @@ public Page<AccommodationResponse> searchAccommodations(AccommodationRequest req
         accommodationFacilityMappingService.deleteMapping(accommodationId);
 
         accommodationFacilityMappingService.registerMapping(accommodation, accommodationFacilityList);
+    }
+
+    private void checkMemberValid(Member member, Accommodation accommodation) {
+        if (!Objects.equals(member.getId(), accommodation.getMember().getId())) {
+            throw new AccessDeniedException("자신의 숙소만 수정할 수 있습니다.");
+        }
     }
 
     public List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime) {

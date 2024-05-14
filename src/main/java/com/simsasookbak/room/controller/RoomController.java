@@ -1,12 +1,14 @@
 package com.simsasookbak.room.controller;
 
 import com.simsasookbak.global.aop.MethodInvocationLimit;
+import com.simsasookbak.member.domain.Member;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.dto.RoomUpdateDto;
 import com.simsasookbak.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,10 +29,10 @@ public class RoomController {
 
     @MethodInvocationLimit
     @PutMapping("/room/{roomId}/roomUpdate")
-    public ResponseEntity<RoomUpdateDto> updateRoom(@PathVariable Long roomId, @RequestBody
+    public ResponseEntity<RoomUpdateDto> updateRoom(@AuthenticationPrincipal Member member, @PathVariable Long roomId, @RequestBody
     RoomUpdateDto accommodationUpdateDto) {
 
-        roomService.updateRoom(roomId, accommodationUpdateDto);
+        roomService.updateRoom(member, roomId, accommodationUpdateDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(accommodationUpdateDto);
     }
