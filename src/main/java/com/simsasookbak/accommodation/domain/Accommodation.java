@@ -87,4 +87,8 @@ public class Accommodation extends BaseEntity {
 		this.address = requestDto.getAddress();
 	}
 
+	public void changeToDelete(){
+		this.isDeleted=true;
+	}
+
 }

@@ -64,4 +64,8 @@ public class Room extends BaseEntity {
 		this.content = updateDto.getContent();
 		this.useGuide = updateDto.getUseGuide();
 	}
+
+	public void changeToDelete(){
+		this.isDeleted=true;
+	}
 }

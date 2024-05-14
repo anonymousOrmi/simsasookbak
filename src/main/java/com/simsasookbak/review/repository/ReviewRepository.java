@@ -30,6 +30,8 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
             "ORDER BY AVG(r.score) DESC, r.accommodation.id DESC")
     List<ScoreAverageDto> findAverageScoreByAccommodationId();
 
+    List<Review> findAllByMember_Id(Long memberId);
+
 
 //    @Query("SELECT ScoreAverageDto(r.accommodation.id, AVG(r.score)) FROM Review r GROUP BY r.accommodation.id ORDER BY AVG(r.score) DESC, r.accommodation.id DESC")
 //    List<ScoreAverageDto> findAverageScoreByAccommodationId();

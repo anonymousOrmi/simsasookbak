@@ -4,17 +4,17 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.service.ReviewService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +27,9 @@ public class ReviewController {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
     @PostMapping("/review/register/{acom_id}")
     public String registReview(@ModelAttribute Review review, MultipartFile[] file, @PathVariable Long acom_id){
         log.info("{}",review.getId());
@@ -36,7 +39,6 @@ public class ReviewController {
 
         log.error("파일이 들어왔는지 확인 {}",file);
 
-//        if(!Objects.equals(file.getOriginalFilename(), "")) {
         if(!Arrays.stream(file).filter(x-> !Objects.equals(x.getOriginalFilename(), "")).toList().isEmpty()) {
             try {
                 String[] fileNames = new String[file.length];
@@ -47,7 +49,7 @@ public class ReviewController {
                 }
                 for(int i =0; i< file.length; i++){
                     fileNames[i] = file[i].getOriginalFilename();
-                    fileUrls[i] = "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + fileNames[i];
+                    fileUrls[i] = "https://" + bucket +  ".s3." + region + ".amazonaws.com/" + fileNames[i];
                     metadata[i].setContentType(file[i].getContentType());
                     metadata[i].setContentLength(file[i].getSize());
                 }

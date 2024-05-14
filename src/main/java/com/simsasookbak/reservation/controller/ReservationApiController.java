@@ -4,6 +4,7 @@ import com.simsasookbak.email.domain.MailType;
 import com.simsasookbak.email.service.MailService;
 import com.simsasookbak.reservation.dto.ReservationUpdateRequest;
 import com.simsasookbak.reservation.service.ReservationService;
+import jakarta.mail.MessagingException;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,13 @@ public class ReservationApiController {
 
         reservationService.updateReservation(reservationId, startDate, endDate, requestMessage);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/approve/{reservationId}")
+    public ResponseEntity<Void> approveReservation(@PathVariable Long reservationId) throws MessagingException {
+        reservationService.approveReservation(reservationId);
+        mailService.sendMail(MailType.RESERVATION_APPROVAL, reservationId);
         return ResponseEntity.ok().build();
     }
 }

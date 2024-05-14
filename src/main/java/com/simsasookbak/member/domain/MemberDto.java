@@ -2,11 +2,12 @@ package com.simsasookbak.member.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 public class MemberDto {
 
     Long id;
@@ -21,7 +22,7 @@ public class MemberDto {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.role = role.toString();
+        this.role = role.getName();
         this.birthDate = birthDate;
         this.phone = phone;
     }

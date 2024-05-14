@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -28,11 +28,15 @@
         <h3 style="margin-top: 15px">권한</h3>
         <input class="border-box" disabled name="role" th:value="${member.role}">
         <br>
+        <button class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px" type="button" th:onclick="'updateUser('+${member.getId()}+')'">변경</button>
     </form>
-    <button class="btn btn-primary blue" style="margin-top: 30px; margin-bottom: -10px" type="button" th:onclick="'updateUser('+${member.getId()}+')'">변경</button>
     <button class="btn btn-danger red" id="cancel-register" style="position: absolute;top: 675px" type="button">탈퇴</button>
 </div>
 <input id="useremail" th:value="${member.email}" type="hidden" >
 <!--<span sec:authentication="principal.authorities"></span>-->
+
+<footer style="margin-top: 100px">
+    <div th:replace="~{/layout/footer::footerFragment}"></div>
+</footer>
 </body>
 </html>

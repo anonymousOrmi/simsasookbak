@@ -23,6 +23,28 @@ SET @member_id_jeong = LAST_INSERT_ID();
 INSERT INTO member (email, name, role, birth_date, password, status, phone)
 VALUES ('test6@gmail.com', '최보현', 'BUSINESS', '2000-08-01', '$2a$12$qU9kKWpGjrbmgavQU4/VOeU3CHBIqgpEuDHo4JvvENKX5ZfhhPUWe', '일반', '010-6785-3452');
 SET @member_id_choi = LAST_INSERT_ID();
+
+--추가 --
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test7@gmail.com', '유재석', 'BUSINESS', '2000-08-01', '$2a$12$ecuVAeY60hU12hUKJqLw2.9ZQtZHXeBCyDmk9pT63lK7HP1Uf5pyC', '일반', '010-6785-3452');
+SET @member_id_yu = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test8@gmail.com', '정형돈', 'USER', '2000-08-01', '$2a$12$fZxx/VotwmLdEbz/Csouiuk5APTwPl2HSf09Uo4C1rWk1vb5BtsqO', '일반', '010-6785-3452');
+SET @member_id_yu = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test9@gmail.com', '노홍철', 'BUSINESS', '2000-08-01', '$2a$12$PiBrP7ZaokzPNzETdDvNZOwmhAVFoAht16NQgBNTMmkP5bPUwAvkW', '일반', '010-6785-3452');
+SET @member_id_no = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('test10@gmail.com', '박명수', 'BUSINESS', '2000-08-01', '$2a$12$5hRKU27PvUptfKBo0z5KUOkA/IxCo9AwTyD2fVnCIwMA0hMJYcP9G', '일반', '010-6785-3452');
+SET @member_id_park2 = LAST_INSERT_ID();
+
+INSERT INTO member (email, name, role, birth_date, password, status, phone)
+VALUES ('tes11@gmail.com', '정준하', 'BUSINESS', '2000-08-01', '$2a$12$.WFOztLxY/K5ulKHFpPcp.sDJQk.s4sgT2zINkKkwTkDhyr16fV4.', '일반', '010-6785-3452');
+SET @member_id_jung = LAST_INSERT_ID();
+
 --member end
 
 --accommodation start
@@ -143,7 +165,7 @@ VALUES (1,'1번 숙소의 외부 요약'),(2,'2번 숙소의 외부 요약'),(3,
 INSERT INTO internal_summary (accommodation_id, summary)
 VALUES (1,'1번 숙소의 내부 요약'),(2,'2번 숙소의 내부 요약'),(3,'3번 숙소의 내부 요약');
 --internal summary end
---
+
 -- -- INSERT INTO member (email, name, password, role, birth_date, status, phone) VALUES
 -- --                                                                                 ('user1@example.com', 'User 1', 'password1', '이용자', '1990-01-01', '일반', '010-1234-5678'),
 -- --                                                                                 ('user2@example.com', 'User 2', 'password2', '이용자', '1995-05-15', '일반', '010-2345-6789');

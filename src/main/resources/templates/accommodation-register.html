@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko-KR">
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/layout/head::headFragment}"></head>
 <body>
 
@@ -24,12 +24,12 @@
     <div class="container-fluid booking py-5">
         <div class="container py-5">
             <h1 class="text-white mb-3">숙소 정보</h1>
-            <form id="registerForm" method="post" th:action="@{/accommodation/registerPage/register}">
+            <form enctype="multipart/form-data" id="registerForm" method="post" th:action="@{/accommodation/registerPage/register}">
                 <!-- 숙소 영역 -->
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label class="form-label" for="imageInput">이미지 업로드</label>
-                        <input accept="image/*" class="form-control" id="imageInput" multiple type="file">
+                        <input accept="image/*" class="form-control" id="imageInput" multiple onchange="addFile(this);" type="file" name="file">
                     </div>
                     <div class="col-md-9"></div> <!-- 공백 위한 것 -->
                     <div class="col-md-2">
@@ -253,6 +253,8 @@
             }
         });
         console.log(facilityList);
+        console.log(`파일 인풋${document.getElementById('imageInput')}`);
+        console.log(`파일 인풋${formData.get('imageInput')}`);
         // 숙소 정보 수집
         var accommodationAddRequestDto = {
             name: formData.get('accommodationName'),
@@ -313,25 +315,42 @@
         fetch(this.action, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 accommodationAddRequestDto: accommodationAddRequestDto,
                 roomAddRequestDtoList: roomAddRequestDtoList
             })
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                const responseAccommId = await response.json();
+                console.log(`리스폰스 응답 ${responseAccommId}, ${typeof responseAccommId}`)
+                console.log(document.getElementById('imageInput').files);
                 // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
-                alert('숙소 등록이 완료되었습니다.');
-                //TODO: 어디로 보내지
-                window.location.href = '/';
+                let files = document.getElementById('imageInput').files;
+                let formData2 = new FormData();
+                // const upload = () => {
+                for (let i = 0; i < files.length; i++) {
+                    formData2.append('file', files[i]);
+                }
+                // }
+
+                fetch(`/accommodation/image/file/register/${responseAccommId}`,{
+                    method:'POST',
+                    // headers:{'Content-Type' : 'multipart/form-data'},
+                    body: formData2
+                }).then(()=>{
+                    alert('숙소 등록이 완료되었습니다.');
+                });
+
+
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('숙소 등록 중 오류가 발생하였습니다. 입력한 정보를 확인해 주세요');
+                alert('숙소 등록 중 오류가 발생하였습니다. 입력하신 정보가 잘못된 형식이거나 여러번 요청을 반복하실 수 없습니다');
             });
     });
 </script>

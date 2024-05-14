@@ -1,0 +1,24 @@
+.adminPageTitle{
+    color: whitesmoke;
+}
+
+.row{
+    justify-content: center;
+}
+.table{
+    color: white;
+    text-align: center;
+
+}
+.py-5{
+    padding-bottom: 5.3rem !important;
+}
+@media (min-width: 768px) {
+    .text-md-end {
+         text-align: center;
+    }
+}
+
+.card-body{
+    padding: 2rem 1rem;
+}
