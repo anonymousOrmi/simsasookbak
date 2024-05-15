@@ -13,6 +13,8 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
@@ -69,6 +71,15 @@ public class AdminService {
         List<Review> reviewList = reviewRepository.findAllByMember_Id(memberId);
         reviewList.forEach(Review::changeToDelete);
 
+    }
+
+    //권한 변경
+    public void saveRole(Long memberId, Role newRole) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
+
+        member.updateRole(newRole);
+        memberRepository.save(member);
     }
 
 

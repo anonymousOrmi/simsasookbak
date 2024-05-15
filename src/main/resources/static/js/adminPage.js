@@ -19,3 +19,28 @@ $(document).on('click', '.deleteButton', function() {
         });
     }
 });
+
+
+function updateRole(select) {
+    var memberId = parseInt(select.id.replace('selectRole', ''));
+    var newRole = select.value;
+
+    console.log("memberId: " + memberId);
+    console.log("newRole: " + newRole);
+
+    $.ajax({
+        type: "POST",
+        url: "/admin/updateRole",
+        data: {
+            memberId: memberId,
+            role: newRole
+        },
+        success: function(response) {
+            alert("권한 변경이 완료되었습니다.");
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
