@@ -54,17 +54,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${members}">
+                    <tr th:each="member : ${members}" th:if="${#strings.toString(member.role) != 'ADMIN'}">
                         <td th:text="${member.name}"></td>
                         <td th:switch="${#strings.toString(member.role)}">
                             <span th:case="'USER'">사용자</span>
-                            <span th:case="'ADMIN'">관리자</span>
                             <span th:case="'BUSINESS'">사업자</span>
                             <span th:case="'LEAVER'">탈퇴자</span>
                         </td>
-
                         <td>
-                        <select class="form-select bg-white border-0" th:id="'selectRole' + ${member.id}" onchange="updateRole(this)">
+                            <select class="form-select bg-white border-0" th:id="'selectRole' + ${member.id}" onchange="updateRole(this)">
                                 <option th:each="role : ${T(com.simsasookbak.member.domain.Role).values()}"
                                         th:unless="${role.name() == 'ADMIN'}"
                                         th:value="${role.name()}"
@@ -72,7 +70,6 @@
                                         th:data-member-id="${member.id}"
                                         th:data-role-name="${role}">
                                 </option>
-
                             </select>
                         </td>
                         <td th:text="${member.birthDate}"></td>
@@ -84,6 +81,7 @@
                             <button class="btn btn-danger red cancel-register deleteButton" th:value="${member.id}" type="button">탈퇴</button>
                         </td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>
