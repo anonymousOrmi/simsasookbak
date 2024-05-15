@@ -91,7 +91,7 @@
         </div>
 
         <!-- 페이지네이션 추가 -->
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" th:if="${members.isEmpty() == false}">
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
