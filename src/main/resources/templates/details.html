@@ -180,10 +180,11 @@
                                             <div class="col-md-2" style="font-size: 15px;"
                                                  th:text="'별점 : '+ ${review.getScore()}">
                                             </div>
-                                            <div class="btn-area col-md-2">
-                                                <button class="btn btn-primary" id="modify-btn"
+                                            <div class="btn-area col-md-2" id="review-button-container">
+                                                                                                <button class="btn btn-primary" id="modify-btn"
                                                         th:if="${review.getMemberId() == #authentication.getName()}"
                                                         th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|" type="button" >수정</button>
+                                                <button class="btn btn-primary" type="button">삭제</button>
                                             </div>
                                         </div>
                                     </div>

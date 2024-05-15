@@ -66,7 +66,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
     );
 
     @Query("SELECT a FROM Accommodation a WHERE a.id = :id AND a.isDeleted = false")
-    Accommodation findAccommodationById(Long id);
+    Accommodation findAccommodationById(@Param("id") Long id);
 
     @Query("SELECT a.url FROM AccommodationImage a WHERE a.accommodation.id = :acom_id")
     List<String> findImgByAcomId(@Param("acom_id") Long acom_id);
