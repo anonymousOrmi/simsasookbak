@@ -92,6 +92,15 @@
     color: var(--bs-secondary) !important;
 }
 
+#review-button-container {
+    margin-left: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    min-width: 200px;
+    align-items: center;
+}
+
 /*** Section Title Start ***/
 .section-title {
     position: relative;
