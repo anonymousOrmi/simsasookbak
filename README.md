@@ -14,7 +14,8 @@
 
 ## 개발 일정
 
-![TimelineGanttOverviewSection_1](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/390fc0fd-0a25-40a9-98e2-8eabe02310d6)
+![TimelineGanttOverviewSection](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/9de4fc09-4186-4d5a-ad34-40bbdb1902ab)
+
 
 
 
@@ -75,7 +76,8 @@ DB
 `TBU.`
 
 ## :factory: Architecture
-<img width="1976" alt="심사숙박_시스템_구성도" src="https://github.com/anonymousOrmi/simsasookbak/assets/148677085/f114e789-4bbe-4308-8b49-b1a32cf712cb">
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/846397ab-8595-49e4-b3fd-58e04116b200)
+
 
 ##  프로젝트 구조
 ### FE + BE
