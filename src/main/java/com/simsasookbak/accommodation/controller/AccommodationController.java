@@ -4,9 +4,9 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.simsasookbak.accommodation.domain.AccommodationImage;
 import com.simsasookbak.accommodation.dto.AccommodationDto;
-import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
-import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
 import com.simsasookbak.accommodation.dto.AccommodationUpdateDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationAndRoomsAddRequestDto;
+import com.simsasookbak.accommodation.dto.request.AccommodationRequest;
 import com.simsasookbak.accommodation.dto.response.AccommodationAddResponseDto;
 import com.simsasookbak.accommodation.dto.response.AccommodationResponse;
 import com.simsasookbak.accommodation.service.AccommodationImageService;
@@ -18,21 +18,17 @@ import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
 import com.simsasookbak.room.dto.RoomDto;
 import com.simsasookbak.room.service.RoomService;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,15 +98,24 @@ public class AccommodationController {
 
 
     //리뷰 등록 페이지 이동
-    @GetMapping("/{acom_id}/comment")
-    public String review(@PathVariable Long acom_id, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member) authentication.getPrincipal();
-        model.addAttribute("accommodation", acom_id);
+    @GetMapping("/{accommodationId}/comment")
+    public String review(
+            @AuthenticationPrincipal Member member,
+            @PathVariable Long accommodationId,
+            @RequestParam(value = "id", required = false) Long id,
+            Model model
+    ) {
+        if (id != null) {
+            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId());
+            model.addAttribute("reviewWithImages", reviewWithImages);
+        }
+
+        model.addAttribute("accommodation", accommodationId);
         model.addAttribute("member", member.getId());
-        model.addAttribute("RoomNames", reservationService.getReservationRoomName(acom_id, member.getId()));
+        model.addAttribute("RoomNames", reservationService.getReservationRoomName(accommodationId, member.getId()));
         return "review-register";
     }
+
 
     @MethodInvocationLimit
     @PostMapping("/registerPage/register")

@@ -56,10 +56,14 @@ public class Review extends BaseEntity {
     @ColumnDefault("'일반실'")
     private String roomTitle;
 
-    /*`summary_id`	bigint	NOT NULL*/
-
-
     public void changeToDelete(){
         this.isDeleted=true;
+    }
+    public void modify(
+            String content,
+            Integer score
+    ) {
+        this.content = content;
+        this.score = score;
     }
 }
