@@ -47,7 +47,7 @@ public class Accommodation extends BaseEntity {
     @Column(name = "region", length = 10, nullable = false)
     private String region;
 
-    @Column(name = "address", length = 20, nullable = false)
+    @Column(name = "address", length = 50, nullable = false)
     private String address;
 
     @Column(name = "check_in", nullable = false)
