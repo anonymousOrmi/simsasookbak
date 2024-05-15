@@ -112,18 +112,18 @@ VALUES (@member_id_jeong, @accommodation_id_daejeon, @room_id_three, '대기', '
 
 --review start
 
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_park, @accommodation_id_seoul, '침대가 좋아요',5,0,'일반');
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_park, @accommodation_id_seoul, '배게가 좋아요',5,0,'일반');
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_park, @accommodation_id_seoul, '온수가 좋아요',5,0,'일반');
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_lee, @accommodation_id_cheongju, '전체적으로 디자인이 좋았습니다',4,0,'일반');
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_lee, @accommodation_id_daejeon, '이 방 다신 예약 안합니다',1,0,'일반');
-INSERT INTO review (member_id, accommodation_id, content, score, is_deleted, room_title)
-VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,0,'일반');
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_park, @accommodation_id_seoul, '침대가 좋아요',5,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_park, @accommodation_id_seoul, '배게가 좋아요',5,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_park, @accommodation_id_seoul, '온수가 좋아요',5,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_lee, @accommodation_id_cheongju, '전체적으로 디자인이 좋았습니다',4,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_lee, @accommodation_id_daejeon, '이 방 다신 예약 안합니다',1,0);
+INSERT INTO review (member_id, accommodation_id, content, score, is_deleted)
+VALUES (@member_id_jeong, @accommodation_id_daejeon, '그냥 그랬습니다',3,0);
 
 --review end
 

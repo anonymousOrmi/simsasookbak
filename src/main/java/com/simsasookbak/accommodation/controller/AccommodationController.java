@@ -106,7 +106,7 @@ public class AccommodationController {
             Model model
     ) {
         if (id != null) {
-            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId());
+            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId(),accommodationId);
             model.addAttribute("reviewWithImages", reviewWithImages);
         }
 
