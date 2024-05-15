@@ -14,7 +14,8 @@
 
 ## 개발 일정
 
-[TimelineGanttOverviewSection.pdf](https://github.com/anonymousOrmi/simsasookbak/files/15318126/TimelineGanttOverviewSection.pdf)
+![TimelineGanttOverviewSection_1](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/390fc0fd-0a25-40a9-98e2-8eabe02310d6)
+
 
 
 ## 🌱 개발 언어 및 활용 기술
