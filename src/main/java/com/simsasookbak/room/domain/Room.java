@@ -44,10 +44,10 @@ public class Room extends BaseEntity {
 	@Column(name ="cost", nullable = false)
 	private Integer cost;
 
-	@Column(name = "content", length = 2000, nullable = false)
+	@Column(name = "content", length = 1000, nullable = false)
 	private String content;
 
-	@Column(name = "use_guide", length = 2000, nullable = false)
+	@Column(name = "use_guide", length = 1000, nullable = false)
 	private String useGuide;
 
 

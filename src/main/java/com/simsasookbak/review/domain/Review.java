@@ -40,7 +40,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
-    @Column(name = "content", length = 3000, nullable = false)
+    @Column(name = "content", length = 300, nullable = false)
     private String content;
 
     @Column(name = "score", nullable = false)

@@ -29,7 +29,7 @@ public class ExternalSummary extends BaseEntity {
     @Column(name = "external_summary_id")
     private Long id;
 
-    @Column(name = "summary", length = 10000, nullable = false)
+    @Column(name = "summary", length = 1000, nullable = false)
     @Comment("외부 사이트 리뷰 요약")
     private String summary;
 
