@@ -1,9 +1,7 @@
 package com.simsasookbak.accommodation.dto.request;
 
 import com.simsasookbak.accommodation.domain.Accommodation;
-import com.simsasookbak.accommodation.domain.AccommodationFacility;
 import com.simsasookbak.member.domain.Member;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

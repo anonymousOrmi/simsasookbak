@@ -7,8 +7,10 @@ import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import com.simsasookbak.review.repository.ReviewImageRepository;
 import com.simsasookbak.review.repository.ReviewRepository;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,12 +47,12 @@ public class ReviewService {
             reviewDto.setFormattedCreatedAt(reviewDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             reviewDto.setFormattedUpdatedAt(reviewDto.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
-         return reviewList;
+        return reviewList;
     }
+
     public List<ScoreAverageDto> findScoreSixAccommodation() {
 //         accommodation ID별 평균 점수를 조회합니다.
         List<ScoreAverageDto> averageScoresByAccommodationId = reviewRepository.findAverageScoreByAccommodationId();
-
 
         for (ScoreAverageDto scoreAverageDto : averageScoresByAccommodationId) {
             Long accommodationId = scoreAverageDto.getAccommodationId();
@@ -61,20 +63,31 @@ public class ReviewService {
     }
 
     @Transactional
-    public Review registComment(Review review){
+    public Review registComment(Review review) {
         return reviewRepository.save(review);
     }
 
 
-
     @Transactional
-    public void registReviewImage(String url,Long reviewId){
-        ReviewImage reviewImage = new ReviewImage(reviewRepository.findById(reviewId).orElseThrow(),url);
+    public void registReviewImage(String url, Long reviewId) {
+        ReviewImage reviewImage = new ReviewImage(reviewRepository.findById(reviewId).orElseThrow(), url);
         reviewImageRepository.save(reviewImage);
     }
 
-    public List<ReviewImage> findAllImageByReviewId(Review reviewId){
+    public List<ReviewImage> findAllImageByReviewId(Review reviewId) {
         return reviewImageRepository.findAllByReview(reviewId);
+    }
+
+    public List<Review> findTop3ReviewsByAccommodationIdAndCreatedAt(Long accommodationId) {
+        LocalDateTime lastSevenDays = LocalDateTime.now().minusDays(7);
+        List<Review> reviews = reviewRepository.findReviewsByAccommodationIdAndCreatedAt(accommodationId,
+                lastSevenDays);
+
+        if (reviews.size() > 3) {
+            return reviews.subList(0, 3);
+        } else {
+            return reviews;
+        }
     }
 
     @Transactional
@@ -82,5 +95,16 @@ public class ReviewService {
         Review review = reviewRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         review.modify(content, score);
         return review;
+    }
+
+
+    public Double getAccommodationScore(Long accommodationId) {
+        return reviewRepository.findAverageScoreByAccommodationId(accommodationId).orElse(0.0);
+
+    @Transactional
+    public void deleteReviewById(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(IllegalArgumentException::new);
+        review.changeToDelete();
+
     }
 }

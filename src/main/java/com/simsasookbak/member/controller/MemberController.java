@@ -30,11 +30,11 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping(value = "/member/register")
-    public ResponseEntity<String> regist(@RequestBody RegisterDto member){
-        try{
+    public ResponseEntity<String> register(@RequestBody RegisterDto member) {
+        try {
             memberService.register(member.toEntity());
             return ResponseEntity.ok().body(member.toString());
-        }catch (IllegalArgumentException | DataIntegrityViolationException ex){
+        } catch (IllegalArgumentException | DataIntegrityViolationException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
@@ -43,15 +43,15 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler()
                 .logout(request, response, SecurityContextHolder.getContext()
-                .getAuthentication());
+                        .getAuthentication());
         return "redirect:/";
     }
 
     @ResponseBody
     @PostMapping("/email/check/message")
-    public ResponseEntity<String> ckeckEmailAddress(@RequestBody Map<String,String> email) throws MessagingException {
+    public ResponseEntity<String> checkEmailAddress(@RequestBody Map<String, String> email) throws MessagingException {
 
-        if(!memberService.isInDb(email.get("email"))) {
+        if (!memberService.isInDb(email.get("email"))) {
             String randomInt = memberService.makeRandomInt();
             MimeMessage message = mailSender.createMimeMessage();
             message.setSubject("[simsasookbak] 본인 이메일을 인증해 주세요"); // 메일 제목
@@ -63,27 +63,27 @@ public class MemberController {
             message.setText(body, "UTF-8", "html");
             mailSender.send(message);
             return ResponseEntity.ok(randomInt);
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일이 이미 가입되어있습니다.");
         }
     }
 
     @ResponseBody
     @PostMapping("/member/check/{email}/{password}")
-    public ResponseEntity<Boolean> checkIdAndPasswordValidate(@PathVariable String email, @PathVariable String password){
-        if(!memberService.isInDb(email) || !memberService.checkLogin(password,email)){
+    public ResponseEntity<Boolean> checkIdAndPasswordValidate(@PathVariable String email,
+                                                              @PathVariable String password) {
+        if (!memberService.isInDb(email) || !memberService.checkLogin(password, email)) {
             return ResponseEntity.ok(false);
-        }else{
+        } else {
             return ResponseEntity.ok(true);
         }
     }
 
     /* *
-    * 페이지
-    *  */
+     * 페이지
+     *  */
     @GetMapping("/login")
-    public String registerPage(){
+    public String registerPage() {
         return "login";
     }
-
 }

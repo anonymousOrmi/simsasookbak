@@ -51,7 +51,4 @@ public class MailService {
         MimeMessage mailMessage = createMailMessage(type, reservation);
         mailSender.send(mailMessage);
     }
-
-
-
 }

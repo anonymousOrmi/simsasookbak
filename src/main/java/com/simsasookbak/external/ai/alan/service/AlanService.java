@@ -12,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 @Transactional
 public class AlanService {
-
     @Value("${ALAN_ONE_URL}")
     private String URL;
 
@@ -20,7 +19,6 @@ public class AlanService {
     private String CLIENT_ID;
 
     private final RestTemplate restTemplate;
-
 
     public AlanResponseDto getAlan(String content) {
         String uri = UriComponentsBuilder

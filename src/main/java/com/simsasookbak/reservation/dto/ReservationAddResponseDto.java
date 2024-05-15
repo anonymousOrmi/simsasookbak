@@ -30,5 +30,4 @@ public class ReservationAddResponseDto {
         this.endDate = reservation.getEndDate();
         this.request = reservation.getRequest();
     }
-
 }
