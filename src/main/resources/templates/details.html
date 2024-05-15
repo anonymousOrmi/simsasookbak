@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko-KR" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{layout/head::headFragment}"></head>
 
@@ -172,24 +172,29 @@
                     <div class="row g-3">
                         <div class="border border-primary rounded p-3" th:each="review:${reviewList}" th:unless="${review.isDeleted}">
                             <div class="container py-5">
-                                <div class="row g-3">
-                                    <div class="col-md-6 text-md-start text-center" style="font-size: 20px;"
+                                <div class="row g-3 d-flex">
+                                    <div class="col-md-6" style="font-size: 20px;"
                                          th:text="${review.roomTitle}">
                                     </div>
-                                    <div class="col-md-6 text-md-end text-center">
+                                    <div class="col-md-6 justify-content-between">
                                         <div class="row g-3">
-                                            <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="${review.getMemberName()}">
+                                            <div class="col-md-2" style="font-size: 15px;" th:text="'글쓴이 : ' + ${review.getMemberName()}">
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'생성일자 : '+ ${review.getFormattedCreatedAt()}">
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'작성일 : '+ ${review.getFormattedCreatedAt()}">
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'수정일자 : '+ ${review.getFormattedUpdatedAt()}">
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'수정일 : '+ ${review.getFormattedUpdatedAt()}">
                                                 수정일
                                             </div>
-                                            <div class="col-md-3" style="font-size: 15px;"
-                                                 th:text="'별점'+ ${review.getScore()}">
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'별점 : '+ ${review.getScore()}">
+                                            </div>
+                                            <div class="btn-area col-md-2" id="review-button-container">
+                                                                                                <button class="btn btn-primary" id="modify-btn"
+                                                        th:if="${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|" type="button" >수정</button>
+                                                <button class="btn btn-primary" type="button">삭제</button>
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +220,7 @@
         </div>
         <div class="text-center">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" id="moreButton" style="margin-right: 20px">리뷰 더보기</a>
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()}+'/comment'}">리뷰 등록</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰 등록</a>
         </div>
     </div>
 </div>
@@ -266,6 +271,7 @@
         }
     });
 </script>
+
 </body>
 
 </html>

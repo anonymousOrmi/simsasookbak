@@ -28,12 +28,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,15 +99,23 @@ public class AccommodationController {
 
     //리뷰 등록 페이지 이동
     @GetMapping("/{accommodationId}/comment")
-    public String review(@PathVariable Long accommodationId, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Member member = (Member) authentication.getPrincipal();
+    public String review(
+            @AuthenticationPrincipal Member member,
+            @PathVariable Long accommodationId,
+            @RequestParam(value = "id", required = false) Long id,
+            Model model
+    ) {
+        if (id != null) {
+            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId());
+            model.addAttribute("reviewWithImages", reviewWithImages);
+        }
+
         model.addAttribute("accommodation", accommodationId);
         model.addAttribute("member", member.getId());
         model.addAttribute("RoomNames", reservationService.getReservationRoomName(accommodationId, member.getId()));
-
         return "review-register";
     }
+
 
     @MethodInvocationLimit
     @PostMapping("/registerPage/register")

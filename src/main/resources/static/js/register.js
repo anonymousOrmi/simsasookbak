@@ -132,7 +132,7 @@ emailCheckBtn.addEventListener('click', ()=>{
                 const inputLabelEnable = document.getElementById('email-check-input-label');
                 // inputEnable.classList.remove('disable')
                 // inputLabelEnable.classList.remove('disable');
-                inputEnable.style.cssText="display:block";
+                inputEnable.style.cssText="display:block; width:90%";
                 inputLabelEnable.style.cssText="display:block";
                 emailCheckValue = email;
                 emailcheckResponse = await response.json();

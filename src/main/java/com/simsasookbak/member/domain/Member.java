@@ -20,12 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 @Entity
 @Table(name="member")
@@ -134,5 +131,9 @@ public class Member extends BaseEntity implements UserDetails {
         this.status="탈퇴";
         createAuthorities(Role.LEAVER);
         this.role=Role.LEAVER;
+    }
+
+    public void updateRole(Role newRole){
+        this.role = newRole;
     }
 }

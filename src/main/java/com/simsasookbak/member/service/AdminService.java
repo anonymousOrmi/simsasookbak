@@ -66,4 +66,12 @@ public class AdminService {
         List<Review> reviewList = reviewRepository.findAllByMember_Id(memberId);
         reviewList.forEach(Review::changeToDelete);
     }
+
+    public void saveRole(Long memberId, Role newRole) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
+
+        member.updateRole(newRole);
+        memberRepository.save(member);
+    }
 }

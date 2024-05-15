@@ -24,6 +24,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewImageRepository reviewImageRepository;
 
+    public ReviewDto findReviewById(Long reviewId, Long memberId) {
+        Review review = reviewRepository.findByIdAndMemberIdAndIsDeletedFalse(reviewId, memberId);
+        List<ReviewImage> reviewImages = reviewImageRepository.findAllByReview(review);
+        return ReviewDto.toDto(review, reviewImages);
+    }
+
     public String findExSummaryByAcomId(Long id) {
         return reviewRepository.findExSummaryByAcomId(id);
     }
@@ -83,4 +89,10 @@ public class ReviewService {
         }
     }
 
+    @Transactional
+    public Review modify(Long id, String content, Integer score) {
+        Review review = reviewRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        review.modify(content, score);
+        return review;
+    }
 }

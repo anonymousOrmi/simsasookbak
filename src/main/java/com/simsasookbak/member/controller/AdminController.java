@@ -1,6 +1,7 @@
 package com.simsasookbak.member.controller;
 
 import com.simsasookbak.member.domain.Member;
+import com.simsasookbak.member.domain.Role;
 import com.simsasookbak.member.dto.MemberResponseDto;
 import com.simsasookbak.member.service.AdminService;
 import java.util.List;
@@ -59,10 +60,15 @@ public class AdminController {
         return "adminPage";
     }
 
-    // 서버 컨트롤러 메서드 수정
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("memberId") long memberId) {
         adminService.deleteMember(memberId);
+        return "redirect:/admin/getAllMember"; // 관리자 페이지로 리다이렉트
+    }
+
+    @PostMapping("/updateRole")
+    public String saveRole(@RequestParam("memberId") Long memberId, @RequestParam("role") Role newRole) {
+        adminService.saveRole(memberId, newRole);
         return "redirect:/admin/getAllMember"; // 관리자 페이지로 리다이렉트
     }
 }
