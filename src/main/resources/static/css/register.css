@@ -181,7 +181,6 @@ body {
 .form {
     background-color: var(--white);
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 0 3rem;
@@ -195,6 +194,14 @@ body {
     padding: 0.5rem 0.5rem;
     margin: 0.5rem 0;
     width: 100%;
+}
+
+.input2 {
+    background-color: #fff;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    margin: 0.5rem 0;
+    width: 81%;
 }
 
 @keyframes show {
@@ -214,6 +221,7 @@ body {
 .error-message {
     color: red;
     font-size: 12px;
+    margin-top: 20px;
 }
 
 @keyframes scale-up {

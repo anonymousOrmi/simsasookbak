@@ -26,16 +26,20 @@
             <input class="input" id="password" name="password" placeholder="Password" type="password" required/>
             <input class="input" id="password-check" placeholder="Password 확인" type="password">
             <span class="error-message"></span>
-            <fieldset>
-                <label for="user-register">이용자</label>
+            <fieldset style="display: flex; justify-content: start">
+                <span>권한 선택</span>
+                <label for="user-register" style="margin-left: 25px">이용자</label>
                 <input id="user-register" name="role" type="radio" value="USER"/>
-                <label for="accommodation-provider-register">사업자</label>
+                <label for="accommodation-provider-register" style="margin-left: 20px">사업자</label>
                 <input id="accommodation-provider-register"  name="role" type="radio" value="BUSINESS"/>
             </fieldset>
             <input class="input" id="phone" name="phone" pattern="[0-9]{11}" placeholder="Phone Number -를 빼고 입력해주세요" required type="tel">
-            <small>생일</small>
-            <input class="input" id="birthDate" name="birthDate" type="date" required>
+            <div style="display: flex">
+                <span style="margin-top: 17px">생일</span>
+                <input class="input2" id="birthDate" name="birthDate" type="date" required style="margin-left: 21px">
+            </div>
             <button class="btn sign-up-button" type="submit">Sign Up</button>
+
         </form>
     </div>
 
