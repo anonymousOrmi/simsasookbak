@@ -14,7 +14,8 @@
 
 ## 개발 일정
 
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/79041981-d030-4cc8-b833-087445a07fee)
+[TimelineGanttOverviewSection.pdf](https://github.com/anonymousOrmi/simsasookbak/files/15318126/TimelineGanttOverviewSection.pdf)
+
 
 ## 🌱 개발 언어 및 활용 기술
 
