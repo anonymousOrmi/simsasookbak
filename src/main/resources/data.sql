@@ -46,6 +46,7 @@ SET @member_id_song = LAST_INSERT_ID();
 -- SET @member_id_jung = LAST_INSERT_ID();
 
 --member end
+
 --
 -- --accommodation start
 --

@@ -14,6 +14,7 @@ public class AccommodationResponse implements AccommodationView {
     private String region;
     private Integer cost;
     private Double score;
+    private String imageUrl;
 
     public AccommodationResponse(AccommodationView view) {
         this.accommodationId = view.getAccommodationId();
@@ -22,5 +23,6 @@ public class AccommodationResponse implements AccommodationView {
         this.region = view.getRegion();
         this.cost = view.getCost();
         this.score = view.getScore();
+        this.imageUrl = view.getImageUrl();
     }
 }
