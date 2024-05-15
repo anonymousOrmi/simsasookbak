@@ -9,6 +9,7 @@ import com.simsasookbak.review.repository.ReviewRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -96,9 +97,14 @@ public class ReviewService {
         return review;
     }
 
+
+    public Double getAccommodationScore(Long accommodationId) {
+        return reviewRepository.findAverageScoreByAccommodationId(accommodationId).orElse(0.0);
+
     @Transactional
     public void deleteReviewById(Long reviewId) {
         Review review = reviewRepository.findById(reviewId).orElseThrow(IllegalArgumentException::new);
         review.changeToDelete();
+
     }
 }

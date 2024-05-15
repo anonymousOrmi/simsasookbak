@@ -89,6 +89,14 @@ public class AccommodationDto {
         this.averageScore = Math.round(averageScore * 10.0) / 10.0;
     }
 
+    public void setAverageScoreForOneAccommodation(double averageScore) {
+        if(averageScore == 0.0) {
+            this.averageScore = 0.0;
+        } else {
+            this.averageScore = Math.round(averageScore * 10.0) / 10.0;
+        }
+    }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
