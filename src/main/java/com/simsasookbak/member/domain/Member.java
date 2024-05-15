@@ -144,5 +144,10 @@ public class Member extends BaseEntity implements UserDetails {
         this.role=Role.LEAVER;
     }
 
+    //관리자페이지 유저 권한 변경
+    public void updateRole(Role newRole){
+        this.role = newRole;
+    }
+
 
 }

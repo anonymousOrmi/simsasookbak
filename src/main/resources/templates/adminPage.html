@@ -18,8 +18,6 @@
         <div class="container text-center py-5" style="max-width: 900px;max-height: 200px">
             <h3 class="text-white display-3 mb-4">관리자 페이지</h3>
             <ol class="breadcrumb justify-content-center mb-0">
-<!--                <li class="breadcrumb-item"><a href="index.html">Home</a></li>-->
-<!--                <li class="breadcrumb-item"><a href="#">My Page</a></li>-->
                 <li class="breadcrumb-item active text-white">유저 정보 조회</li>
             </ol>
         </div>
@@ -44,9 +42,9 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>이름</th>
                         <th>권한</th>
+                        <th>권한변경</th>
                         <th>생년월일</th>
                         <th>전화번호</th>
                         <th>상태</th>
@@ -57,9 +55,26 @@
                     </thead>
                     <tbody>
                     <tr th:each="member : ${members}">
-                        <td th:text="${member.id}"></td>
                         <td th:text="${member.name}"></td>
-                        <td th:text="${member.role}"></td>
+                        <td th:switch="${#strings.toString(member.role)}">
+                            <span th:case="'USER'">사용자</span>
+                            <span th:case="'ADMIN'">관리자</span>
+                            <span th:case="'BUSINESS'">사업자</span>
+                            <span th:case="'LEAVER'">탈퇴자</span>
+                        </td>
+
+                        <td>
+                        <select class="form-select bg-white border-0" th:id="'selectRole' + ${member.id}" onchange="updateRole(this)">
+                                <option th:each="role : ${T(com.simsasookbak.member.domain.Role).values()}"
+                                        th:unless="${role.name() == 'ADMIN'}"
+                                        th:value="${role.name()}"
+                                        th:text="${role.name() == 'LEAVER' ? '탈퇴자' : role.name() == 'BUSINESS' ? '숙박업자' : role.name() == 'USER' ? '사용자' : role.name()}"
+                                        th:data-member-id="${member.id}"
+                                        th:data-role-name="${role}">
+                                </option>
+
+                            </select>
+                        </td>
                         <td th:text="${member.birthDate}"></td>
                         <td th:text="${member.phone}"></td>
                         <td th:text="${member.status}"></td>

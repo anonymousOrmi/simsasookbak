@@ -1,15 +1,11 @@
 package com.simsasookbak.review.repository;
 
 import com.simsasookbak.review.domain.Review;
-import java.util.List;
 import com.simsasookbak.review.dto.ScoreAverageDto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -32,8 +28,6 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
 
     List<Review> findAllByMember_Id(Long memberId);
 
-
-//    @Query("SELECT ScoreAverageDto(r.accommodation.id, AVG(r.score)) FROM Review r GROUP BY r.accommodation.id ORDER BY AVG(r.score) DESC, r.accommodation.id DESC")
-//    List<ScoreAverageDto> findAverageScoreByAccommodationId();
+    Review findByIdAndMemberIdAndIsDeletedFalse(Long reviewId, Long memberId);
 
 }
