@@ -55,6 +55,12 @@ DB
 
 ## 요구사항 및 기능 명세  
 
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0cbb5402-9b9a-485e-bae9-0b082a5d62c6)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/1c7be649-8b7f-423b-aeb2-47f3ecfd1bdb)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/38d9d7f6-cbe1-46ab-bacc-1416a4be59f1)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0ebe81d7-450b-41e4-af24-de27d60870cb)
+
+
 
 ## 데이터베이스 모델링(ERD)  
 
@@ -63,7 +69,6 @@ DB
 ③ 이미지가 필요한 테이블은 첨부파일 테이블을 별도로 두어 관리하였습니다.
 
 ![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/4e9235b1-32ed-42df-8864-e6251c1557d8)
-
 
 ##  API 명세서
 
