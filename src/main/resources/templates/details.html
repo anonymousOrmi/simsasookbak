@@ -25,9 +25,16 @@
 <div class="container-fluid about py-5">
     <div class="container py-5 border rounded">
         <div class="row g-5 align-items-center">
-            <div class="col-md-1"></div>
-            <div class="col-md-8 h1">숙소명 : <span class="h1 text-primary" th:text="${accommodation.getName()}"></span></div>
-            <div class="col-md-3 h3 text-primary" th:text="${accommodation.getAverageScore()}+ ' 점' ">별점</div>
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 h2">숙소명 : <span class="h1 text-primary" th:text="${accommodation.getName()}"></span></div>
+                            <div class="col-md-4 h4 text-lg-end text-primary" th:text="${accommodation.getAverageScore()} + ' 점' ">별점</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- 이미지가 있는 경우 -->
             <div class="img-container" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
                 <div class="h-100">
@@ -85,12 +92,12 @@
                                     <div class="col-md-2 text-lg-end">
                                         <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
                                             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
-                                               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">숙소 수정</a>
+                                               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}" th:if="${accommodation.getId() eq #authentication.principal.id}">숙소 수정</a>
                                         </div>
                                     </div>
                                     <div class="col-md-2 text-lg-end">
                                         <div class="text-lg-end">
-                                            <button th:value="${accommodation.getId()}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+                                            <button th:value="${accommodation.getId()}" th:if="${accommodation.getId() eq #authentication.principal.id}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
                                         </div>
                                     </div>
                                 </div>
@@ -117,14 +124,21 @@
 <div class="container-fluid bg-light about py-5">
     <div class="container border rounded py-5" th:each="room:${roomList}" th:if="${room.getMemberId() eq #authentication.principal.id or !room.isDeleted()}">
         <div class="row g-5 align-items-center">
-            <div class="col-md-1"></div>
-            <div class="col-md-8 h3">객실명 : <span class="h2 text-primary" th:text="${room.name}"></span></div>
-            <div class="col-md-3 h4 text-primary" th:text="${room.cost} + '원'">별점</div>
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 h3">객실명 : <span class="h2 text-primary" th:text="${room.name}"></span></div>
+                            <div class="col-md-4 text-lg-end h4 text-primary" th:text="${room.cost} + '원'">별점</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12">
                 <div class="card bg-light border-0">
                     <div class="card-body">
                         <p class="card-text fs-5" th:text="'객실 설명 :'+${room.content}">
-                            여기에 숙소에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
+                            여기에 객실에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
                         </p>
                     </div>
                 </div>
@@ -133,7 +147,7 @@
                 <div class="card bg-light border-0">
                     <div class="card-body">
                         <p class="card-text fs-5" th:text="'이용 안내 :'+${room.useGuide}">
-                        여기에 숙소에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
+                        여기에 객실에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
                         </p>
                     </div>
                 </div>
@@ -159,13 +173,13 @@
                 <div class="card bg-light border-0">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-2 text-lg-start d-flex justify-content-center align-items-center">
+                            <div class="col-md-2 text-lg-start d-flex justify-content-center align-items-center" style="font-weight: bold; color:blue">
                                 <span class="fs-5" th:value="${room.getRoomId()}" th:if="${room.getMemberId() eq #authentication.principal.id}" th:text="'방 상태 : ' + ${room.isDeleted() ? 'close' : 'open'}" >숙박업자한테 보이는 창</span>
                             </div>
+                            <div class="col-md-4"></div>
                             <div class="col-md-2">
                                 <div class="text-lg-end">
-                                    <button th:value="${room.getRoomId()}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">상태 변경</button>
+                                    <button th:value="${room.getRoomId()}" th:if="${room.getMemberId() eq #authentication.principal.id}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">상태 변경</button>
                                 </div>
                             </div>
                             <div class="col-md-2">
