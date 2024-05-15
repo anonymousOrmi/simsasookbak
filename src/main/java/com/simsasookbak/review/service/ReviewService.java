@@ -97,7 +97,14 @@ public class ReviewService {
         return review;
     }
 
+
     public Double getAccommodationScore(Long accommodationId) {
         return reviewRepository.findAverageScoreByAccommodationId(accommodationId).orElse(0.0);
+
+    @Transactional
+    public void deleteReviewById(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(IllegalArgumentException::new);
+        review.changeToDelete();
+
     }
 }
