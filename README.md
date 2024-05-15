@@ -56,10 +56,12 @@ DB
 
 ## 요구사항 및 기능 명세  
 
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0cbb5402-9b9a-485e-bae9-0b082a5d62c6)
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/1c7be649-8b7f-423b-aeb2-47f3ecfd1bdb)
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/38d9d7f6-cbe1-46ab-bacc-1416a4be59f1)
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0ebe81d7-450b-41e4-af24-de27d60870cb)
+화면 페이지별로 기능 명세하였으며, 각 권한에 따라 나누었습니다.
+
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/9367a7b4-e45b-4637-a013-d231b845b8c7)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/5cd1832c-e0ba-4f0c-88e0-b847d50ede66)   
+
+
 
 
 
