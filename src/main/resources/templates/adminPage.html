@@ -63,6 +63,7 @@
                         </td>
                         <td>
                             <select class="form-select bg-white border-0" th:id="'selectRole' + ${member.id}" onchange="updateRole(this)">
+                                <option value="" disabled selected>권한 선택</option>
                                 <option th:each="role : ${T(com.simsasookbak.member.domain.Role).values()}"
                                         th:unless="${role.name() == 'ADMIN'}"
                                         th:value="${role.name()}"
@@ -71,6 +72,7 @@
                                         th:data-role-name="${role}">
                                 </option>
                             </select>
+
                         </td>
                         <td th:text="${member.birthDate}"></td>
                         <td th:text="${member.phone}"></td>
