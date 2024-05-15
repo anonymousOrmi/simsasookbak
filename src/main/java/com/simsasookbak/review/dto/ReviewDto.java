@@ -26,10 +26,10 @@ public class ReviewDto {
     private LocalDateTime updatedAt;
     private String formattedCreatedAt;
     private String formattedUpdatedAt;
-    private String roomTitle;
+    private List<String> roomTitle;
     private List<ReviewImage> reviewImages;
 
-    public static ReviewDto toDto(Review review,List<ReviewImage> reviewImages) {
+    public static ReviewDto toDto(Review review,List<ReviewImage> reviewImages,List<String> roomTitle) {
         return ReviewDto.builder()
                 .reviewId(review.getId())
                 .accommodationId(review.getAccommodation().getId())
@@ -41,7 +41,7 @@ public class ReviewDto {
                 .isDeleted(review.getIsDeleted())
                 .createdAt(review.getCreatedAt())
                 .updatedAt(review.getUpdatedAt())
-                .roomTitle(review.getRoomTitle())
+                .roomTitle(roomTitle)
                 .reviewImages(reviewImages)
                 .build();
     }

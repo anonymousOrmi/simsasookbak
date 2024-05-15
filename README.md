@@ -14,7 +14,10 @@
 
 ## 개발 일정
 
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/79041981-d030-4cc8-b833-087445a07fee)
+![TimelineGanttOverviewSection](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/9de4fc09-4186-4d5a-ad34-40bbdb1902ab)
+
+
+
 
 ## 🌱 개발 언어 및 활용 기술
 
@@ -53,6 +56,12 @@ DB
 
 ## 요구사항 및 기능 명세  
 
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0cbb5402-9b9a-485e-bae9-0b082a5d62c6)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/1c7be649-8b7f-423b-aeb2-47f3ecfd1bdb)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/38d9d7f6-cbe1-46ab-bacc-1416a4be59f1)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/0ebe81d7-450b-41e4-af24-de27d60870cb)
+
+
 
 ## 데이터베이스 모델링(ERD)  
 
@@ -62,13 +71,13 @@ DB
 
 ![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/4e9235b1-32ed-42df-8864-e6251c1557d8)
 
-
 ##  API 명세서
 
 `TBU.`
 
 ## :factory: Architecture
-<img width="1976" alt="심사숙박_시스템_구성도" src="https://github.com/anonymousOrmi/simsasookbak/assets/148677085/f114e789-4bbe-4308-8b49-b1a32cf712cb">
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/846397ab-8595-49e4-b3fd-58e04116b200)
+
 
 ##  프로젝트 구조
 ### FE + BE
