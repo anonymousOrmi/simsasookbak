@@ -25,13 +25,14 @@ FE
 
 - HTML
 - CSS
+- JS
 - BootStrap
 - Thymeleaf
 
 BE 
 
 - SpringBoot
-- Java
+- JPA
 
 DB
 
