@@ -81,4 +81,10 @@ public class ReviewService {
         review.modify(content, score);
         return review;
     }
+
+    @Transactional
+    public void deleteReviewById(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(IllegalArgumentException::new);
+        review.changeToDelete();
+    }
 }

@@ -9,10 +9,13 @@ import java.util.Arrays;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -67,5 +70,10 @@ public class ReviewController {
         return "redirect:/accommodation/{accommodationId}";
     }
 
+    @PutMapping("/review/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
+        reviewService.deleteReviewById(reviewId);
+        return ResponseEntity.ok().build();
+    }
 
 }
