@@ -99,9 +99,13 @@ public class AccommodationService {
 
     public AccommodationDto findAccommodationById(Long id) {
         Accommodation accommodation = accommodationRepository.findAccommodationById(id);
+        Double averageScore = reviewService.getAccommodationScore(id);
         List<String> facilityList = findAccommodationFacilityById(id);
 
-        return AccommodationDto.toAccommodationDto(accommodation, facilityList);
+        AccommodationDto accommodationDto = AccommodationDto.toAccommodationDto(accommodation, facilityList);
+        accommodationDto.setAverageScoreForOneAccommodation(averageScore);
+
+        return accommodationDto;
     }
 
     public List<String> findAccommodationFacilityById(Long id) {
