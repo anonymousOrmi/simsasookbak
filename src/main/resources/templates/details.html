@@ -43,16 +43,20 @@
                 <p class="mb-lg-5" th:text="${accommodation.getContent()}"></p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getRegion()}"></span></p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span
+                                th:text="${accommodation.getRegion()}"></span></p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getAddress()}"></span></p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span
+                                th:text="${accommodation.getAddress()}"></span></p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인 : <span th:text="${accommodation.getCheckIn()}"></span></p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인 : <span
+                                th:text="${accommodation.getCheckIn()}"></span></p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃 : <span th:text="${accommodation.getCheckOut()}"></span></p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃 : <span
+                                th:text="${accommodation.getCheckOut()}"></span></p>
                     </div>
                     <div class="col-sm-6">
                         <p class="mb-0">
@@ -170,7 +174,8 @@
             <div class="row g-3">
                 <div class="col-lg-12">
                     <div class="row g-3">
-                        <div class="border border-primary rounded p-3" th:each="review:${reviewList}" th:unless="${review.isDeleted}">
+                        <div class="border border-primary rounded p-3" th:each="review:${reviewList}"
+                             th:unless="${review.isDeleted}">
                             <div class="container py-5">
                                 <div class="row g-3 d-flex">
                                     <div class="col-md-6" style="font-size: 20px;"
@@ -178,7 +183,8 @@
                                     </div>
                                     <div class="col-md-6 justify-content-between">
                                         <div class="row g-3">
-                                            <div class="col-md-2" style="font-size: 15px;" th:text="'글쓴이 : ' + ${review.getMemberName()}">
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'글쓴이 : ' + ${review.getMemberName()}">
                                             </div>
                                             <div class="col-md-2" style="font-size: 15px;"
                                                  th:text="'작성일 : '+ ${review.getFormattedCreatedAt()}">
@@ -191,10 +197,16 @@
                                                  th:text="'별점 : '+ ${review.getScore()}">
                                             </div>
                                             <div class="btn-area col-md-2" id="review-button-container">
-                                                                                                <button class="btn btn-primary" id="modify-btn"
+                                                <button class="btn btn-primary" id="modify-btn"
                                                         th:if="${review.getMemberId() == #authentication.getName()}"
-                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|" type="button" >수정</button>
-                                                <button class="btn btn-primary" type="button">삭제</button>
+                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|"
+                                                        type="button">수정
+                                                </button>
+                                                <button class="btn btn-primary" type="button"
+                                                        th:if="${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="'deleteReview('+${review.getReviewId()}+')'">
+                                                    삭제
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +218,7 @@
                                 </div>
                                 <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
                                 <div th:if="${review.reviewImages}">
-                                    <div  class="img-container" th:each="reviewImage:${review.reviewImages}">
+                                    <div class="img-container" th:each="reviewImage:${review.reviewImages}">
                                         <img alt="Image"
                                              class="img-fluid w-35 mx-auto rounded d-block"
                                              th:src="@{${reviewImage.url}}">
@@ -220,7 +232,8 @@
         </div>
         <div class="text-center">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" id="moreButton" style="margin-right: 20px">리뷰 더보기</a>
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰 등록</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰
+                등록</a>
         </div>
     </div>
 </div>

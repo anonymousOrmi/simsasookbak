@@ -104,9 +104,13 @@
     margin-left: auto;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     min-width: 200px;
     align-items: center;
+}
+
+#review-button-container > button {
+    margin-left: 5px;
 }
 
 /*** Section Title Start ***/
