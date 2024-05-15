@@ -178,6 +178,11 @@ DB
 
 
 ## UI
+<img src="https://github.com/anonymousOrmi/simsasookbak/assets/47330173/640c4af7-7c2a-449f-be87-851f776fad93" width="500px">
+ <br>
+<img src="https://github.com/anonymousOrmi/simsasookbak/assets/47330173/e49ebf7a-8e7c-4be9-969c-5ab358fd030f" width="500px">
+
+
 
 
 
