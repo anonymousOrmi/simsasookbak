@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.ApplicationEventPublisher;
@@ -37,6 +38,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ReviewService reviewService;
@@ -168,12 +170,15 @@ public class AccommodationService {
     }
 
     public void deleteAccommodation(Member member, Long accommodationId) {
-        if (!Objects.equals(member.getId(), accommodationId)) {
-            throw new AccessDeniedException("자신의 숙소만 삭제할 수 있습니다.");
-        }
-
         Accommodation accommodation = accommodationRepository.findById(accommodationId).orElseThrow();
         List<Room> rooms = roomService.findRoomByAccommodationIdToDelete(accommodationId);
+
+        if (!Objects.equals(member.getId(), accommodation.getMember().getId())) {
+            throw new AccessDeniedException("자신의 숙소만 삭제할 수 있습니다.");
+        }
+        log.info(member.getId() + "멤버 아이디");
+        log.info(accommodationId + "숙소 아이디");
+        System.out.println(member.getId());
 
         accommodation.changeToDelete();
         accommodationFacilityMappingService.deleteMapping(accommodationId);

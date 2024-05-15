@@ -162,7 +162,7 @@ public class AccommodationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(accommodationId);
     }
 
-    @DeleteMapping("/{accommodationId}/delete")
+    @PostMapping("/{accommodationId}/delete")
     public ResponseEntity<Void> deleteAccommodation(@AuthenticationPrincipal Member member,
                                                     @PathVariable Long accommodationId) {
         accommodationService.deleteAccommodation(member, accommodationId);

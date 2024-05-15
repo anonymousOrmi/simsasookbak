@@ -71,6 +71,9 @@
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">숙소 수정</a>
         </div>
+        <div class="text-lg-end">
+            <button th:value="${accommodation.getId()}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+        </div>
     </div>
 </div>
 <!-- details End -->
@@ -239,8 +242,26 @@
             });
         }
     });
-</script>
+    $(document).on('click', '.accommodation-delete-button', function() {
+        const accommodationId = parseInt($(this).val(), 10);
+        console.log(accommodationId);
 
+        var confirmMessage = "숙소를 삭제하시겠습니까?";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/accommodation/${accommodationId}/delete`,
+                success: function(response) {
+
+                    window.location.href = '/';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+</script>
 </body>
 
 </html>
