@@ -92,12 +92,12 @@
                                     <div class="col-md-2 text-lg-end">
                                         <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
                                             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
-                                               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}" th:if="${accommodation.getId() eq #authentication.principal.id}">숙소 수정</a>
+                                               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}" th:if="${roomList.get(0).getMemberId() eq #authentication.principal.id}">숙소 수정</a>
                                         </div>
                                     </div>
                                     <div class="col-md-2 text-lg-end">
                                         <div class="text-lg-end">
-                                            <button th:value="${accommodation.getId()}" th:if="${accommodation.getId() eq #authentication.principal.id}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+                                            <button th:value="${accommodation.getId()}" th:if="${roomList.get(0).getMemberId() eq #authentication.principal.id}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
                                         </div>
                                     </div>
                                 </div>
