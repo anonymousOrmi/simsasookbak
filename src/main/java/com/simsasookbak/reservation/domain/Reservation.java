@@ -60,7 +60,6 @@ public class Reservation extends BaseEntity {
     @Comment("특이사항")
     private String request;
 
-    //삭제할지 확인
     @Builder
     public Reservation(Member member, Accommodation accommodation, Room room, String status, LocalDate startDate,
                        LocalDate endDate, String request) {
@@ -72,5 +71,4 @@ public class Reservation extends BaseEntity {
         this.endDate = endDate;
         this.request = request;
     }
-
 }

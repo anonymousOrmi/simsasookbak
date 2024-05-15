@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequiredArgsConstructor
 public class PageController {
-
     private final AccommodationService accommodationService;
     private final RoomService roomService;
     private final ReservationService reservationService;
@@ -74,5 +73,4 @@ public class PageController {
 
         return "room-update";
     }
-
 }

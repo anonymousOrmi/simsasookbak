@@ -76,15 +76,15 @@ public class AccommodationController {
     }
 
     //상세 페이지 조회 (영석)
-    @GetMapping("/{acom_id}")
-    public String details(@PathVariable Long acom_id, Model model) {
+    @GetMapping("/{accommodationId}")
+    public String details(@PathVariable Long accommodationId, Model model) {
 
-        AccommodationDto accommodation = accommodationService.findAccommodationById(acom_id);
-        List<RoomDto> roomList = roomService.findRoomByAcomId(acom_id);
-        String exSummary = reviewService.findExSummaryByAcomId(acom_id);
-        String inSummary = reviewService.findInSummaryByAcomId(acom_id);
-        List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(acom_id);
-        List<String> imgList = accommodationService.findImgByAcomId(acom_id);
+        AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
+        List<RoomDto> roomList = roomService.findRoomByAccommodationId(accommodationId);
+        String exSummary = reviewService.findExSummaryByAcomId(accommodationId);
+        String inSummary = reviewService.findInSummaryByAcomId(accommodationId);
+        List<ReviewDto> reviewList = reviewService.findAllReviewByAcomId(accommodationId);
+        List<String> imgList = accommodationService.findImgByAccommodationId(accommodationId);
 
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("roomList", roomList);
@@ -120,15 +120,17 @@ public class AccommodationController {
     @MethodInvocationLimit
     @PostMapping("/registerPage/register")
     public ResponseEntity<Long> register(@AuthenticationPrincipal Member member,
-                                                                @RequestBody AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
+                                         @RequestBody AccommodationAndRoomsAddRequestDto accommodationAndRoomsAddRequestDto) {
         AccommodationAddResponseDto response = accommodationService.save(member, accommodationAndRoomsAddRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response.getAccommodationId());
     }
 
-    @PostMapping("/image/file/register/{responseAccommId}")
-    public ResponseEntity<Void> uploadAccommodationImage(@ModelAttribute MultipartFile[] file,@PathVariable Long responseAccommId){
-        if(file!=null&&!Arrays.stream(file).filter(x-> !Objects.equals(x.getOriginalFilename(), "")).toList().isEmpty()) {
+    @PostMapping("/image/file/register/{responseAccommodationId}")
+    public ResponseEntity<Void> uploadAccommodationImage(@ModelAttribute MultipartFile[] file,
+                                                         @PathVariable Long responseAccommodationId) {
+        if (file != null && !Arrays.stream(file).filter(x -> !Objects.equals(x.getOriginalFilename(), "")).toList()
+                .isEmpty()) {
             try {
                 String[] fileNames = new String[file.length];
                 String[] fileUrls = new String[file.length];
@@ -136,13 +138,14 @@ public class AccommodationController {
                 for (int i = 0; i < file.length; i++) {
                     metadata[i] = new ObjectMetadata();
                 }
-                for(int i =0; i< file.length; i++){
+                for (int i = 0; i < file.length; i++) {
                     fileNames[i] = file[i].getOriginalFilename();
                     fileUrls[i] = "https://" + bucket + ".s3.ap-northeast-2.amazonaws.com/" + fileNames[i];
                     metadata[i].setContentType(file[i].getContentType());
                     metadata[i].setContentLength(file[i].getSize());
                     amazonS3Client.putObject(bucket, fileNames[i], file[i].getInputStream(), metadata[i]);
-                    accommodationImageService.saveAccommodationImage(AccommodationImage.builder().url(fileUrls[i]).accommodation(accommodationService.findById(responseAccommId)).build());
+                    accommodationImageService.saveAccommodationImage(AccommodationImage.builder().url(fileUrls[i])
+                            .accommodation(accommodationService.findById(responseAccommodationId)).build());
                 }
 
 
@@ -155,12 +158,20 @@ public class AccommodationController {
 
     @MethodInvocationLimit
     @PutMapping("/{accommodationId}/accommodationUpdate")
-    public ResponseEntity<Long> updateAccommodation(@PathVariable Long accommodationId, @RequestBody
-    AccommodationUpdateDto accommodationUpdateDto) {
+    public ResponseEntity<Long> updateAccommodation(@AuthenticationPrincipal Member member,
+                                                    @PathVariable Long accommodationId, @RequestBody
+                                                    AccommodationUpdateDto accommodationUpdateDto) {
 
-        accommodationService.updateAccommodation(accommodationId, accommodationUpdateDto);
+        accommodationService.updateAccommodation(member, accommodationId, accommodationUpdateDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(accommodationId);
     }
 
+    @PostMapping("/{accommodationId}/delete")
+    public ResponseEntity<Void> deleteAccommodation(@AuthenticationPrincipal Member member,
+                                                    @PathVariable Long accommodationId) {
+        accommodationService.deleteAccommodation(member, accommodationId);
+
+        return ResponseEntity.noContent().build();
+    }
 }

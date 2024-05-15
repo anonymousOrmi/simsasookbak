@@ -29,7 +29,7 @@ public class InternalSummary extends BaseEntity {
     @Column(name = "internal_summary_id")
     private Long id;
 
-    @Column(name = "summary", length = 300, nullable = false)
+    @Column(name = "summary", length = 1000, nullable = false)
     @Comment("자체 사이트 리뷰 요약")
     private String summary;
 
@@ -37,5 +37,4 @@ public class InternalSummary extends BaseEntity {
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
-    // latest_review_id // 최신 리뷰 ID
 }

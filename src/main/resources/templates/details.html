@@ -23,7 +23,7 @@
 
 <!-- details Start -->
 <div class="container-fluid about py-5">
-    <div class="container py-5">
+    <div class="container py-5 border rounded">
         <div class="row g-5 align-items-center">
             <!-- 이미지가 있는 경우 -->
             <div class="col-lg-5" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
@@ -71,12 +71,15 @@
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}">숙소 수정</a>
         </div>
+        <div class="text-lg-end">
+            <button th:value="${accommodation.getId()}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+        </div>
     </div>
 </div>
 <!-- details End -->
 
 <div class="container-fluid contact bg-light py-5">
-    <div class="container py-5" th:each="room:${roomList}">
+    <div class="container py-5" th:each="room:${roomList}" th:if="${room.getMemberId() eq #authentication.principal.id or !room.isDeleted()}">
         <div class="row g-5 align-items-center">
             <div class="col-lg-7 room-condition">
                 <h1 class="mb-4" th:text="${room.name}"></h1>
@@ -92,15 +95,22 @@
                         </p>
                     </div>
                 </div>
+                <div lass="text-lg-end" class="text-lg-end"></div>
             </div>
         </div>
         <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:if="${room.getMemberId() eq #authentication.principal.id}"
                th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
         </div>
         <div class="text-lg-end">
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
                th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
+        </div>
+        <div class="text-lg-end">
+            <button th:value="${room.getRoomId()}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">상태 변경</button>
+        </div>
+        <div class="text-lg-end">
+            <span th:value="${room.getRoomId()}" th:if="${room.getMemberId() eq #authentication.principal.id}" th:text="${room.isDeleted() ? '폐쇄' : '개방'}" >숙박업자한테 보이는 창</span>
         </div>
     </div>
 </div>
@@ -220,6 +230,48 @@
 <input id="reviewList" th:value="${reviewList}" type="hidden"/>
 
 <footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<script>
+    $(document).on('click', '.room-manage-button', function() {
+        const roomId = parseInt($(this).val(), 10);
+
+        var confirmMessage = "객실을 활성화/비활성화 하시겠습니까? 객실은 한개 이상 존재해야 합니다";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/room/${roomId}/toggle`, // roomId를 url에 삽입합니다.
+                success: function(response) {
+                    // 삭제 요청이 성공적으로 처리된 후에만 페이지를 변경합니다.
+                    window.location.reload();
+                    console.log(location.reload );
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+    $(document).on('click', '.accommodation-delete-button', function() {
+        const accommodationId = parseInt($(this).val(), 10);
+        console.log(accommodationId);
+
+        var confirmMessage = "숙소를 삭제하시겠습니까?";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/accommodation/${accommodationId}/delete`,
+                success: function(response) {
+
+                    window.location.href = '/';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+</script>
+
 </body>
 
 </html>

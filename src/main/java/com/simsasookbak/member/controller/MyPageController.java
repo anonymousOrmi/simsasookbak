@@ -25,24 +25,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MyPageController {
-
     @Autowired
     private MemberService memberService;
 
     @Autowired
     private UserDetailService userDetailService;
 
-    @GetMapping("/mypage")
+    @GetMapping("/myPage")
     public String goMyPage(JoinPoint joinPoint,Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = (Member) authentication.getPrincipal();
         member = memberService.findById(member.getId());
         MemberDto memberDto = member.toDto();
         model.addAttribute("member", memberDto);
-        return "mypageInfo";
+        return "myPageInfo";
     }
 
-    @PutMapping("/memberinfo/{id}/change")
+    @PutMapping("/memberInfo/{id}/change")
     public ResponseEntity<Void> changeMemberInfo(@PathVariable Long id, @RequestBody MemberRequestDto data){
 
         String name = data.getName();
@@ -57,7 +56,7 @@ public class MyPageController {
     }
 
     //탈퇴
-    @DeleteMapping("/memberinfo/{email}/delete")
+    @DeleteMapping("/memberInfo/{email}/delete")
     public void deleteMember(@PathVariable String email){
         memberService.deleteMember(email);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

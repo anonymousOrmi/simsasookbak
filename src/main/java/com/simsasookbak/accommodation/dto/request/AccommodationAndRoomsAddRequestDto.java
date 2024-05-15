@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class AccommodationAndRoomsAddRequestDto {
-
     private AccommodationAddRequestDto accommodationAddRequestDto;
     private List<RoomAddRequestDto> roomAddRequestDtoList;
-
 }

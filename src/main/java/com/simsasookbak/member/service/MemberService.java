@@ -58,10 +58,10 @@ public class MemberService {
                 .orElseThrow();
         if(member.getRole().equals(Role.BUSINESS)){
             List<List<Room>> roomList = new ArrayList<>();
-            List<Accommodation> accommodationList = accommodationRepository.findAllByMember_Id(member.getId());
+            List<Accommodation> accommodationList = accommodationRepository.findAccommodationByMemberIdAndIsDeletedFalse(member.getId());
             for (Accommodation accommodation : accommodationList) {
                 accommodation.changeToDelete();
-                roomList.add(roomRepository.findRoomsByAcomId(accommodation.getId()));
+                roomList.add(roomRepository.findRoomByAccommodationId(accommodation.getId()));
             }
             for (List<Room> list : roomList) {
                 list.forEach(Room::changeToDelete);
@@ -93,7 +93,4 @@ public class MemberService {
         i = (int) (Math.random()*10000000);
         return String.valueOf(i);
     }
-
-
-
 }

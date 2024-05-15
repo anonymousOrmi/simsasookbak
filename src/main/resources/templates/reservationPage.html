@@ -29,31 +29,6 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/reservationForm.css" rel="stylesheet">
 
-    <style>
-        /* 날짜 선택기의 날짜 크기 조정 */
-        .datepicker table tr td,
-        .datepicker table tr th {
-            font-size: 23px;
-            font-weight: bold;
-        }
-
-        /* 날짜를 더 진하게 */
-        .datepicker table tr td.active,
-        .datepicker table tr td.active:hover,
-        .datepicker table tr td.active.disabled,
-        .datepicker table tr td.active.disabled:hover,
-        .datepicker table tr td.active:active,
-        .datepicker table tr td.active:hover:active,
-        .datepicker table tr td.active.disabled:active,
-        .datepicker table tr td.active.disabled:hover:active {
-            background-color: rgba(0, 0, 0, 0.2); /* 진한 회색 배경 */
-        }
-
-        /* 달력 크기 조정 */
-        .datepicker {
-            width: 275px; /* 적당한 크기로 조정하세요 */
-        }
-    </style>
 
 </head>
 
@@ -88,17 +63,15 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;">
-                                                            또 뭐
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'지역 : ' + accommodation.region}">
+
                                                         </div>
-                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${room.cost}">
-                                                            가격
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'주소 : ' + accommodation.address}">
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 text-md-start text-center text-white" style="font-size: 20px;">
-                                                </div>
-                                                <div class="col-md-10">
+                                                <div class="col-md-6">
                                                     <div class="row g-3 justify-content-end">
                                                         <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 인 : ' + accommodation.checkIn}">
                                                             체크 인 표기

@@ -18,10 +18,8 @@ public class ReservationAddRequestDto {
     private LocalDate endDate;
     private String request;
 
-    //TODO : Member 추가
     public Reservation toEntity(Member member, Accommodation accommodation, Room room) {
         return Reservation.builder().member(member).accommodation(accommodation).room(room).status("대기").startDate(startDate)
                 .endDate(endDate).request(request).build();
     }
-
 }

@@ -28,5 +28,4 @@ public class RoomAddRequestDto {
                 .isDeleted(false)
                 .build();
     }
-
 }

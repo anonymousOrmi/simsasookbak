@@ -1,6 +1,5 @@
 package com.simsasookbak.reservation.dto;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class ReservationUnableDto {
-
     private List<String> checkInUnselectableDate = new ArrayList<>();
     private List<String> checkOutUnselectableDate = new ArrayList<>();
 
@@ -28,5 +26,4 @@ public class ReservationUnableDto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         checkOutUnselectableDate.add(date.format(formatter));
     }
-
 }
