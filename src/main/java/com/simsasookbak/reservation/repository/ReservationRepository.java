@@ -95,8 +95,4 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("accommodationId") Long accommodationId,
             @Param("reviewWriterMemberId") Long reviewWriterMemberId
     );
-
-
-    Reservation findReservationByAccommodationIdAndMemberId(Long accommodationId, Long memberId);
-
 }

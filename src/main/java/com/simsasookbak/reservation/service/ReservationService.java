@@ -29,7 +29,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 
 @Service
@@ -150,17 +149,9 @@ public class ReservationService {
     }
 
     public ReservationResponseDto findReservationById(Long reservationId){
-        return new ReservationResponseDto(reservationRepository.findReservationById(reservationId));
+        ReservationResponseDto reservationResponseDto = new ReservationResponseDto(reservationRepository.findReservationById(reservationId));
+
+        return reservationResponseDto;
     }
 
-    public boolean isNotExistReservation(
-            Long accommodationId,
-            Long memberId
-    ) {
-        Reservation reservation = reservationRepository.findReservationByAccommodationIdAndMemberId(
-                accommodationId,
-                memberId
-        );
-        return ObjectUtils.isEmpty(reservation);
-    }
 }
