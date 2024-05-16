@@ -87,7 +87,6 @@ public class MemberService {
         return new BCryptPasswordEncoder().matches(password,member.getPassword());
     }
 
-
     public String makeRandomInt(){
         int i=0;
         i = (int) (Math.random()*10000000);

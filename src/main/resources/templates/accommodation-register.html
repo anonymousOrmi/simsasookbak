@@ -143,6 +143,7 @@
                         </div>
                     </div>
                     <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
+                    <p class="text-white mb-4 py-3"> <span class="text-warning"> 숙소에는 최소한 하나 이상의 객실이 필요합니다. 숙소와 객실 정보를 모두 입력 하여 주세요!</span></p>
                 </div>
                 <!-- 버튼 영역 -->
                 <div class="row g-3">
@@ -344,6 +345,7 @@
                     body: formData2
                 }).then(()=>{
                     alert('숙소 등록이 완료되었습니다.');
+                    window.location.href = '/';
                 });
 
 
