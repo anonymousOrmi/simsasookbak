@@ -93,7 +93,7 @@
 <br><br>
 ##  API 명세서
 
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b5df2ef5-73b5-4ea7-82eb-5536a3ed287a)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/25db7554-a215-4c8c-9f0c-68786f2bd0d2)
 
 <br><br>
 
