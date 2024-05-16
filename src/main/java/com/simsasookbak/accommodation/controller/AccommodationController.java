@@ -13,7 +13,6 @@ import com.simsasookbak.accommodation.service.AccommodationImageService;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.global.aop.MethodInvocationLimit;
 import com.simsasookbak.member.domain.Member;
-import com.simsasookbak.reservation.dto.response.ReservationResponse;
 import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
@@ -79,19 +78,7 @@ public class AccommodationController {
 
     //상세 페이지 조회 (영석)
     @GetMapping("/{accommodationId}")
-    public String details(
-            @AuthenticationPrincipal Member member,
-            @PathVariable Long accommodationId,
-            Model model
-    ) {
-        boolean isNotExistReservation = reservationService.isNotExistReservation(
-                accommodationId,
-                member.getId()
-        );
-
-        if (isNotExistReservation) {
-            model.addAttribute("reservation", new ReservationResponse());
-        }
+    public String details(@PathVariable Long accommodationId, Model model) {
 
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
         List<RoomDto> roomList = roomService.findRoomByAccommodationId(accommodationId);
@@ -120,18 +107,13 @@ public class AccommodationController {
             Model model
     ) {
         if (id != null) {
-            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId(), accommodationId);
+            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId(),accommodationId);
             model.addAttribute("reviewWithImages", reviewWithImages);
-        }
-
-        List<String> roomNames = reservationService.getReservationRoomName(accommodationId, member.getId());
-        if (roomNames.isEmpty()) {
-            return "redirect:/accommodation/{accommodationId}";
         }
 
         model.addAttribute("accommodation", accommodationId);
         model.addAttribute("member", member.getId());
-        model.addAttribute("RoomNames", roomNames);
+        model.addAttribute("RoomNames", reservationService.getReservationRoomName(accommodationId, member.getId()));
         return "review-register";
     }
 
