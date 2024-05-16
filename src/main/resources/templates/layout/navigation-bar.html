@@ -27,7 +27,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAuthenticated()">My Page</a>
                     <div class="dropdown-menu m-0">
-                        <a href="/mypage" class="dropdown-item">내 정보</a>
+                        <a href="/myPage" class="dropdown-item">내 정보</a>
                         <a href="/reservation" class="dropdown-item">예약 내역</a>
                         <a href="/admin/getAllMember" class="dropdown-item" sec:authorize="hasAuthority('ADMIN')">관리자 페이지</a>
                     </div>

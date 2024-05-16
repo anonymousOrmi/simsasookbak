@@ -25,11 +25,6 @@ public class AccommodationFacilityMappingService {
 
             AccommodationFacility accommodationFacility = accommodationFacilityService.findByName(facility);
 
-            if(accommodationFacility == null){
-                 accommodationFacility = accommodationFacilityService.save(facility);
-                 log.info(String.valueOf(accommodationFacility));
-            }
-
             AccommodationFacilityMapping accommodationFacilityMapping = new AccommodationFacilityMapping(accommodation,
                     accommodationFacility);
 

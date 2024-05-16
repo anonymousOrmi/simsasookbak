@@ -15,7 +15,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 @Component
 public class MethodExecutionRestrictionAspect {
-
     private final Map<String, Long> lastInvocationTimes = new HashMap<>();
 
     @Pointcut("@annotation(com.simsasookbak.global.aop.MethodInvocationLimit)")
@@ -30,12 +29,11 @@ public class MethodExecutionRestrictionAspect {
         Long lastInvocationTime = lastInvocationTimes.get(username);
         long currentTime = System.currentTimeMillis();
 
-        if (lastInvocationTime != null && currentTime - lastInvocationTime < 60 * 1000) {
+        if (lastInvocationTime != null && currentTime - lastInvocationTime < 10 * 1000) {
             throw new MethodInvocationLimitException("같은 사용자가 반복적인 호출을 시도하였습니다");
         }
 
         // 메서드를 호출한 시간을 기록
         lastInvocationTimes.put(username, currentTime);
     }
-
 }

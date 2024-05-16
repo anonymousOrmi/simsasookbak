@@ -20,12 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 @Entity
 @Table(name="member")
@@ -61,14 +58,6 @@ public class Member extends BaseEntity implements UserDetails {
 
     @Column(name = "phone", length = 20, nullable = false)
     private String phone;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @ElementCollection
     private Collection<GrantedAuthority> authorities;
@@ -144,10 +133,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.role=Role.LEAVER;
     }
 
-    //관리자페이지 유저 권한 변경
     public void updateRole(Role newRole){
         this.role = newRole;
     }
-
-
 }

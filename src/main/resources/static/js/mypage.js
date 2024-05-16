@@ -3,7 +3,7 @@ const accountCancellation = document.getElementById('cancel-register');
 accountCancellation.addEventListener('click', () => {
         const email = document.getElementById('useremail').value;
         if (confirm('정말 탈퇴하시겠습니까?') == true) {
-            fetch(`/memberinfo/${email}/delete`, {method: 'DELETE'}).then(() => {
+            fetch(`/memberInfo/${email}/delete`, {method: 'DELETE'}).then(() => {
                 alert('탈퇴되었습니다.');
                 location.replace('/');
                 fetch('/logout', {method: 'GET'}).then();
@@ -18,7 +18,7 @@ function updateUser(userId) {
         phone: document.getElementById("phone").value
     };
 
-    fetch(`/memberinfo/${userId}/change`, {
+    fetch(`/memberInfo/${userId}/change`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function updateUser(userId) {
                 return;
             }
             alert('유저 정보가 수정되었습니다.');
-            location.replace("/mypage");
+            location.replace("/myPage");
         })
         .catch(error => {
             console.error('Error updating user:', error);

@@ -1,6 +1,5 @@
 package com.simsasookbak.room.domain;
 
-import com.simsasookbak.global.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

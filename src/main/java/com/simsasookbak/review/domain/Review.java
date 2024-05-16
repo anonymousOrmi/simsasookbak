@@ -40,7 +40,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
-    @Column(name = "content", length = 3000, nullable = false)
+    @Column(name = "content", length = 300, nullable = false)
     private String content;
 
     @Column(name = "score", nullable = false)
@@ -52,14 +52,14 @@ public class Review extends BaseEntity {
     @Comment("삭제여부")
     private Boolean isDeleted;
 
-    @Column(name = "room_title")
-    @ColumnDefault("'일반실'")
-    private String roomTitle;
-
-    /*`summary_id`	bigint	NOT NULL*/
-
-
     public void changeToDelete(){
         this.isDeleted=true;
+    }
+    public void modify(
+            String content,
+            Integer score
+    ) {
+        this.content = content;
+        this.score = score;
     }
 }

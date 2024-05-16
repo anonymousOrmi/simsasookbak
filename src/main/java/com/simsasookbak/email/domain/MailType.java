@@ -13,7 +13,6 @@ public enum MailType {
             msg -> msg + "님의 예약이 확정되었습니다."
     );
 
-
     @Getter
     private final String subject;
     private final Function<String, String> message;

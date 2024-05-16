@@ -6,6 +6,7 @@ import com.simsasookbak.review.domain.ExternalSummary;
 import com.simsasookbak.review.dto.ExternalSummaryRequest;
 import com.simsasookbak.review.dto.ExternalSummaryResponse;
 import com.simsasookbak.review.repository.ExternalSummaryRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,16 @@ public class ExternalSummaryService {
         ExternalSummary savedExternalSummary = externalSummaryRepository.save(externalSummary);
 
         return new ExternalSummaryResponse(savedExternalSummary);
+    }
+
+    public void resetExternalSummary(Long accommodationId) {
+        Optional<ExternalSummary> externalSummary = externalSummaryRepository.findByAccommodationId(accommodationId);
+
+        externalSummary.ifPresent(this::delete);
+    }
+
+    private void delete(ExternalSummary externalSummary) {
+        externalSummaryRepository.delete(externalSummary);
     }
 
 }

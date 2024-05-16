@@ -78,7 +78,7 @@
             <div class="col" th:each="accommodation : ${accommodations}">
                 <a th:href="@{${'/accommodation/' + accommodation.getAccommodationId()}}">
                 <div class="card h-100">
-                    <img alt="..." class="card-img-top" th:src="@{/img/destination-1.jpg}">
+                    <img alt="..." class="card-img-top" th:src="${accommodation.getImageUrl()}" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${accommodation.getName()}">Name</h5>
                         <p class="card-text" th:text="${accommodation.getAddress()}">Address</p>
@@ -94,7 +94,7 @@
 <!-- List End -->
 
 <!-- 페이지네이션 추가 -->
-<nav aria-label="Page navigation">
+<nav aria-label="Page navigation" th:if="${accommodations.isEmpty() == false}">
     <ul class="pagination justify-content-center">
         <!-- 이전 페이지 버튼 -->
         <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">

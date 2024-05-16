@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequiredArgsConstructor
 public class PageController {
-
     private final AccommodationService accommodationService;
     private final RoomService roomService;
     private final ReservationService reservationService;
@@ -30,6 +29,9 @@ public class PageController {
     @GetMapping("/accommodation/{accommodationId}/{roomId}/reservationPage")
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
+        List<String> imgList = accommodationService.findImgByAccommodationId(accommodationId);
+        accommodation.setImageUrl(imgList.get(0));
+
         RoomDto room = roomService.findRoomById(roomId);
         ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(roomId);
 
@@ -74,5 +76,4 @@ public class PageController {
 
         return "room-update";
     }
-
 }
