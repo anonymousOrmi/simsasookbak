@@ -28,7 +28,6 @@ public class AdminService {
     private final ReviewRepository reviewRepository;
     private final RoomRepository roomRepository;
 
-
     public Page<Member> findAllMembersPaged(Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
