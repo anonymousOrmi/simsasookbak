@@ -80,7 +80,7 @@ DB
 
 
 ## :factory: Architecture
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/846397ab-8595-49e4-b3fd-58e04116b200)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/5f6dd742-1c26-4b01-a453-bc20fb67eec0)
 
 
 ##  프로젝트 구조
