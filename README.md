@@ -72,7 +72,7 @@ DB
 ② 숙소 / 숙소 서비스, 객실 / 객실 서비스 테이블 간 중간 테이블을 두어 매핑하였습니다.   
 ③ 이미지가 필요한 테이블은 첨부파일 테이블을 별도로 두어 관리하였습니다.
 
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/4e9235b1-32ed-42df-8864-e6251c1557d8)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/80b230b1-3c67-4827-abed-5a73e47fb8b4)
 
 ##  API 명세서
 
