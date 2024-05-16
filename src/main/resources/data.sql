@@ -101,7 +101,7 @@ SET @room_id_seoul_2_2 = LAST_INSERT_ID();
 
 -- 청주 숙소의 방 추가
 INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_cheongju_1, '그린 호텔 - 싱글룸', 15000, '아늑하고 편안한 싱글 침대가 있는 객실', '흡연은 객실 외부에서만 허용됩니다');
+VALUES (@accommodation_id_cheongju_1, '그린 호텔 - 싱글룸', 20000, '아늑하고 편안한 싱글 침대가 있는 객실', '흡연은 객실 외부에서만 허용됩니다');
 SET @room_id_cheongju_1_1 = LAST_INSERT_ID();
 
 INSERT INTO room (accommodation_id, name, cost, content, use_guide)
@@ -132,7 +132,7 @@ VALUES (@accommodation_id_daejeon_2, '대전 게스트하우스 - 싱글룸', 12
 SET @room_id_daejeon_2_1 = LAST_INSERT_ID();
 
 INSERT INTO room (accommodation_id, name, cost, content, use_guide)
-VALUES (@accommodation_id_daejeon_2, '대전 게스트하우스 - 더블룸', 15000, '편안한 더블 침대와 개인 욕실이 있는 객실', '흡연은 객실 외부에서만 가능합니다');
+VALUES (@accommodation_id_daejeon_2, '대전 게스트하우스 - 더블룸', 12000, '편안한 더블 침대와 개인 욕실이 있는 객실', '흡연은 객실 외부에서만 가능합니다');
 SET @room_id_daejeon_2_2 = LAST_INSERT_ID();
 
 --room end
