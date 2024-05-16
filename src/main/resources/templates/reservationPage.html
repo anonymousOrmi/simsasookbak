@@ -284,7 +284,7 @@
 <script>
     document.getElementById('reservationForm').addEventListener('submit', function (e) {
         e.preventDefault(); // 폼의 기본 제출 동작 방지
-        const accommodationId = [[${room.accommodationId}]]
+
         const formData = new FormData(this);
 
         const startDate = formData.get('startDate');
@@ -311,7 +311,7 @@
                 }
                 // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
                 alert('예약 신청이 완료되었습니다.');
-                location.replace(`/accommodation/${accommodationId}`)
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error('Error:', error);

@@ -21,9 +21,10 @@
 ## 🌱 개발 언어 및 활용 기술
 
 ### FrontEnd
-  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white">
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"><img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white"><img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 ### BackEnd
-  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+
 ### Infra & Cooporate
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white"><img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white"><img src="https://img.shields.io/badge/Discord-4169E1?style=for-the-badge&logo=Discord&logoColor=white"/><img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 ### DB
@@ -92,13 +93,12 @@
 
 <br><br>
 ##  API 명세서
-
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b5df2ef5-73b5-4ea7-82eb-5536a3ed287a)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/7be65a81-bb15-4e39-b03d-104e3e190b08)
 
 <br><br>
 
 ## :factory: Architecture
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/5f6dd742-1c26-4b01-a453-bc20fb67eec0)
+![Frame 1](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/0e58c570-57b3-440b-b8d6-ec645a268565)
 
 <br><br>
 
@@ -200,29 +200,51 @@
 
 <br><br>
 
-## UI
-- 숙소 정보 수정
-  ![숙소 정보 수정](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/fa69957a-9d57-49f8-9a8a-73e322d31ed2)  
-- 내 숙소 관리
-  ![내 숙소 과닐](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/34b4e460-8762-4371-bb2a-aca56d1caa2a)  
-- 예약 페이지
-  ![예약 페이지](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/ff1d239d-f12c-4a5e-a20b-dfa915009827)  
-- 리스트 페이지
-  ![리스트 페이지](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/40c733cc-4a19-4d8f-804b-1d09dca72d8f)  
-- 마이페이지
-  ![내정보 수정](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/61a75236-f712-4f63-903d-da2744b2b753)  
-- 내 예약 내역
-  ![내 예약내역](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b3944edb-93f5-4b53-bde4-10932d435835)  
-- 회원가입
-  ![회원가입](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/25b49b0f-d765-45e9-b160-45457bbaa32b)  
-- 로그인
-  ![로그인](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/6e20618c-7edf-43b9-848e-7d6225ad1a02)  
-- 관리자 페이지
-  ![관리자 페이지](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/2b89a78f-96e7-4164-bb84-4d987b005816)  
-- 숙소 상세  
-  ![숙소상세페이지](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/877761e0-6afa-44a9-a734-8576387db7b4)  
-- 메인 페이지  
-  ![메인페이지](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/68c29836-ff61-46da-81e1-6995fd9dc4b1)  
+## UI (각 요소를 클릭하면 화면 이미지를 보실 수 있습니다!)
+<details>
+  <summary>숙소 정보 수정</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/fa69957a-9d57-49f8-9a8a-73e322d31ed2">
+</details>
+<details>
+  <summary>내 숙소 관리</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/34b4e460-8762-4371-bb2a-aca56d1caa2a">
+</details>
+<details>
+  <summary>예약 페이지</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/ff1d239d-f12c-4a5e-a20b-dfa915009827">
+</details>
+<details>
+  <summary>리스트 페이지</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/40c733cc-4a19-4d8f-804b-1d09dca72d8f">
+</details>
+<details>
+  <summary>마이 페이지</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/61a75236-f712-4f63-903d-da2744b2b753">
+</details>
+<details>
+  <summary>내 예약 내역</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b3944edb-93f5-4b53-bde4-10932d435835">
+</details>
+<details>
+  <summary>회원 가입</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/25b49b0f-d765-45e9-b160-45457bbaa32b">
+</details>
+<details>
+  <summary>로그인</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/6e20618c-7edf-43b9-848e-7d6225ad1a02">
+</details>
+<details>
+  <summary>관리자 페이지</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/2b89a78f-96e7-4164-bb84-4d987b005816">
+</details>
+<details>
+  <summary>숙소 상세</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/5afa801e-e562-40d8-bb67-638f159ba058">
+</details>
+<details>
+  <summary>메인 페이지</summary>
+  <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/6342379c-eb1e-40b9-9683-c1c52be92b26">
+</details>
 
 <br><br>
 ## 개발 이슈
