@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/head::headFragment}"></head>
+
+<body>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">숙소 리스트</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 찾기</a></li>
+            <li class="breadcrumb-item active text-white">숙소 리스트</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Tour Booking Start (검색) -->
+<div class="container-fluid booking py-5">
+    <div class="container py-5">
+        <h1 class="text-white mb-3">Search A Your Room</h1>
+        <p class="text-white mb-4"><span class="text-warning">Find rooms that suits you !</span></p>
+        <form action="/accommodation" method="get">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input class="form-control bg-white border-0" id="keyword" name="keyword"
+                               placeholder="Your Name" type="text">
+                        <label for="keyword">숙소명 or 지역명</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input aria-describedby="basic-addon2" aria-label="Search"
+                               autocomplete="off" class="form-control bg-white border-0 small" id="start-date" name="startDate" type="text">
+                        <label for="start-date">입실 </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input aria-describedby="basic-addon2" aria-label="Search"
+                               autocomplete="off" class="form-control bg-white border-0 small" id="end-date" name="endDate" type="text">
+                        <label for="end-date">퇴실 </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <select class="form-select bg-white border-0" id="SelectPerson">
+                            <option value="1">Persons 1</option>
+                        </select>
+                        <label for="SelectPerson">Persons</label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary text-white w-100 py-3" type="submit">숙소 검색</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Tour Booking End -->
+
+
+<!-- List Start -->
+<div class="container-fluid packages py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">숙소</h5>
+            <h1 class="mb-0">호텔/리조트/팬션/모텔</h1>
+        </div>
+        <div class="row row-cols-4 row-cols-md-4 g-4">
+            <div class="col" th:each="accommodation : ${accommodations}">
+                <a th:href="@{${'/accommodation/' + accommodation.getAccommodationId()}}">
+                <div class="card h-100">
+                    <img alt="..." class="card-img-top" th:src="@{/img/destination-1.jpg}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${accommodation.getName()}">Name</h5>
+                        <p class="card-text" th:text="${accommodation.getAddress()}">Address</p>
+                        <p class="card-text" th:text="${accommodation.getScore()}">Score</p>
+                        <p class="card-text" th:text="${#numbers.formatInteger(accommodation.getCost(), 3, 'COMMA')} + ' 원'">Room Cost</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- List End -->
+
+<!-- 페이지네이션 추가 -->
+<nav aria-label="Page navigation" th:if="${accommodations.isEmpty() == false}">
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 버튼 -->
+        <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate() + '&endDate=' + request.getEndDate() + '&page=' + (currentPage - 1)}}">Prev</a>
+        </li>
+
+        <!-- 페이지 번호들 -->
+        <li class="page-item"
+            th:class="${pageNum == currentPage + 1} ? 'page-item active' : 'page-item'"
+            th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+            th:if="${pageNum >= currentPage - 3 and pageNum <= currentPage + 3}">
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + (pageNum - 1)}}" th:text="${pageNum}"></a>
+        </li>
+
+        <!-- 다음 페이지 버튼 -->
+        <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'page-item disabled' : 'page-item'">
+            <a class="page-link" th:href="@{${'/accommodation?keyword=' + request.getKeyword() + '&startDate=' + request.getStartDate + '&endDate=' + request.getEndDate + '&page=' + (currentPage + 1)}}">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+</html>

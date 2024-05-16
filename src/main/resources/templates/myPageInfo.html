@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko-KR" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <section th:replace="~{layout/head::headFragment}"></section>
+    <title>내 정보 페이지</title>
+    <script async src="/js/mypage.js"></script>
+</head>
+<body>
+<div style="background-color: #0b204a" th:replace="~{layout/top-bar :: top}"></div>
+<div style="background-color: #0c4128" th:replace="~{layout/navigation-bar :: nav}"></div>
+<div style="background: linear-gradient(rgba(19, 53, 123, .8), rgba(19, 53, 123, .8)), url(/img/tour-booking-bg.jpg);
+;height: 97px;"></div>
+<div id="user-form-container">
+    <h2 style="color: #0b204a; margin-top: 88px">내 정보 수정</h2>
+    <form>
+        <h3>이름</h3>
+        <input class="border-box" id="name" name="name" th:value="${member.name}">
+        <h3>전화번호</h3>
+        <input class="border-box" id="phone" name="phone" th:value="${member.phone}">
+        <h3>Email</h3>
+        <input class="border-box" disabled name="email" th:value="${member.email}">
+        <h3>생년월일</h3>
+        <input class="border-box" disabled name="birthDate" th:value="${member.birthDate}">
+        <h3 style="margin-top: 15px">권한</h3>
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_USER'}" value="사용자">
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_ADMIN'}" value="관리자">
+        <input class="border-box" disabled name="role"
+               th:if="${member.role == 'ROLE_BUSINESS'}" value="사업자">
+        <br>
+        <div style="margin-top: 30px; display: flex; justify-content: end">
+            <button class="btn btn-primary blue" style="margin-right: 5px"
+                    th:onclick="'updateUser('+${member.getId()}+')'" type="button">변경
+            </button>
+            <button class="btn btn-danger red" id="cancel-register" type="button">탈퇴</button>
+        </div>
+    </form>
+</div>
+<input id="useremail" th:value="${member.email}" type="hidden">
+<!--<span sec:authentication="principal.authorities"></span>-->
+
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+</body>
+</html>

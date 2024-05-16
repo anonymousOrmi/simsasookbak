@@ -17,6 +17,10 @@ configurations {
     }
 }
 
+configurations.all {
+    exclude group: 'commons-logging', module: 'commons-logging'
+}
+
 repositories {
     mavenCentral()
 }
@@ -29,12 +33,26 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
+
+    /* DevTools */
+    implementation 'org.springframework.boot:spring-boot-devtools'
+
+    /* Youtube API */
+    implementation 'com.google.api-client:google-api-client:2.4.1'
+    implementation 'com.google.oauth-client:google-oauth-client:1.35.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev20240417-2.0.0'
+
+    /* Spring Email */
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    /* S3 */
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {

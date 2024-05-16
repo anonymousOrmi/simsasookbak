@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/register.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container right-panel-active height-600">
+    <!-- Sign Up -->
+    <div class="container__form container--signup sign-up">
+        <form class="form" id="form1">
+            <h2 class="form__title">Sign Up</h2>
+            <input class="input" id="name" name="name" placeholder="이름" type="text" required/>
+            <div style="display: flex">
+                <input class="input" id="email" name="email" placeholder="Email" type="email"/>
+                <button id="email-check" style="margin-left: 20px" type="button">중복확인</button>
+            </div>
+            <label for="email-check-input" id="email-check-input-label" style="display: none">인증번호를 입력해주세요</label>
+            <input id="email-check-input" name="email-check-input" type="text" style="display: none">
+            <input class="input" id="password" name="password" placeholder="Password" type="password" required/>
+            <input class="input" id="password-check" placeholder="Password 확인" type="password">
+            <span class="error-message"></span>
+            <fieldset style="display: flex; justify-content: start">
+                <span>권한 선택</span>
+                <label for="user-register" style="margin-left: 25px">이용자</label>
+                <input id="user-register" name="role" type="radio" value="USER"/>
+                <label for="accommodation-provider-register" style="margin-left: 20px">사업자</label>
+                <input id="accommodation-provider-register"  name="role" type="radio" value="BUSINESS"/>
+            </fieldset>
+            <input class="input" id="phone" name="phone" pattern="[0-9]{11}" placeholder="Phone Number -를 빼고 입력해주세요" required type="tel">
+            <div style="display: flex">
+                <span style="margin-top: 17px">생일</span>
+                <input class="input2" id="birthDate" name="birthDate" type="date" required style="margin-left: 21px">
+            </div>
+            <button class="btn sign-up-button" type="submit">Sign Up</button>
+
+        </form>
+    </div>
+
+    <!-- Sign In -->
+    <div class="container__form container--signin">
+<!--        class="form" id="form2"-->
+        <form action="/login" method="post" class="form">
+            <h2 class="form__title">Sign In</h2>
+            <input th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" type="hidden" />
+            <input class="input email" id="username" name="username" placeholder="Email" type="email"/>
+            <input class="input password" id="pwd" name="password" placeholder="Password" type="password"/>
+            <button type="submit" class="btn sign-in-button">Sign In</button>
+            <span class="error-message" id="error-message-1"></span>
+        </form>
+    </div>
+
+    <!-- Overlay -->
+    <div class="container__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+                <button class="btn" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay__panel overlay--right">
+                <button class="btn" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/register.js"></script>
+</body>
+</html>

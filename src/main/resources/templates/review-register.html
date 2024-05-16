@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/head::headFragment}"></head>
+<body>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Review Start -->
+<div class="container-fluid contact bg-light py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">Review</h5>
+            <h1 class="mb-0">솔직한 후기를 작성해 주세요!</h1>
+        </div>
+        <form enctype="multipart/form-data" th:action="@{/review/register/{accommodationId}(accommodationId=${accommodationId})}" th:method="post">
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label" for="reviewTitle">리뷰할 방 선택</label>
+                    <select class="form-control" id="reviewTitle" name="roomTitle" required>
+                        <option th:each="roomName:${RoomNames}" th:text="${roomName}" th:value="${roomName}"></option>
+                    </select>
+                    <script>
+                        const titleInput = document.getElementById('reviewTitle');
+                        let inputValue = titleInput.options[titleInput.selectedIndex];
+                        if(inputValue === undefined){
+                            let text = !reviewWithImages ? '수정' : '등록';
+                            alert(`숙소를 예약한 적이 없어 리뷰 ${text}이 불가합니다.`);
+                        }
+                    </script>
+                </div>
+                <input name="accommodation" th:value="${accommodation}" type="hidden">
+                <input name="member" th:value="${member}" type="hidden">
+                <input name="id" th:value="${reviewWithImages?.getReviewId()}" type="hidden">
+                <div class="col-md-5">
+                    <label class="form-label" for="imageUpload">이미지 업로드</label>
+                    <input accept="image/*" class="form-control" id="imageUpload" multiple name="file" onchange="addFile(this);" type="file">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="starRating">별점</label>
+                    <select class="form-select" id="starRating" name="score">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="reviewContent">리뷰 내용</label>
+                    <textarea class="form-control" id="reviewContent" name="content" placeholder="리뷰 내용을 입력하세요" required rows="10" th:text="${reviewWithImages?.getContent()}"></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="text-center">
+                        <button class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:switch="${reviewWithImages}" type="submit">
+                            <span th:case="null">등록</span>
+                            <span th:case="*">수정</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Review End -->
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<!-- Back to Top -->
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+</html>

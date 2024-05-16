@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/head::headFragment}"></head>
+
+<body>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">숙소 관리</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 관리</a></li>
+            <li class="breadcrumb-item active text-white">내 숙소 관리</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- my accommodation list Start -->
+<div class="container-fluid bg-light service py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">내 숙소 관리</h5>
+            <h1 class="mb-0">my accommodations</h1>
+        </div>
+        <div class="row">
+            <!-- accommodation 리스트 반복 -->
+            <div class="col-12" th:each="accommodation : ${myAccommodations}">
+                <div th:onclick="|location.href='@{/accommodation/{accommodationId}(accommodationId = ${accommodation.getAccommodationId()})}'|" class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                    <div class="service-icon p-4">
+                        <i class="fa fa-globe fa-4x text-primary"></i>
+                    </div>
+                    <div class="service-content">
+                        <h5 class="mb-4">
+                            <a th:text="${accommodation.getName()}">숙소명</a>
+                        </h5>
+                        <p class="mb-2" th:text="${accommodation.getContent()}">숙소 설명...</p>
+                        <div class="row gy-2 gx-4 mb-4">
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getRegion()}"></span></p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getAddress()}"></span></p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크인 시간 : <span th:text="${accommodation.getCheckIn()}"></span></p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃 시간 : <span th:text="${accommodation.getCheckOut()}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="text-center">
+                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="/accommodation/registerPage">새 숙소 등록</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- my accommodation list End -->
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Travela - Tourism Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/reservationForm.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Tour Booking Start -->
+<div class="container-fluid booking py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-8">
+                <h1 class="text-white mb-3">심사 숙고 후 예약 해주세요</h1>
+                <div>
+                    <div class="container pb-0">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <div class="row g-3">
+                                    <div class="border rounded p-3">
+                                        <div class="container pb-0">
+                                            <div class="img-container">
+                                                <img alt="Image"
+                                                     class="img-fluid w-35 mx-auto rounded d-block"
+                                                     th:src="${accommodation.getImageUrl()}">
+                                            </div>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 text-md-start text-center text-white" style="font-size: 20px;" th:text="${room.name}">
+                                                    객실명
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'지역 : ' + accommodation.region}">
+
+                                                        </div>
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'주소 : ' + accommodation.address}">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row g-3 justify-content-end">
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 인 : ' + accommodation.checkIn}">
+                                                            체크 인 표기
+                                                        </div>
+                                                        <div class="col-md-3 text-white text-md-end text-center" style="font-size: 15px;" th:text="${'체크 아웃 : ' + accommodation.checkOut}">
+                                                            체크 아웃 표기
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 border rounded p-3">
+                                                    <div class="mb-2 text-white" th:text="${room.useGuide}">
+                                                        객실 이용 가이드를 넣으세요. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                        Nullam auctor, arcu nec finibus fermentum, turpis felis lacinia neque, vitae
+                                                        tincidunt felis ante at eros. In ultricies auctor mauris. Integer ut viverra
+                                                        libero. Integer aliquet scelerisque erat nec vehicula. Quisque eleifend
+                                                        euismod libero, sed vulputate enim bibendum ac. Suspendisse potenti. Sed
+                                                        quis mi ac purus consequat eleifend. Phasellus eget varius enim. Fusce sit
+                                                        amet ligula non est consectetur blandit. Cras porttitor augue nec arcu
+                                                        aliquet, vel fringilla nisl viverra. Ut tincidunt nisi sit amet libero
+                                                        condimentum, nec scelerisque eros fermentum.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form id="reservationForm" method="post" th:action="@{/reservation/{accommodationId}/{roomId}(accommodationId=${accommodation.id}, roomId=${room.roomId})}">
+                    <p class="text-white mb-4 py-3"> <span class="text-warning"> 예약 가능한 날짜를 확인하시고 선택 해 주세요.</span></p>
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="form-floating date" data-target-input="nearest" id="date3">
+                                <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="date-picker1" name="startDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckInUnselectableDate()}" type="text">
+                                <label>입실 일 선택</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-floating date" data-target-input="nearest" id="date4">
+                                <input aria-describedby="basic-addon2" aria-label="Search" class="form-control bg-white border-0 small" id="date-picker2" name="endDate" th:attr="data-unselectable_dates=${reservationUnable.getCheckOutUnselectableDate()}" type="text">
+                                <label>퇴실 일 선택</label>
+                            </div>
+                        </div>
+                        <input class="btn btn-primary text-white col-md-2" id="clear-dates-btn" type="button" value="날짜 초기화">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control bg-white border-0" id="request" name="request2" placeholder="요청 사항" style="height: 250px"></textarea>
+                                <label for="request">요청 사항</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary text-white w-50 py-3 reservation-submit-button" type="submit">예약 신청하기</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tour Booking End -->
+
+
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<!-- Back to Top -->
+<a class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" href="#"><i class="fa fa-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/lightbox/js/lightbox.min.js"></script>
+
+<!--datepicker load-->
+<script crossorigin="anonymous" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script crossorigin="anonymous" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet">
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+<script>
+    // 하드코딩
+    // const datesDisabledCheckIn = ['2024-05-05', '2024-05-06', '2024-05-07', '2024-05-09', '2024-05-10', '2024-05-11', '2024-05-14', '2024-05-20', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24'];
+    // const datesDisabledCheckOut = ['2024-05-06', '2024-05-07', '2024-05-08', '2024-05-10', '2024-05-11', '2024-05-12', '2024-05-15', '2024-05-21', '2024-05-22', '2024-05-23', '2024-05-24', '2024-05-25'];
+    var datesCheckInString = $('#date-picker1').data('unselectable_dates');
+    var datesCheckOutString = $('#date-picker2').data('unselectable_dates');
+
+    var datesDisabledCheckIn = [];
+    var datesDisabledCheckOut = [];
+
+    // 두 배열의 길이가 5보다 작지 않은 경우에만 파싱하여 할당 ( 예약 내역 없을 경우 )
+    if (datesCheckInString.length >= 5 || datesCheckOutString.length >= 5) {
+        datesDisabledCheckIn = JSON.parse(datesCheckInString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+        datesDisabledCheckOut = JSON.parse(datesCheckOutString.replace(/\[/g, '["').replace(/\]/g, '"]').replace(/, /g, '", "'));
+    }
+
+    $(function() {
+        var selectedDate1 = null;
+        var selectedDate2 = null;
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+
+        $('#date-picker1').datepicker({
+            format: "yyyy-mm-dd",
+            startDate: today,
+            endDate: '+1y',
+            datesDisabled: datesDisabledCheckIn,
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        }).on('changeDate', function(selected) {
+            selectedDate1 = selected.date; // 선택한 날짜를 변수에 저장
+
+            var disabledDates = datesDisabledCheckIn;
+            console.log(datesDisabledCheckIn);
+            console.log(disabledDates);
+            var nextAvailableDate = null;
+
+            for (var i = 0; i < disabledDates.length; i++) {
+                var disabledDate = new Date(Date.parse(disabledDates[i]));
+                if (disabledDate > selectedDate1) {
+                    nextAvailableDate = disabledDate;
+                    break;
+                }
+            }
+            console.log(nextAvailableDate);
+
+            if (nextAvailableDate) {
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2); // #date-picker1에서 선택한 날짜로 시작
+                $('#date-picker2').datepicker('setEndDate', nextAvailableDate);
+            } else {
+                var startDatePicker2 = new Date(selectedDate1);
+                startDatePicker2.setDate(startDatePicker2.getDate() + 1); // 선택한 날짜에서 하루를 더함
+                $('#date-picker2').datepicker('setStartDate', startDatePicker2);
+                $('#date-picker2').datepicker('setEndDate', '+1y');
+            }
+        });
+
+        $('#date-picker2').datepicker({
+            format: "yyyy-mm-dd",
+            startDate: tomorrow,
+            endDate: '+1y',
+            datesDisabled: datesDisabledCheckOut,
+            todayHighlight: true,
+            toggleActive: true,
+            weekStart: 0,
+        }).on('changeDate', function(selected) {
+            selectedDate2 = selected.date; // 선택한 날짜를 변수에 저장
+
+            var disabledDates = datesDisabledCheckOut;
+            var nextAvailableDate = null;
+
+            for (var i = disabledDates.length - 1; i >= 0; i--) {
+                var disabledDate = new Date(disabledDates[i]);
+                if (disabledDate < selectedDate2) {
+                    nextAvailableDate = disabledDate;
+                    break;
+                }
+            }
+
+            if (nextAvailableDate) {
+                var startDatePicker2 = new Date(selectedDate2);
+                startDatePicker2.setDate(startDatePicker2.getDate() - 1);
+                $('#date-picker1').datepicker('setStartDate', nextAvailableDate);
+                $('#date-picker1').datepicker('setEndDate', startDatePicker2);
+            } else {
+                var startDatePicker2 = new Date(selectedDate2);
+                startDatePicker2.setDate(startDatePicker2.getDate() - 1);
+                $('#date-picker1').datepicker('setStartDate', today);
+                $('#date-picker1').datepicker('setEndDate', startDatePicker2);
+                // 예약내역 오늘 날짜 지나면 만료 상태로 변경 해줘야 정상 작동.. 더 좋게 없을까
+            }
+        });
+
+        $('#clear-dates-btn').on('click', function() {
+            clearDates();
+        });
+
+        function updateDatePicker1() {
+            $('#date-picker1').datepicker('setStartDate', selectedDate1 ? selectedDate1 : today);
+            $('#date-picker1').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function updateDatePicker2() {
+            $('#date-picker2').datepicker('setStartDate', selectedDate1 ? selectedDate1 : tomorrow);
+            $('#date-picker2').datepicker('setEndDate', selectedDate2 ? selectedDate2 : '+1y');
+        }
+
+        function clearDates() {
+            selectedDate1 = null;
+            selectedDate2 = null;
+            $('#date-picker1').datepicker('clearDates');
+            $('#date-picker2').datepicker('clearDates');
+            updateDatePicker1();
+            updateDatePicker2();
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('reservationForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // 폼의 기본 제출 동작 방지
+
+        const formData = new FormData(this);
+
+        const startDate = formData.get('startDate');
+        console.log(startDate);
+        const endDate = formData.get('endDate');
+        console.log(endDate);
+        const request = formData.get('request2');
+        console.log(request);
+
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate,
+                endDate: endDate,
+                request: request
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 요청이 성공적으로 처리되면, 여기서 UI를 업데이트하거나 페이지를 새로고침할 수 있습니다.
+                alert('예약 신청이 완료되었습니다.');
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('예약 신청 중 오류가 발생했습니다. 입력하신 날짜가 잘못되었거나 여러번 요청을 반복하실 수 없습니다');
+            });
+    });
+</script>
+
+</body>
+
+</html>

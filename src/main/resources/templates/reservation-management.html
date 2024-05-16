@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/head::headFragment}"></head>
+
+<body>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">숙소 관리</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 관리</a></li>
+            <li class="breadcrumb-item active text-white">예약 관리</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- reservation management Start -->
+<div class="container-fluid bg-light service py-5">
+    <div class="container py-5">
+        <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+            <h5 class="section-title px-3">내 예약 관리</h5>
+            <h1 class="mb-0">my reservations</h1>
+        </div>
+        <div class="row g-3">
+            <!-- accordion start-->
+            <div class="accordion" id="accordionFlushExample" th:each="reservation:${myReservations}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button aria-expanded="false" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                th:aria-controls="'flush-collapse'+${reservationStat.index}" th:data-bs-target="'#flush-collapse'+${reservationStat.index}"
+                                th:text="${reservation.getAccommodation().getName()}+'-'+${reservation.getRoom().getName()} + '(' + ${reservation.getStartDate()}+' ~ ' + ${reservation.getEndDate()} + ')'"
+                                type="button">
+                        </button>
+                    </h2>
+                    <div class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample"
+                         th:aria-labelledby="'flush-heading'+${reservationStat.index}"
+                         th:id="flush-collapse+${reservationStat.index}">
+                        <div class="accordion-body">
+                            <div class="card">
+                                <h5 class="card-header"><strong>예약 상세 정보</strong></h5>
+                                <div class="card-body">
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>숙소명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getAccommodation().getName()}"></td>
+                                                <td>
+                                                    <strong>객실명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getRoom().getName()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>가격</strong>
+                                                </td>
+                                                <td th:text="${reservation.getRoom().getCost()}+'원'"></td>
+                                                <td>
+                                                    <strong>인원 수</strong>
+                                                </td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약일자</strong>
+                                                </td>
+                                                <td th:text="${reservation.getStartDate()}+ ' ~ ' + ${reservation.getEndDate()}"></td>
+                                                <td>
+                                                    <strong>예약 상태</strong>
+                                                </td>
+                                                <td th:text="${reservation.getStatus()}">대기</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약자명</strong>
+                                                </td>
+                                                <td th:text="${reservation.getLoginMember().getName()}"></td>
+                                                <td>
+                                                    <strong>예약자 전화번호</strong>
+                                                </td>
+                                                <td th:text="${reservation.getLoginMember().getPhone()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>예약자 이메일</strong>
+                                                </td>
+                                                <td colspan="3" th:text="${reservation.getLoginMember().getEmail()}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>요청 사항</strong>
+                                                </td>
+                                                <td colspan="3" th:text="${reservation.getRequest()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="text-md-end">
+                                        <button class="btn btn-primary" th:if="${reservation.getStatus()=='대기'}" th:onclick="'approveReservation(' + ${reservation.getId()} + ')'" type="button">예약 확정</button>
+                                        <button class="btn btn-danger" th:if="${reservation.getStatus()=='대기' or reservation.getStatus()=='완료' }" th:onclick="'cancelReservation(' + ${reservation.getId()} + ')'" type="button">예약 취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- accordion end -->
+        </div>
+    </div>
+</div>
+<!-- reservation management End -->
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+<script src="/js/reservationList.js"></script>
+</body>
+
+</html>

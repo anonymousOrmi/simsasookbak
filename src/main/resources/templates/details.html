@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/head::headFragment}"></head>
+
+<body>
+
+<div th:replace="~{layout/top-bar :: top}"></div>
+<div th:replace="~{layout/navigation-bar :: nav}"></div>
+
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h1 class="text-white display-3 mb-4">숙소 상세</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="index.html">홈</a></li>
+            <li class="breadcrumb-item"><a href="#">숙소 찾기</a></li>
+            <li class="breadcrumb-item active text-white">숙소 상세</li>
+        </ol>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- details Start -->
+<div class="container-fluid about py-5">
+    <div class="container py-5 border rounded">
+        <div class="row g-5 align-items-center">
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 h2">숙소명 : <span class="h1 text-primary" th:text="${accommodation.getName()}"></span></div>
+                            <div class="col-md-4 h4 text-lg-end text-primary" th:text="${accommodation.getAverageScore()} + ' 점' ">별점</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 이미지가 있는 경우 -->
+            <div class="img-container" th:each="img:${imgList}" th:if="${imgList != null and not #lists.isEmpty(imgList)}">
+                <div class="h-100">
+                    <img alt="" class="img-fluid w-100 h-100" th:src="${img}">
+                </div>
+            </div>
+            <!-- 이미지가 없는 경우 -->
+            <div class="img-container" th:if="${imgList == null or #lists.isEmpty(imgList)}">
+                <div class="h-100 text-center">
+                    <h2>숙소 이미지가 없습니다.</h2>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <p class="card-text fs-4" th:text="'숙소 설명 : ' + ${accommodation.getContent()}">
+                            여기에 숙소에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p class="mb-0 fs-5"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getRegion()}"></span></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="mb-0 fs-5"><i class="fa fa-arrow-right text-primary me-2"></i><span th:text="${accommodation.getAddress()}"></span></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="mb-0 fs-5"><i class="fa fa-arrow-right text-primary me-2"></i>체크인 : <span th:text="${accommodation.getCheckIn()}"></span></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="mb-0 fs-5"><i class="fa fa-arrow-right text-primary me-2"></i>체크아웃 : <span th:text="${accommodation.getCheckOut()}"></span></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="fs-5"><i class="fa fa-arrow-right text-primary me-2"></i>
+                                            시설 및 서비스 :
+                                            <span th:each="facility, iterStat : ${accommodation.getFacilityList()}">
+                                            <span th:text="${facility}"></span>
+                                            <span th:unless="${iterStat.last}">, </span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-2 text-lg-end">
+                                        <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
+                                            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+                                               th:href="@{'/accommodation/' + ${accommodation.getId()}+'/updatePage'}" th:if="${#authorization.expression('isAuthenticated()')} and ${roomList.get(0).getMemberId() eq #authentication.principal.id}">숙소 수정</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-lg-end">
+                                        <div class="text-lg-end">
+                                            <button th:value="${accommodation.getId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${roomList.get(0).getMemberId() eq #authentication.principal.id}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                    </div>
+                    <div class="card-body">
+                            <p class="mb-0">
+                            </p>
+                        </div>
+                    </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row gy-2 gx-4 mb-4">
+        </div>
+    </div>
+</div>
+<!-- details End -->
+
+<div class="container-fluid bg-light about py-5">
+    <div class="container border rounded py-5" th:each="room:${roomList}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id or !room.isDeleted()}">
+        <div class="row g-5 align-items-center">
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 h3">객실명 : <span class="h2 text-primary" th:text="${room.name}"></span></div>
+                            <div class="col-md-4 text-lg-end h4 text-primary" th:text="${room.cost} + '원'">별점</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <p class="card-text fs-5" th:text="'객실 설명 :'+${room.content}">
+                            여기에 객실에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <p class="card-text fs-5" th:text="'이용 안내 :'+${room.useGuide}">
+                        여기에 객실에 대한 긴 설명을 입력하세요. 이 텍스트는 숙소의 특징과 편의 시설에 대해 자세히 설명할 수 있습니다. 예를 들어, 이 숙소는 해변가에 위치해 있으며, 아름다운 경관과 고급스러운 편의 시설을 제공합니다. 또한, 무료 Wi-Fi, 수영장, 스파, 레스토랑 등의 다양한 편의 시설을 갖추고 있어 여행객들에게 최고의 만족을 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="fs-5"><i class="fa fa-arrow-right text-primary me-2"></i>
+                                    시설 및 서비스 :
+                                    <span th:each="facility, iterStat : ${room.getFacilityList()}">
+                                            <span th:text="${facility}"></span>
+                                            <span th:unless="${iterStat.last}">, </span>
+                                            </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 text-lg-start d-flex justify-content-center align-items-center" style="font-weight: bold; color:blue">
+                                <span class="fs-5" th:value="${room.getRoomId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" th:text="'방 상태 : ' + ${room.isDeleted() ? 'close' : 'open'}" >숙박업자한테 보이는 창</span>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2">
+                                <div class="text-lg-end">
+                                    <button th:value="${room.getRoomId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">상태 변경</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
+                                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}"
+                                       th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-lg-end">
+                                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2"
+                                       th:href="@{${accommodation.getId()}+'/'+${room.getRoomId()}+'/reservationPage'}">예약하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div lass="text-lg-end" class="text-lg-end"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container owl-stage">
+    <div class="owl-item-active center">
+        <div class="testimonial-item text-center rounded pb-4">
+            <div class="testimonial-comment bg-light rounded p-4">
+                <p class="text-center mb-5" th:text="${inSummary}">
+                </p>
+            </div>
+            <div class="testimonial-img p-1">
+                <img alt="Image" class="img-fluid rounded-circle" src="/img/alan.png">
+            </div>
+            <div style="margin-top: -35px;">
+                <h5 class="mb-0">Alan AI</h5>
+                <p class="mb-0">내부 리뷰 요약</p>
+                <div class="d-flex justify-content-center">
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="owl-item-active center">
+        <div class="testimonial-item text-center rounded pb-4">
+            <div class="testimonial-comment bg-light rounded p-4">
+                <p class="text-center mb-5" th:text="${exSummary}">
+                </p>
+            </div>
+            <div class="testimonial-img p-1">
+                <img alt="Image" class="img-fluid rounded-circle" src="/img/alan.png">
+            </div>
+            <div style="margin-top: -35px;">
+                <h5 class="mb-0">Alan AI</h5>
+                <p class="mb-0">외부 리뷰 요약</p>
+                <div class="d-flex justify-content-center">
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                    <i class="fas fa-star text-primary"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 리뷰 조회 Start -->
+<div class="bg-light">
+    <div class="container service py-5">
+        <div class="container py-5">
+            <div class="row g-3">
+                <div class="col-lg-12">
+                    <div class="row g-3">
+                        <div class="border border-primary rounded p-3" th:each="review:${reviewList}"
+                             th:unless="${review.isDeleted}">
+                            <div class="container py-5">
+                                <div class="row g-3 d-flex">
+                                    <div class="col-md-6 justify-content-between">
+                                        <div class="row g-3">
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'글쓴이 : ' + ${review.getMemberName()}">
+                                            </div>
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'작성일 : '+ ${review.getFormattedCreatedAt()}">
+                                            </div>
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'수정일 : '+ ${review.getFormattedUpdatedAt()}">
+                                                수정일
+                                            </div>
+                                            <div class="col-md-2" style="font-size: 15px;"
+                                                 th:text="'별점 : '+ ${review.getScore()}">
+                                            </div>
+                                            <div class="btn-area col-md-2" id="review-button-container">
+                                                <button class="btn btn-primary" id="modify-btn"
+                                                        th:if="${#authorization.expression('isAuthenticated()')} and ${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|"
+                                                        type="button">수정
+                                                </button>
+                                                <button class="btn btn-primary" type="button"
+                                                        th:if="${#authorization.expression('isAuthenticated()')} and ${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="'deleteReview('+${review.getReviewId()}+')'">
+                                                    삭제
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3"></div> <!-- 여백을 추가할 빈 줄 -->
+                                    <div class="col-md-12 border rounded p-3">
+                                        <div class="mb-2" th:text="${review.getContent()}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4"></div> <!-- 여백을 추가할 빈 줄 -->
+                                <div th:if="${review.reviewImages}">
+                                    <div class="img-container" th:each="reviewImage:${review.reviewImages}">
+                                        <img alt="Image"
+                                             class="img-fluid w-35 mx-auto rounded d-block"
+                                             th:src="@{${reviewImage.url}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰
+                등록</a>
+        </div>
+    </div>
+</div>
+<!-- 리뷰 조회 End -->
+
+<!-- 리뷰 리스트 -->
+<input id="reviewList" th:value="${reviewList}" type="hidden"/>
+
+<footer th:replace="~{layout/footer::footerFragment}"></footer>
+
+<script>
+    $(document).on('click', '.room-manage-button', function() {
+        const roomId = parseInt($(this).val(), 10);
+
+        var confirmMessage = "객실을 활성화/비활성화 하시겠습니까? 객실은 한개 이상 존재해야 합니다";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/room/${roomId}/toggle`, // roomId를 url에 삽입합니다.
+                success: function(response) {
+                    // 삭제 요청이 성공적으로 처리된 후에만 페이지를 변경합니다.
+                    window.location.reload();
+                    console.log(location.reload );
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+    $(document).on('click', '.accommodation-delete-button', function() {
+        const accommodationId = parseInt($(this).val(), 10);
+        console.log(accommodationId);
+
+        var confirmMessage = "숙소를 삭제하시겠습니까?";
+        if (confirm(confirmMessage)) {
+            $.ajax({
+                type: 'POST',
+                url: `/accommodation/${accommodationId}/delete`,
+                success: function(response) {
+
+                    window.location.href = '/';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+</html>
