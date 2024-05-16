@@ -78,8 +78,8 @@ public class AlanEventListener {
     }
 
     /////내부리뷰 -> 스케쥴링
-    //매시 0분 0초에 실행, 테스트시 변경
-    @Scheduled(cron = "0 0 * * * *")
+    //매시 0분 0초에 실행되도록 하는 것이 정책 방향이지만 체크 위해서 5분마다로 변경
+    @Scheduled(cron = "0 */5 * * * *")
     @Async
     public void executeInternalSummaryWithAlan() {
         LocalTime currentTime = LocalTime.now();

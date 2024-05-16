@@ -62,20 +62,20 @@ SET @accommodation_id_seoul_2 = LAST_INSERT_ID();
 
 -- 청주 지역 숙소 추가
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '그린 호텔', '청주의 자연과 어우러진 휴식 공간', '청주', '청주시 상당구 상당로 1234', '09:00:00', '14:00:00', false);
+VALUES (@member_id_park, '그린 호텔', '청주의 자연과 어우러진 휴식 공간', '충북', '청주시 상당구 상당로 1234', '09:00:00', '14:00:00', false);
 SET @accommodation_id_cheongju_1 = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_park, '청주 펜션', '편안한 휴식을 위한 아늑한 펜션', '청주', '청주시 흥덕구 흥덕대로 5678', '11:00:00', '16:00:00', false);
+VALUES (@member_id_park, '청주 펜션', '편안한 휴식을 위한 아늑한 펜션', '충북', '청주시 흥덕구 흥덕대로 5678', '11:00:00', '16:00:00', false);
 SET @accommodation_id_cheongju_2 = LAST_INSERT_ID();
 
 -- 대전 지역 숙소 추가
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_choi, '초이스 호텔', '대전의 편안한 휴식을 제공하는 호텔', '대전', '대전시 서구 둔산로 101', '13:00:00', '18:00:00', false);
+VALUES (@member_id_choi, '초이스 호텔', '대전의 편안한 휴식을 제공하는 호텔', '충남', '대전시 서구 둔산로 101', '13:00:00', '18:00:00', false);
 SET @accommodation_id_daejeon_1 = LAST_INSERT_ID();
 
 INSERT INTO accommodation (member_id, name, content, region, address, check_in, check_out, is_deleted)
-VALUES (@member_id_choi, '대전 게스트하우스', '편안한 휴식을 즐길 수 있는 게스트하우스', '대전', '대전시 유성구 대학로 1234', '12:00:00', '17:00:00', false);
+VALUES (@member_id_choi, '대전 게스트하우스', '편안한 휴식을 즐길 수 있는 게스트하우스', '충남', '대전시 유성구 대학로 1234', '12:00:00', '17:00:00', false);
 SET @accommodation_id_daejeon_2 = LAST_INSERT_ID();
 
 --accommodation end

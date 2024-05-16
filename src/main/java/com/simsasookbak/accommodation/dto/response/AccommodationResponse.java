@@ -25,4 +25,8 @@ public class AccommodationResponse implements AccommodationView {
         this.score = view.getScore();
         this.imageUrl = view.getImageUrl();
     }
+
+    public void roundScore() {
+        this.score = Math.round(this.score * 10.0) / 10.0;
+    }
 }
