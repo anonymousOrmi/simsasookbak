@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="col-md-2 text-lg-end">
                                         <div class="text-lg-end">
-                                            <button th:value="${accommodation.getId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${roomList.get(0).getMemberId() eq #authentication.principal.id}" class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">숙소 삭제</button>
+                                            <button class="accommodation-delete-button btn btn-primary rounded-pill py-3 px-5 mt-2" th:if="${#authorization.expression('isAuthenticated()')} and ${roomList.get(0).getMemberId() eq #authentication.principal.id}" th:value="${accommodation.getId()}" type="button">숙소 삭제</button>
                                         </div>
                                     </div>
                                 </div>
@@ -174,18 +174,18 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2 text-lg-start d-flex justify-content-center align-items-center" style="font-weight: bold; color:blue">
-                                <span class="fs-5" th:value="${room.getRoomId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" th:text="'방 상태 : ' + ${room.isDeleted() ? 'close' : 'open'}" >숙박업자한테 보이는 창</span>
+                                <span class="fs-5" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" th:text="'방 상태 : ' + ${room.isDeleted() ? 'close' : 'open'}" th:value="${room.getRoomId()}" >숙박업자한테 보이는 창</span>
                             </div>
                             <div class="col-md-4"></div>
                             <div class="col-md-2">
                                 <div class="text-lg-end">
-                                    <button th:value="${room.getRoomId()}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" type="button">상태 변경</button>
+                                    <button class="room-manage-button btn btn-primary rounded-pill py-3 px-5 mt-2" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}" th:value="${room.getRoomId()}" type="button">상태 변경</button>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="text-lg-end" sec:authorize="hasAuthority('BUSINESS')">
-                                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}"
-                                       th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}">객실 수정</a>
+                                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{'/'+${room.getRoomId()}+'/roomUpdatePage'}"
+                                       th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id}">객실 수정</a>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-                <div lass="text-lg-end" class="text-lg-end"></div>
+                <div class="text-lg-end" lass="text-lg-end"></div>
         </div>
     </div>
 </div>
@@ -283,9 +283,9 @@
                                                         th:onclick="|location.href='${accommodation.getId()}/comment?id=${review.getReviewId()}'|"
                                                         type="button">수정
                                                 </button>
-                                                <button class="btn btn-primary" type="button"
-                                                        th:if="${#authorization.expression('isAuthenticated()')} and ${review.getMemberId() == #authentication.getName()}"
-                                                        th:onclick="'deleteReview('+${review.getReviewId()}+')'">
+                                                <button class="btn btn-primary" th:if="${#authorization.expression('isAuthenticated()')} and ${review.getMemberId() == #authentication.getName()}"
+                                                        th:onclick="'deleteReview('+${review.getReviewId()}+')'"
+                                                        type="button">
                                                     삭제
                                                 </button>
                                             </div>
@@ -312,8 +312,7 @@
             </div>
         </div>
         <div class="text-center">
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰
-                등록</a>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}"  th:if="${reservation?.getId()}">리뷰 등록</a>
         </div>
     </div>
 </div>
