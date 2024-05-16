@@ -13,6 +13,7 @@ import com.simsasookbak.accommodation.service.AccommodationImageService;
 import com.simsasookbak.accommodation.service.AccommodationService;
 import com.simsasookbak.global.aop.MethodInvocationLimit;
 import com.simsasookbak.member.domain.Member;
+import com.simsasookbak.reservation.dto.response.ReservationResponse;
 import com.simsasookbak.reservation.service.ReservationService;
 import com.simsasookbak.review.dto.ReviewDto;
 import com.simsasookbak.review.service.ReviewService;
@@ -78,7 +79,19 @@ public class AccommodationController {
 
     //상세 페이지 조회 (영석)
     @GetMapping("/{accommodationId}")
-    public String details(@PathVariable Long accommodationId, Model model) {
+    public String details(
+            @AuthenticationPrincipal Member member,
+            @PathVariable Long accommodationId,
+            Model model
+    ) {
+        boolean isNotExistReservation = reservationService.isNotExistReservation(
+                accommodationId,
+                member.getId()
+        );
+
+        if (isNotExistReservation) {
+            model.addAttribute("reservation", new ReservationResponse());
+        }
 
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
         List<RoomDto> roomList = roomService.findRoomByAccommodationId(accommodationId);
