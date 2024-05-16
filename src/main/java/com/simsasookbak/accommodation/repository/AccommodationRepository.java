@@ -15,27 +15,34 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccommodationRepository  extends JpaRepository<Accommodation, Long> {
 
-    @Query("select room.accommodation.id as accommodationId, "
-            + "room.accommodation.name as name, "
-            + "room.accommodation.address as address, "
-            + "room.accommodation.region as region, "
-            + "min(room.cost) as cost, "
-            + "avg(coalesce(review.score, 0.0)) as score, "
-            + "image.url as imageUrl "
-            + "from Room room "
-            + "join room.accommodation "
-            + "left join Review review on room.accommodation.id = review.accommodation.id "
-            + "left join AccommodationImage image on room.accommodation.id = image.accommodation.id "
-            + "where room.isDeleted = false "
-            + "and room.accommodation.isDeleted = false "
-            + "and review.isDeleted = false "
-            + "and (room.accommodation.region =:keyword or room.accommodation.name like %:keyword%) "
-            + "group by room.accommodation.id, image.url ")
+    @Query(
+        value = "select  T.accommodation_id as accommodationId, "
+                + "        T.region as region, "
+                + "        T.name as name, "
+                + "        T.score as score, "
+                + "        T.address as address, "
+                + "        T.imageUrl as imageUrl, "
+                + "        min(R.cost) as cost "
+                + "from ("
+                + "         select"
+                + "                 A.*,"
+                + "                avg(coalesce(RI.score, 0.0)) as score, "
+                + "                image.url                    as imageUrl "
+                + "         from accommodation A"
+                + "         left join Review RI on A.accommodation_id = RI.accommodation_id "
+                + "         left join accommodation_image image on A.accommodation_id = image.accommodation_id "
+                + "         where A.is_deleted = false "
+                + "           and (region = :keyword or name like %:keyword% ) "
+                + "         group by A.accommodation_id, image.url ) T "
+                + "join room R on T.accommodation_id = R.accommodation_id "
+                + "where R.is_deleted = false "
+                + "group by T.accommodation_id, T.imageUrl, T.score ",
+        nativeQuery = true
+    )
     Page<AccommodationView> findAllByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // inline view 사용을 위한 native 쿼리 사용 (JPQL에서는 미지원)
-    @Query(
-        value = "select  A.accommodation_id as accommodationId, "
+    @Query(value = "select  A.accommodation_id as accommodationId, "
                 + "        min(coalesce(A.cost, 0)) as cost, "
                 + "        AA.region as region, "
                 + "        AA.name as name, "
@@ -61,7 +68,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "         AA.address, "
                 + "         AA.name, "
                 + "         AI.url ",
-        nativeQuery = true
+            nativeQuery = true
     )
     Page<AccommodationView> findAllByStartDateAndEndDate(
             @Param("startDate") LocalDate startDate,
