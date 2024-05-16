@@ -99,7 +99,7 @@
 <br><br>
 
 ## :factory: Architecture
-![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/5f6dd742-1c26-4b01-a453-bc20fb67eec0)
+![Frame 1](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/0e58c570-57b3-440b-b8d6-ec645a268565)
 
 <br><br>
 
