@@ -49,7 +49,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "where 1=1   "
                 + "and A.is_deleted = false   "
                 + "and AA.is_deleted = false   "
-                + "and A.room_id not in (   "
+                + "or A.room_id not in (   "
                 + "    select B.room_id   "
                 + "    from reservation B   "
                 + "    where (B.start_date <= :startDate and B.end_date >= :endDate) "
@@ -57,7 +57,6 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + ") "
                 + "and (AA.region = :keyword or AA.name like %:keyword%) "
                 + "group by A.accommodation_id,   "
-                + "         A.cost, "
                 + "         AA.region, "
                 + "         AA.address, "
                 + "         AA.name, "
@@ -82,6 +81,8 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
 
     List<Accommodation> findAccommodationByMemberIdAndIsDeletedFalse(@Param("memberId") Long memberId);
 
-    @Query("SELECT a FROM Accommodation a WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime) AND a.isDeleted = false")
+    @Query("SELECT a FROM Accommodation a "
+            + "WHERE FUNCTION('HOUR', a.createdAt) = FUNCTION('HOUR', :currentTime)"
+            + " AND a.isDeleted = false")
     List<Accommodation> findAccommodationsByCreatedAtTime(LocalTime currentTime);
 }
