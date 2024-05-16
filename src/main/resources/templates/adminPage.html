@@ -54,20 +54,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="member : ${members}" th:if="${#strings.toString(member.role) != 'ADMIN'}">
+                    <tr th:each="member : ${members}">
                         <td th:text="${member.name}"></td>
                         <td th:switch="${#strings.toString(member.role)}">
                             <span th:case="'USER'">사용자</span>
                             <span th:case="'BUSINESS'">사업자</span>
                             <span th:case="'LEAVER'">탈퇴자</span>
+                            <span th:case="'ADMIN'">관리자</span>
                         </td>
                         <td>
                             <select class="form-select bg-white border-0" th:id="'selectRole' + ${member.id}" onchange="updateRole(this)">
                                 <option value="" disabled selected>권한 선택</option>
                                 <option th:each="role : ${T(com.simsasookbak.member.domain.Role).values()}"
-                                        th:unless="${role.name() == 'ADMIN'}"
+                                        th:unless="${role.name() == 'LEAVER'}"
                                         th:value="${role.name()}"
-                                        th:text="${role.name() == 'LEAVER' ? '탈퇴자' : role.name() == 'BUSINESS' ? '숙박업자' : role.name() == 'USER' ? '사용자' : role.name()}"
+                                        th:text="${role.name() == 'ADMIN' ? '관리자' : role.name() == 'BUSINESS' ? '사업자' : role.name() == 'USER' ? '사용자' : role.name()}"
                                         th:data-member-id="${member.id}"
                                         th:data-role-name="${role}">
                                 </option>
@@ -90,7 +91,7 @@
         </div>
 
         <!-- 페이지네이션 추가 -->
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" th:if="${members.isEmpty() == false}">
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 버튼 -->
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">

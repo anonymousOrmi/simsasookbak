@@ -1,5 +1,6 @@
 package com.simsasookbak.review.service;
 
+import com.simsasookbak.reservation.repository.ReservationRepository;
 import com.simsasookbak.review.domain.Review;
 import com.simsasookbak.review.domain.ReviewImage;
 import com.simsasookbak.review.dto.ReviewDto;
@@ -9,7 +10,6 @@ import com.simsasookbak.review.repository.ReviewRepository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +24,12 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReviewImageRepository reviewImageRepository;
+    private final ReservationRepository reservationRepository;
 
-    public ReviewDto findReviewById(Long reviewId, Long memberId) {
+    public ReviewDto findReviewById(Long reviewId, Long memberId, Long acom_id) {
         Review review = reviewRepository.findByIdAndMemberIdAndIsDeletedFalse(reviewId, memberId);
         List<ReviewImage> reviewImages = reviewImageRepository.findAllByReview(review);
-        return ReviewDto.toDto(review, reviewImages);
+        return ReviewDto.toDto(review, reviewImages,reservationRepository.findAllReservationRoomNameById(acom_id,memberId));
     }
 
     public String findExSummaryByAcomId(Long id) {
@@ -40,9 +41,7 @@ public class ReviewService {
     }
 
     public List<ReviewDto> findAllReviewByAcomId(Long id) {
-        List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream()
-                .map(review -> ReviewDto.toDto(review, reviewImageRepository.findAllByReview(review)))
-                .collect(Collectors.toList());
+         List<ReviewDto> reviewList = reviewRepository.findAllReviewByAcomId(id).stream().map(review -> ReviewDto.toDto(review,reviewImageRepository.findAllByReview(review),reservationRepository.findAllReservationRoomNameById(id,review.getMember().getId()))).collect(Collectors.toList());
         for (ReviewDto reviewDto : reviewList) {
             reviewDto.setFormattedCreatedAt(reviewDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             reviewDto.setFormattedUpdatedAt(reviewDto.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));

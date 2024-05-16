@@ -7,4 +7,5 @@ public interface AccommodationView {
     Integer getCost();
     Double getScore();
     String getRegion();
+    String getImageUrl();
 }

@@ -5,7 +5,7 @@
 > 🌊 심사숙박만의 차별화된 기능인 Allen AI를 연동한 내부 커뮤니티를 통한 리뷰 요약, 타 사이트의 해당 숙박 시설에 대한 리뷰 요약을 확인하실 수 있습니다.
 
 ## 팀원 소개 
-이영석 (PM)
+이영석 (PM)  
 김상형  
 박지은  
 송찬혁  
@@ -14,7 +14,10 @@
 
 ## 개발 일정
 
-![image](https://github.com/teamSeven71/TechTalk/assets/109260733/79041981-d030-4cc8-b833-087445a07fee)
+![TimelineGanttOverviewSection](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/9de4fc09-4186-4d5a-ad34-40bbdb1902ab)
+
+
+
 
 ## 🌱 개발 언어 및 활용 기술
 
@@ -22,13 +25,14 @@ FE
 
 - HTML
 - CSS
+- JS
 - BootStrap
 - Thymeleaf
 
 BE 
 
 - SpringBoot
-- Java
+- JPA
 
 DB
 
@@ -53,6 +57,14 @@ DB
 
 ## 요구사항 및 기능 명세  
 
+화면 페이지별로 기능 명세하였으며, 각 권한에 따라 나누었습니다.
+
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/9367a7b4-e45b-4637-a013-d231b845b8c7)
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/5cd1832c-e0ba-4f0c-88e0-b847d50ede66)   
+
+
+
+
 
 ## 데이터베이스 모델링(ERD)  
 
@@ -62,13 +74,14 @@ DB
 
 ![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/4e9235b1-32ed-42df-8864-e6251c1557d8)
 
-
 ##  API 명세서
 
-`TBU.`
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b5df2ef5-73b5-4ea7-82eb-5536a3ed287a)
+
 
 ## :factory: Architecture
-<img width="1976" alt="심사숙박_시스템_구성도" src="https://github.com/anonymousOrmi/simsasookbak/assets/148677085/f114e789-4bbe-4308-8b49-b1a32cf712cb">
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/846397ab-8595-49e4-b3fd-58e04116b200)
+
 
 ##  프로젝트 구조
 ### FE + BE

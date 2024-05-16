@@ -20,15 +20,17 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
             + "room.accommodation.address as address, "
             + "room.accommodation.region as region, "
             + "min(room.cost) as cost, "
-            + "avg(coalesce(review.score, 0.0)) as score "
+            + "avg(coalesce(review.score, 0.0)) as score, "
+            + "image.url as imageUrl "
             + "from Room room "
             + "join room.accommodation "
             + "left join Review review on room.accommodation.id = review.accommodation.id "
+            + "left join AccommodationImage image on room.accommodation.id = image.accommodation.id "
             + "where room.isDeleted = false "
             + "and room.accommodation.isDeleted = false "
             + "and review.isDeleted = false "
             + "and (room.accommodation.region =:keyword or room.accommodation.name like %:keyword%) "
-            + "group by room.accommodation.id ")
+            + "group by room.accommodation.id, image.url ")
     Page<AccommodationView> findAllByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // inline view 사용을 위한 native 쿼리 사용 (JPQL에서는 미지원)
@@ -38,10 +40,12 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "        AA.region as region, "
                 + "        AA.name as name, "
                 + "        AA.address as address, "
-                + "        avg(coalesce(R.score, 0.0)) as score "
+                + "        avg(coalesce(R.score, 0.0)) as score, "
+                + "        AI.url as imageUrl "
                 + "from accommodation AA   "
                 + "join room A on AA.accommodation_id = A.accommodation_id   "
                 + "left join review R on AA.accommodation_id = R.accommodation_id   "
+                + "left join accommodation_image AI on AA.accommodation_id = AI.accommodation_id "
                 + "where 1=1   "
                 + "and A.is_deleted = false   "
                 + "and AA.is_deleted = false   "
@@ -56,7 +60,8 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "         A.cost, "
                 + "         AA.region, "
                 + "         AA.address, "
-                + "         AA.name ",
+                + "         AA.name, "
+                + "         AI.url ",
         nativeQuery = true
     )
     Page<AccommodationView> findAllByStartDateAndEndDate(
