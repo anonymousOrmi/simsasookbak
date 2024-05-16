@@ -76,7 +76,8 @@ DB
 
 ##  API 명세서
 
-`TBU.`
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/42295097/b5df2ef5-73b5-4ea7-82eb-5536a3ed287a)
+
 
 ## :factory: Architecture
 ![image](https://github.com/anonymousOrmi/simsasookbak/assets/47330173/846397ab-8595-49e4-b3fd-58e04116b200)
