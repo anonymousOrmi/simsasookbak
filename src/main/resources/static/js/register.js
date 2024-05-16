@@ -6,6 +6,8 @@ const container = document.querySelector(".container");
 const signinButton = document.querySelector(".sign-in-button");
 // const signUpBtn2 = document.querySelector('.sign-up');
 const signUpClick = document.querySelector('.sign-up-button');
+const businessRadioCheck = document.getElementById('accommodation-provider-register');
+const userRadioCheck = document.getElementById('user-register');
 let emailcheckResponse ;
 let emailCheckValue;
 signInBtn.addEventListener("click", () => {
@@ -24,19 +26,33 @@ signUpClick.addEventListener("click",(e)=>{
     const password_check = document.querySelector('#password-check').value;
     const errorMsg=document.querySelector('.error-message');
     const inputEnable = document.getElementById('email-check-input').value;
+    const inputEnable2 = document.getElementById('business-check-input').value;
     console.log(emailcheckResponse);
     console.log(typeof emailcheckResponse);
 
-    console.log(inputEnable);
-    console.log(typeof inputEnable);
-    if(emailcheckResponse.toString()===inputEnable){
-        console.log('true');
-    }
     e.preventDefault();
     if(inputEnable !== "") {
         if (password === password_check && inputEnable===emailcheckResponse.toString()) {
-            console.log('비밀번호 일치');
-            signup(password,emailCheckValue);
+            let role = document.getElementsByName('role');
+            if(role[1].checked===true){
+                fetch(`/member/check/${inputEnable2}`,{method:'POST'}).then(
+                    async ( response)=>{
+                        if(response.ok){
+                            console.log(response);
+                            if(await response.json()){
+                                signup(password,emailCheckValue);
+                            }else{
+                                alert('등록되지 않은 사업자등록번호입니다');
+                            }
+                        }
+
+                    }
+                )
+
+            }else{
+
+                signup(password,emailCheckValue);
+            }
 
         } else {
             errorMsg.innerText = '비밀번호가 일치하지 않거나 이메일 인증번호가 다릅니다.';
@@ -146,3 +162,22 @@ emailCheckBtn.addEventListener('click', ()=>{
 
     }
 })
+
+if(businessRadioCheck){
+    businessRadioCheck.addEventListener('click',()=>{
+        const inputEnable = document.getElementById('business-check-input');
+        const inputLabelEnable = document.getElementById('business-check-input-label');
+        inputEnable.style.cssText="display:block; width:90%; placeholder:'-를 빼고 사업자 번호를 입력해주세요'";
+        inputLabelEnable.style.cssText="display:block";
+    });
+
+}
+
+if(userRadioCheck){
+    userRadioCheck.addEventListener('click',()=>{
+        const inputEnable = document.getElementById('business-check-input');
+        const inputLabelEnable = document.getElementById('business-check-input-label');
+        inputEnable.style.cssText="display:none";
+        inputLabelEnable.style.cssText="display:none";
+    });
+}
