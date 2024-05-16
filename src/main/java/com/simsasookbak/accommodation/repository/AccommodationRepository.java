@@ -29,7 +29,7 @@ public interface AccommodationRepository  extends JpaRepository<Accommodation, L
                 + "                avg(coalesce(RI.score, 0.0)) as score, "
                 + "                image.url                    as imageUrl "
                 + "         from accommodation A"
-                + "         left join Review RI on A.accommodation_id = RI.accommodation_id "
+                + "         left join review RI on A.accommodation_id = RI.accommodation_id "
                 + "         left join accommodation_image image on A.accommodation_id = image.accommodation_id "
                 + "         where A.is_deleted = false "
                 + "           and (region = :keyword or name like %:keyword% ) "
