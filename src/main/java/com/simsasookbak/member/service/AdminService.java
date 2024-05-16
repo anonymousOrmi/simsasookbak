@@ -32,7 +32,6 @@ public class AdminService {
         return memberRepository.findAll(pageable);
     }
 
-
     public Page<Member> searchMemberByNamePaged(String name, Pageable pageable) {
         return memberRepository.getSearchMemberByName(name, pageable)
                 .orElseThrow(() -> new NoSuchElementException("No member found with name: " + name));
