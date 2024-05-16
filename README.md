@@ -5,12 +5,8 @@
 > 🌊 심사숙박만의 차별화된 기능인 Allen AI를 연동한 내부 커뮤니티를 통한 리뷰 요약, 타 사이트의 해당 숙박 시설에 대한 리뷰 요약을 확인하실 수 있습니다.
 
 ## 팀원 소개 
-이영석 (PM)  
-김상형  
-박지은  
-송찬혁  
-정민석  
-최보현  
+![image](https://github.com/anonymousOrmi/simsasookbak/assets/109260733/7cdf017e-0153-4766-86a9-2cf61eb6ba93)
+
 
 ## 개발 일정
 
@@ -20,30 +16,14 @@
 
 
 ## 🌱 개발 언어 및 활용 기술
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white">   
+<img src="https://img.shields.io/badge/Discord-4169E1?style=for-the-badge&logo=Discord&logoColor=white"/>
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>   
 
-FE
-
-- HTML
-- CSS
-- JS
-- BootStrap
-- Thymeleaf
-
-BE 
-
-- SpringBoot
-- JPA
-
-DB
-
-- MySQL
-
-환경
-
-- AWS
-- Intellij
-- Github
-- Discord + 웹훅을 통한 깃헙 알림 설정
 
 ##  User Flow
 
