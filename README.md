@@ -201,7 +201,7 @@
 
 <br><br>
 
-## UI
+## UI (각 요소를 클릭하면 화면 이미지를 보실 수 있습니다!)
 <details>
   <summary>숙소 정보 수정</summary>
   <img src="https://github.com/anonymousOrmi/simsasookbak/assets/42295097/fa69957a-9d57-49f8-9a8a-73e322d31ed2">
