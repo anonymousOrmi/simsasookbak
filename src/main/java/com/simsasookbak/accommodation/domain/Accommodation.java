@@ -82,7 +82,7 @@ public class Accommodation extends BaseEntity {
     public void update(AccommodationUpdateDto requestDto) {
         this.name = requestDto.getName();
         this.content = requestDto.getContent();
-        this.region = requestDto.getContent();
+        this.region = requestDto.getRegion();
         this.checkIn = LocalTime.parse(requestDto.getCheckIn());
         this.checkOut = LocalTime.parse(requestDto.getCheckOut());
         this.address = requestDto.getAddress();
