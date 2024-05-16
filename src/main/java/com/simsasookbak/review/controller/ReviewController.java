@@ -70,7 +70,7 @@ public class ReviewController {
         return "redirect:/accommodation/{accommodationId}";
     }
 
-    @PutMapping("/review/{reviewId}")
+    @DeleteMapping("/review/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
         reviewService.deleteReviewById(reviewId);
         return ResponseEntity.ok().build();

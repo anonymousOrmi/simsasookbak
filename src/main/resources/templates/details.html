@@ -351,10 +351,9 @@
         var confirmMessage = "숙소를 삭제하시겠습니까?";
         if (confirm(confirmMessage)) {
             $.ajax({
-                type: 'POST',
+                type: 'DELETE',
                 url: `/accommodation/${accommodationId}/delete`,
                 success: function(response) {
-
                     window.location.href = '/';
                 },
                 error: function(xhr, status, error) {

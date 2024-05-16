@@ -8,7 +8,7 @@ function loadNextReview() {
 };
 
 function deleteReview(reviewId) {
-    fetch(`/review/${reviewId}`, {method: 'PUT'})
+    fetch(`/review/${reviewId}`, {method: 'Delete'})
         .then(response => {
             if (!response.ok) {
                 console.error('Error deleting review:', response.statusText);
