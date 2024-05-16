@@ -122,7 +122,7 @@
 <!-- details End -->
 
 <div class="container-fluid bg-light about py-5">
-    <div class="container border rounded py-5" th:each="room:${roomList}" th:if="${#authorization.expression('isAuthenticated()')} and ${room.getMemberId() eq #authentication.principal.id or !room.isDeleted()}">
+    <div class="container border rounded py-5" th:each="room:${roomList}" th:if="${(#authorization.expression('isAuthenticated()') and (room.getMemberId() == #authentication.principal.id or !room.isDeleted())) or (!#authorization.expression('isAuthenticated()') and !room.isDeleted())}">
         <div class="row g-5 align-items-center">
             <div class="col-12">
                 <div class="card bg-light border-0">
