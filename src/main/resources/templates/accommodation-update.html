@@ -133,11 +133,6 @@
     const regionIndex = regionSelect.selectedIndex; // 선택된 옵션의 인덱스 가져오기
     const region = regionSelect.options[regionIndex].text;
 
-    // 입력된 값을 가져옴
-    const facilityAdd = document.getElementById('facilityAdd').value;
-
-    // 쉼표를 기준으로 문자열을 분할하여 배열로 변환
-    const facilityArray = facilityAdd.split(',');
 
     const name = formData.get('accommodationName');
     const checkIn = formData.get('checkIn');
@@ -153,9 +148,6 @@
         facilityList.push(checkbox.value);
       }
     });
-
-    // 쉼표를 기준으로 분할한 배열을 facilityList에 추가
-    facilityList.push(...facilityArray.filter(facility => facility.trim() !== ''));
 
     console.log(region);
     console.log(name);

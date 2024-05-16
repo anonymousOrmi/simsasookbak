@@ -96,7 +96,6 @@ public class ReviewService {
         return review;
     }
 
-
     public Double getAccommodationScore(Long accommodationId) {
         return reviewRepository.findAverageScoreByAccommodationId(accommodationId).orElse(0.0);
     }
