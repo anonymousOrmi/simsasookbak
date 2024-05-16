@@ -6,7 +6,7 @@ $(document).on('click', '.deleteButton', function() {
     var confirmMessage = "사용자를 탈퇴하시겠습니까?";
     if (confirm(confirmMessage)) {
         $.ajax({
-            type: 'POST',
+            type: 'DELETE',
             url: '/admin/delete?memberId=' + memberId,
             success: function(response) {
                 // 삭제 요청이 성공적으로 처리된 후에만 페이지를 변경합니다.
