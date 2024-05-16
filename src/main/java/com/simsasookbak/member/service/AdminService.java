@@ -50,18 +50,6 @@ public class AdminService {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with id: " + memberId));
-
-        if(member.getRole().equals(Role.BUSINESS)){
-            List<List<Room>> roomList = new ArrayList<>();
-            List<Accommodation> accommodationList = accommodationRepository.findAllByMember_Id(member.getId());
-            for (Accommodation accommodation : accommodationList) {
-                accommodation.changeToDelete();
-                roomList.add(roomRepository.findRoomsByAcomId(accommodation.getId()));
-            }
-            for (List<Room> list : roomList) {
-                list.forEach(Room::changeToDelete);
-            }
-        }
         deleteReview(member.getId());
         member.cancellation();
     }
