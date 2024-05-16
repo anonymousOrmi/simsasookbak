@@ -107,13 +107,18 @@ public class AccommodationController {
             Model model
     ) {
         if (id != null) {
-            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId(),accommodationId);
+            ReviewDto reviewWithImages = reviewService.findReviewById(id, member.getId(), accommodationId);
             model.addAttribute("reviewWithImages", reviewWithImages);
+        }
+
+        List<String> roomNames = reservationService.getReservationRoomName(accommodationId, member.getId());
+        if (roomNames.isEmpty()) {
+            return "redirect:/accommodation/{accommodationId}";
         }
 
         model.addAttribute("accommodation", accommodationId);
         model.addAttribute("member", member.getId());
-        model.addAttribute("RoomNames", reservationService.getReservationRoomName(accommodationId, member.getId()));
+        model.addAttribute("RoomNames", roomNames);
         return "review-register";
     }
 
