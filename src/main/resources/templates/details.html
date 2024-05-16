@@ -262,9 +262,6 @@
                              th:unless="${review.isDeleted}">
                             <div class="container py-5">
                                 <div class="row g-3 d-flex">
-                                    <div class="col-md-6" style="font-size: 20px;"
-                                         th:text="${review.roomTitle}">
-                                    </div>
                                     <div class="col-md-6 justify-content-between">
                                         <div class="row g-3">
                                             <div class="col-md-2" style="font-size: 15px;"
@@ -315,7 +312,6 @@
             </div>
         </div>
         <div class="text-center">
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" id="moreButton" style="margin-right: 20px">리뷰 더보기</a>
             <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" th:href="@{${accommodation.getId()} +'/comment'}">리뷰
                 등록</a>
         </div>
