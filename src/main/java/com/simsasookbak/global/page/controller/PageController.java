@@ -30,7 +30,9 @@ public class PageController {
     public String viewReservationPage(@PathVariable Long accommodationId, @PathVariable Long roomId, Model model) {
         AccommodationDto accommodation = accommodationService.findAccommodationById(accommodationId);
         List<String> imgList = accommodationService.findImgByAccommodationId(accommodationId);
-        accommodation.setImageUrl(imgList.get(0));
+        if(imgList.size() != 0) {
+            accommodation.setImageUrl(imgList.get(0));
+        }
 
         RoomDto room = roomService.findRoomById(roomId);
         ReservationUnableDto reservationUnable = reservationService.getReservationUnableDates(roomId);

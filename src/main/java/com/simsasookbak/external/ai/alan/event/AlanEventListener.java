@@ -78,7 +78,7 @@ public class AlanEventListener {
     }
 
     /////내부리뷰 -> 스케쥴링
-    //매시 0분 0초에 실행, 테스트시 변경
+    //매시 0분 0초에 실행되도록 하는 것이 정책, 체크 위해서 5분마다로 변경 @Scheduled(cron = "0 */5 * * * *")
     @Scheduled(cron = "0 0 * * * *")
     @Async
     public void executeInternalSummaryWithAlan() {
